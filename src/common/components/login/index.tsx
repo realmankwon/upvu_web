@@ -102,21 +102,21 @@ export class LoginKc extends BaseComponent<LoginKcProps, LoginKcState> {
             return;
         }
 
-        const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
+        // const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
 
-        if (!hasPostingPerm) {
-            const weight = account.posting!.weight_threshold;
+        // if (!hasPostingPerm) {
+        //     const weight = account.posting!.weight_threshold;
 
-            this.stateSet({inProgress: true});
-            try {
-                await addAccountAuthority(username, "ecency.app", "Posting", weight)
-            } catch (err) {
-                error(_t('login.error-permission'));
-                return;
-            } finally {
-                this.stateSet({inProgress: false});
-            }
-        }
+        //     this.stateSet({inProgress: true});
+        //     try {
+        //         await addAccountAuthority(username, "ecency.app", "Posting", weight)
+        //     } catch (err) {
+        //         error(_t('login.error-permission'));
+        //         return;
+        //     } finally {
+        //         this.stateSet({inProgress: false});
+        //     }
+        // }
 
         this.stateSet({inProgress: true});
 
@@ -409,19 +409,19 @@ export class Login extends BaseComponent<LoginProps, State> {
                 return;
             }
 
-            const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
+            // const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
 
-            if (!hasPostingPerm) {
-                this.stateSet({inProgress: true});
-                try {
-                    await grantPostingPermission(thePrivateKey, account, "ecency.app")
-                } catch (err) {
-                    error(_t('login.error-permission'));
-                    return;
-                } finally {
-                    this.stateSet({inProgress: false});
-                }
-            }
+            // if (!hasPostingPerm) {
+            //     this.stateSet({inProgress: true});
+            //     try {
+            //         await grantPostingPermission(thePrivateKey, account, "ecency.app")
+            //     } catch (err) {
+            //         error(_t('login.error-permission'));
+            //         return;
+            //     } finally {
+            //         this.stateSet({inProgress: false});
+            //     }
+            // }
         }
 
         // Prepare hivesigner code

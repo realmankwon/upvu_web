@@ -58,7 +58,7 @@ Object {
   "author": "talhasch",
   "extensions": Array [],
   "max_accepted_payout": "1000000.000 HBD",
-  "percent_hbd": 10000,
+  "percent_sbd": 10000,
   "permlink": "lorem-ipsum-1",
 }
 `;
@@ -70,7 +70,7 @@ Object {
   "author": "talhasch",
   "extensions": Array [],
   "max_accepted_payout": "1000000.000 HBD",
-  "percent_hbd": 0,
+  "percent_sbd": 0,
   "permlink": "lorem-ipsum-1",
 }
 `;
@@ -82,7 +82,7 @@ Object {
   "author": "talhasch",
   "extensions": Array [],
   "max_accepted_payout": "0.000 HBD",
-  "percent_hbd": 10000,
+  "percent_sbd": 10000,
   "permlink": "lorem-ipsum-1",
 }
 `;
@@ -94,7 +94,7 @@ Object {
   "author": "talhasch",
   "extensions": Array [],
   "max_accepted_payout": "1000000.000 HBD",
-  "percent_hbd": 10000,
+  "percent_sbd": 10000,
   "permlink": "lorem-ipsum-1",
 }
 `;
@@ -122,7 +122,7 @@ Object {
     ],
   ],
   "max_accepted_payout": "1000000.000 HBD",
-  "percent_hbd": 10000,
+  "percent_sbd": 10000,
   "permlink": "lorem-ipsum-1",
 }
 `;

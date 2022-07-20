@@ -59,7 +59,7 @@ it("(3) Detail render with full power", async() => {
         entry: {
             ...entryInstance1,
             ...{
-                percent_hbd: 0,
+                percent_sbd: 0,
                 pending_payout_value: "14.264 HBD",
                 promoted: "0.000 HBD",
                 author_payout_value: "0.000 HBD",
@@ -81,7 +81,7 @@ it("(4) Detail render with max payout", async() => {
         entry: {
             ...entryInstance1,
             ...{
-                percent_hbd: 0,
+                percent_sbd: 0,
                 pending_payout_value: "14.264 HBD",
                 promoted: "0.000 HBD",
                 author_payout_value: "0.000 HBD",

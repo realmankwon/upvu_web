@@ -59,13 +59,13 @@ const transform = (list: Witness[]): WitnessTransformed[] => {
 
         const {total_missed: miss, url} = x;
         const fee = props.account_creation_fee;
-        const feed = x.hbd_exchange_rate.base;
+        const feed = x.sbd_exchange_rate.base;
         const {maximum_block_size: blockSize} = props;
         const {available_witness_account_subsidies: acAvail} = x;
         const {account_subsidy_budget: acBudget} = props;
         const {running_version: version} = x;
         const {signing_key:signingKey} = x
-        const {last_hbd_exchange_update:priceAge} = x;
+        const {last_sbd_exchange_update:priceAge} = x;
 
         let parsedUrl;
         const oUrl = new URL(url, 'https://ecency.com');

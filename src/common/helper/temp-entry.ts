@@ -48,7 +48,7 @@ export default (p: TempEntryProps): Entry => {
         payout: 0,
         payout_at: correctIsoDate(payout.toISOString()),
         pending_payout_value: "0.000 HBD",
-        percent_hbd: 10000,
+        percent_sbd: 10000,
         permlink: p.permlink,
         post_id: 1,
         promoted: "0.000 HBD",

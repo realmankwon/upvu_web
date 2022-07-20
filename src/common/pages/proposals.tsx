@@ -113,7 +113,7 @@ class ProposalsPage extends BaseComponent<PageProps, State> {
             this.stateSet({proposals, proposals_: proposals, allProposals: proposals, minVotes});
 
             const fund = await getAccount("hive.fund");
-            const totalBudget = parseAsset(fund.hbd_balance).amount;
+            const totalBudget = parseAsset(fund.sbd_balance).amount;
             const dailyBudget = totalBudget / 100;
 
             // find eligible proposals and

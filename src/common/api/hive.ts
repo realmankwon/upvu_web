@@ -32,10 +32,10 @@ export interface Vote {
 }
 
 export interface DynamicGlobalProperties {
-    hbd_print_rate: number;
-    total_vesting_fund_hive: string;
+    sbd_print_rate: number;
+    total_vesting_fund_steem: string;
     total_vesting_shares: string;
-    hbd_interest_rate: number;
+    sbd_interest_rate: number;
     head_block_number: number;
     vesting_reward_percent: number;
     virtual_supply: string;
@@ -68,7 +68,7 @@ export interface Follow {
 }
 
 export interface MarketStatistics {
-    hbd_volume: string;
+    sbd_volume: string;
     highest_bid: string;
     hive_volume: string;
     latest: string;
@@ -183,16 +183,16 @@ export const getAccounts = (usernames: string[]): Promise<FullAccount[]> => {
                 last_vote_time: x.last_vote_time,
                 last_post: x.last_post,
                 json_metadata: x.json_metadata,
-                reward_hive_balance: x.reward_hive_balance,
-                reward_hbd_balance: x.reward_hbd_balance,
-                reward_vesting_hive: x.reward_vesting_hive,
+                reward_steem_balance: x.reward_steem_balance,
+                reward_sbd_balance: x.reward_sbd_balance,
+                reward_vesting_steem: x.reward_vesting_steem,
                 reward_vesting_balance: x.reward_vesting_balance,
                 balance: x.balance,
-                hbd_balance: x.hbd_balance,
+                sbd_balance: x.sbd_balance,
                 savings_balance: x.savings_balance,
-                savings_hbd_balance: x.savings_hbd_balance,
-                savings_hbd_last_interest_payment: x.savings_hbd_last_interest_payment,
-                savings_hbd_seconds_last_update: x.savings_hbd_seconds_last_update,
+                savings_sbd_balance: x.savings_sbd_balance,
+                savings_sbd_last_interest_payment: x.savings_sbd_last_interest_payment,
+                savings_sbd_seconds_last_update: x.savings_sbd_seconds_last_update,
                 next_vesting_withdrawal: x.next_vesting_withdrawal,
                 vesting_shares: x.vesting_shares,
                 delegated_vesting_shares: x.delegated_vesting_shares,
@@ -275,10 +275,10 @@ export const findRcAccounts = (username: string): Promise<RCAccount[]> =>
 export const getDynamicGlobalProperties = (): Promise<DynamicGlobalProperties> =>
     client.database.getDynamicGlobalProperties().then((r: any) => {
         return({
-        total_vesting_fund_hive: r.total_vesting_fund_hive || r.total_vesting_fund_steem,
+        total_vesting_fund_steem: r.total_vesting_fund_steem || r.total_vesting_fund_steem,
         total_vesting_shares: r.total_vesting_shares,
-        hbd_print_rate: r.hbd_print_rate || r.sbd_print_rate,
-        hbd_interest_rate: r.hbd_interest_rate,
+        sbd_print_rate: r.sbd_print_rate || r.sbd_print_rate,
+        sbd_interest_rate: r.sbd_interest_rate,
         head_block_number: r.head_block_number,
         vesting_reward_percent: r.vesting_reward_percent,
         virtual_supply: r.virtual_supply
@@ -300,16 +300,16 @@ export const getDynamicProps = async (): Promise<DynamicProps> => {
     const rewardFund = await getRewardFund();
 
     const hivePerMVests =
-        (parseAsset(globalDynamic.total_vesting_fund_hive).amount / parseAsset(globalDynamic.total_vesting_shares).amount) *
+        (parseAsset(globalDynamic.total_vesting_fund_steem).amount / parseAsset(globalDynamic.total_vesting_shares).amount) *
         1e6;
     const base = parseAsset(feedHistory.current_median_history.base).amount;
     const quote = parseAsset(feedHistory.current_median_history.quote).amount;
     const fundRecentClaims = parseFloat(rewardFund.recent_claims);
     const fundRewardBalance = parseAsset(rewardFund.reward_balance).amount;
-    const hbdPrintRate = globalDynamic.hbd_print_rate;
-    const hbdInterestRate = globalDynamic.hbd_interest_rate;
+    const hbdPrintRate = globalDynamic.sbd_print_rate;
+    const hbdInterestRate = globalDynamic.sbd_interest_rate;
     const headBlock = globalDynamic.head_block_number;
-    const totalVestingFund = parseAsset(globalDynamic.total_vesting_fund_hive).amount;
+    const totalVestingFund = parseAsset(globalDynamic.total_vesting_fund_steem).amount;
     const totalVestingShares = parseAsset(globalDynamic.total_vesting_shares).amount;
     const virtualSupply = parseAsset(globalDynamic.virtual_supply).amount;
     const vestingRewardPercent = globalDynamic.vesting_reward_percent;
@@ -344,14 +344,14 @@ export interface Witness {
         account_subsidy_budget: number;
         maximum_block_size: number;
     },
-    hbd_exchange_rate: {
+    sbd_exchange_rate: {
         base: string;
     },
     available_witness_account_subsidies: number;
     running_version: string;
     owner: string;
     signing_key:string,
-    last_hbd_exchange_update:string
+    last_sbd_exchange_update:string
 }
 
 export const getWitnessesByVote = (

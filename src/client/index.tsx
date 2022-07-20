@@ -52,8 +52,8 @@ loadableReady().then(() => {
   // Check & activate keychain support
   window.addEventListener('load', () => {
     setTimeout(() => {
-      if (window.hive_keychain) {
-        window.hive_keychain.requestHandshake(() => {
+      if (window.steem_keychain) {
+        window.steem_keychain.requestHandshake(() => {
           store.dispatch(hasKeyChainAct());
         });
       }

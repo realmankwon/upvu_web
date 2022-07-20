@@ -44,7 +44,7 @@ export const ChartStats = ({loading, data}: Props) =>{
                             <tbody>
                                 <tr>
                                     <td>${data ? parseFloat(data!.latest!).toFixed(6) : null} (<span className="text-success">+0.00%</span>)</td>
-                                    <td>${data? parseFloat(data!.hbd_volume)!.toFixed(2):null}</td>
+                                    <td>${data? parseFloat(data!.sbd_volume)!.toFixed(2):null}</td>
                                     <td>${data? parseFloat(data!.highest_bid)!.toFixed(6):null}</td>
                                     <td>${data? parseFloat(data!.lowest_ask)!.toFixed(6):null}</td>
                                     <td>{data? ((200 * (parseFloat(data.lowest_ask) - parseFloat(data.highest_bid))) / (parseFloat(data.highest_bid) + parseFloat(data.lowest_ask))).toFixed(3) : null}%</td>

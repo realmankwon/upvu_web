@@ -15,7 +15,7 @@ type Keys = { active: any, posting: any, memo: any };
 
 export const handshake = (): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve) => {
-        window.hive_keychain?.requestHandshake(() => {
+        window.steem_keychain?.requestHandshake(() => {
             resolve();
         });
     });
@@ -23,7 +23,7 @@ export const handshake = (): Promise<TxResponse> =>
 
 export const signBuffer = (account: string, message: string, key: AuthorityTypes, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestSignBuffer(account, message, "Active", (resp) => {
+        window.steem_keychain?.requestSignBuffer(account, message, "Active", (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -35,7 +35,7 @@ export const signBuffer = (account: string, message: string, key: AuthorityTypes
 
 export const addAccountAuthority = (account: string, authorizedUsername: string, role: AuthorityTypes, weight: number, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestAddAccountAuthority(account, authorizedUsername, "Posting", weight, (resp) => {
+        window.steem_keychain?.requestAddAccountAuthority(account, authorizedUsername, "Posting", weight, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -47,7 +47,7 @@ export const addAccountAuthority = (account: string, authorizedUsername: string,
 
 export const removeAccountAuthority = (account: string, authorizedUsername: string, role: AuthorityTypes, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestRemoveAccountAuthority(account, authorizedUsername, "Posting", (resp) => {
+        window.steem_keychain?.requestRemoveAccountAuthority(account, authorizedUsername, "Posting", (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -59,7 +59,7 @@ export const removeAccountAuthority = (account: string, authorizedUsername: stri
 
 export const transfer = (account: string, to: string, amount: string, memo: string, currency: Symbol, enforce: boolean, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestTransfer(account, to, amount, memo, currency, (resp) => {
+        window.steem_keychain?.requestTransfer(account, to, amount, memo, currency, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -71,7 +71,7 @@ export const transfer = (account: string, to: string, amount: string, memo: stri
 
 export const customJson = (account: string, id: string, key: AuthorityTypes, json: string, display_msg: string, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestCustomJson(account, id, key, json, display_msg, (resp) => {
+        window.steem_keychain?.requestCustomJson(account, id, key, json, display_msg, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -82,7 +82,7 @@ export const customJson = (account: string, id: string, key: AuthorityTypes, jso
 
 export const broadcast = (account: string, operations: any[], key: AuthorityTypes, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestBroadcast(account, operations, key, (resp) => {
+        window.steem_keychain?.requestBroadcast(account, operations, key, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -93,7 +93,7 @@ export const broadcast = (account: string, operations: any[], key: AuthorityType
 
 export const addAccount = (username: string, keys: Keys): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestAddAccount(username, keys, (resp) => {
+        window.steem_keychain?.requestAddAccount(username, keys, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -105,7 +105,7 @@ export const addAccount = (username: string, keys: Keys): Promise<TxResponse> =>
 
 export const witnessVote = (account: string, witness: string, vote: boolean, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestWitnessVote(account, witness, vote, (resp) => {
+        window.steem_keychain?.requestWitnessVote(account, witness, vote, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }
@@ -117,7 +117,7 @@ export const witnessVote = (account: string, witness: string, vote: boolean, rpc
 
 export const witnessProxy = (account: string, proxy: string, rpc: string | null = null): Promise<TxResponse> =>
     new Promise<TxResponse>((resolve, reject) => {
-        window.hive_keychain?.requestProxy(account, proxy, (resp) => {
+        window.steem_keychain?.requestProxy(account, proxy, (resp) => {
             if (!resp.success) {
                 reject({message: "Operation cancelled"});
             }

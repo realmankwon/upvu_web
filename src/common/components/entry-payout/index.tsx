@@ -38,13 +38,13 @@ export class EntryPayoutDetail extends Component<Props> {
         const authorPayout = parseAsset(entry.author_payout_value).amount;
         const curatorPayout = parseAsset(entry.curator_payout_value).amount;
         const maxPayout = parseAsset(entry.max_accepted_payout).amount;
-        const fullPower = entry.percent_hbd === 0;
+        const fullPower = entry.percent_sbd === 0;
 
         const totalPayout = pendingPayout + authorPayout + curatorPayout;
         const payoutLimitHit = totalPayout >= maxPayout;
 
         const HBD_PRINT_RATE_MAX = 10000;
-        const percentHiveDollars = (entry.percent_hbd) / 20000;
+        const percentHiveDollars = (entry.percent_sbd) / 20000;
         const pendingPayoutHbd = pendingPayout * (percentHiveDollars);
         const pricePerHive = base / quote;
         const pendingPayoutHp = (pendingPayout - pendingPayoutHbd) / pricePerHive;

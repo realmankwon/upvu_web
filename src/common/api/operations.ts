@@ -44,7 +44,7 @@ export interface CommentOptions {
     author: string;
     permlink: string;
     max_accepted_payout: string;
-    percent_hbd: number;
+    percent_sbd: number;
     extensions: Array<[0, { beneficiaries: BeneficiaryRoute[] }]>;
 }
 
@@ -261,8 +261,8 @@ export const ignore = (follower: string, following: string): Promise<Transaction
 export const claimRewardBalance = (username: string, rewardHive: string, rewardHbd: string, rewardVests: string): Promise<TransactionConfirmation> => {
     const params = {
         account: username,
-        reward_hive: rewardHive,
-        reward_hbd: rewardHbd,
+        reward_steem: rewardHive,
+        reward_sbd: rewardHbd,
         reward_vests: rewardVests
     }
 

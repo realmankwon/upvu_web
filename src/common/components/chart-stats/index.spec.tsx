@@ -10,7 +10,7 @@ it("(1) Default render", async () => {
     const props = {
         loading: false,
         data: {
-            hbd_volume: "dummy value",
+            sbd_volume: "dummy value",
             highest_bid: "dummy value",
             hive_volume: "dummy value",
             latest: "dummy value",

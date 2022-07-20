@@ -62,13 +62,13 @@ export class TransactionRow extends Component<RowProps> {
             flag = true;
             icon = cashCoinSvg;
 
-            const hbd_payout = parseAsset(tr.hbd_payout);
+            const sbd_payout = parseAsset(tr.sbd_payout);
             const hive_payout = parseAsset(tr.hive_payout);
             const vesting_payout = parseAsset(tr.vesting_payout);
             numbers = (
                 <>
-                    {hbd_payout.amount > 0 && (
-                        <span className="number">{formattedNumber(hbd_payout.amount, {suffix: "HBD"})}</span>
+                    {sbd_payout.amount > 0 && (
+                        <span className="number">{formattedNumber(sbd_payout.amount, {suffix: "HBD"})}</span>
                     )}
                     {hive_payout.amount > 0 && (
                         <span className="number">{formattedNumber(hive_payout.amount, {suffix: "HIVE"})}</span>
@@ -93,17 +93,17 @@ export class TransactionRow extends Component<RowProps> {
         if (tr.type === "claim_reward_balance") {
             flag = true;
 
-            const reward_hbd = parseAsset(tr.reward_hbd);
-            const reward_hive = parseAsset(tr.reward_hive);
+            const reward_sbd = parseAsset(tr.reward_sbd);
+            const reward_steem = parseAsset(tr.reward_steem);
             const reward_vests = parseAsset(tr.reward_vests);
 
             numbers = (
                 <>
-                    {reward_hbd.amount > 0 && (
-                        <span className="number">{formattedNumber(reward_hbd.amount, {suffix: "HBD"})}</span>
+                    {reward_sbd.amount > 0 && (
+                        <span className="number">{formattedNumber(reward_sbd.amount, {suffix: "HBD"})}</span>
                     )}
-                    {reward_hive.amount > 0 && (
-                        <span className="number">{formattedNumber(reward_hive.amount, {suffix: "HIVE"})}</span>
+                    {reward_steem.amount > 0 && (
+                        <span className="number">{formattedNumber(reward_steem.amount, {suffix: "HIVE"})}</span>
                     )}
                     {reward_vests.amount > 0 && (
                         <span className="number">{formattedNumber(vestsToHp(reward_vests.amount, hivePerMVests), {suffix: "HP"})}</span>

@@ -30,7 +30,7 @@ it("(1) Default render", async () => {
             data: {
                 name: 'foo',
                 balance: '12.234 HIVE',
-                hbd_balance: '4321.212',
+                sbd_balance: '4321.212',
                 savings_balance: '2123.000 HIVE'
             },
             points: {
@@ -61,7 +61,7 @@ it("(2) Insufficient Funds", async () => {
             data: {
                 name: 'foo',
                 balance: '12.234 HIVE',
-                hbd_balance: '4321.212',
+                sbd_balance: '4321.212',
                 savings_balance: '2123.000 HIVE'
             },
             points: {
@@ -91,7 +91,7 @@ it("(3) With entry", async () => {
             data: {
                 name: 'foo',
                 balance: '12.234 HIVE',
-                hbd_balance: '4321.212',
+                sbd_balance: '4321.212',
                 savings_balance: '2123.000 HIVE'
             },
             points: {

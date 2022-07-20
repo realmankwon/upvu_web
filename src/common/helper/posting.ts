@@ -108,7 +108,7 @@ export const makeCommentOptions = (author: string, permlink: string, rewardType:
         author,
         permlink,
         max_accepted_payout: "1000000.000 HBD",
-        percent_hbd: 10000,
+        percent_sbd: 10000,
         extensions: (beneficiaries && beneficiaries.length > 0) ? [
             [0, {beneficiaries: beneficiaries}]
         ] : [],
@@ -117,15 +117,15 @@ export const makeCommentOptions = (author: string, permlink: string, rewardType:
     switch (rewardType) {
         case "sp":
             opt.max_accepted_payout = "1000000.000 HBD";
-            opt.percent_hbd = 0;
+            opt.percent_sbd = 0;
             break;
         case "dp":
             opt.max_accepted_payout = "0.000 HBD";
-            opt.percent_hbd = 10000;
+            opt.percent_sbd = 10000;
             break;
         case "default":
             opt.max_accepted_payout = "1000000.000 HBD";
-            opt.percent_hbd = 10000;
+            opt.percent_sbd = 10000;
             break;
     }
 

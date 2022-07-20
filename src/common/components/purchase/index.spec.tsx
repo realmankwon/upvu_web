@@ -28,7 +28,7 @@ const defProps = {
             ...fullAccountInstance,
             name: 'foo',
             balance: '12.234 HIVE',
-            hbd_balance: '4321.212',
+            sbd_balance: '4321.212',
             savings_balance: '2123.000 HIVE'
         },
         points: {

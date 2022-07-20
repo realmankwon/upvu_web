@@ -19,7 +19,7 @@ export interface AuthorReward extends BaseTransaction {
     type: "author_reward";
     author: string;
     permlink: string;
-    hbd_payout: string;
+    sbd_payout: string;
     hive_payout: string;
     vesting_payout: string;
 }
@@ -29,7 +29,7 @@ export interface CommentBenefactor extends BaseTransaction {
     benefactor: string;
     author: string;
     permlink: string;
-    hbd_payout: string;
+    sbd_payout: string;
     hive_payout: string;
     vesting_payout: string;
 }
@@ -37,8 +37,8 @@ export interface CommentBenefactor extends BaseTransaction {
 export interface ClaimRewardBalance extends BaseTransaction {
     type: "claim_reward_balance";
     account: string;
-    reward_hbd: string;
-    reward_hive: string;
+    reward_sbd: string;
+    reward_steem: string;
     reward_vests: string;
 }
 

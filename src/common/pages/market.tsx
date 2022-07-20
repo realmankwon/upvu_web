@@ -154,7 +154,7 @@ const MarketPage = (props: PageProps) => {
                         type={1}
                         available={
                           (activeUser &&
-                            (activeUser.data as FullAccount).hbd_balance) ||
+                            (activeUser.data as FullAccount).sbd_balance) ||
                           ""
                         }
                         peakValue={parseFloat(bidValues.lowest)}
@@ -229,7 +229,7 @@ const MarketPage = (props: PageProps) => {
                         type={1}
                         available={
                           (activeUser &&
-                            (activeUser.data as FullAccount).hbd_balance) ||
+                            (activeUser.data as FullAccount).sbd_balance) ||
                           ""
                         }
                         peakValue={parseFloat(bidValues.lowest)}

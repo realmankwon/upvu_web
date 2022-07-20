@@ -34,17 +34,17 @@ export interface FullAccount {
     posting_json_metadata: string;
     last_vote_time: string;
     last_post: string
-    reward_hbd_balance: string;
-    reward_vesting_hive: string;
-    reward_hive_balance: string;
+    reward_sbd_balance: string;
+    reward_vesting_steem: string;
+    reward_steem_balance: string;
     reward_vesting_balance: string;
     balance: string;
     vesting_shares: string;
-    hbd_balance: string;
+    sbd_balance: string;
     savings_balance: string;
-    savings_hbd_balance: string;
-    savings_hbd_last_interest_payment: string;
-    savings_hbd_seconds_last_update: string;
+    savings_sbd_balance: string;
+    savings_sbd_last_interest_payment: string;
+    savings_sbd_seconds_last_update: string;
     next_vesting_withdrawal: string;
     delegated_vesting_shares: string;
     received_vesting_shares: string;

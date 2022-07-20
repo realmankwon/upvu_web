@@ -144,10 +144,11 @@ class CommunityCreatePage extends BaseComponent<PageProps, CreateState> {
     return {
       ownerAuthority: Authority.from(ownerKey.createPublic()),
       activeAuthority: Authority.from(activeKey.createPublic()),
-      postingAuthority: {
-        ...Authority.from(postingKey.createPublic()),
-        account_auths: [['ecency.app', 1]]
-      } as Authority
+      // postingAuthority: {
+      //   ...Authority.from(postingKey.createPublic()),
+      //   account_auths: [['ecency.app', 1]]
+      postingAuthority: 
+        Authority.from(postingKey.createPublic()) as Authority
     }
   }
 
@@ -214,7 +215,8 @@ class CommunityCreatePage extends BaseComponent<PageProps, CreateState> {
       new_account_name: username,
       owner: {weight_threshold: 1, account_auths: [], key_auths: [[keys.ownerKey.createPublic().toString(), 1]]},
       active: {weight_threshold: 1, account_auths: [], key_auths: [[keys.activeKey.createPublic().toString(), 1]]},
-      posting: {weight_threshold: 1, account_auths: [['ecency.app', 1]], key_auths: [[keys.postingKey.createPublic().toString(), 1]]},
+      // posting: {weight_threshold: 1, account_auths: [['ecency.app', 1]], key_auths: [[keys.postingKey.createPublic().toString(), 1]]},
+      posting: {weight_threshold: 1, account_auths: [], key_auths: [[keys.postingKey.createPublic().toString(), 1]]},
       memo_key: keys.memoKey.createPublic().toString(),
       json_metadata: ""
     }];
