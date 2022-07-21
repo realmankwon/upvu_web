@@ -71,7 +71,7 @@ import activeUser from "../../store/active-user";
 import { dateToFullRelative } from '../../helper/parse-date';
 
 export type TransferMode = "transfer" | "transfer-saving" | "withdraw-saving" | "convert" | "power-up" | "power-down" | "delegate" | "claim-interest";
-export type TransferAsset = "HIVE" | "HBD" | "HP" | "POINT";
+export type TransferAsset = "STEEM" | "SBD" | "SP" | "POINT";
 
 interface AssetSwitchProps {
     options: TransferAsset[];
@@ -325,18 +325,18 @@ export class Transfer extends BaseComponent<Props, State> {
         const w = new HiveWallet(account, dynamicProps);
 
         if (mode === "withdraw-saving" || mode === "claim-interest") {
-            return asset === "HIVE" ? w.savingBalance : w.savingBalanceHbd;
+            return asset === "STEEM" ? w.savingBalance : w.savingBalanceHbd;
         }
 
-        if (asset === "HIVE") {
+        if (asset === "STEEM") {
             return w.balance;
         }
 
-        if (asset === "HBD") {
+        if (asset === "SBD") {
             return w.hbdBalance;
         }
 
-        if (asset === "HP") {
+        if (asset === "SP") {
             const {hivePerMVests} = dynamicProps;
             const vestingShares = w.vestingSharesAvailable;
             return vestsToHp(vestingShares, hivePerMVests);
@@ -616,27 +616,27 @@ export class Transfer extends BaseComponent<Props, State> {
         switch (mode) {
             case "transfer":
                 if (global.usePrivate) {
-                    assets = ["HIVE", "HBD", "POINT"];
+                    assets = ["STEEM", "SBD", "POINT"];
                 } else {
-                    assets = ["HIVE", "HBD"];
+                    assets = ["STEEM", "SBD"];
                 }
                 break;
             case "transfer-saving":
             case "withdraw-saving":
-                assets = ["HIVE", "HBD"];
+                assets = ["STEEM", "SBD"];
                 break;
             case "claim-interest":
-                assets = ["HBD"];
+                assets = ["SBD"];
                 break;
             case "convert":
-                assets = ["HBD"];
+                assets = ["SBD"];
                 break;
             case "power-up":
-                assets = ["HIVE"];
+                assets = ["STEEM"];
                 break;
             case "power-down":
             case "delegate":
-                assets = ["HP"];
+                assets = ["SP"];
                 break;
 
         }
@@ -713,7 +713,7 @@ export class Transfer extends BaseComponent<Props, State> {
                             <p>{_t("transfer.powering-down")}</p>
                             <p> {_t("wallet.next-power-down", {
                                 time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
-                                amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, 3)} HIVE`,
+                                amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, 3)} STEEM`,
                             })}</p>
                             <p>
                                 <Button onClick={this.nextPowerDown} variant="danger">{_t("transfer.stop-power-down")}</Button>
@@ -812,7 +812,7 @@ export class Transfer extends BaseComponent<Props, State> {
                                 <div className="balance">
                                     <span className="balance-label">{_t("transfer.balance")}{": "}</span>
                                     <span className="balance-num" onClick={this.copyBalance}>{balance}{" "}{asset}</span>
-                                    {asset === "HP" && (<div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>)}
+                                    {asset === "SP" && (<div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>)}
                                 </div>
                                 {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" &&
                                     <div className="text-muted mt-1 override-warning">
@@ -830,7 +830,7 @@ export class Transfer extends BaseComponent<Props, State> {
                                         const hive = Math.round((Number(amount) / 13) * 1000) / 1000;
                                         if (!isNaN(hive) && hive > 0) {
                                             return <div className="power-down-estimation">
-                                                {_t("transfer.power-down-estimated", {n: `${this.formatNumber(hive, 3)} HIVE`})}
+                                                {_t("transfer.power-down-estimated", {n: `${this.formatNumber(hive, 3)} STEEM`})}
                                             </div>;
                                         }
                                     }
@@ -891,7 +891,7 @@ export class Transfer extends BaseComponent<Props, State> {
                             <div className="amount">
                                 {amount} {asset}
                             </div>
-                            {asset === "HP" && <div className="amount-vests">{this.hpToVests(Number(amount))}</div>}
+                            {asset === "SP" && <div className="amount-vests">{this.hpToVests(Number(amount))}</div>}
                             {memo && <div className="memo">{memo}</div>}
 
                         </div>

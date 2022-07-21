@@ -17,10 +17,10 @@ it("(1) Default render", async() => {
         entry: {
             ...entryInstance1,
             ...{
-                pending_payout_value: "14.264 HBD",
-                promoted: "0.000 HBD",
-                author_payout_value: "0.000 HBD",
-                curator_payout_value: "0.000 HBD",
+                pending_payout_value: "14.264 SBD",
+                promoted: "0.000 SBD",
+                author_payout_value: "0.000 SBD",
+                curator_payout_value: "0.000 SBD",
                 payout_at: "2020-06-03T15:15:24",
             },
         },
@@ -38,10 +38,10 @@ it("(2) Detail render", async() => {
         entry: {
             ...entryInstance1,
             ...{
-                pending_payout_value: "14.264 HBD",
-                promoted: "0.000 HBD",
-                author_payout_value: "0.000 HBD",
-                curator_payout_value: "0.000 HBD",
+                pending_payout_value: "14.264 SBD",
+                promoted: "0.000 SBD",
+                author_payout_value: "0.000 SBD",
+                curator_payout_value: "0.000 SBD",
                 payout_at: "2020-06-03T15:15:24",
             },
         },
@@ -60,10 +60,10 @@ it("(3) Detail render with full power", async() => {
             ...entryInstance1,
             ...{
                 percent_sbd: 0,
-                pending_payout_value: "14.264 HBD",
-                promoted: "0.000 HBD",
-                author_payout_value: "0.000 HBD",
-                curator_payout_value: "0.000 HBD",
+                pending_payout_value: "14.264 SBD",
+                promoted: "0.000 SBD",
+                author_payout_value: "0.000 SBD",
+                curator_payout_value: "0.000 SBD",
                 payout_at: "2020-06-03T15:15:24",
             },
         },
@@ -82,12 +82,12 @@ it("(4) Detail render with max payout", async() => {
             ...entryInstance1,
             ...{
                 percent_sbd: 0,
-                pending_payout_value: "14.264 HBD",
-                promoted: "0.000 HBD",
-                author_payout_value: "0.000 HBD",
-                curator_payout_value: "0.000 HBD",
+                pending_payout_value: "14.264 SBD",
+                promoted: "0.000 SBD",
+                author_payout_value: "0.000 SBD",
+                curator_payout_value: "0.000 SBD",
                 payout_at: "2020-06-03T15:15:24",
-                max_accepted_payout: "10.000 HBD"
+                max_accepted_payout: "10.000 SBD"
             },
         },
     };
@@ -104,12 +104,12 @@ it("(5) Default with max payout", async() => {
         entry: {
             ...entryInstance1,
             ...{
-                pending_payout_value: "14.264 HBD",
-                promoted: "0.000 HBD",
-                author_payout_value: "0.000 HBD",
-                curator_payout_value: "0.000 HBD",
+                pending_payout_value: "14.264 SBD",
+                promoted: "0.000 SBD",
+                author_payout_value: "0.000 SBD",
+                curator_payout_value: "0.000 SBD",
                 payout_at: "2020-06-03T15:15:24",
-                max_accepted_payout: "10.000 HBD"
+                max_accepted_payout: "10.000 SBD"
             },
         },
     };

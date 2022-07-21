@@ -63,7 +63,7 @@ export class TippingDialog extends Component<DialogProps> {
             {...this.props}
             activeUser={activeUser}
             transactions={transactions}
-            asset={global.usePrivate ? "POINT" : "HIVE"}
+            asset={global.usePrivate ? "POINT" : "STEEM"}
             mode="transfer"
             amount={global.usePrivate ? "100.000" : "1.000"}
             to={to}

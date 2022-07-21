@@ -43,26 +43,26 @@ export class EntryPayoutDetail extends Component<Props> {
         const totalPayout = pendingPayout + authorPayout + curatorPayout;
         const payoutLimitHit = totalPayout >= maxPayout;
 
-        const HBD_PRINT_RATE_MAX = 10000;
+        const SBD_PRINT_RATE_MAX = 10000;
         const percentHiveDollars = (entry.percent_sbd) / 20000;
         const pendingPayoutHbd = pendingPayout * (percentHiveDollars);
         const pricePerHive = base / quote;
         const pendingPayoutHp = (pendingPayout - pendingPayoutHbd) / pricePerHive;
-        const pendingPayoutPrintedHbd = pendingPayoutHbd * (hbdPrintRate / HBD_PRINT_RATE_MAX);
+        const pendingPayoutPrintedHbd = pendingPayoutHbd * (hbdPrintRate / SBD_PRINT_RATE_MAX);
         const pendingPayoutPrintedHive = (pendingPayoutHbd - pendingPayoutPrintedHbd) / pricePerHive;
 
         let breakdownPayout: string[] = [];
         if (pendingPayout > 0) {
             if (pendingPayoutPrintedHbd > 0) {
-                breakdownPayout.push(formattedNumber(pendingPayoutPrintedHbd, {fractionDigits: 3, suffix: 'HBD'}))
+                breakdownPayout.push(formattedNumber(pendingPayoutPrintedHbd, {fractionDigits: 3, suffix: 'SBD'}))
             }
 
             if (pendingPayoutPrintedHive > 0) {
-                breakdownPayout.push(formattedNumber(pendingPayoutPrintedHive, {fractionDigits: 3, suffix: 'HIVE'}))
+                breakdownPayout.push(formattedNumber(pendingPayoutPrintedHive, {fractionDigits: 3, suffix: 'STEEM'}))
             }
 
             if (pendingPayoutHp > 0) {
-                breakdownPayout.push(formattedNumber(pendingPayoutHp, {fractionDigits: 3, suffix: 'HP'}))
+                breakdownPayout.push(formattedNumber(pendingPayoutHp, {fractionDigits: 3, suffix: 'SP'}))
             }
         }
 

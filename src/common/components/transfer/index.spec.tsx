@@ -48,9 +48,9 @@ const defProps = {
     }
 };
 
-describe('(1) Transfer HIVE', () => {
+describe('(1) Transfer STEEM', () => {
     const mode: TransferMode = 'transfer';
-    const asset: TransferAsset = 'HIVE';
+    const asset: TransferAsset = 'STEEM';
 
     const props = {
         ...defProps,
@@ -81,9 +81,9 @@ describe('(1) Transfer HIVE', () => {
     });
 });
 
-describe('(2) Transfer HBD', () => {
+describe('(2) Transfer SBD', () => {
     const mode: TransferMode = 'transfer';
-    const asset: TransferAsset = 'HBD';
+    const asset: TransferAsset = 'SBD';
 
     const props = {
         ...defProps,
@@ -139,9 +139,9 @@ describe('(3) Transfer POINT', () => {
     });
 });
 
-describe('(4) Transfer to Savings - HBD', () => {
+describe('(4) Transfer to Savings - SBD', () => {
     const mode: TransferMode = 'transfer-saving';
-    const asset: TransferAsset = 'HBD';
+    const asset: TransferAsset = 'SBD';
 
     const props = {
         ...defProps,
@@ -167,9 +167,9 @@ describe('(4) Transfer to Savings - HBD', () => {
     });
 });
 
-describe('(5) Withdraw Savings - HIVE', () => {
+describe('(5) Withdraw Savings - STEEM', () => {
     const mode: TransferMode = 'withdraw-saving';
-    const asset: TransferAsset = 'HIVE';
+    const asset: TransferAsset = 'STEEM';
 
     const props = {
         ...defProps,
@@ -197,7 +197,7 @@ describe('(5) Withdraw Savings - HIVE', () => {
 
 describe('(6) Convert', () => {
     const mode: TransferMode = 'convert';
-    const asset: TransferAsset = 'HBD';
+    const asset: TransferAsset = 'SBD';
 
     const props = {
         ...defProps,
@@ -225,7 +225,7 @@ describe('(6) Convert', () => {
 
 describe('(7) Power up', () => {
     const mode: TransferMode = 'power-up';
-    const asset: TransferAsset = 'HIVE';
+    const asset: TransferAsset = 'STEEM';
 
     const props = {
         ...defProps,
@@ -253,7 +253,7 @@ describe('(7) Power up', () => {
 
 describe('(8) Delegate', () => {
     const mode: TransferMode = 'delegate';
-    const asset: TransferAsset = 'HP';
+    const asset: TransferAsset = 'SP';
 
     const props = {
         ...defProps,
@@ -282,7 +282,7 @@ describe('(8) Delegate', () => {
 
 describe('(9) Power down', () => {
     const mode: TransferMode = 'power-down';
-    const asset: TransferAsset = 'HP';
+    const asset: TransferAsset = 'SP';
 
     const props = {
         ...defProps,
@@ -311,7 +311,7 @@ describe('(9) Power down', () => {
 
 describe('(10) Powering down', () => {
     const mode: TransferMode = 'power-down';
-    const asset: TransferAsset = 'HP';
+    const asset: TransferAsset = 'SP';
 
     const props = {
         ...defProps,

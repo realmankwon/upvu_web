@@ -439,14 +439,14 @@ export const votingValue = (account: FullAccount, dynamicProps: DynamicProps, vo
     return rShares / fundRecentClaims * fundRewardBalance * (base / quote);
 }
 
-const HIVE_VOTING_MANA_REGENERATION_SECONDS = 5*60*60*24; //5 days
+const STEEM_VOTING_MANA_REGENERATION_SECONDS = 5*60*60*24; //5 days
 
 export const downVotingPower = (account: FullAccount): number => {
     const totalShares = parseFloat(account.vesting_shares) + parseFloat(account.received_vesting_shares) - parseFloat(account.delegated_vesting_shares) - parseFloat(account.vesting_withdraw_rate);
     const elapsed = Math.floor(Date.now() / 1000) - account.downvote_manabar.last_update_time;
     const maxMana = totalShares * 1000000 / 4;
 
-    let currentMana = parseFloat(account.downvote_manabar.current_mana.toString()) + elapsed * maxMana / HIVE_VOTING_MANA_REGENERATION_SECONDS;
+    let currentMana = parseFloat(account.downvote_manabar.current_mana.toString()) + elapsed * maxMana / STEEM_VOTING_MANA_REGENERATION_SECONDS;
 
     if (currentMana > maxMana) {
         currentMana = maxMana;

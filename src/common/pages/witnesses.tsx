@@ -272,7 +272,7 @@ class WitnessesPage extends BaseComponent<PageProps, State> {
                     </td>
                     <td><span className="witness-fee">{row.fee}</span></td>
                     <td>
-                        <div className="witness-feed"><span className="inner">${row.feed.replace(' HBD','')} | {dateToRelative(row.priceAge)}</span></div>
+                        <div className="witness-feed"><span className="inner">${row.feed.replace(' SBD','')} | {dateToRelative(row.priceAge)}</span></div>
                     </td>
                     <td>
                         <div className="witness-version"><span className="inner">{row.version}</span></div>

@@ -164,10 +164,10 @@ function generateDepthChart(bidsArray:any, asksArray:any, theme: string) {
             formatter: ({chart:{hoverPoint:{options:{x,y}}, hoverSeries:{name}}}:any) => {
                 return (
                     `<span>${_t('market.price')}: ${(x / power).toFixed(6)} ${
-                        '$/HIVE'
+                        '$/STEEM'
                     }</span><br/><span>\u25CF</span>${
                         name
-                    }: <b>${(y / 1000).toFixed(3)} HBD ($) ` +'</b>'
+                    }: <b>${(y / 1000).toFixed(3)} SBD ($) ` +'</b>'
                 );
             },
             style: {

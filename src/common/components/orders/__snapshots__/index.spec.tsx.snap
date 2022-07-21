@@ -16,10 +16,10 @@ exports[`(1) Orders render default 1`] = `
           Price
         </th>
         <th>
-          HIVE
+          STEEM
         </th>
         <th>
-          Total HBD ($)
+          Total SBD ($)
         </th>
       </tr>
     </thead>

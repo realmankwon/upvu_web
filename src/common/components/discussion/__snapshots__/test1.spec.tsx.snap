@@ -1598,7 +1598,7 @@ Bug report <a href=\\"/esteem/@iliyan90/bug-report-to-esteemapp\\" class=\\"mark
             className="item-body markdown-view mini-markdown"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "<p>Great to see my name on the Giveaway and I like quite much engaging on Discord and find out what others are doing in the HIVE space. A source of news, common hobbies and other topics that rise up your day.</p>",
+                "__html": "<p>Great to see my name on the Giveaway and I like quite much engaging on Discord and find out what others are doing in the STEEM space. A source of news, common hobbies and other topics that rise up your day.</p>",
               }
             }
           />
@@ -3316,7 +3316,7 @@ Bug report <a href=\\"/esteem/@iliyan90/bug-report-to-esteemapp\\" class=\\"mark
             className="item-body markdown-view mini-markdown"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "<p>Great to see my name on the Giveaway and I like quite much engaging on Discord and find out what others are doing in the HIVE space. A source of news, common hobbies and other topics that rise up your day.</p>",
+                "__html": "<p>Great to see my name on the Giveaway and I like quite much engaging on Discord and find out what others are doing in the STEEM space. A source of news, common hobbies and other topics that rise up your day.</p>",
               }
             }
           />

@@ -23,7 +23,7 @@ exports[`(1) Purchase 1`] = `
           href="#"
           onClick={[Function]}
         >
-          HIVE
+          STEEM
         </a>
       </div>
       <div
@@ -34,7 +34,7 @@ exports[`(1) Purchase 1`] = `
           href="#"
           onClick={[Function]}
         >
-          HBD
+          SBD
         </a>
       </div>
     </div>
@@ -45,7 +45,7 @@ exports[`(1) Purchase 1`] = `
     <div
       className="asset-amount"
     >
-      250.000 HIVE
+      250.000 STEEM
     </div>
     <div
       className="usd-amount"
@@ -251,13 +251,13 @@ exports[`(2) Should switch to transfer 1`] = `
               className="asset selected"
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset "
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
             <a
               className="asset "
@@ -302,7 +302,7 @@ exports[`(2) Should switch to transfer 1`] = `
             >
               12.234
                
-              HIVE
+              STEEM
             </span>
           </div>
         </div>

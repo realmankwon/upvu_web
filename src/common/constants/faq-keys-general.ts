@@ -15,7 +15,7 @@ export const faqKeysGeneral = [
   'what-is-points',
   'where-tokens-come',
   'what-are-hive',
-  'what-are-hive-power',
+  'what-are-steem-power',
   'what-are-hd',
   'what-delegated-hp',
   'what-powering-up',

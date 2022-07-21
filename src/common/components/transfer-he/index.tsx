@@ -645,7 +645,7 @@ export class Transfer extends BaseComponent<Props, State> {
                                 <div className="balance">
                                     <span className="balance-label">{_t("transfer.balance")}{": "}</span>
                                     <span className="balance-num" onClick={this.copyBalance}>{this.props.assetBalance}{" "}{asset}</span>
-                                    {asset === "HP" && (<div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>)}
+                                    {asset === "SP" && (<div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>)}
                                 </div>
                                 {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" &&
                                     <div className="text-muted mt-1 override-warning">

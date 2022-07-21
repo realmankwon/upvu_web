@@ -227,20 +227,20 @@ class ProposalsPage extends BaseComponent<PageProps, State> {
                         <div className="funding-numbers">
                             <div className="funding-number">
                                 <div className="value">
-                                    {numeral(dailyFunded).format("0.00,")} {"HBD"}
+                                    {numeral(dailyFunded).format("0.00,")} {"SBD"}
                                 </div>
                                 <div className="label">{_t('daily-funded')}</div>
                             </div>
                             <div className="funding-number">
                                 <div className="value">
-                                    {numeral(dailyBudget).format("0.00,")} {"HBD"}
+                                    {numeral(dailyBudget).format("0.00,")} {"SBD"}
                                 </div>
                                 <div className="label">{_t('daily-budget')}</div>
                             </div>
 
                             <div className="funding-number">
                                 <div className="value">
-                                    {numeral(totalBudget).format("0.00,")} {"HBD"}
+                                    {numeral(totalBudget).format("0.00,")} {"SBD"}
                                 </div>
                                 <div className="label">{_t('total-budget')}</div>
                             </div>

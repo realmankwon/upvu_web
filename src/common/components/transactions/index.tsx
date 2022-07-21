@@ -46,7 +46,7 @@ export class TransactionRow extends Component<RowProps> {
             flag = true;
             icon = cashCoinSvg;
 
-            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.reward).amount, hivePerMVests), {suffix: "HP"})}</>;
+            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.reward).amount, hivePerMVests), {suffix: "SP"})}</>;
             details = EntryLink({
                 ...this.props,
                 entry: {
@@ -68,13 +68,13 @@ export class TransactionRow extends Component<RowProps> {
             numbers = (
                 <>
                     {sbd_payout.amount > 0 && (
-                        <span className="number">{formattedNumber(sbd_payout.amount, {suffix: "HBD"})}</span>
+                        <span className="number">{formattedNumber(sbd_payout.amount, {suffix: "SBD"})}</span>
                     )}
                     {hive_payout.amount > 0 && (
-                        <span className="number">{formattedNumber(hive_payout.amount, {suffix: "HIVE"})}</span>
+                        <span className="number">{formattedNumber(hive_payout.amount, {suffix: "STEEM"})}</span>
                     )}
                     {vesting_payout.amount > 0 && (
-                        <span className="number">{formattedNumber(vestsToHp(vesting_payout.amount, hivePerMVests), {suffix: "HP"})}{" "}</span>
+                        <span className="number">{formattedNumber(vestsToHp(vesting_payout.amount, hivePerMVests), {suffix: "SP"})}{" "}</span>
                     )}
                 </>
             );
@@ -100,13 +100,13 @@ export class TransactionRow extends Component<RowProps> {
             numbers = (
                 <>
                     {reward_sbd.amount > 0 && (
-                        <span className="number">{formattedNumber(reward_sbd.amount, {suffix: "HBD"})}</span>
+                        <span className="number">{formattedNumber(reward_sbd.amount, {suffix: "SBD"})}</span>
                     )}
                     {reward_steem.amount > 0 && (
-                        <span className="number">{formattedNumber(reward_steem.amount, {suffix: "HIVE"})}</span>
+                        <span className="number">{formattedNumber(reward_steem.amount, {suffix: "STEEM"})}</span>
                     )}
                     {reward_vests.amount > 0 && (
-                        <span className="number">{formattedNumber(vestsToHp(reward_vests.amount, hivePerMVests), {suffix: "HP"})}</span>
+                        <span className="number">{formattedNumber(vestsToHp(reward_vests.amount, hivePerMVests), {suffix: "SP"})}</span>
                     )}
                 </>
             );
@@ -189,7 +189,7 @@ export class TransactionRow extends Component<RowProps> {
             const vesting_shares = parseAsset(tr.vesting_shares);
             numbers = (
                 <span className="number">
-                    {formattedNumber(vestsToHp(vesting_shares.amount, hivePerMVests), {suffix: "HP"})}
+                    {formattedNumber(vestsToHp(vesting_shares.amount, hivePerMVests), {suffix: "SP"})}
                 </span>
             );
 
@@ -207,7 +207,7 @@ export class TransactionRow extends Component<RowProps> {
             const vesting_shares = parseAsset(tr.vesting_shares);
             numbers = (
                 <span className="number">
-                    {formattedNumber(vestsToHp(vesting_shares.amount, hivePerMVests), {suffix: "HP"})}
+                    {formattedNumber(vestsToHp(vesting_shares.amount, hivePerMVests), {suffix: "SP"})}
                 </span>
             );
 
@@ -267,7 +267,7 @@ export class TransactionRow extends Component<RowProps> {
             flag = true;
             icon = pickAxeSvg;
 
-            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, hivePerMVests), {suffix: "HP"})}</>
+            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, hivePerMVests), {suffix: "SP"})}</>
         }
 
         if (tr.type === "interest") {
@@ -298,7 +298,7 @@ export class TransactionRow extends Component<RowProps> {
             flag = true;
             icon = powerUpSvg;
 
-            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, hivePerMVests), {suffix: "HP"})}</>
+            numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, hivePerMVests), {suffix: "SP"})}</>
         }
 
         if (tr.type === "proposal_pay") {
@@ -341,7 +341,7 @@ export class TransactionRow extends Component<RowProps> {
             numbers = (
                 <>
                     {payout.amount > 0 && (
-                        <span className="number">{formattedNumber(payout.amount, {suffix: "HBD"})}</span>
+                        <span className="number">{formattedNumber(payout.amount, {suffix: "SBD"})}</span>
                     )}
                 </>
             );
@@ -365,7 +365,7 @@ export class TransactionRow extends Component<RowProps> {
             numbers = (
                 <>
                     {amount.amount > 0 && (
-                        <span className="number">{formattedNumber(amount.amount, {suffix: "HIVE"})}</span>
+                        <span className="number">{formattedNumber(amount.amount, {suffix: "STEEM"})}</span>
                     )}
                 </>
             );
@@ -383,7 +383,7 @@ export class TransactionRow extends Component<RowProps> {
             numbers = (
                 <>
                     {payout.amount > 0 && (
-                        <span className="number">{formattedNumber(payout.amount, {suffix: "HBD"})}</span>
+                        <span className="number">{formattedNumber(payout.amount, {suffix: "SBD"})}</span>
                     )}
                 </>
             );

@@ -22,10 +22,10 @@ exports[`(1) Open orders render default 1`] = `
           Price
         </th>
         <th>
-          HIVE
+          STEEM
         </th>
         <th>
-          HBD ($)
+          SBD ($)
         </th>
         <th>
           Action

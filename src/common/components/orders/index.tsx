@@ -9,15 +9,15 @@ import { _t } from "../../i18n";
 
 const buyColumns = [
   `${_t("market.price")}`,
-  `HIVE`,
-  `${_t("market.total")} HBD ($)`,
+  `STEEM`,
+  `${_t("market.total")} SBD ($)`,
 ];
 
 const tradeColumns = [
   `${_t("market.date")}`,
   `${_t("market.price")}`,
-  `HIVE`,
-  `HBD ($)`,
+  `STEEM`,
+  `SBD ($)`,
 ];
 
 export interface MappedData {
@@ -45,7 +45,7 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
       mappedData = (data as OrdersDataItem[]).map((item: OrdersDataItem) => {
         return {
           key3: (item as OrdersDataItem).hbd / 1000,
-          key2: (item as OrdersDataItem).order_price.quote.replace("HIVE", ""),
+          key2: (item as OrdersDataItem).order_price.quote.replace("STEEM", ""),
           key1: parseFloat((item as OrdersDataItem).real_price).toFixed(6),
         };
       });
@@ -56,7 +56,7 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
       mappedData = (data as OrdersDataItem[]).map((item: OrdersDataItem) => {
         return {
           key3: (item as OrdersDataItem).hbd / 1000,
-          key2: (item as OrdersDataItem).order_price.quote.replace("HBD", ""),
+          key2: (item as OrdersDataItem).order_price.quote.replace("SBD", ""),
           key1: parseFloat((item as OrdersDataItem).real_price).toFixed(6),
         };
       });
@@ -69,13 +69,13 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
           let hbd = parseFloat(item.current_pays.split(" ")[0]);
           let hive = parseFloat(item.open_pays.toString().split(" ")[0]);
           let price = hbd / hive;
-          let type = item.current_pays.indexOf("HBD") !== -1 ? "bid" : "ask";
+          let type = item.current_pays.indexOf("SBD") !== -1 ? "bid" : "ask";
           let stringPrice = price.toFixed(6);
           
           return {
             key5: type,
-            key4: type === "bid" ? (item as TradeDataItem).current_pays.replace(" HBD","") : (item as TradeDataItem).open_pays.replace(" HBD",""),
-            key3: type === "ask" ? (item as TradeDataItem).current_pays.replace(" HIVE","") : (item as TradeDataItem).open_pays.replace(" HIVE",""),
+            key4: type === "bid" ? (item as TradeDataItem).current_pays.replace(" SBD","") : (item as TradeDataItem).open_pays.replace(" SBD",""),
+            key3: type === "ask" ? (item as TradeDataItem).current_pays.replace(" STEEM","") : (item as TradeDataItem).open_pays.replace(" STEEM",""),
             key2: stringPrice,
             key1: moment
               .utc((item as TradeDataItem).date)

@@ -113,7 +113,7 @@ exports[`(2) author_reward 1`] = `
     <span
       className="number"
     >
-      4.174 HBD
+      4.174 SBD
     </span>
     <span
       className="number"
@@ -288,7 +288,7 @@ exports[`(5) transfer 1`] = `
     <span
       className="number"
     >
-      192.425 HIVE
+      192.425 STEEM
     </span>
   </div>
   <div
@@ -358,7 +358,7 @@ exports[`(6) transfer_to_vesting 1`] = `
     <span
       className="number"
     >
-      82.203 HIVE
+      82.203 STEEM
     </span>
   </div>
   <div
@@ -563,7 +563,7 @@ exports[`(10) interest 1`] = `
     <span
       className="number"
     >
-      0.570 HBD
+      0.570 SBD
     </span>
   </div>
   <div
@@ -608,7 +608,7 @@ exports[`(11) transfer_to_savings 1`] = `
     <span
       className="number"
     >
-      0.001 HIVE
+      0.001 STEEM
     </span>
   </div>
   <div
@@ -670,9 +670,9 @@ exports[`(12) fill_convert_request 1`] = `
     <span
       className="number"
     >
-      1.507 HBD
+      1.507 SBD
        = 
-      10.920 HIVE
+      10.920 STEEM
     </span>
   </div>
   <div
@@ -813,7 +813,7 @@ exports[`(15) proposal_pay 1`] = `
     <span
       className="number"
     >
-      14.560 HBD
+      14.560 SBD
     </span>
   </div>
   <div

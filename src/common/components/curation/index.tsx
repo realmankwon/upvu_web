@@ -146,7 +146,7 @@ export const Curation = (props: Props) => {
                                 {r.votes}
                             </div>
                             <div className="points">
-                                {formattedNumber(vestsToHp(r.vests, hivePerMVests), {suffix: "HP"})}
+                                {formattedNumber(vestsToHp(r.vests, hivePerMVests), {suffix: "SP"})}
                             </div>
                         </div>;
                     })}

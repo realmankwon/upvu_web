@@ -462,7 +462,7 @@ exports[`(1) NotificationListItem (7) Transfer  1`] = `
           <span
             className="transfer-amount"
           >
-            900.000 HBD
+            900.000 SBD
           </span>
         </span>
       </div>

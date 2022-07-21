@@ -37,7 +37,7 @@ it("5- fetched", () => {
     },
     {
       trx_id: "0x123124",
-      amount: "43.101 HIVE",
+      amount: "43.101 STEEM",
       from: "user3",
       num: 3204009,
       timestamp: "2020-06-06T07:46:06",

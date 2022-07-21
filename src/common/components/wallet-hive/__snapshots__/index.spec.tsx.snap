@@ -37,12 +37,12 @@ exports[`(1) Default Render 1`] = `
           <div
             className="title"
           >
-            HIVE
+            STEEM
           </div>
           <div
             className="description"
           >
-            HIVE are tradeable tokens that may be transferred at anytime.HIVE can be converted to Hive Power in a process called powering up.
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
           </div>
         </div>
         <div
@@ -62,13 +62,13 @@ exports[`(1) Default Render 1`] = `
               />
             </div>
             <span>
-              0.000 HIVE
+              0.000 STEEM
             </span>
           </div>
         </div>
       </div>
       <div
-        className="balance-row hive-power alternative"
+        className="balance-row steem-power alternative"
       >
         <div
           className="balance-info"
@@ -76,17 +76,17 @@ exports[`(1) Default Render 1`] = `
           <div
             className="title"
           >
-            HIVE POWER
+            STEEM POWER
           </div>
           <div
             className="description"
           >
-            Hive Power are influence tokens that earn more power for holding long term and voting on content. The more Hive Power one holds, the more one can influence other’s rewards and earn rewards for accurate voting. Hive Power is staked HIVE token that can be unstaked in 13 weeks.
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 13 weeks.
           </div>
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for Hive Power is 2.980%
+            APR interest rate for Steem Poweris 2.980%
           </div>
         </div>
         <div
@@ -128,7 +128,7 @@ exports[`(1) Default Render 1`] = `
             </span>
           </div>
           <div
-            className="amount total-hive-power"
+            className="amount total-steem-power"
           >
             <span
               title="Total Hive Power"
@@ -147,12 +147,12 @@ exports[`(1) Default Render 1`] = `
           <div
             className="title"
           >
-            HIVE DOLLARS
+            STEEM DOLLARS
           </div>
           <div
             className="description"
           >
-            Tokens worth about $1.00 of HIVE.
+            Tokens worth about $1.00 of STEEM.
           </div>
         </div>
         <div
@@ -196,7 +196,7 @@ exports[`(1) Default Render 1`] = `
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for HBD($) is 10%
+            APR interest rate for SBD($) is 10%
           </div>
         </div>
         <div
@@ -216,7 +216,7 @@ exports[`(1) Default Render 1`] = `
               />
             </div>
             <span>
-              0.001 HIVE
+              0.001 STEEM
             </span>
           </div>
           <div
@@ -252,7 +252,7 @@ exports[`(1) Default Render 1`] = `
           <div
             className="description"
           >
-            The estimated value is based on a 7 day average value of HIVE.
+            The estimated value is based on a 7 day average value of STEEM.
           </div>
         </div>
         <div
@@ -268,7 +268,7 @@ exports[`(1) Default Render 1`] = `
       <div
         className="next-power-down"
       >
-        The next power down is in 5 days, 3,626.559 HIVE
+        The next power down is in 5 days, 3,626.559 STEEM
       </div>
       <div
         className="transaction-list"
@@ -412,7 +412,7 @@ exports[`(1) Default Render 1`] = `
 </div>
 `;
 
-exports[`(2) Render with converting HBD 1`] = `
+exports[`(2) Render with converting SBD 1`] = `
 <div
   className="wallet-hive"
 >
@@ -449,12 +449,12 @@ exports[`(2) Render with converting HBD 1`] = `
           <div
             className="title"
           >
-            HIVE
+            STEEM
           </div>
           <div
             className="description"
           >
-            HIVE are tradeable tokens that may be transferred at anytime.HIVE can be converted to Hive Power in a process called powering up.
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
           </div>
         </div>
         <div
@@ -474,7 +474,7 @@ exports[`(2) Render with converting HBD 1`] = `
               />
             </div>
             <span>
-              0.000 HIVE
+              0.000 STEEM
             </span>
           </div>
           <div
@@ -487,13 +487,13 @@ exports[`(2) Render with converting HBD 1`] = `
             >
               +
                
-              1.000 HIVE
+              1.000 STEEM
             </span>
           </div>
         </div>
       </div>
       <div
-        className="balance-row hive-power alternative"
+        className="balance-row steem-power alternative"
       >
         <div
           className="balance-info"
@@ -501,17 +501,17 @@ exports[`(2) Render with converting HBD 1`] = `
           <div
             className="title"
           >
-            HIVE POWER
+            STEEM POWER
           </div>
           <div
             className="description"
           >
-            Hive Power are influence tokens that earn more power for holding long term and voting on content. The more Hive Power one holds, the more one can influence other’s rewards and earn rewards for accurate voting. Hive Power is staked HIVE token that can be unstaked in 13 weeks.
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 13 weeks.
           </div>
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for Hive Power is 2.980%
+            APR interest rate for Steem Poweris 2.980%
           </div>
         </div>
         <div
@@ -553,7 +553,7 @@ exports[`(2) Render with converting HBD 1`] = `
             </span>
           </div>
           <div
-            className="amount total-hive-power"
+            className="amount total-steem-power"
           >
             <span
               title="Total Hive Power"
@@ -572,12 +572,12 @@ exports[`(2) Render with converting HBD 1`] = `
           <div
             className="title"
           >
-            HIVE DOLLARS
+            STEEM DOLLARS
           </div>
           <div
             className="description"
           >
-            Tokens worth about $1.00 of HIVE.
+            Tokens worth about $1.00 of STEEM.
           </div>
         </div>
         <div
@@ -606,7 +606,7 @@ exports[`(2) Render with converting HBD 1`] = `
             <span
               className="amount-btn"
               onClick={[Function]}
-              title="Converting to HIVE"
+              title="Converting to STEEM"
             >
               +
                
@@ -647,7 +647,7 @@ exports[`(2) Render with converting HBD 1`] = `
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for HBD($) is 10%
+            APR interest rate for SBD($) is 10%
           </div>
         </div>
         <div
@@ -667,7 +667,7 @@ exports[`(2) Render with converting HBD 1`] = `
               />
             </div>
             <span>
-              0.001 HIVE
+              0.001 STEEM
             </span>
           </div>
           <div
@@ -703,7 +703,7 @@ exports[`(2) Render with converting HBD 1`] = `
           <div
             className="description"
           >
-            The estimated value is based on a 7 day average value of HIVE.
+            The estimated value is based on a 7 day average value of STEEM.
           </div>
         </div>
         <div
@@ -719,7 +719,7 @@ exports[`(2) Render with converting HBD 1`] = `
       <div
         className="next-power-down"
       >
-        The next power down is in 5 days, 3,626.559 HIVE
+        The next power down is in 5 days, 3,626.559 STEEM
       </div>
       <div
         className="transaction-list"
@@ -900,12 +900,12 @@ exports[`(3) usePrivate = false 1`] = `
           <div
             className="title"
           >
-            HIVE
+            STEEM
           </div>
           <div
             className="description"
           >
-            HIVE are tradeable tokens that may be transferred at anytime.HIVE can be converted to Hive Power in a process called powering up.
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
           </div>
         </div>
         <div
@@ -925,7 +925,7 @@ exports[`(3) usePrivate = false 1`] = `
               />
             </div>
             <span>
-              0.000 HIVE
+              0.000 STEEM
             </span>
           </div>
           <div
@@ -938,13 +938,13 @@ exports[`(3) usePrivate = false 1`] = `
             >
               +
                
-              1.000 HIVE
+              1.000 STEEM
             </span>
           </div>
         </div>
       </div>
       <div
-        className="balance-row hive-power alternative"
+        className="balance-row steem-power alternative"
       >
         <div
           className="balance-info"
@@ -952,17 +952,17 @@ exports[`(3) usePrivate = false 1`] = `
           <div
             className="title"
           >
-            HIVE POWER
+            STEEM POWER
           </div>
           <div
             className="description"
           >
-            Hive Power are influence tokens that earn more power for holding long term and voting on content. The more Hive Power one holds, the more one can influence other’s rewards and earn rewards for accurate voting. Hive Power is staked HIVE token that can be unstaked in 13 weeks.
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 13 weeks.
           </div>
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for Hive Power is 2.980%
+            APR interest rate for Steem Poweris 2.980%
           </div>
         </div>
         <div
@@ -1003,7 +1003,7 @@ exports[`(3) usePrivate = false 1`] = `
             </span>
           </div>
           <div
-            className="amount total-hive-power"
+            className="amount total-steem-power"
           >
             <span
               title="Total Hive Power"
@@ -1022,12 +1022,12 @@ exports[`(3) usePrivate = false 1`] = `
           <div
             className="title"
           >
-            HIVE DOLLARS
+            STEEM DOLLARS
           </div>
           <div
             className="description"
           >
-            Tokens worth about $1.00 of HIVE.
+            Tokens worth about $1.00 of STEEM.
           </div>
         </div>
         <div
@@ -1056,7 +1056,7 @@ exports[`(3) usePrivate = false 1`] = `
             <span
               className="amount-btn"
               onClick={[Function]}
-              title="Converting to HIVE"
+              title="Converting to STEEM"
             >
               +
                
@@ -1097,7 +1097,7 @@ exports[`(3) usePrivate = false 1`] = `
           <div
             className="description font-weight-bold mt-2"
           >
-            APR interest rate for HBD($) is 10%
+            APR interest rate for SBD($) is 10%
           </div>
         </div>
         <div
@@ -1117,7 +1117,7 @@ exports[`(3) usePrivate = false 1`] = `
               />
             </div>
             <span>
-              0.001 HIVE
+              0.001 STEEM
             </span>
           </div>
           <div
@@ -1153,7 +1153,7 @@ exports[`(3) usePrivate = false 1`] = `
           <div
             className="description"
           >
-            The estimated value is based on a 7 day average value of HIVE.
+            The estimated value is based on a 7 day average value of STEEM.
           </div>
         </div>
         <div
@@ -1169,7 +1169,7 @@ exports[`(3) usePrivate = false 1`] = `
       <div
         className="next-power-down"
       >
-        The next power down is in 5 days, 3,626.559 HIVE
+        The next power down is in 5 days, 3,626.559 STEEM
       </div>
       <div
         className="transaction-list"

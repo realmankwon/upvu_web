@@ -64,7 +64,7 @@ export const WitnessCard = ({
       <div className="d-flex align-items-center my-2 justify-content-between">
         <div className="witness-feed">
           <span className="inner">
-            ${row.feed.replace(" HBD", "")} |{" "}
+            ${row.feed.replace(" SBD", "")} |{" "}
             {dateToRelative(row.priceAge)}
           </span>
         </div>

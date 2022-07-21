@@ -57,6 +57,6 @@ export const authCheck = (req: any, res: any, next: any) => {
     if (config.hsClientSecret && config.usePrivate !== "1") {
         next();
     } else {
-        res.json({error: "Define HIVESIGNER_SECRET ENV variable or set USE_PRIVATE=1"});
+        res.json({error: "Define STEEMSIGNER_SECRET ENV variable or set USE_PRIVATE=1"});
     }
 }

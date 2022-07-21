@@ -62,8 +62,8 @@ it("(2) author_reward", async () => {
         author: "user1",
         num: 358711,
         permlink: "lorem-ipsum-dolor",
-        sbd_payout: "4.174 HBD",
-        hive_payout: "0.000 HIVE",
+        sbd_payout: "4.174 SBD",
+        hive_payout: "0.000 STEEM",
         timestamp: "2020-06-02T18:02:27",
         type: "author_reward",
         vesting_payout: "31749.102292 VESTS",
@@ -85,8 +85,8 @@ it("(3) comment_benefactor_reward", async () => {
         benefactor: "esteemapp",
         num: 2623508,
         permlink: "re-nonameslefttouse-2020530t135919321z",
-        sbd_payout: "0.000 HBD",
-        hive_payout: "0.000 HIVE",
+        sbd_payout: "0.000 SBD",
+        hive_payout: "0.000 STEEM",
         timestamp: "2020-06-06T10:59:24",
         type: "comment_benefactor_reward",
         vesting_payout: "3.893128 VESTS",
@@ -106,8 +106,8 @@ it("(4) claim_reward_balance", async () => {
         trx_id: "0x14123213",
         account: "user1",
         num: 359042,
-        reward_sbd: "0.000 HBD",
-        reward_steem: "0.000 HIVE",
+        reward_sbd: "0.000 SBD",
+        reward_steem: "0.000 STEEM",
         reward_vests: "806.030497 VESTS",
         timestamp: "2020-06-04T07:25:33",
         type: "claim_reward_balance",
@@ -125,7 +125,7 @@ it("(4) claim_reward_balance", async () => {
 it("(5) transfer", async () => {
     const transaction: Transfer = {
         trx_id: "0x14123213",
-        amount: "192.425 HIVE",
+        amount: "192.425 STEEM",
         from: "user1",
         memo: "lorem-ipsum-dolor",
         num: 3204231,
@@ -146,7 +146,7 @@ it("(5) transfer", async () => {
 it("(6) transfer_to_vesting", async () => {
     const transaction: TransferToVesting = {
         trx_id: "0x14123213",
-        amount: "82.203 HIVE",
+        amount: "82.203 STEEM",
         from: "user1",
         num: 3204242,
         timestamp: "2020-06-06T10:14:33",
@@ -226,7 +226,7 @@ it("(10) interest", async () => {
         num: 4506230,
         timestamp: "2021-03-11T13:04:57",
         owner: "foo",
-        interest: "0.570 HBD",
+        interest: "0.570 SBD",
         type: "interest",
     };
 
@@ -242,7 +242,7 @@ it("(10) interest", async () => {
 it("(11) transfer_to_savings", async () => {
     const transaction: TransferToSavings = {
         trx_id: "0x14123213",
-        amount: "0.001 HIVE",
+        amount: "0.001 STEEM",
         from: "talhasch",
         memo: "test memo",
         num: 6621,
@@ -263,8 +263,8 @@ it("(11) transfer_to_savings", async () => {
 it("(12) fill_convert_request", async () => {
     const transaction: FillConvertRequest = {
         trx_id: "0x14123213",
-        amount_in: "1.507 HBD",
-        amount_out: "10.920 HIVE",
+        amount_in: "1.507 SBD",
+        amount_out: "10.920 STEEM",
         num: 6264,
         timestamp: "2021-01-29T21:27:00",
         type: "fill_convert_request"
@@ -322,7 +322,7 @@ it("(15) proposal_pay", async () => {
         "type": "proposal_pay",
         "timestamp": "2021-03-19T12:29:51",
         "trx_id": "0000000000000000000000000000000000000000",
-        "payment": "14.560 HBD"
+        "payment": "14.560 SBD"
     }
 
     const props = {

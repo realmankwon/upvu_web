@@ -165,13 +165,13 @@ exports[`(2) Dialog 1`] = `
               className="asset "
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset "
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
             <a
               className="asset selected"

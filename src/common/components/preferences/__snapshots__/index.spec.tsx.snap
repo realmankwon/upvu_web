@@ -68,7 +68,7 @@ exports[`(1) Default render 1`] = `
           <option
             value="hbd"
           >
-            Hive Based Dollar
+            Steem Based Dollar
           </option>
           <option
             value="usd"

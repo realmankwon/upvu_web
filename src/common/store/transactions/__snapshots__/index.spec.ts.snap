@@ -47,7 +47,7 @@ Object {
       "type": "curation_reward",
     },
     Object {
-      "amount": "43.101 HIVE",
+      "amount": "43.101 STEEM",
       "from": "user3",
       "num": 3204009,
       "timestamp": "2020-06-06T07:46:06",

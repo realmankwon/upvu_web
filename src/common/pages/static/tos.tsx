@@ -118,22 +118,22 @@ class TosPage extends Component<PageProps> {
             <p>9.2. Account and Private Keys. Should you agree to create an Account through our Service, we generate a cryptographic private and public key pair that
               are provided solely to you and completely owned by you; provided however that we not store passwords or Private Keys for our you. We never have access
               to your Private Key and do not custody any Private Keys on your behalf, and therefore, assume no responsibility for the management of the Private Key
-              tied to your Account. The Private Key uniquely match the Account name and must be used in connection with the Account to authorize the transfer of HIVE
+              tied to your Account. The Private Key uniquely match the Account name and must be used in connection with the Account to authorize the transfer of STEEM
               and Hive Dollars from that Account. You are solely responsible for maintaining the security of your Private Keys. You must keep your Private Key access
-              information secure. Failure to do so may result in the loss of control of HIVE, Hive Power and Hive Dollars associated with your Account.</p>
+              information secure. Failure to do so may result in the loss of control of STEEM,Steem Powerand Hive Dollars associated with your Account.</p>
             <p>9.3. No Password Retrieval. We do not receive or store your Account password or Private Keys. Your Private Key is your own and you are solely responsible
               for their safekeeping. We cannot assist you with Account password retrieval, reset, or recovery. You are solely responsible for remembering your Account
-              password. If you have not safely stored a backup of any Account and password pairs maintained in your Account, you accept and acknowledge that any HIVE,
-              Hive Dollars and Hive Power you have associated with such Account will become permanently inaccessible if you do not have your Account password.</p>
+              password. If you have not safely stored a backup of any Account and password pairs maintained in your Account, you accept and acknowledge that any STEEM,
+              Hive Dollars and Steem Poweryou have associated with such Account will become permanently inaccessible if you do not have your Account password.</p>
             <p>9.4. Transactions. All proposed Hive blockchain transactions must be confirmed and recorded in the Hive blockchain via the Hive distributed consensus
               network (a peer-to-peer network), which is not owned, controlled, or operated by us. The Hive blockchain is operated by a decentralized network of
               independent third parties. We have no control over the Hive blockchain and therefore cannot and will not ensure that any transaction details you submit
               via the Services will be confirmed on the Hive blockchain. You acknowledge and agree that the transaction details you submit via the Services may not be
               completed, or may be substantially delayed, by the Hive blockchain. You may use the Services to submit these details to the Hive blockchain.</p>
-            <p>9.5. No Storage or Transmission of HIVE, Hive Dollars or Hive Power. HIVE, in any of its forms (HIVE, Hive Dollars and Hive Power) is an intangible,
+            <p>9.5. No Storage or Transmission of STEEM,Hive Dollars or Hive Power. STEEM,in any of its forms (STEEM,Hive Dollars and Hive Power) is an intangible,
               digital asset controlled by you. These assets exist only by virtue of the ownership record maintained on the Hive blockchain. The Service does not
-              store, send, or receive HIVE, Hive Dollars, or Hive Power. Any transfer of title that might occur in any HIVE, Hive Dollars or Hive Power occurs on the
-              Hive blockchain and not within the Services. We do not guarantee that the Service can affect the transfer of title or right in any HIVE, Hive Dollars or
+              store, send, or receive STEEM,Hive Dollars, or Hive Power. Any transfer of title that might occur in any STEEM,Hive Dollars or Steem Poweroccurs on the
+              Hive blockchain and not within the Services. We do not guarantee that the Service can affect the transfer of title or right in any STEEM,Hive Dollars or
               Hive Power.</p>
             <p>9.6. Relationship. Nothing in this Agreement is intended to nor shall create any partnership, joint venture, agency, consultancy, or trusteeship, between
               you and us.</p>
@@ -152,13 +152,13 @@ class TosPage extends Component<PageProps> {
             <p>10.1. Fees Creating an Account. We do not currently charge fees for the creation of Accounts, however we reserve the right to do so in future, and in
               such case any applicable fees will be displayed prior to you using any Service to which a fee applies.</p>
             <h2>11. No Right to Cancel And/or Reverse Hive Transactions</h2>
-            <p>11.1. If you use a Service to which HIVE, Hive Dollars or Hive Power is transacted, you will not be able to change your mind once you have confirmed that
+            <p>11.1. If you use a Service to which STEEM,Hive Dollars or Steem Poweris transacted, you will not be able to change your mind once you have confirmed that
               you wish to proceed with the Service or transaction.</p>
             <h2>12. Discontinuation of Services.</h2>
             <p>12.1. We may, in our sole discretion and without cost to you, with or without prior notice and at any time, modify or discontinue, temporarily or
               permanently, any portion of our Services. You are solely responsible for storing, outside of the Services, a backup of any Account and Private Key that
               you maintain in your Account.</p>
-            <p>12.2. If you do not maintain a backup of your Account data outside of the Services, you will be may not be able to access HIVE, Hive Dollars and Hive
+            <p>12.2. If you do not maintain a backup of your Account data outside of the Services, you will be may not be able to access STEEM,Hive Dollars and Hive
               Power associated with any Account maintained in your Account if we discontinue or deprecate the Services.</p>
             <h2>13. Suspension or Termination of Service.</h2>
             <p>13.1. We may suspend or terminate your access to the Services in our sole discretion, immediately and without prior notice, and delete or deactivate your

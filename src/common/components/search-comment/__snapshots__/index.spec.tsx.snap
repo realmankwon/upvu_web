@@ -118,7 +118,7 @@ exports[`(1) Default render 1`] = `
               href="/ecency/@good-karma/imagehoster-hivesigner-and-condenser-bounty"
               onClick={[Function]}
             >
-              Bounty prize: 1000 HBD
+              Bounty prize: 1000 SBD
 Related issue: https://gitlab.syncad.com/hive/condenser/-/issues/43
 
 Integration examples to get started: Esteem/
@@ -1322,7 +1322,7 @@ exports[`(2) With limit 1`] = `
               href="/ecency/@good-karma/imagehoster-hivesigner-and-condenser-bounty"
               onClick={[Function]}
             >
-              Bounty prize: 1000 HBD
+              Bounty prize: 1000 SBD
 Related issue: https://gitlab.syncad.com/hive/condenser/-/issues/43
 
 Integration examples to get started: Esteem/
@@ -2536,7 +2536,7 @@ exports[`(3) Hide show more button 1`] = `
               href="/ecency/@good-karma/imagehoster-hivesigner-and-condenser-bounty"
               onClick={[Function]}
             >
-              Bounty prize: 1000 HBD
+              Bounty prize: 1000 SBD
 Related issue: https://gitlab.syncad.com/hive/condenser/-/issues/43
 
 Integration examples to get started: Esteem/

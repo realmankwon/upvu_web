@@ -46,8 +46,8 @@ export default class MarketData extends Component<MarketDataProps,MarketDataStat
                 </Tsx>}
             </div>
             {visible ? <SSRSuspense fallback={_t("g.loading-chunk")}>
-                <Market label="HIVE" coin="hive" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter="0.000$" theme={theme}/>
-                <Market label="HBD" coin="hive_dollar" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter="0.000$" theme={theme}/>
+                <Market label="STEEM" coin="hive" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter="0.000$" theme={theme}/>
+                <Market label="SBD" coin="hive_dollar" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter="0.000$" theme={theme}/>
                 <Market label="BTC" coin="bitcoin" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter=",$" theme={theme}/>
                 <Market label="ETH" coin="ethereum" vsCurrency="usd" fromTs={fromTs} toTs={toTs} formatter="0.000$" theme={theme}/>
                 <div className="menu-nav">

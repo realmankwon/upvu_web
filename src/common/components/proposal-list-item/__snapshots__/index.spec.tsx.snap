@@ -88,7 +88,7 @@ exports[`(1) Default render. 1`] = `
           <span
             className="all-pay"
           >
-            51.1k HBD
+            51.1k SBD
           </span>
           <span
             className="daily-pay"
@@ -96,7 +96,7 @@ exports[`(1) Default render. 1`] = `
             (
             Daily 70.0
              
-            HBD
+            SBD
             )
           </span>
         </div>

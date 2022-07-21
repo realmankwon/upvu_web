@@ -28,7 +28,7 @@ jest.mock("../../api/hive", () => ({
 
             if (MOCK_MODE === 2) {
                 resolve([{
-                    amount: "1200.000 HBD",
+                    amount: "1200.000 SBD",
                     conversion_date: "2021-01-29T21:19:54",
                     id: 163785,
                     owner: "fooo",
@@ -50,7 +50,7 @@ jest.mock("../../api/hive", () => ({
                     "to":"ecency",
                     "memo":"",
                     "request_id":3123100728,
-                    "amount":"10100.297 HBD",
+                    "amount":"10100.297 SBD",
                     "complete":"2022-02-05T11:16:54"
                 }]);
             }
@@ -71,10 +71,10 @@ jest.mock("../../api/hive", () => ({
                     "orderid":3123100728,
                     "for_sale":1000,
                     "sell_price": {
-                        "base": "1 HIVE",
-                        "quote": "0.800 HBD"
+                        "base": "1 STEEM",
+                        "quote": "0.800 SBD"
                     },
-                    "real_price": "0.900 HBD",
+                    "real_price": "0.900 SBD",
                     "rewarded":false
                 }]);
             }
@@ -84,17 +84,17 @@ jest.mock("../../api/hive", () => ({
 const account: FullAccount = {
     ...fullAccountInstance,
     name: "user1",
-    balance: "0.000 HIVE",
+    balance: "0.000 STEEM",
     delegated_vesting_shares: "0.000000 VESTS",
     next_vesting_withdrawal: "2020-06-10T18:39:30",
     received_vesting_shares: "9916.938399 VESTS",
-    reward_sbd_balance: "0.000 HBD",
-    reward_vesting_steem: "10.207 HIVE",
-    savings_balance: "0.001 HIVE",
-    savings_sbd_balance: "0.000 HBD",
+    reward_sbd_balance: "0.000 SBD",
+    reward_vesting_steem: "10.207 STEEM",
+    savings_balance: "0.001 STEEM",
+    savings_sbd_balance: "0.000 SBD",
     savings_sbd_last_interest_payment: "2021-03-18T15:42:03",
     savings_sbd_seconds_last_update: "2021-03-18T15:42:03",
-    sbd_balance: "447.514 HBD",
+    sbd_balance: "447.514 SBD",
     to_withdraw: "91765607000000",
     vesting_shares: "83549915.208336 VESTS",
     vesting_withdraw_rate: "7058892.846154 VESTS",
@@ -132,7 +132,7 @@ it("(1) Default Render", async() => {
     expect(renderer.toJSON()).toMatchSnapshot();
 });
 
-it("(2) Render with converting HBD", async () => {
+it("(2) Render with converting SBD", async () => {
     MOCK_MODE = 2;
 
     const renderer = await TestRenderer.create(

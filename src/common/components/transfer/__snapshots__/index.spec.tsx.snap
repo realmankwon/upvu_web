@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`(1) Transfer HIVE (1) Step 1 1`] = `
+exports[`(1) Transfer STEEM (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -144,13 +144,13 @@ exports[`(1) Transfer HIVE (1) Step 1 1`] = `
               className="asset selected"
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset "
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
             <a
               className="asset "
@@ -183,7 +183,7 @@ exports[`(1) Transfer HIVE (1) Step 1 1`] = `
             >
               1.751
                
-              HIVE
+              STEEM
             </span>
           </div>
         </div>
@@ -242,7 +242,7 @@ exports[`(1) Transfer HIVE (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(1) Transfer HIVE (2) Step 2 1`] = `
+exports[`(1) Transfer STEEM (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -328,7 +328,7 @@ exports[`(1) Transfer HIVE (2) Step 2 1`] = `
         >
           0.001
            
-          HIVE
+          STEEM
         </div>
         
       </div>
@@ -360,7 +360,7 @@ exports[`(1) Transfer HIVE (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(1) Transfer HIVE (3) Step 3 1`] = `
+exports[`(1) Transfer STEEM (3) Step 3 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -481,7 +481,7 @@ exports[`(1) Transfer HIVE (3) Step 3 1`] = `
 </div>
 `;
 
-exports[`(1) Transfer HIVE (4) Step 4 1`] = `
+exports[`(1) Transfer STEEM (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -518,7 +518,7 @@ exports[`(1) Transfer HIVE (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HIVE</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 STEEM</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -550,7 +550,7 @@ exports[`(1) Transfer HIVE (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(2) Transfer HBD (1) Step 1 1`] = `
+exports[`(2) Transfer SBD (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -694,13 +694,13 @@ exports[`(2) Transfer HBD (1) Step 1 1`] = `
               className="asset "
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset selected"
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
             <a
               className="asset "
@@ -733,7 +733,7 @@ exports[`(2) Transfer HBD (1) Step 1 1`] = `
             >
               0.311
                
-              HBD
+              SBD
             </span>
           </div>
         </div>
@@ -792,7 +792,7 @@ exports[`(2) Transfer HBD (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(2) Transfer HBD (2) Step 2 1`] = `
+exports[`(2) Transfer SBD (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -878,7 +878,7 @@ exports[`(2) Transfer HBD (2) Step 2 1`] = `
         >
           0.001
            
-          HBD
+          SBD
         </div>
         <div
           className="memo"
@@ -914,7 +914,7 @@ exports[`(2) Transfer HBD (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(2) Transfer HBD (4) Step 4 1`] = `
+exports[`(2) Transfer SBD (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -951,7 +951,7 @@ exports[`(2) Transfer HBD (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HBD</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 SBD</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -1127,13 +1127,13 @@ exports[`(3) Transfer POINT (1) Step 1 1`] = `
               className="asset "
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset "
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
             <a
               className="asset selected"
@@ -1412,7 +1412,7 @@ exports[`(3) Transfer POINT (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(4) Transfer to Savings - HBD (1) Step 1 1`] = `
+exports[`(4) Transfer to Savings - SBD (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1556,13 +1556,13 @@ exports[`(4) Transfer to Savings - HBD (1) Step 1 1`] = `
               className="asset "
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset selected"
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
           </div>
         </div>
@@ -1589,7 +1589,7 @@ exports[`(4) Transfer to Savings - HBD (1) Step 1 1`] = `
             >
               0.311
                
-              HBD
+              SBD
             </span>
           </div>
         </div>
@@ -1648,7 +1648,7 @@ exports[`(4) Transfer to Savings - HBD (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(4) Transfer to Savings - HBD (2) Step 2 1`] = `
+exports[`(4) Transfer to Savings - SBD (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1734,7 +1734,7 @@ exports[`(4) Transfer to Savings - HBD (2) Step 2 1`] = `
         >
           0.001
            
-          HBD
+          SBD
         </div>
         
       </div>
@@ -1766,7 +1766,7 @@ exports[`(4) Transfer to Savings - HBD (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(4) Transfer to Savings - HBD (4) Step 4 1`] = `
+exports[`(4) Transfer to Savings - SBD (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1803,7 +1803,7 @@ exports[`(4) Transfer to Savings - HBD (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HBD</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 SBD</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -1835,7 +1835,7 @@ exports[`(4) Transfer to Savings - HBD (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(5) Withdraw Savings - HIVE (1) Step 1 1`] = `
+exports[`(5) Withdraw Savings - STEEM (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1979,13 +1979,13 @@ exports[`(5) Withdraw Savings - HIVE (1) Step 1 1`] = `
               className="asset selected"
               onClick={[Function]}
             >
-              HIVE
+              STEEM
             </a>
             <a
               className="asset "
               onClick={[Function]}
             >
-              HBD
+              SBD
             </a>
           </div>
         </div>
@@ -2012,7 +2012,7 @@ exports[`(5) Withdraw Savings - HIVE (1) Step 1 1`] = `
             >
               1.000
                
-              HIVE
+              STEEM
             </span>
           </div>
         </div>
@@ -2071,7 +2071,7 @@ exports[`(5) Withdraw Savings - HIVE (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(5) Withdraw Savings - HIVE (2) Step 2 1`] = `
+exports[`(5) Withdraw Savings - STEEM (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -2157,7 +2157,7 @@ exports[`(5) Withdraw Savings - HIVE (2) Step 2 1`] = `
         >
           0.001
            
-          HIVE
+          STEEM
         </div>
         
       </div>
@@ -2189,7 +2189,7 @@ exports[`(5) Withdraw Savings - HIVE (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(5) Withdraw Savings - HIVE (4) Step 4 1`] = `
+exports[`(5) Withdraw Savings - STEEM (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -2226,7 +2226,7 @@ exports[`(5) Withdraw Savings - HIVE (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HIVE</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 STEEM</span> transferred from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -2284,7 +2284,7 @@ exports[`(6) Convert (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Only recommended when HBD is below $1. You will get $1 of HIVE in 3.5 days.
+          Only recommended when SBD is below $1. You will get $1 of STEEM in 3.5 days.
         </div>
       </div>
     </div>
@@ -2378,7 +2378,7 @@ exports[`(6) Convert (1) Step 1 1`] = `
             >
               0.311
                
-              HBD
+              SBD
             </span>
           </div>
         </div>
@@ -2466,7 +2466,7 @@ exports[`(6) Convert (2) Step 2 1`] = `
         >
           0.001
            
-          HBD
+          SBD
         </div>
         
       </div>
@@ -2535,7 +2535,7 @@ exports[`(6) Convert (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HBD</span> being converted",
+            "__html": "<span class=\\"amount\\">0.001 SBD</span> being converted",
           }
         }
       />
@@ -2728,7 +2728,7 @@ exports[`(7) Power up (1) Step 1 1`] = `
             >
               1.751
                
-              HIVE
+              STEEM
             </span>
           </div>
         </div>
@@ -2840,7 +2840,7 @@ exports[`(7) Power up (2) Step 2 1`] = `
         >
           0.001
            
-          HIVE
+          STEEM
         </div>
         
       </div>
@@ -2909,7 +2909,7 @@ exports[`(7) Power up (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HIVE</span> staked from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 STEEM</span> staked from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -3456,7 +3456,7 @@ exports[`(9) Power down (1) Step 1 1`] = `
           <div
             className="power-down-estimation"
           >
-            + 0.154 HIVE Estimated Weekly
+            + 0.154 STEEM Estimated Weekly
           </div>
         </div>
       </div>
@@ -3687,7 +3687,7 @@ exports[`(10) Powering down (1) Step 1 1`] = `
       </p>
       <p>
          
-        The next power down is in 5 days, 269.941 HIVE
+        The next power down is in 5 days, 269.941 STEEM
       </p>
       <p>
         <button

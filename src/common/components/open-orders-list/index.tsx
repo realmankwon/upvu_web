@@ -103,7 +103,7 @@ export class List extends BaseComponent<Props, State> {
                                         <td>{orderid}</td>
                                         <td>
                                             <Tooltip content={x.sell_price.quote}>
-                                                <span>{tokenType=="HBD"?formattedNumber(x.sell_price.base, {prefix: "$"}):formattedNumber(x.sell_price.base, {suffix: tokenType})}</span>
+                                                <span>{tokenType=="SBD"?formattedNumber(x.sell_price.base, {prefix: "$"}):formattedNumber(x.sell_price.base, {suffix: tokenType})}</span>
                                             </Tooltip>
                                         </td>
                                         <td>

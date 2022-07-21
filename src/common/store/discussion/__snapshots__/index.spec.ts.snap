@@ -84,7 +84,7 @@ Object {
         },
       ],
       "author": "good-karma",
-      "author_payout_value": "0.000 HBD",
+      "author_payout_value": "0.000 SBD",
       "author_reputation": 76.58,
       "beneficiaries": Array [
         Object {
@@ -111,7 +111,7 @@ In 30 days, we will PR to official project awesome list. More awareness about aw
       "category": "hive",
       "children": 31,
       "created": "2020-06-01T05:53:33",
-      "curator_payout_value": "0.000 HBD",
+      "curator_payout_value": "0.000 SBD",
       "depth": 0,
       "is_paidout": false,
       "json_metadata": Object {
@@ -125,15 +125,15 @@ In 30 days, we will PR to official project awesome list. More awareness about aw
           "list",
         ],
       },
-      "max_accepted_payout": "1000000.000 HBD",
+      "max_accepted_payout": "1000000.000 SBD",
       "net_rshares": 234863836438976,
       "payout": 125.095,
       "payout_at": "2020-06-08T05:53:33",
-      "pending_payout_value": "125.095 HBD",
+      "pending_payout_value": "125.095 SBD",
       "percent_sbd": 10000,
       "permlink": "awesome-hive",
       "post_id": 86342505,
-      "promoted": "0.000 HBD",
+      "promoted": "0.000 SBD",
       "replies": Array [],
       "stats": Object {
         "flag_weight": 1,

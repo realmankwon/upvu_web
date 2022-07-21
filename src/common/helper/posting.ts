@@ -25,7 +25,7 @@ export const createPermlink = (title: string, random: boolean = false): string =
         perm = `${perm}-${rnd}`;
     }
 
-    // HIVE_MAX_PERMLINK_LENGTH
+    // STEEM_MAX_PERMLINK_LENGTH
     if (perm.length > 255) {
         perm = perm.substring(perm.length - 255, perm.length);
     }
@@ -107,7 +107,7 @@ export const makeCommentOptions = (author: string, permlink: string, rewardType:
         allow_votes: true,
         author,
         permlink,
-        max_accepted_payout: "1000000.000 HBD",
+        max_accepted_payout: "1000000.000 SBD",
         percent_sbd: 10000,
         extensions: (beneficiaries && beneficiaries.length > 0) ? [
             [0, {beneficiaries: beneficiaries}]
@@ -116,15 +116,15 @@ export const makeCommentOptions = (author: string, permlink: string, rewardType:
 
     switch (rewardType) {
         case "sp":
-            opt.max_accepted_payout = "1000000.000 HBD";
+            opt.max_accepted_payout = "1000000.000 SBD";
             opt.percent_sbd = 0;
             break;
         case "dp":
-            opt.max_accepted_payout = "0.000 HBD";
+            opt.max_accepted_payout = "0.000 SBD";
             opt.percent_sbd = 10000;
             break;
         case "default":
-            opt.max_accepted_payout = "1000000.000 HBD";
+            opt.max_accepted_payout = "1000000.000 SBD";
             opt.percent_sbd = 10000;
             break;
     }

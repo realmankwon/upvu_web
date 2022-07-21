@@ -167,8 +167,8 @@ export class ProposalListItem extends Component<Props, State> {
                                 {startDate.format('ll')} {"-"} {endDate.format("ll")} ({_t("proposals.duration-days", {n: duration})})
                             </div>
                             <div className="proposal-payment">
-                                <span className="all-pay">{`${strAllPayment} HBD`}</span>
-                                <span className="daily-pay">({_t("proposals.daily-pay", {n: strDailyHdb})}{" "}{"HBD"})</span>
+                                <span className="all-pay">{`${strAllPayment} SBD`}</span>
+                                <span className="daily-pay">({_t("proposals.daily-pay", {n: strDailyHdb})}{" "}{"SBD"})</span>
                             </div>
                         </div>
                         <div className="permlink">

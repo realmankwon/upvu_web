@@ -22,9 +22,9 @@ it("(1) Default render", async () => {
             username: 'foo',
             data: {
                 name: 'foo',
-                balance: '12.234 HIVE',
+                balance: '12.234 STEEM',
                 sbd_balance: '4321.212',
-                savings_balance: '2123.000 HIVE'
+                savings_balance: '2123.000 STEEM'
             },
             points: {
                 points: "500.000",
@@ -54,9 +54,9 @@ it("(2) Insufficient Funds", async () => {
             username: 'foo',
             data: {
                 name: 'foo',
-                balance: '12.234 HIVE',
+                balance: '12.234 STEEM',
                 sbd_balance: '4321.212',
-                savings_balance: '2123.000 HIVE'
+                savings_balance: '2123.000 STEEM'
             },
             points: {
                 points: "10.000",
@@ -87,9 +87,9 @@ it("(2) With entry", async () => {
             username: 'foo',
             data: {
                 name: 'foo',
-                balance: '12.234 HIVE',
+                balance: '12.234 STEEM',
                 sbd_balance: '4321.212',
-                savings_balance: '2123.000 HIVE'
+                savings_balance: '2123.000 STEEM'
             },
             points: {
                 points: "500.000",

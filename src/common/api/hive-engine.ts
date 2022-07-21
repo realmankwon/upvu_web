@@ -42,7 +42,7 @@ export interface TokenStatus {
   precision: number;
 }
 
-const HIVE_ENGINE_RPC_URL = "https://api.hive-engine.com/rpc/contracts";
+const STEEM_ENGINE_RPC_URL = "https://api.hive-engine.com/rpc/contracts";
 
 export const getTokenBalances = (account: string): Promise<TokenBalance[]> => {
   const data = {
@@ -59,7 +59,7 @@ export const getTokenBalances = (account: string): Promise<TokenBalance[]> => {
   };
 
   return axios
-    .post(HIVE_ENGINE_RPC_URL, data, {
+    .post(STEEM_ENGINE_RPC_URL, data, {
       headers: { "Content-type": "application/json" },
     })
     .then((r) => r.data.result)
@@ -83,7 +83,7 @@ const getTokens = (tokens: string[]): Promise<Token[]> => {
   };
 
   return axios
-    .post(HIVE_ENGINE_RPC_URL, data, {
+    .post(STEEM_ENGINE_RPC_URL, data, {
       headers: { "Content-type": "application/json" },
     })
     .then((r) => r.data.result)

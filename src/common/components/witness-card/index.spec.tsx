@@ -9,7 +9,7 @@ const defaultProps = {
     voted: true,
     global: globalInstance,
     witness: 'Witness name',
-    row:{feed:"2 HBD", priceAge: "2000-10-09T12:00:03"},
+    row:{feed:"2 SBD", priceAge: "2000-10-09T12:00:03"},
     onSuccess: () => {
     },
 }

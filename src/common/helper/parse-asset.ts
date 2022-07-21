@@ -1,14 +1,14 @@
 import { SMTAsset } from '@hiveio/dhive';
 
 export enum Symbol {
-    HIVE = 'HIVE',
-    HBD = 'HBD',
+    STEEM = 'STEEM',
+    SBD = 'SBD',
     VESTS = 'VESTS',
 }
 
 export enum NaiMap {
-    '@@000000021' = 'HIVE',
-    '@@000000013' = 'HBD',
+    '@@000000021' = 'STEEM',
+    '@@000000013' = 'SBD',
     '@@000000037' = 'VESTS',
 }
 

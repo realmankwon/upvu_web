@@ -124,7 +124,7 @@ export class List extends BaseComponent<Props, State> {
                                 </div>
                                 <div className="item-extra">
                                     <Tooltip content={x.vesting_shares}>
-                                        <span>{formattedNumber(vestsToHp(vestingShares, hivePerMVests), {suffix: "HP"})}</span>
+                                        <span>{formattedNumber(vestsToHp(vestingShares, hivePerMVests), {suffix: "SP"})}</span>
                                     </Tooltip>
                                 </div>
                             </div>;

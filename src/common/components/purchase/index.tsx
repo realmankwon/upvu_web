@@ -45,7 +45,7 @@ interface State {
 export class Purchase extends BaseComponent<Props, State> {
     state: State = {
         submitted: false,
-        asset: 'HIVE',
+        asset: 'STEEM',
         amount: 250,
         points: 0,
         usd: 0
@@ -99,14 +99,14 @@ export class Purchase extends BaseComponent<Props, State> {
                     <div className="nav-item">
                         <a href="#" onClick={e => {
                             e.preventDefault();
-                            this.setAsset('HIVE')
-                        }} className={_c(`nav-link ${asset === 'HIVE' ? 'active' : ''}`)}>HIVE</a>
+                            this.setAsset('STEEM')
+                        }} className={_c(`nav-link ${asset === 'STEEM' ? 'active' : ''}`)}>STEEM</a>
                     </div>
                     <div className="nav-item">
                         <a href="#" onClick={e => {
                             e.preventDefault();
-                            this.setAsset('HBD')
-                        }} className={_c(`nav-link ${asset === 'HBD' ? 'active' : ''}`)}>HBD</a>
+                            this.setAsset('SBD')
+                        }} className={_c(`nav-link ${asset === 'SBD' ? 'active' : ''}`)}>SBD</a>
                     </div>
                 </div>
             </div>
