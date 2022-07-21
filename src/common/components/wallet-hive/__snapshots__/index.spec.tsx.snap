@@ -380,7 +380,7 @@ exports[`(1) Default Render 1`] = `
         </span>
       </a>
       <a
-        className="menu-item hive-engine"
+        className="menu-item steem-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >
@@ -831,7 +831,7 @@ exports[`(2) Render with converting SBD 1`] = `
         </span>
       </a>
       <a
-        className="menu-item hive-engine"
+        className="menu-item steem-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >
@@ -1257,7 +1257,7 @@ exports[`(3) usePrivate = false 1`] = `
         </span>
       </a>
       <a
-        className="menu-item hive-engine"
+        className="menu-item steem-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >

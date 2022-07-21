@@ -1,5 +1,5 @@
 import axios from "axios";
-import HiveEngineToken from "../helper/hive-engine-wallet";
+import SteemEngineToken from "../helper/steem-engine-wallet";
 import { TransactionConfirmation } from "@hiveio/dhive";
 import { broadcastPostingJSON } from "./operations";
 
@@ -42,7 +42,7 @@ export interface TokenStatus {
   precision: number;
 }
 
-const STEEM_ENGINE_RPC_URL = "https://api.hive-engine.com/rpc/contracts";
+const STEEM_ENGINE_RPC_URL = "https://api.steem-engine.net/rpc/contracts";
 
 export const getTokenBalances = (account: string): Promise<TokenBalance[]> => {
   const data = {
@@ -92,42 +92,50 @@ const getTokens = (tokens: string[]): Promise<Token[]> => {
     });
 };
 
-export const getHiveEngineTokenBalances = async (
+export const getSteemEngineTokenBalances = async (
   account: string
-): Promise<HiveEngineToken[]> => {
-// commented just to try removing the non-existing unknowing HiveEngineTokenBalance type
-// ): Promise<HiveEngineTokenBalance[]> => {
+): Promise<SteemEngineToken[]> => {
+  // commented just to try removing the non-existing unknowing SteemEngineTokenBalance type
+  // ): Promise<SteemEngineTokenBalance[]> => {
   const balances = await getTokenBalances(account);
   const tokens = await getTokens(balances.map((t) => t.symbol));
 
   return balances.map((balance) => {
     const token = tokens.find((t) => t.symbol == balance.symbol);
-    const tokenMetadata = token && JSON.parse(token!.metadata) as TokenMetadata;
+    const tokenMetadata =
+      token && (JSON.parse(token!.metadata) as TokenMetadata);
 
-    return new HiveEngineToken({ ...balance, ...token, ...tokenMetadata } as any);
+    return new SteemEngineToken({
+      ...balance,
+      ...token,
+      ...tokenMetadata,
+    } as any);
   });
 };
 
-export const getUnclaimedRewards = async(
+export const getUnclaimedRewards = async (
   account: string
 ): Promise<TokenStatus[]> => {
-  return (axios
-    .get(`https://scot-api.hive-engine.com/@${account}?hive=1`)
-    .then((r) => r.data)
-    .then((r) => Object.values(r))
-    .then((r) => r.filter((t) => (t as TokenStatus).pending_token > 0)) as any)
-    .catch(() => {
-      return [];
-    });
+  return (
+    axios
+      .get(`https://api.steem-engine.net/@${account}?hive=1`)
+      .then((r) => r.data)
+      .then((r) => Object.values(r))
+      .then((r) => r.filter((t) => (t as TokenStatus).pending_token > 0)) as any
+  ).catch(() => {
+    return [];
+  });
 };
 
 export const claimRewards = async (
   account: string,
   tokens: string[]
 ): Promise<TransactionConfirmation> => {
-  const json = JSON.stringify(tokens.map((r) => {
-    return { symbol: r };
-  }));
+  const json = JSON.stringify(
+    tokens.map((r) => {
+      return { symbol: r };
+    })
+  );
 
   return broadcastPostingJSON(account, "scot_claim_token", json);
 };
@@ -135,7 +143,7 @@ export const claimRewards = async (
 export const stakeTokens = async (
   account: string,
   token: string,
-  amount: string,
+  amount: string
 ): Promise<TransactionConfirmation> => {
   const json = JSON.stringify({
     contractName: "tokens",

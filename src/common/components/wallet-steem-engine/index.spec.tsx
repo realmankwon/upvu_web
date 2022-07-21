@@ -13,15 +13,15 @@ import {
   dynamicPropsIntance1,
   activeUserInstance,
   allOver,
-  fullAccountInstance
+  fullAccountInstance,
 } from "../../helper/test-helper";
 import { StaticRouter } from "react-router-dom";
 import { FullAccount } from "../../store/accounts/types";
 
 let MOCK_MODE = 1;
 
-jest.mock("../../api/hive-engine", () => ({
-  getHiveEngineTokenBalances: () =>
+jest.mock("../../api/steem-engine", () => ({
+  getSteemEngineTokenBalances: () =>
     new Promise((resolve) => {
       if (MOCK_MODE === 1) {
         resolve([]);
@@ -88,23 +88,26 @@ jest.mock("../../api/hive-engine", () => ({
             delegations: () => "",
             staked: () => "0",
             balanced: () => "0",
-          }
+          },
         ]);
       }
     }),
-    getUnclaimedRewards: () => new Promise((resolve) => {
-      if (MOCK_MODE === 1 || MOCK_MODE === 2 || MOCK_MODE === 4) {
+  getUnclaimedRewards: () =>
+    new Promise((resolve) => {
+      if (MOCK_MODE === 1 || MOCK_MODE === 2 || MOCK_MODE === 4) {
         resolve([]);
       }
 
       if (MOCK_MODE === 3) {
-        resolve([{
-          pending_token: 883586,
-          precision: 8,
-          symbol: "POB",
-        }]);
+        resolve([
+          {
+            pending_token: 883586,
+            precision: 8,
+            symbol: "POB",
+          },
+        ]);
       }
-    })
+    }),
 }));
 
 const account: FullAccount = {
@@ -117,22 +120,16 @@ const defProps = {
   global: globalInstance,
   dynamicProps: dynamicPropsIntance1,
   users: [],
-  activeUser: {...activeUserInstance},
+  activeUser: { ...activeUserInstance },
   account,
   transactions: transactionsInitialState,
-  signingKey: '',
-  addAccount: () => {
-  },
-  updateActiveUser: () => {
-  },
-  setSigningKey: () => {
-  },
-  fetchTransactions: () => {
-  },
-  fetchPoints: () => {
-  },
-  updateWalletValues: () => {
-  }
+  signingKey: "",
+  addAccount: () => {},
+  updateActiveUser: () => {},
+  setSigningKey: () => {},
+  fetchTransactions: () => {},
+  fetchPoints: () => {},
+  updateWalletValues: () => {},
 };
 
 it("(1) Render an empty list when no tokens found", async () => {
