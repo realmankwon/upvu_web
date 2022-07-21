@@ -13,7 +13,7 @@ interface Props {
   delegationsOut: string;
 }
 
-export default class SteemEngineToken {
+export default class HiveEngineToken {
   symbol: string;
   name?: string;
   icon?: string;
@@ -73,16 +73,14 @@ export default class SteemEngineToken {
       return this.stakedBalance.toString();
     }
 
-    return formattedNumber(this.stakedBalance, {
-      fractionDigits: this.precision,
-    });
-  };
+    return formattedNumber(this.stakedBalance, {fractionDigits: this.precision});
+  }
 
   balanced = (): string => {
     if (this.balance < 0.0001) {
       return this.balance.toString();
     }
 
-    return formattedNumber(this.balance, { fractionDigits: this.precision });
-  };
+    return formattedNumber(this.balance, {fractionDigits: this.precision});
+  }
 }

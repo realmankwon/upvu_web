@@ -461,7 +461,7 @@ exports[`(1) Default Render 1`] = `
         </span>
       </a>
       <a
-        className="menu-item steem-engine"
+        className="menu-item hive-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >
@@ -990,7 +990,7 @@ exports[`(2) With active user 1`] = `
         </span>
       </a>
       <a
-        className="menu-item steem-engine"
+        className="menu-item hive-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >
@@ -1551,7 +1551,7 @@ exports[`(3) Active user with unclaimed points 1`] = `
         </span>
       </a>
       <a
-        className="menu-item steem-engine"
+        className="menu-item hive-engine"
         href="/@user1/engine"
         onClick={[Function]}
       >

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`(1) Steem Engine - Transfer (1) Step 1 1`] = `
+exports[`(1) Hive Engine - Transfer (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -237,7 +237,7 @@ exports[`(1) Steem Engine - Transfer (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(1) Steem Engine - Transfer (2) Step 2 1`] = `
+exports[`(1) Hive Engine - Transfer (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -355,7 +355,7 @@ exports[`(1) Steem Engine - Transfer (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(1) Steem Engine - Transfer (3) Step 3 1`] = `
+exports[`(1) Hive Engine - Transfer (3) Step 3 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -476,7 +476,7 @@ exports[`(1) Steem Engine - Transfer (3) Step 3 1`] = `
 </div>
 `;
 
-exports[`(1) Steem Engine - Transfer (4) Step 4 1`] = `
+exports[`(1) Hive Engine - Transfer (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -545,7 +545,7 @@ exports[`(1) Steem Engine - Transfer (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(2) Steem Engine - Delegate (1) Step 1 1`] = `
+exports[`(2) Hive Engine - Delegate (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -749,7 +749,7 @@ exports[`(2) Steem Engine - Delegate (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(2) Steem Engine - Delegate (2) Step 2 1`] = `
+exports[`(2) Hive Engine - Delegate (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -871,7 +871,7 @@ exports[`(2) Steem Engine - Delegate (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(2) Steem Engine - Delegate (4) Step 4 1`] = `
+exports[`(2) Hive Engine - Delegate (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -940,7 +940,7 @@ exports[`(2) Steem Engine - Delegate (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(3) Steem Engine - Undelegate (1) Step 1 1`] = `
+exports[`(3) Hive Engine - Undelegate (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -966,7 +966,7 @@ exports[`(3) Steem Engine - Undelegate (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Undelegate Tokens to add them back to your Steem Engine balance
+          Undelegate Tokens to add them back to your Hive Engine balance
         </div>
       </div>
     </div>
@@ -1113,7 +1113,7 @@ exports[`(3) Steem Engine - Undelegate (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(3) Steem Engine - Undelegate (2) Step 2 1`] = `
+exports[`(3) Hive Engine - Undelegate (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1231,7 +1231,7 @@ exports[`(3) Steem Engine - Undelegate (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(3) Steem Engine - Undelegate (4) Step 4 1`] = `
+exports[`(3) Hive Engine - Undelegate (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1300,7 +1300,7 @@ exports[`(3) Steem Engine - Undelegate (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(4) Steem Engine - Stake (1) Step 1 1`] = `
+exports[`(4) Hive Engine - Stake (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1504,7 +1504,7 @@ exports[`(4) Steem Engine - Stake (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(4) Steem Engine - Stake (2) Step 2 1`] = `
+exports[`(4) Hive Engine - Stake (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1622,7 +1622,7 @@ exports[`(4) Steem Engine - Stake (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(4) Steem Engine - Stake (4) Step 4 1`] = `
+exports[`(4) Hive Engine - Stake (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1691,7 +1691,7 @@ exports[`(4) Steem Engine - Stake (4) Step 4 1`] = `
 </div>
 `;
 
-exports[`(5) Steem Engine - Unstake (1) Step 1 1`] = `
+exports[`(5) Hive Engine - Unstake (1) Step 1 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1854,7 +1854,7 @@ exports[`(5) Steem Engine - Unstake (1) Step 1 1`] = `
 </div>
 `;
 
-exports[`(5) Steem Engine - Unstake (2) Step 2 1`] = `
+exports[`(5) Hive Engine - Unstake (2) Step 2 1`] = `
 <div
   className="transfer-dialog-content"
 >
@@ -1948,7 +1948,7 @@ exports[`(5) Steem Engine - Unstake (2) Step 2 1`] = `
 </div>
 `;
 
-exports[`(5) Steem Engine - Unstake (4) Step 4 1`] = `
+exports[`(5) Hive Engine - Unstake (4) Step 4 1`] = `
 <div
   className="transfer-dialog-content"
 >

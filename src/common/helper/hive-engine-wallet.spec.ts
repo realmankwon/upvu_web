@@ -1,18 +1,18 @@
-import SteemEngineToken from "./steem-engine-wallet";
+import HiveEngineToken from "./hive-engine-wallet";
 
-describe("SteemEngineToken", () => {
-  const subject: SteemEngineToken = new SteemEngineToken({
-    symbol: "POB",
-    name: "",
-    icon: "",
-    balance: "0.00000000",
-    stake: "0.00000000",
-    precision: 2,
-    delegationsIn: "0.00000000",
-    delegationsOut: "0.00000000",
-    stakingEnabled: false,
-    delegationEnabled: false,
-  });
+describe("HiveEngineToken", () => {
+  const subject: HiveEngineToken = new HiveEngineToken({
+      symbol: "POB",
+      name: "",
+      icon: "",
+      balance: "0.00000000",
+      stake: "0.00000000",
+      precision: 2,
+      delegationsIn: "0.00000000",
+      delegationsOut: "0.00000000",
+      stakingEnabled: false,
+      delegationEnabled: false
+    });
 
   describe("hasDelegations", () => {
     it("should return false if the token has no delegation enabled", () => {
@@ -38,7 +38,7 @@ describe("SteemEngineToken", () => {
       expect(subject.delegations()).toBe("");
     });
 
-    it("should return an empty string if there is no delegation", () => {
+  it("should return an empty string if there is no delegation", () => {
       subject.delegationEnabled = true;
       subject.delegationsIn = 0;
       subject.delegationsOut = 0;
@@ -56,7 +56,7 @@ describe("SteemEngineToken", () => {
   });
 
   describe("stakedBalance", () => {
-    const subject = new SteemEngineToken({
+    const subject = new HiveEngineToken({
       symbol: "POB",
       balance: "12.00000000",
       stake: "15.00000000",
@@ -66,18 +66,18 @@ describe("SteemEngineToken", () => {
       name: "",
       icon: "",
       stakingEnabled: true,
-      delegationEnabled: false,
+      delegationEnabled: false
     });
 
     it("computes the staked balance", () => {
       expect(subject.stakedBalance).toBe(10.90234);
-    });
+    })
 
     it("formats the staked balance with the right precision", () => {
       subject.precision = 1;
 
       expect(subject.staked()).toBe("10.9");
-    });
+    })
 
     it("doesn't format small balance to work around the numeric bug", () => {
       subject.stakedBalance = 0.00001;
@@ -85,13 +85,13 @@ describe("SteemEngineToken", () => {
       subject.delegationsOut = 0;
 
       expect(subject.staked()).toBe("0.00001");
-    });
+    })
 
     it("returns a '-' character if staking is not enabled", () => {
       subject.stakingEnabled = false;
 
       expect(subject.staked()).toBe("-");
-    });
+    })
   });
 
   describe("balanced", () => {
@@ -100,11 +100,11 @@ describe("SteemEngineToken", () => {
       subject.precision = 1;
 
       expect(subject.balanced()).toBe("12.0");
-    });
+    })
     it("doesn't format small balance to work around the numeric bug", () => {
       subject.balance = 0.00001;
 
       expect(subject.balanced()).toBe("0.00001");
-    });
+    })
   });
 });
