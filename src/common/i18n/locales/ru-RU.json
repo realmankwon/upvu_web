@@ -335,7 +335,7 @@
   },
   "market": {
     "title": "Обмен токенов",
-    "description": "Децентрализованная биржа для покупки и продажи токенов на Hive blockchain. Чтобы узнать больше, прочитайте наш <a href=\"/faq#how-exchange-work\">FAQ</a>.",
+    "description": "Децентрализованная биржа для покупки и продажи токенов на Steem blockchain. Чтобы узнать больше, прочитайте наш <a href=\"/faq#how-exchange-work\">FAQ</a>.",
     "last-price": "Последняя Цена",
     "volume": "Объем за 24 часа",
     "bid": "Бид",
@@ -635,8 +635,8 @@
     "reserved-amount": "Зарезервировано для открытого ордера на рынке"
   },
   "wallet-engine": {
-    "title": "Токены Hive Engine",
-    "description": "Hive Engine - это платформа боковой цепи смарт-контрактов для блокчейна Hive.",
+    "title": "Токены Steem Engine",
+    "description": "Steem Engine - это платформа боковой цепи смарт-контрактов для блокчейна Hive.",
     "no-results": "Токены не найдены.",
     "token": "Токен",
     "balance": "Баланс",
@@ -744,7 +744,7 @@
     "delegate-hive-engine-title": "Делегировать",
     "delegate-hive-engine-sub-title": "Делегировать токены",
     "undelegate-hive-engine-title": "Отозвать делегирование",
-    "undelegate-hive-engine-sub-title": "Снимите делегирование, чтобы возвратить эти токены на баланс Hive Engine",
+    "undelegate-hive-engine-sub-title": "Снимите делегирование, чтобы возвратить эти токены на баланс Steem Engine",
     "power-down-title": "Понижение Силы",
     "power-down-sub-title": "Выключите мощность улья",
     "claim-interest-title": "Claim SBD Interest",
@@ -1296,7 +1296,7 @@
       "why-score-going-down-header": "Why my Reputation score is going down?",
       "why-score-going-down-body": "<p>Your earned upvotes and downvotes influence on your reputation score. Downvote given by another user with higher reputation can cause your reputation score to go down. If you are having downvote but your upvotes more than downvotes (weighted by Hive Power), then the net effect on your reputation score will still be positive.</p>",
       "what-hive-witnesses-header": "What are Hive witnesses?",
-      "what-hive-witnesses-body": "<p>Role of witnesses or block producers in Hive blockchain is to act as the network's governance body. Top 20 witnesses are producing blocks every minute while rest remain as backup witness and gets randomized chance every minute. Community elects them to represent their voice and each user can elect up to 30 witnesses. This role is integral part of consensus mechanism blockchain runs on and recommend user engagement to vote on trusted witnesses. Witnesses are compensated with Steem Powerfor each block they create.</p>",
+      "what-hive-witnesses-body": "<p>Role of witnesses or block producers in Steem blockchain is to act as the network's governance body. Top 20 witnesses are producing blocks every minute while rest remain as backup witness and gets randomized chance every minute. Community elects them to represent their voice and each user can elect up to 30 witnesses. This role is integral part of consensus mechanism blockchain runs on and recommend user engagement to vote on trusted witnesses. Witnesses are compensated with Steem Powerfor each block they create.</p>",
       "how-vote-witnesses-header": "How can I vote for witnesses?",
       "how-vote-witnesses-body": "<p>Visit <a href=\"/witnesses\" class=\"push-link\">Witness page</a> and click voting icon.</p>",
       "what-are-hive-header": "What are STEEM?",

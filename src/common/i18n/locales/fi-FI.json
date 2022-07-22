@@ -635,8 +635,8 @@
     "reserved-amount": "Varattu avoimeen tilaukseen markkinoilla"
   },
   "wallet-engine": {
-    "title": "Hive Engine Tokenit",
-    "description": "Hive Engine on Hive-lohkoketjun sivuketju, joka toimii älykkäiden sopimusten pohjalta.",
+    "title": "Steem Engine Tokenit",
+    "description": "Steem Engine on Hive-lohkoketjun sivuketju, joka toimii älykkäiden sopimusten pohjalta.",
     "no-results": "Merkkejä ei löytynyt.",
     "token": "Merkki",
     "balance": "Saldo",
@@ -744,7 +744,7 @@
     "delegate-hive-engine-title": "Valtuuta",
     "delegate-hive-engine-sub-title": "Valtuuta merkkejä",
     "undelegate-hive-engine-title": "Poista valtuutus",
-    "undelegate-hive-engine-sub-title": "Poista merkkien valtuutus ja palauta ne Hive Engine taseeseen",
+    "undelegate-hive-engine-sub-title": "Poista merkkien valtuutus ja palauta ne Steem Engine taseeseen",
     "power-down-title": "Power Down",
     "power-down-sub-title": "Power Down Hive Power",
     "claim-interest-title": "Claim SBD Interest",
@@ -1296,7 +1296,7 @@
       "why-score-going-down-header": "Why my Reputation score is going down?",
       "why-score-going-down-body": "<p>Your earned upvotes and downvotes influence on your reputation score. Downvote given by another user with higher reputation can cause your reputation score to go down. If you are having downvote but your upvotes more than downvotes (weighted by Hive Power), then the net effect on your reputation score will still be positive.</p>",
       "what-hive-witnesses-header": "What are Hive witnesses?",
-      "what-hive-witnesses-body": "<p>Role of witnesses or block producers in Hive blockchain is to act as the network's governance body. Top 20 witnesses are producing blocks every minute while rest remain as backup witness and gets randomized chance every minute. Community elects them to represent their voice and each user can elect up to 30 witnesses. This role is integral part of consensus mechanism blockchain runs on and recommend user engagement to vote on trusted witnesses. Witnesses are compensated with Steem Powerfor each block they create.</p>",
+      "what-hive-witnesses-body": "<p>Role of witnesses or block producers in Steem blockchain is to act as the network's governance body. Top 20 witnesses are producing blocks every minute while rest remain as backup witness and gets randomized chance every minute. Community elects them to represent their voice and each user can elect up to 30 witnesses. This role is integral part of consensus mechanism blockchain runs on and recommend user engagement to vote on trusted witnesses. Witnesses are compensated with Steem Powerfor each block they create.</p>",
       "how-vote-witnesses-header": "How can I vote for witnesses?",
       "how-vote-witnesses-body": "<p>Visit <a href=\"/witnesses\" class=\"push-link\">Witness page</a> and click voting icon.</p>",
       "what-are-hive-header": "What are STEEM?",

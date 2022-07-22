@@ -636,7 +636,7 @@
   },
   "wallet-engine": {
     "title": "Motor de Tokens de Hive",
-    "description": "Hive Engine es una plataforma inteligente de cadena lateral para la cadena de bloques de Hive.",
+    "description": "Steem Engine es una plataforma inteligente de cadena lateral para la cadena de bloques de Hive.",
     "no-results": "No se ha encontrado ningún token.",
     "token": "Token",
     "balance": "Balance",
@@ -1278,7 +1278,7 @@
       "why-refund-points-header": "¿Por qué el reembolso se produce al impulsar?",
       "why-refund-points-body": "<p>Impulsamos el contenido revisado y evaluado por nuestros curadores en sus primeras 24 horas. El reembolso puede ocurrir por múltiples razones, después de 24 horas si ningún curador revisó o supervisó el contenido, si el contenido está basado en una plantilla o es de bajo esfuerzo, si el autor tiene historia de plagio, abuso, phishing o spamming, si el contenido es demasiado viejo para curar a medida que el contenido nuevo tiene más prioridad durante el proceso de revisión.</p>",
       "can-change-username-header": "¿Puedo cambiar mi nombre de usuario?",
-      "can-change-username-body": "<p>Los nombres de cuentas en Ecency y Hive blockchain no pueden ser cambiados. Si desea un nuevo nombre de cuenta, puede crear una nueva cuenta.</p>",
+      "can-change-username-body": "<p>Los nombres de cuentas en Ecency y Steem blockchain no pueden ser cambiados. Si desea un nuevo nombre de cuenta, puede crear una nueva cuenta.</p>",
       "can-delete-account-header": "¿Puedo eliminar o desactivar mi cuenta?",
       "can-delete-account-body": "<p>Las cuentas en Ecency no pueden ser desactivadas o eliminadas. La cuenta junto con toda su actividad se almacena permanentemente en la cadena de bloques de Hive.</p>",
       "different-reward-choices-header": "¿Cuáles son las diferencias en los tipos de recompensas?",

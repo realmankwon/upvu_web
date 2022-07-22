@@ -19,12 +19,12 @@ exports[`(1) Render an empty list when no tokens found 1`] = `
           <div
             className="title"
           >
-            Hive Engine Tokens
+            Steem Engine Tokens
           </div>
           <div
             className="description"
           >
-            Hive Engine is a smart contracts side-chain platform for the Hive blockchain.
+            Steem Engine is a smart contracts side-chain platform for the Steem blockchain.
           </div>
         </div>
       </div>
@@ -145,12 +145,12 @@ exports[`(2) Render with some hive engine tokens 1`] = `
           <div
             className="title"
           >
-            Hive Engine Tokens
+            Steem Engine Tokens
           </div>
           <div
             className="description"
           >
-            Hive Engine is a smart contracts side-chain platform for the Hive blockchain.
+            Steem Engine is a smart contracts side-chain platform for the Steem blockchain.
           </div>
         </div>
       </div>
@@ -580,12 +580,12 @@ exports[`(3) Render with an unclaimed rewards 1`] = `
           <div
             className="title"
           >
-            Hive Engine Tokens
+            Steem Engine Tokens
           </div>
           <div
             className="description"
           >
-            Hive Engine is a smart contracts side-chain platform for the Hive blockchain.
+            Steem Engine is a smart contracts side-chain platform for the Steem blockchain.
           </div>
         </div>
       </div>
@@ -997,12 +997,12 @@ exports[`(4) Render an empty list if tokens equals zero 1`] = `
           <div
             className="title"
           >
-            Hive Engine Tokens
+            Steem Engine Tokens
           </div>
           <div
             className="description"
           >
-            Hive Engine is a smart contracts side-chain platform for the Hive blockchain.
+            Steem Engine is a smart contracts side-chain platform for the Steem blockchain.
           </div>
         </div>
       </div>
@@ -1123,12 +1123,12 @@ exports[`(5) usePrivate = false 1`] = `
           <div
             className="title"
           >
-            Hive Engine Tokens
+            Steem Engine Tokens
           </div>
           <div
             className="description"
           >
-            Hive Engine is a smart contracts side-chain platform for the Hive blockchain.
+            Steem Engine is a smart contracts side-chain platform for the Steem blockchain.
           </div>
         </div>
       </div>
