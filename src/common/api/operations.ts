@@ -110,63 +110,39 @@ export const broadcastPostingJSON = (
   id: string,
   json: {}
 ): Promise<TransactionConfirmation> => {
-  // With posting private key
-  const postingKey = getPostingKey(username);
-  if (postingKey) {
-    const privateKey = PrivateKey.fromString(postingKey);
+  const operations = [
+    [
+      "custom_json",
+      {
+        required_auths: [],
+        required_posting_auths: [username],
+        id: id,
+        json: JSON.stringify(json),
+      },
+    ],
+  ];
 
-    const operation: CustomJsonOperation[1] = {
-      id,
-      required_auths: [],
-      required_posting_auths: [username],
-      json: JSON.stringify(json),
-    };
-
-    return hiveClient.broadcast.json(operation, privateKey);
-  }
-
-  // With hivesigner access token
-
-  let token = getAccessToken(username);
-  return token
-    ? new hs.Client({
-        accessToken: token,
-      })
-        .customJson([], [username], id, JSON.stringify(json))
-        .then((r: any) => r.result)
-    : Promise.resolve(0);
+  return callSteemKeychain(username, operations);
 };
 
 const broadcastPostingOperations = (
   username: string,
   operations: Operation[]
 ): Promise<TransactionConfirmation> => {
-  // With posting private key
-  const postingKey = getPostingKey(username);
-  if (postingKey) {
-    const privateKey = PrivateKey.fromString(postingKey);
-
-    return hiveClient.broadcast.sendOperations(operations, privateKey);
-  }
-
-  // With hivesigner access token
-  let token = getAccessToken(username);
-  return token
-    ? new hs.Client({
-        accessToken: token,
-      })
-        .broadcast(operations)
-        .then((r: any) => r.result)
-    : Promise.resolve(0);
+  return callSteemKeychain(username, operations);
 };
 
-async function call_steem_keychain(username: any, opArray: any) {
+async function callSteemKeychain(username: any, opArray: any) {
   return new Promise<TransactionConfirmation>((resolve) => {
+    if (!steem_keychain) return;
+    if (!username) return;
+
     steem_keychain.requestBroadcast(
       username,
       opArray,
       "posting",
       function (res: any) {
+        debugger;
         let r: TransactionConfirmation = {
           id: res.result.id,
           block_num: res.result.block_num,
@@ -272,13 +248,7 @@ export const vote = (
 
   const opArray: Operation[] = [["vote", params]];
 
-  return call_steem_keychain(username, opArray);
-  // return broadcastPostingOperations(username, opArray).then(
-  //   (r: TransactionConfirmation) => {
-  // usrActivity(username, 120, r.block_num, r.id).then();
-  //     return r;
-  //   }
-  // );
+  return broadcastPostingOperations(username, opArray);
 };
 
 export const follow = (
@@ -294,21 +264,7 @@ export const follow = (
     },
   ];
 
-  steem_keychain.requestBroadcast(
-    username,
-    opArray,
-    "posting",
-    function (err, result) {
-      const r: TransactionConfirmation = result;
-      if (err) {
-        return;
-      } else {
-        usrActivity(username, 120, result.block_num, result.id).then();
-        return r;
-      }
-    }
-  );
-  // return broadcastPostingJSON(follower, "follow", json);
+  return broadcastPostingJSON(follower, "follow", json);
 };
 
 export const unFollow = (
