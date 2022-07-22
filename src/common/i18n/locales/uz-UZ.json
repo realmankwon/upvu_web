@@ -634,6 +634,10 @@
     "withdrawing-amount": "J'amg'armadan yechib olish",
     "reserved-amount": "Bozorda ochiq buyurtma uchun ajratilgan"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Steem Engine Tokenlari",
     "description": "Steem Engine - bu Steem blockchain uchun aqlli kontraktlar zanjiri platformasi.",

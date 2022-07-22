@@ -634,6 +634,10 @@
     "withdrawing-amount": "Withdrawing from Savings",
     "reserved-amount": "Reserved for Open order in Market"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Steem Engine Tokenları",
     "description": "Steem Engine is a smart contracts side-chain platform for the Steem blockchain.",

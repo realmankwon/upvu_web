@@ -634,6 +634,10 @@
     "withdrawing-amount": "Sacando da Poupança",
     "reserved-amount": "Reservado em ordem aberta no Câmbio"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Tokens da Steem Engine",
     "description": "Steem Engine é uma blockchain exclusiva para contratos inteligentes e paralela à Hive.",

@@ -634,6 +634,10 @@
     "withdrawing-amount": "Išsiėmimas iš santaupų",
     "reserved-amount": "Rezervuota atviram užsakymui rinkoje"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Steem Engine žetonai",
     "description": "Steem Engine yra išmaniųjų kontraktų šoninės grandinės platforma, skirta „Steem blockchain“.",
