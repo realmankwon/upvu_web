@@ -39,7 +39,7 @@ export default class HiveEngineToken {
     this.stake = parseFloat(props.stake) || 0;
     this.delegationsIn = parseFloat(props.delegationsIn) || 0;
     this.delegationsOut = parseFloat(props.delegationsOut) || 0;
-    this.stakedBalance = this.stake + this.delegationsIn - this.delegationsOut;
+    this.stakedBalance = this.stake; // + this.delegationsIn - this.delegationsOut;
   }
 
   hasDelegations = (): boolean => {
@@ -73,14 +73,16 @@ export default class HiveEngineToken {
       return this.stakedBalance.toString();
     }
 
-    return formattedNumber(this.stakedBalance, {fractionDigits: this.precision});
-  }
+    return formattedNumber(this.stakedBalance, {
+      fractionDigits: this.precision,
+    });
+  };
 
   balanced = (): string => {
     if (this.balance < 0.0001) {
       return this.balance.toString();
     }
 
-    return formattedNumber(this.balance, {fractionDigits: this.precision});
-  }
+    return formattedNumber(this.balance, { fractionDigits: this.precision });
+  };
 }
