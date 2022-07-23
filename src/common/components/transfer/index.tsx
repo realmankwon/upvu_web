@@ -295,7 +295,7 @@ export class Transfer extends BaseComponent<Props, State> {
       const {
         activeUser,
         mode,
-        dynamicProps: { hivePerMVests },
+        dynamicProps: { steemPerMVests },
       } = this.props;
 
       return getAccount(to)
@@ -322,7 +322,7 @@ export class Transfer extends BaseComponent<Props, State> {
                             Number(
                               parseAsset(delegateAccount!.vesting_shares).amount
                             ),
-                            hivePerMVests
+                            steemPerMVests
                           )
                         )
                       )
@@ -415,9 +415,9 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     if (asset === "SP") {
-      const { hivePerMVests } = dynamicProps;
+      const { steemPerMVests } = dynamicProps;
       const vestingShares = w.vestingSharesAvailable;
-      return vestsToHp(vestingShares, hivePerMVests);
+      return vestsToHp(vestingShares, steemPerMVests);
     }
 
     return 0;
@@ -429,8 +429,8 @@ export class Transfer extends BaseComponent<Props, State> {
 
   hpToVests = (hp: number): string => {
     const { dynamicProps } = this.props;
-    const { hivePerMVests } = dynamicProps;
-    const vests = hpToVests(hp, hivePerMVests);
+    const { steemPerMVests } = dynamicProps;
+    const vests = hpToVests(hp, steemPerMVests);
 
     return `${this.formatNumber(vests, 6)} VESTS`;
   };
@@ -696,7 +696,7 @@ export class Transfer extends BaseComponent<Props, State> {
       toData,
       delegationList,
     } = this.state;
-    const { hivePerMVests } = dynamicProps;
+    const { steemPerMVests } = dynamicProps;
 
     const recent = [
       ...new Set(
@@ -793,7 +793,7 @@ export class Transfer extends BaseComponent<Props, State> {
           formattedNumber(
             vestsToHp(
               Number(parseAsset(delegateAccount!.vesting_shares).amount),
-              hivePerMVests
+              steemPerMVests
             )
           )
         )

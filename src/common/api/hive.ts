@@ -322,20 +322,28 @@ export const getAccountHistory = (
   username: string,
   filters: any[] | any,
   start: number = -1,
-  limit: number = 20
+  limit: number = 100
 ): Promise<any> => {
+  debugger;
   return filters
-    ? client.call("condenser_api", "get_account_history", [
-        username,
-        start,
-        limit,
-        ...filters,
-      ])
+    ? client.database.getAccountHistory(username, start, limit, ...filters)
     : client.call("condenser_api", "get_account_history", [
         username,
         start,
         limit,
       ]);
+  // return filters
+  //   ? client.call("condenser_api", "get_account_history", [
+  //       username,
+  //       start,
+  //       limit,
+  //       ...filters,
+  //     ])
+  //   : client.call("condenser_api", "get_account_history", [
+  //       username,
+  //       start,
+  //       limit,
+  //     ]);
 };
 
 export const getFeedHistory = (): Promise<FeedHistory> =>
@@ -349,7 +357,7 @@ export const getDynamicProps = async (): Promise<DynamicProps> => {
   const feedHistory = await getFeedHistory();
   const rewardFund = await getRewardFund();
 
-  const hivePerMVests =
+  const steemPerMVests =
     (parseAsset(globalDynamic.total_vesting_fund_steem).amount /
       parseAsset(globalDynamic.total_vesting_shares).amount) *
     1e6;
@@ -357,8 +365,8 @@ export const getDynamicProps = async (): Promise<DynamicProps> => {
   const quote = parseAsset(feedHistory.current_median_history.quote).amount;
   const fundRecentClaims = parseFloat(rewardFund.recent_claims);
   const fundRewardBalance = parseAsset(rewardFund.reward_balance).amount;
-  const hbdPrintRate = globalDynamic.sbd_print_rate;
-  const hbdInterestRate = globalDynamic.sbd_interest_rate;
+  const sbdPrintRate = globalDynamic.sbd_print_rate;
+  const sbdInterestRate = globalDynamic.sbd_interest_rate;
   const headBlock = globalDynamic.head_block_number;
   const totalVestingFund = parseAsset(
     globalDynamic.total_vesting_fund_steem
@@ -370,13 +378,13 @@ export const getDynamicProps = async (): Promise<DynamicProps> => {
   const vestingRewardPercent = globalDynamic.vesting_reward_percent;
 
   return {
-    hivePerMVests,
+    steemPerMVests,
     base,
     quote,
     fundRecentClaims,
     fundRewardBalance,
-    hbdPrintRate,
-    hbdInterestRate,
+    sbdPrintRate,
+    sbdInterestRate,
     headBlock,
     totalVestingFund,
     totalVestingShares,

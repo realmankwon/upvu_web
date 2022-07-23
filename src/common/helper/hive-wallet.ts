@@ -39,7 +39,7 @@ export default class HiveWallet {
     dynamicProps: DynamicProps,
     convertingSBD: number = 0
   ) {
-    const { hivePerMVests, base, quote } = dynamicProps;
+    const { steemPerMVests, base, quote } = dynamicProps;
     const pricePerHive = base / quote;
 
     if (!account.__loaded) {
@@ -71,7 +71,7 @@ export default class HiveWallet {
         )
       : 0;
     this.nextVestingSharesWithdrawalHive = this.isPoweringDown
-      ? vestsToHp(this.nextVestingSharesWithdrawal, hivePerMVests)
+      ? vestsToHp(this.nextVestingSharesWithdrawal, steemPerMVests)
       : 0;
 
     this.vestingShares = parseAsset(account.vesting_shares).amount;
@@ -93,7 +93,7 @@ export default class HiveWallet {
       : this.vestingShares - this.vestingSharesDelegated;
 
     this.totalHive =
-      vestsToHp(this.vestingShares, hivePerMVests) +
+      vestsToHp(this.vestingShares, steemPerMVests) +
       this.balance +
       this.savingBalance;
     this.totalHbd = this.sbdBalance + this.savingBalanceHbd + convertingSBD;

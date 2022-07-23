@@ -11,7 +11,7 @@ export const fetchTransactions = async (
   username: string,
   group: OperationGroup | "" = "",
   start = -1,
-  limit = 20
+  limit = 100
 ) => {
   const name = username.replace("@", "");
 

@@ -145,10 +145,10 @@ export class WalletHive extends BaseComponent<Props, State> {
   fetchConvertingAmount = async () => {
     const { account, dynamicProps } = this.props;
     const { aprs } = this.state;
-    const { hbdInterestRate } = dynamicProps;
+    const { sbdInterestRate } = dynamicProps;
 
     let hp = this.getCurrentHpApr(dynamicProps).toFixed(3);
-    this.setState({ aprs: { ...aprs, hbd: hbdInterestRate / 100, hp } });
+    this.setState({ aprs: { ...aprs, hbd: sbdInterestRate / 100, hp } });
 
     const crd = await getConversionRequests(account.name);
     if (crd.length === 0) {
@@ -305,7 +305,7 @@ export class WalletHive extends BaseComponent<Props, State> {
       return null;
     }
 
-    const { hivePerMVests } = dynamicProps;
+    const { steemPerMVests } = dynamicProps;
     const isMyPage = activeUser && activeUser.username === account.name;
     const w = new HiveWallet(account, dynamicProps, converting);
 
@@ -323,11 +323,14 @@ export class WalletHive extends BaseComponent<Props, State> {
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalHP = formattedNumber(vestsToHp(w.vestingShares, hivePerMVests), {
-      suffix: "SP",
-    });
+    const totalHP = formattedNumber(
+      vestsToHp(w.vestingShares, steemPerMVests),
+      {
+        suffix: "SP",
+      }
+    );
     const totalDelegated = formattedNumber(
-      vestsToHp(w.vestingSharesDelegated, hivePerMVests),
+      vestsToHp(w.vestingSharesDelegated, steemPerMVests),
       { prefix: "-", suffix: "SP" }
     );
 
@@ -538,7 +541,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                         onClick={this.toggleDelegatedList}
                       >
                         {formattedNumber(
-                          vestsToHp(w.vestingSharesDelegated, hivePerMVests),
+                          vestsToHp(w.vestingSharesDelegated, steemPerMVests),
                           { prefix: "-", suffix: "SP" }
                         )}
                       </span>
@@ -552,7 +555,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                   }
 
                   const strReceived = formattedNumber(
-                    vestsToHp(w.vestingSharesReceived, hivePerMVests),
+                    vestsToHp(w.vestingSharesReceived, steemPerMVests),
                     { prefix: "+", suffix: "SP" }
                   );
 
@@ -587,7 +590,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                         {formattedNumber(
                           vestsToHp(
                             w.nextVestingSharesWithdrawal,
-                            hivePerMVests
+                            steemPerMVests
                           ),
                           { prefix: "-", suffix: "SP" }
                         )}
@@ -603,7 +606,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     <Tooltip content={_t("wallet.steem-power-total")}>
                       <span>
                         {formattedNumber(
-                          vestsToHp(w.vestingSharesTotal, hivePerMVests),
+                          vestsToHp(w.vestingSharesTotal, steemPerMVests),
                           { prefix: "=", suffix: "SP" }
                         )}
                       </span>

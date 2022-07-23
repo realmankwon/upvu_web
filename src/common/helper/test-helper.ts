@@ -935,13 +935,13 @@ export const communityInstance1: Community = {
 };
 
 export const dynamicPropsIntance1: DynamicProps = {
-  hivePerMVests: 513.7574961580294,
+  steemPerMVests: 513.7574961580294,
   base: 0.252,
   quote: 1,
   fundRecentClaims: 413504197028183900,
   fundRewardBalance: 848692.443,
-  hbdPrintRate: 10000,
-  hbdInterestRate: 1000,
+  sbdPrintRate: 10000,
+  sbdInterestRate: 1000,
   headBlock: 59000000,
   totalVestingFund: 147530899.832,
   totalVestingShares: 274146627336.063918,

@@ -107,13 +107,13 @@ export const fetchTransactions =
     username: string,
     group: OperationGroup | "" = "",
     start: number = -1,
-    limit: number = 20
+    limit: number = 100
   ) =>
-  (dispatch: Dispatch) => {
+  async (dispatch: Dispatch) => {
     dispatch(fetchAct(group));
 
     const name = username.replace("@", "");
-
+    debugger;
     let filters: any[] = [];
     switch (group) {
       case "transfers":
@@ -143,33 +143,56 @@ export const fetchTransactions =
         filters = utils.makeBitMaskFilter(ALL_ACCOUNT_OPERATIONS); // all
     }
 
-    getAccountHistory(name, filters, start, limit)
-      .then((r) => {
-        const mapped: Transaction[] = r.map((x: any): Transaction[] | null => {
-          const { op } = x[1];
-          const { timestamp, trx_id } = x[1];
-          const opName = op[0];
-          const opData = op[1];
+    try {
+      let r = await getAccountHistory(name, filters, start, limit);
 
-          return {
-            num: x[0],
-            type: opName,
-            timestamp,
-            trx_id,
-            ...opData,
-          };
-        });
+      const mapped: Transaction[] = r.map((x: any) => ({
+        num: x[0],
+        type: x[1].op[0],
+        timestamp: x[1].timestamp,
+        trx_id: x[1].trx_id,
+        ...x[1].op[1],
+      }));
 
-        const transactions: Transaction[] = mapped
-          .filter((x) => x !== null)
-          .sort((a: any, b: any) => b.num - a.num);
+      const transactions: Transaction[] = mapped
+        .filter((x) => x !== null)
+        .sort((a: any, b: any) => b.num - a.num);
 
-        dispatch(fetchedAct(transactions));
-      })
-      .catch(() => {
-        console.log("catch");
-        dispatch(fetchErrorAct());
-      });
+      dispatch(fetchedAct(transactions));
+    } catch (e) {
+      console.log(e);
+      console.log("catch");
+      dispatch(fetchErrorAct());
+    }
+
+    // getAccountHistory(name, filters, start, limit)
+    //   .then((r) => {
+    //     const mapped: Transaction[] = r.map((x: any): Transaction[] | null => {
+    //       const { op } = x[1];
+    //       const { timestamp, trx_id } = x[1];
+    //       const opName = op[0];
+    //       const opData = op[1];
+
+    //       return {
+    //         num: x[0],
+    //         type: opName,
+    //         timestamp,
+    //         trx_id,
+    //         ...opData,
+    //       };
+    //     });
+
+    //     const transactions: Transaction[] = mapped
+    //       .filter((x) => x !== null)
+    //       .sort((a: any, b: any) => b.num - a.num);
+
+    //     dispatch(fetchedAct(transactions));
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //     console.log("catch");
+    //     dispatch(fetchErrorAct());
+    //   });
   };
 
 export const resetTransactions = () => (dispatch: Dispatch) => {
