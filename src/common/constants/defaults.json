@@ -3,7 +3,7 @@
   "theme": "day",
   "listStyle": "row",
   "currency": {
-    "currency": "hbd",
+    "currency": "sbd",
     "rate": 1,
     "symbol": "$"
   },

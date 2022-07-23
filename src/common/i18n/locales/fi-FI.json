@@ -602,7 +602,7 @@
     "estimated-description": "Arvioitu arvo perustuu 7 päivän STEEM keskiarvoon.",
     "estimated-description-points": "Arvioitu arvo perustuu Pisteiden ostoarvoon.",
     "steem": "STEEM",
-    "hbd": "SBD",
+    "sbd": "SBD",
     "hive-description": "STEEM on vaihdettavia, milloin tahansa siirrettäviä merkkejä. STEEMä voi vaihtaa Hive Poweriin prosessissa, jota kutsutaan Voimanlisäykseksi.",
     "steem-power": "STEEM POWER",
     "steem-power-description": "Hive Powerit ovat vaikutusmerkkejä, joilla voi ansaita enemmän valtaa pitämällä pitkällä aikavällä ja äänestää sisällöstä. Mitä enemmän Hive Poweria on, sitä enemmän voi vaikuttaa toisten palkkioihin ja ansaita palkkioita äänestämällä. Steem Poweron panostettuna STEEM-merkki, joka voidaan panostaa takaisin 13 viikossa.",

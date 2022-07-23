@@ -602,7 +602,7 @@
     "estimated-description": "Приблизителната стойност се определя от 7 дневна, средна цена на STEEM.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
     "steem": "STEEM",
-    "hbd": "SBD",
+    "sbd": "SBD",
     "hive-description": "STEEM са търгуеми жетони който могат да бъдат прехвърлени по всяко време.STEEM може да се преобразува в Hive стойност на гласа чрез процес наречен увеличаване на силата.",
     "steem-power": "STEEM сила/стойност",
     "steem-power-description": "Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 13 weeks.",

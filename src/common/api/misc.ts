@@ -38,7 +38,7 @@ export const getMarketData = (
 };
 
 export const getCurrencyRate = (cur: string): Promise<number> => {
-  if (cur === "hbd") {
+  if (cur === "sbd") {
     return new Promise((resolve) => resolve(1));
   }
 
