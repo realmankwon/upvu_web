@@ -601,7 +601,7 @@
     "estimated-points": "Valor de puntos estimados",
     "estimated-description": "El valor estimado se basa en un valor promedio de 7 días de STEEM.",
     "estimated-description-points": "El valor estimado se basa en el valor de compra de los puntos.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM es una moneda que puede transferirse en cualquier momento. STEEM se puede convertir a Steem Poweren un proceso llamado Power Up.",
     "steem-power": "STEEM POWER",

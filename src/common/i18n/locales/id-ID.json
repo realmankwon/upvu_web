@@ -601,7 +601,7 @@
     "estimated-points": "Estimasi Nilai Poin",
     "estimated-description": "Harga estimasi berdasarkan nilai rata-rata STEEM dalam 7 hari.",
     "estimated-description-points": "Nilai estimasi berdasarkan nilai pembayaran Poin.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM adalah Token yang dapat diperdagangkan juga dapat dipindahkan kapan saja. STEEM dapat pula dikonversi menjadi Steem Poweryang prosesnya dinamakan Powering Up.",
     "steem-power": "KEKUATAN STEEM",

@@ -108,7 +108,7 @@ I will submit PR to project awesome in 30 days to list Hive in decentralized sys
 In 30 days, we will PR to official project awesome list. More awareness about awesome Hive! Meanwhile, let's complete \`awesome-hive\` together! 😎 🙇 🙏 
 
 ## Hive on!",
-      "category": "hive",
+      "category": "steem",
       "children": 31,
       "created": "2020-06-01T05:53:33",
       "curator_payout_value": "0.000 SBD",
@@ -117,7 +117,7 @@ In 30 days, we will PR to official project awesome list. More awareness about aw
       "json_metadata": Object {
         "app": "esteem/2.2.7-surfer",
         "tags": Array [
-          "hive",
+          "steem",
           "hiveio",
           "awesome",
           "devs",

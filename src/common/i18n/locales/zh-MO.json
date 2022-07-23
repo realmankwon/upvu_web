@@ -343,7 +343,7 @@
     "claim-reward-balance-ok": "Reward balance claimed",
     "estimated": "Estimated Account Value",
     "estimated-description": "The estimated value is based on a 7 day average value of STEEM.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hive-description": "STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.",
     "steem-power": "STEEM POWER",
     "steem-power-description": "Steem Powerare influence tokens that earn more power for holding long term and voting on posts. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting.",

@@ -13,11 +13,11 @@ it("(1) Default render", () => {
     history: createBrowserHistory(),
     global: { ...globalInstance, ...{ tag: "", filter: EntryFilter.hot } },
     trendingTags: {
-      list: ["art", "hive", "news"],
+      list: ["art", "steem", "news"],
       loading: false,
       error: false,
     },
-    activeUser: activeUserInstance
+    activeUser: activeUserInstance,
   };
 
   const renderer = TestRenderer.create(<TrendingTags {...props} />);
@@ -27,13 +27,13 @@ it("(1) Default render", () => {
 it("(2) Selected tag", () => {
   const props = {
     history: createBrowserHistory(),
-    global: { ...globalInstance, ...{ tag: "hive", filter: EntryFilter.hot } },
+    global: { ...globalInstance, ...{ tag: "steem", filter: EntryFilter.hot } },
     trendingTags: {
-      list: ["art", "hive", "news"],
+      list: ["art", "steem", "news"],
       loading: false,
       error: false,
     },
-    activeUser: null
+    activeUser: null,
   };
 
   const renderer = TestRenderer.create(<TrendingTags {...props} />);

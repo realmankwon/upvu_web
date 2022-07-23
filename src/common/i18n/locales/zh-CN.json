@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "估计的价值是基于STEEM价格的7日平均值",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM是可以交易的代币，可以随时传输。STEEM可以转换为Hive Power通过能力提升过程。",
     "steem-power": "Hive Power",

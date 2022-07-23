@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Təxmini dəyər, STEEM-ın 7 günlük ortalama dəyəri əsasında hesablanır.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM,istənilən vaxt köçürə biləcəyiniz ticarət tokenləridir. STEEM,gücləndirmə adlandırılan müddətdə STEEM Power-ə çevrilə bilər.",
     "steem-power": "STEEM GÜCÜ",

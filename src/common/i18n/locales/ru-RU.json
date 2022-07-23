@@ -601,7 +601,7 @@
     "estimated-points": "Расчетная стоимость очков",
     "estimated-description": "Предполагаемая стоимость основана на 7-дневной средней стоимости STEEM.",
     "estimated-description-points": "Расчетная стоимость основана на стоимости покупки Очков.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM – это торгуемые токены, которые могут быть переданы в любое время. STEEM может быть преобразован в Steem Powerоперацией, называемой усилением.",
     "steem-power": "STEEM СИЛА",

@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "A becsült érték a STEEM 7 napos átlagértékén alapszik.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "A STEEM olyan értékesíthető token, amely bármikor átutalható. A STEEM átalakítható Hive Power-re egy olyan folyamatban, melyet powering up-nak nevezünk.",
     "steem-power": "STEEM POWER",

@@ -142,7 +142,6 @@ async function callSteemKeychain(username: any, opArray: any) {
       opArray,
       "posting",
       function (res: any) {
-        debugger;
         let r: TransactionConfirmation = {
           id: res.result.id,
           block_num: res.result.block_num,
@@ -205,17 +204,21 @@ export const comment = (
   const opArray: Operation[] = [["comment", params]];
 
   if (options) {
-    const e: Operation = ["comment_options", options];
-    opArray.push(e);
+    const CommentOptions = {
+      allow_curation_rewards: options.allow_curation_rewards,
+      allow_votes: options.allow_votes,
+      author: options.author,
+      permlink: options.permlink,
+      max_accepted_payout: options.max_accepted_payout,
+      percent_steem_dollars: options.percent_sbd,
+      extensions: options.extensions,
+    };
+
+    debugger;
+    opArray.push(["comment_options", CommentOptions]);
   }
 
-  return broadcastPostingOperations(username, opArray).then((r) => {
-    if (point) {
-      const t = title ? 100 : 110;
-      usrActivity(username, t, r.block_num, r.id).then();
-    }
-    return r;
-  });
+  return broadcastPostingOperations(username, opArray);
 };
 
 export const deleteComment = (
@@ -1512,17 +1515,8 @@ export const hiveNotifySetLastRead = (
     required_posting_auths: [username],
     json: JSON.stringify(["setLastRead", { date }]),
   };
-  const params1 = {
-    id: "ecency_notify",
-    required_auths: [],
-    required_posting_auths: [username],
-    json: JSON.stringify(["setLastRead", { date }]),
-  };
 
-  const opArray: Operation[] = [
-    ["custom_json", params],
-    ["custom_json", params1],
-  ];
+  const opArray: Operation[] = [["custom_json", params]];
 
   return broadcastPostingOperations(username, opArray);
 };

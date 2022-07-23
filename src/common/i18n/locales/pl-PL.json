@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Wartość jest szacowana na podstawie średniej wartości STEEM z 7 dni.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM to zbywalne żetony, które mogą być przetransferowane w dowolnym momencie. STEEM można przekonwertować na Steem Powerw procesie zwanym zasilaniem.",
     "steem-power": "MOC STEEM",

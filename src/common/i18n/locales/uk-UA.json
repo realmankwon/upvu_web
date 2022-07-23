@@ -601,7 +601,7 @@
     "estimated-points": "Приблизна вартість балів",
     "estimated-description": "Орієнтовна вартість базується на 7-денній середній вартості STEEM.",
     "estimated-description-points": "Орієнтовна вартість базується на вартості купівлі Балів.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM - токени вільно торгуються та можуть бути передані будь-коли. STEEM можна конвертувати в Hive Силу за допомогою дії, що зветься \"збільшення сили\" чи анг. (Power Up).",
     "steem-power": "STEEM POWER",

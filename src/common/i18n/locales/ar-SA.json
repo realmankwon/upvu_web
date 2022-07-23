@@ -601,7 +601,7 @@
     "estimated-points": "القيمة المقدرة للنقاط",
     "estimated-description": "تستند القيمة المقدرة إلى متوسط حسابي لسعر STEEM على مدى ٧ أيام.",
     "estimated-description-points": "تستند القيمة المقدرة على سعر شراء النقاط.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM هي رموز قابلة للتداول يمكن نقلها في أي وقت. يمكن تحويل STEEM إلى STEEM Power في عملية تسمى التقوية.",
     "steem-power": "قوة STEEM",

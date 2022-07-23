@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Valoarea estimată se bazează pe o valoare medie de 7 zile de STEEM.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM sunt token-uri convertibile ce pot fi transferate oricând. STEEM pot fi transformați in Steem Powerprintr-un proces numit power up.",
     "steem-power": "STEEM POWER",

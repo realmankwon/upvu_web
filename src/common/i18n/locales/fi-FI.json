@@ -601,7 +601,7 @@
     "estimated-points": "Arvioitu Pisteiden Arvo",
     "estimated-description": "Arvioitu arvo perustuu 7 päivän STEEM keskiarvoon.",
     "estimated-description-points": "Arvioitu arvo perustuu Pisteiden ostoarvoon.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM on vaihdettavia, milloin tahansa siirrettäviä merkkejä. STEEMä voi vaihtaa Hive Poweriin prosessissa, jota kutsutaan Voimanlisäykseksi.",
     "steem-power": "STEEM POWER",

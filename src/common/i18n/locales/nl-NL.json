@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "De geschatte waarde is gebaseerd op een 7-daags gemiddelde waarde van Hive.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM is een verhandelbare token die ieder moment overgedragen kan worden. STEEM kan worden omgezet tot STEEM Power via een Power Up.",
     "steem-power": "STEEM POWER",

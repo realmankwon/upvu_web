@@ -601,7 +601,7 @@
     "estimated-points": "Пресметната стойност на точките",
     "estimated-description": "Приблизителната стойност се определя от 7 дневна, средна цена на STEEM.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM са търгуеми жетони който могат да бъдат прехвърлени по всяко време.STEEM може да се преобразува в Hive стойност на гласа чрез процес наречен увеличаване на силата.",
     "steem-power": "STEEM сила/стойност",

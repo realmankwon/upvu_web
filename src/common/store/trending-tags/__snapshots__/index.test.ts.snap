@@ -37,7 +37,7 @@ Object {
   "error": false,
   "list": Array [
     "bitcoin",
-    "hive",
+    "steem",
     "photography",
   ],
   "loading": false,

@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Ang tinatayang halaga ay nakabase sa isang 7-araw na karaniwang halaga ng {}.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "Ang STEEM ay isang token na puwedeng ikalakal na puwede din ilipat sa anumang oras. Ang STEEM ay puwedeng ipagpalit sa Steem Powersa pamamagitan ng proseso na tinatawag na powering up.",
     "steem-power": "STEEM POWER",

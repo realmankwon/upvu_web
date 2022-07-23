@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Procenjena vrednost se zasniva na sedmodnevnoj prosečnoj vredosti STEEM.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM su tokeni koje možete razmenjivati u svakom trenutku. STEEM se može pretvoriti u Hive snagu u procesu zvanom pojačavanje snage.",
     "steem-power": "STEEM SNAGA",

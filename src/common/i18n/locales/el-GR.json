@@ -601,7 +601,7 @@
     "estimated-points": "Estimated Points Value",
     "estimated-description": "Η εκτιμώμενη αξία βασίζεται σε έναν μέσο όρο 7 ημερών της αξίας του STEEM.",
     "estimated-description-points": "The estimated value is based on purchase value of Points.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM είναι διαπραγματεύσιμες μάρκες, που μπορούν να μεταφερθούν οποιαδήποτε στιγμή. τα STEEM μπορούν να μετατραπούν σε Steem Powerμέσω μίας διαδικασίας που ονομάζεται powering up.",
     "steem-power": "STEEM POWER",

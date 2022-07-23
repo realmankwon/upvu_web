@@ -601,7 +601,7 @@
     "estimated-points": "Ballarning taxminiy qiymati",
     "estimated-description": "Taxminiy xarajat STEEMning 7 kunlik o'rtacha narxiga asoslanadi.",
     "estimated-description-points": "Taxminiy qiymat Ballarni sotib olish narxiga asoslanadi.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM - bu istalgan vaqtda o'tkazilishi mumkin bo'lgan sotiladigan tokenlar. STEEM kuchaytirish deb ataladigan operatsiya orqali Hive Power-ga aylantirilishi mumkin.",
     "steem-power": "STEEM POWER",

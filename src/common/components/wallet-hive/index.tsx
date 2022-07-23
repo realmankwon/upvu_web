@@ -884,7 +884,7 @@ export class WalletHive extends BaseComponent<Props, State> {
 
             {TransactionList({ ...this.props })}
           </div>
-          <WalletMenu global={global} username={account.name} active="hive" />
+          <WalletMenu global={global} username={account.name} active="steem" />
         </div>
 
         {transfer && (

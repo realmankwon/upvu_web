@@ -601,7 +601,7 @@
     "estimated-points": "Tahmini Puan Değeri",
     "estimated-description": "Tahmini değer STEEM'ın 7 günlük ortalama değerine dayanmaktadır.",
     "estimated-description-points": "Tahmini değer puan satış miktarına bağlıdır.",
-    "hive": "STEEM",
+    "steem": "STEEM",
     "hbd": "SBD",
     "hive-description": "STEEM dilediğiniz zaman transfer edebileceğiniz ticari tokendır. STEEM hesap geliştirme olarak adlandırılan bir süreçte Hive Power'a dönüştürülebilir.",
     "steem-power": "STEEM POWER",
