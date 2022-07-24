@@ -1029,10 +1029,10 @@ export const apiReplyNotification: ApiReplyNotification = {
   title: "",
   body: "Testing replies from Ecency web interface \ud83d\ude0e",
   json_metadata:
-    '{"tags": ["ecency"], "app": "ecency/0.0.1-vision", "format": "markdown+html"}',
+    '{"tags": ["ecency"], "app": "upvu/2.0", "format": "markdown+html"}',
   metadata: {
     tags: ["ecency"],
-    app: "ecency/0.0.1-vision",
+    app: "upvu/2.0",
     format: "markdown+html",
   },
   parent_author: "good-karma",
@@ -1154,7 +1154,7 @@ export const searchResponseInstance: SearchResponse = {
         "upload",
         "dapps",
       ],
-      app: "esteem/2.2.7-surfer",
+      app: "upvu/2.0",
       depth: 0,
     },
     {
@@ -1185,7 +1185,7 @@ export const searchResponseInstance: SearchResponse = {
         "updates",
         "dapp",
       ],
-      app: "ecency/3.0.3-vision",
+      app: "upvu/2.0",
       depth: 0,
     },
     {
@@ -1247,7 +1247,7 @@ export const searchResponseInstance: SearchResponse = {
         "rebrand",
         "release",
       ],
-      app: "ecency/0.0.1-vision",
+      app: "upvu/2.0",
       depth: 0,
     },
     {
@@ -1329,7 +1329,7 @@ export const searchResponseInstance: SearchResponse = {
       up_votes: 312,
       created_at: "2020-07-22T15:31:27+00:00",
       tags: ["ecency", "vision", "website", "esteem", "development"],
-      app: "ecency/3.0.0-vision",
+      app: "upvu/2.0",
       depth: 0,
     },
     {
@@ -1360,7 +1360,7 @@ export const searchResponseInstance: SearchResponse = {
         "rebranding",
         "onboarding",
       ],
-      app: "ecency/3.0.1-vision",
+      app: "upvu/2.0",
       depth: 0,
     },
   ],
