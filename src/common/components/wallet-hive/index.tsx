@@ -367,9 +367,9 @@ export class WalletHive extends BaseComponent<Props, State> {
 
             <div className="balance-row hive">
               <div className="balance-info">
-                <div className="title">{_t("wallet.hive")}</div>
+                <div className="title">{_t("wallet.steem")}</div>
                 <div className="description">
-                  {_t("wallet.hive-description")}
+                  {_t("wallet.steem-description")}
                 </div>
               </div>
               <div className="balance-values">
@@ -616,11 +616,11 @@ export class WalletHive extends BaseComponent<Props, State> {
               </div>
             </div>
 
-            <div className="balance-row hive-dollars">
+            <div className="balance-row steem-dollars">
               <div className="balance-info">
-                <div className="title">{_t("wallet.hive-dollars")}</div>
+                <div className="title">{_t("wallet.steem-dollars")}</div>
                 <div className="description">
-                  {_t("wallet.hive-dollars-description")}
+                  {_t("wallet.steem-dollars-description")}
                 </div>
               </div>
               <div className="balance-values">
@@ -730,11 +730,11 @@ export class WalletHive extends BaseComponent<Props, State> {
                   {_t("wallet.savings-description")}
                 </div>
                 <div className="description font-weight-bold mt-2">
-                  {_t("wallet.hive-dollars-apr-rate", { value: hbd })}
+                  {_t("wallet.steem-dollars-apr-rate", { value: hbd })}
                 </div>
                 {w.savingBalanceHbd > 0 && (
                   <div className="description font-weight-bold mt-2">
-                    {_t("wallet.hive-dollars-apr-claim", {
+                    {_t("wallet.steem-dollars-apr-claim", {
                       value: lastIPaymentRelative,
                     })}{" "}
                     {estimatedInterest}
@@ -753,10 +753,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                         onClick={this.toggleClaimInterest}
                       >
                         {remainingDays >= 0
-                          ? _t("wallet.hive-dollars-apr-when", {
+                          ? _t("wallet.steem-dollars-apr-when", {
                               value: remainingDays,
                             })
-                          : _t("wallet.hive-dollars-apr-now")}{" "}
+                          : _t("wallet.steem-dollars-apr-now")}{" "}
                         {plusCircle}
                       </a>
                     </div>

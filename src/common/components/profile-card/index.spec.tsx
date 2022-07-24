@@ -46,7 +46,7 @@ const accountFull: Account = {
     name: "Foo Bar",
     about: "Lorem ipsum dolor sit amet",
     website: "https://esteem.app",
-    location: "Hive",
+    location: "Steem",
   },
 };
 

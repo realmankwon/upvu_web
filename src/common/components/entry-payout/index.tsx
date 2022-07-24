@@ -43,38 +43,38 @@ export class EntryPayoutDetail extends Component<Props> {
     const payoutLimitHit = totalPayout >= maxPayout;
 
     const SBD_PRINT_RATE_MAX = 10000;
-    const percentHiveDollars = entry.percent_sbd / 20000;
-    const pendingPayoutHbd = pendingPayout * percentHiveDollars;
-    const pricePerHive = base / quote;
-    const pendingPayoutHp = (pendingPayout - pendingPayoutHbd) / pricePerHive;
-    const pendingPayoutPrintedHbd =
-      pendingPayoutHbd * (sbdPrintRate / SBD_PRINT_RATE_MAX);
-    const pendingPayoutPrintedHive =
-      (pendingPayoutHbd - pendingPayoutPrintedHbd) / pricePerHive;
+    const percentSteemDollars = entry.percent_sbd / 20000;
+    const pendingPayoutSbd = pendingPayout * percentSteemDollars;
+    const pricePerSteem = base / quote;
+    const pendingPayoutSp = (pendingPayout - pendingPayoutSbd) / pricePerSteem;
+    const pendingPayoutPrintedSbd =
+      pendingPayoutSbd * (sbdPrintRate / SBD_PRINT_RATE_MAX);
+    const pendingPayoutPrintedSteem =
+      (pendingPayoutSbd - pendingPayoutPrintedSbd) / pricePerSteem;
 
     let breakdownPayout: string[] = [];
     if (pendingPayout > 0) {
-      if (pendingPayoutPrintedHbd > 0) {
+      if (pendingPayoutPrintedSbd > 0) {
         breakdownPayout.push(
-          formattedNumber(pendingPayoutPrintedHbd, {
+          formattedNumber(pendingPayoutPrintedSbd, {
             fractionDigits: 3,
             suffix: "SBD",
           })
         );
       }
 
-      if (pendingPayoutPrintedHive > 0) {
+      if (pendingPayoutPrintedSteem > 0) {
         breakdownPayout.push(
-          formattedNumber(pendingPayoutPrintedHive, {
+          formattedNumber(pendingPayoutPrintedSteem, {
             fractionDigits: 3,
             suffix: "STEEM",
           })
         );
       }
 
-      if (pendingPayoutHp > 0) {
+      if (pendingPayoutSp > 0) {
         breakdownPayout.push(
-          formattedNumber(pendingPayoutHp, { fractionDigits: 3, suffix: "SP" })
+          formattedNumber(pendingPayoutSp, { fractionDigits: 3, suffix: "SP" })
         );
       }
     }

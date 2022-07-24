@@ -40,7 +40,7 @@ export default class HiveWallet {
     convertingSBD: number = 0
   ) {
     const { steemPerMVests, base, quote } = dynamicProps;
-    const pricePerHive = base / quote;
+    const pricePerSteem = base / quote;
 
     if (!account.__loaded) {
       return;
@@ -98,6 +98,6 @@ export default class HiveWallet {
       this.savingBalance;
     this.totalHbd = this.sbdBalance + this.savingBalanceHbd + convertingSBD;
 
-    this.estimatedValue = this.totalHive * pricePerHive + this.totalHbd;
+    this.estimatedValue = this.totalHive * pricePerSteem + this.totalHbd;
   }
 }

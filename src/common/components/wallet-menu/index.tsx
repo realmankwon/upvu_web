@@ -6,7 +6,7 @@ import { Global } from "../../store/global/types";
 
 import _c from "../../util/fix-class-names";
 
-import { hiveSvg } from "../../img/svg";
+import { steemSvg } from "../../img/svg";
 import { hiveEngineSvg } from "../../img/svg";
 
 interface Props {
@@ -42,9 +42,9 @@ export default class WalletMenu extends Component<Props> {
           className={_c(`menu-item hive ${active === "steem" ? "active" : ""}`)}
           to={`/@${username}/wallet`}
         >
-          <span className="title">Hive</span>
+          <span className="title">Steem</span>
           <span className="sub-title">Wallet</span>
-          <span className="platform-logo">{hiveSvg}</span>
+          <span className="platform-logo">{steemSvg}</span>
         </Link>
         <Link
           className={_c(
