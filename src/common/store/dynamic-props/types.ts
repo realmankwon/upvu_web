@@ -1,11 +1,11 @@
 export interface DynamicProps {
-  hivePerMVests: number;
+  steemPerMVests: number;
   base: number;
   quote: number;
   fundRewardBalance: number;
   fundRecentClaims: number;
-  hbdPrintRate: number;
-  hbdInterestRate: number;
+  sbdPrintRate: number;
+  sbdInterestRate: number;
   headBlock: number;
   totalVestingFund: number;
   totalVestingShares: number;
@@ -16,7 +16,7 @@ export interface DynamicProps {
 export type State = DynamicProps;
 
 export enum ActionTypes {
-    FETCHED = "@dynamic-props/FETCHED",
+  FETCHED = "@dynamic-props/FETCHED",
 }
 
 export interface FetchedAction {
@@ -24,4 +24,4 @@ export interface FetchedAction {
   props: DynamicProps;
 }
 
-export type Actions = FetchedAction; // |..|..æ 
+export type Actions = FetchedAction; // |..|..æ

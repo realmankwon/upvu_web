@@ -338,8 +338,14 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                         </p>
                                         {b.delegationEnabled && (
                                           <>
-                                            <p>In: {b.delegationsIn}</p>
-                                            <p>Out: {b.delegationsOut}</p>
+                                            <p>
+                                              In:{" "}
+                                              {b.delegationsIn.toLocaleString()}
+                                            </p>
+                                            <p>
+                                              Out:{" "}
+                                              {b.delegationsOut.toLocaleString()}
+                                            </p>
                                           </>
                                         )}
                                       </div>

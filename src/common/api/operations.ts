@@ -110,58 +110,33 @@ export const broadcastPostingJSON = (
   id: string,
   json: {}
 ): Promise<TransactionConfirmation> => {
-  // With posting private key
-  const postingKey = getPostingKey(username);
-  if (postingKey) {
-    const privateKey = PrivateKey.fromString(postingKey);
+  const operations = [
+    [
+      "custom_json",
+      {
+        required_auths: [],
+        required_posting_auths: [username],
+        id: id,
+        json: JSON.stringify(json),
+      },
+    ],
+  ];
 
-    const operation: CustomJsonOperation[1] = {
-      id,
-      required_auths: [],
-      required_posting_auths: [username],
-      json: JSON.stringify(json),
-    };
-
-    return hiveClient.broadcast.json(operation, privateKey);
-  }
-
-  // With hivesigner access token
-
-  let token = getAccessToken(username);
-  return token
-    ? new hs.Client({
-        accessToken: token,
-      })
-        .customJson([], [username], id, JSON.stringify(json))
-        .then((r: any) => r.result)
-    : Promise.resolve(0);
+  return callSteemKeychain(username, operations);
 };
 
 const broadcastPostingOperations = (
   username: string,
   operations: Operation[]
 ): Promise<TransactionConfirmation> => {
-  // With posting private key
-  const postingKey = getPostingKey(username);
-  if (postingKey) {
-    const privateKey = PrivateKey.fromString(postingKey);
-
-    return hiveClient.broadcast.sendOperations(operations, privateKey);
-  }
-
-  // With hivesigner access token
-  let token = getAccessToken(username);
-  return token
-    ? new hs.Client({
-        accessToken: token,
-      })
-        .broadcast(operations)
-        .then((r: any) => r.result)
-    : Promise.resolve(0);
+  return callSteemKeychain(username, operations);
 };
 
-async function call_steem_keychain(username: any, opArray: any) {
+async function callSteemKeychain(username: any, opArray: any) {
   return new Promise<TransactionConfirmation>((resolve) => {
+    if (!steem_keychain) return;
+    if (!username) return;
+
     steem_keychain.requestBroadcast(
       username,
       opArray,
@@ -229,17 +204,21 @@ export const comment = (
   const opArray: Operation[] = [["comment", params]];
 
   if (options) {
-    const e: Operation = ["comment_options", options];
-    opArray.push(e);
+    const CommentOptions = {
+      allow_curation_rewards: options.allow_curation_rewards,
+      allow_votes: options.allow_votes,
+      author: options.author,
+      permlink: options.permlink,
+      max_accepted_payout: options.max_accepted_payout,
+      percent_steem_dollars: options.percent_sbd,
+      extensions: options.extensions,
+    };
+
+    debugger;
+    opArray.push(["comment_options", CommentOptions]);
   }
 
-  return broadcastPostingOperations(username, opArray).then((r) => {
-    if (point) {
-      const t = title ? 100 : 110;
-      usrActivity(username, t, r.block_num, r.id).then();
-    }
-    return r;
-  });
+  return broadcastPostingOperations(username, opArray);
 };
 
 export const deleteComment = (
@@ -272,13 +251,7 @@ export const vote = (
 
   const opArray: Operation[] = [["vote", params]];
 
-  return call_steem_keychain(username, opArray);
-  // return broadcastPostingOperations(username, opArray).then(
-  //   (r: TransactionConfirmation) => {
-  // usrActivity(username, 120, r.block_num, r.id).then();
-  //     return r;
-  //   }
-  // );
+  return broadcastPostingOperations(username, opArray);
 };
 
 export const follow = (
@@ -294,21 +267,7 @@ export const follow = (
     },
   ];
 
-  steem_keychain.requestBroadcast(
-    username,
-    opArray,
-    "posting",
-    function (err, result) {
-      const r: TransactionConfirmation = result;
-      if (err) {
-        return;
-      } else {
-        usrActivity(username, 120, result.block_num, result.id).then();
-        return r;
-      }
-    }
-  );
-  // return broadcastPostingJSON(follower, "follow", json);
+  return broadcastPostingJSON(follower, "follow", json);
 };
 
 export const unFollow = (
@@ -1556,17 +1515,8 @@ export const hiveNotifySetLastRead = (
     required_posting_auths: [username],
     json: JSON.stringify(["setLastRead", { date }]),
   };
-  const params1 = {
-    id: "ecency_notify",
-    required_auths: [],
-    required_posting_auths: [username],
-    json: JSON.stringify(["setLastRead", { date }]),
-  };
 
-  const opArray: Operation[] = [
-    ["custom_json", params],
-    ["custom_json", params1],
-  ];
+  const opArray: Operation[] = [["custom_json", params]];
 
   return broadcastPostingOperations(username, opArray);
 };

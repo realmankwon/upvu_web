@@ -82,10 +82,10 @@
     },
     "protocols": [
       {
-        "name": "hive",
+        "name": "steem",
         "role": "Viewer",
         "schemes": [
-          "hive",
+          "steem",
           "ecency",
           "esteem"
         ]

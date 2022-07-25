@@ -145,10 +145,10 @@ export class WalletHive extends BaseComponent<Props, State> {
   fetchConvertingAmount = async () => {
     const { account, dynamicProps } = this.props;
     const { aprs } = this.state;
-    const { hbdInterestRate } = dynamicProps;
+    const { sbdInterestRate } = dynamicProps;
 
     let hp = this.getCurrentHpApr(dynamicProps).toFixed(3);
-    this.setState({ aprs: { ...aprs, hbd: hbdInterestRate / 100, hp } });
+    this.setState({ aprs: { ...aprs, hbd: sbdInterestRate / 100, hp } });
 
     const crd = await getConversionRequests(account.name);
     if (crd.length === 0) {
@@ -305,7 +305,7 @@ export class WalletHive extends BaseComponent<Props, State> {
       return null;
     }
 
-    const { hivePerMVests } = dynamicProps;
+    const { steemPerMVests } = dynamicProps;
     const isMyPage = activeUser && activeUser.username === account.name;
     const w = new HiveWallet(account, dynamicProps, converting);
 
@@ -323,11 +323,14 @@ export class WalletHive extends BaseComponent<Props, State> {
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalHP = formattedNumber(vestsToHp(w.vestingShares, hivePerMVests), {
-      suffix: "SP",
-    });
+    const totalHP = formattedNumber(
+      vestsToHp(w.vestingShares, steemPerMVests),
+      {
+        suffix: "SP",
+      }
+    );
     const totalDelegated = formattedNumber(
-      vestsToHp(w.vestingSharesDelegated, hivePerMVests),
+      vestsToHp(w.vestingSharesDelegated, steemPerMVests),
       { prefix: "-", suffix: "SP" }
     );
 
@@ -364,9 +367,9 @@ export class WalletHive extends BaseComponent<Props, State> {
 
             <div className="balance-row hive">
               <div className="balance-info">
-                <div className="title">{_t("wallet.hive")}</div>
+                <div className="title">{_t("wallet.steem")}</div>
                 <div className="description">
-                  {_t("wallet.hive-description")}
+                  {_t("wallet.steem-description")}
                 </div>
               </div>
               <div className="balance-values">
@@ -538,7 +541,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                         onClick={this.toggleDelegatedList}
                       >
                         {formattedNumber(
-                          vestsToHp(w.vestingSharesDelegated, hivePerMVests),
+                          vestsToHp(w.vestingSharesDelegated, steemPerMVests),
                           { prefix: "-", suffix: "SP" }
                         )}
                       </span>
@@ -552,7 +555,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                   }
 
                   const strReceived = formattedNumber(
-                    vestsToHp(w.vestingSharesReceived, hivePerMVests),
+                    vestsToHp(w.vestingSharesReceived, steemPerMVests),
                     { prefix: "+", suffix: "SP" }
                   );
 
@@ -587,7 +590,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                         {formattedNumber(
                           vestsToHp(
                             w.nextVestingSharesWithdrawal,
-                            hivePerMVests
+                            steemPerMVests
                           ),
                           { prefix: "-", suffix: "SP" }
                         )}
@@ -603,7 +606,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     <Tooltip content={_t("wallet.steem-power-total")}>
                       <span>
                         {formattedNumber(
-                          vestsToHp(w.vestingSharesTotal, hivePerMVests),
+                          vestsToHp(w.vestingSharesTotal, steemPerMVests),
                           { prefix: "=", suffix: "SP" }
                         )}
                       </span>
@@ -613,11 +616,11 @@ export class WalletHive extends BaseComponent<Props, State> {
               </div>
             </div>
 
-            <div className="balance-row hive-dollars">
+            <div className="balance-row steem-dollars">
               <div className="balance-info">
-                <div className="title">{_t("wallet.hive-dollars")}</div>
+                <div className="title">{_t("wallet.steem-dollars")}</div>
                 <div className="description">
-                  {_t("wallet.hive-dollars-description")}
+                  {_t("wallet.steem-dollars-description")}
                 </div>
               </div>
               <div className="balance-values">
@@ -727,11 +730,11 @@ export class WalletHive extends BaseComponent<Props, State> {
                   {_t("wallet.savings-description")}
                 </div>
                 <div className="description font-weight-bold mt-2">
-                  {_t("wallet.hive-dollars-apr-rate", { value: hbd })}
+                  {_t("wallet.steem-dollars-apr-rate", { value: hbd })}
                 </div>
                 {w.savingBalanceHbd > 0 && (
                   <div className="description font-weight-bold mt-2">
-                    {_t("wallet.hive-dollars-apr-claim", {
+                    {_t("wallet.steem-dollars-apr-claim", {
                       value: lastIPaymentRelative,
                     })}{" "}
                     {estimatedInterest}
@@ -750,10 +753,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                         onClick={this.toggleClaimInterest}
                       >
                         {remainingDays >= 0
-                          ? _t("wallet.hive-dollars-apr-when", {
+                          ? _t("wallet.steem-dollars-apr-when", {
                               value: remainingDays,
                             })
-                          : _t("wallet.hive-dollars-apr-now")}{" "}
+                          : _t("wallet.steem-dollars-apr-now")}{" "}
                         {plusCircle}
                       </a>
                     </div>
@@ -884,7 +887,7 @@ export class WalletHive extends BaseComponent<Props, State> {
 
             {TransactionList({ ...this.props })}
           </div>
-          <WalletMenu global={global} username={account.name} active="hive" />
+          <WalletMenu global={global} username={account.name} active="steem" />
         </div>
 
         {transfer && (
