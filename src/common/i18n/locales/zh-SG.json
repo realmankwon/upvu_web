@@ -360,8 +360,8 @@
     "transfer-to-savings": "Transfer to savings",
     "convert": "Convert",
     "power-up": "Power up",
-    "withdraw-hive": "Withdraw Hive",
-    "withdraw-hbd": "Withdraw Hive Dollar",
+    "withdraw-hive": "withdraw steem",
+    "withdraw-hbd": "withdraw steem Dollar",
     "delegate": "Delegate",
     "power-down": "Power down",
     "withdraw-routes": "Withdraw Routes"
