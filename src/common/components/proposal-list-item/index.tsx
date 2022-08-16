@@ -134,9 +134,9 @@ export class ProposalListItem extends Component<Props, State> {
     const endDate = moment(new Date(proposal.end_date));
     const duration = endDate.diff(startDate, "days");
 
-    const votesHP =
+    const votesSP =
       (Number(proposal.total_votes) / 1e12) * dynamicProps.steemPerMVests;
-    const strVotes = numeral(votesHP).format("0.00,") + " HP";
+    const strVotes = numeral(votesSP).format("0.00,") + " SP";
 
     const dailyPayment = Number(proposal.daily_pay.amount) / 1e3;
     const strDailyHdb = numeral(dailyPayment).format("0.0a");

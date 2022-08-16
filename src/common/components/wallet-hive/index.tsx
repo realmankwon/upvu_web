@@ -323,7 +323,7 @@ export class WalletHive extends BaseComponent<Props, State> {
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalHP = formattedNumber(
+    const totalSP = formattedNumber(
       vestsToHp(w.vestingShares, steemPerMVests),
       {
         suffix: "SP",
@@ -349,7 +349,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     <span className="reward-type">{`${w.rewardHbdBalance} SBD`}</span>
                   )}
                   {w.rewardVestingHive > 0 && (
-                    <span className="reward-type">{`${w.rewardVestingHive} HP`}</span>
+                    <span className="reward-type">{`${w.rewardVestingHive} SP`}</span>
                   )}
                   {isMyPage && (
                     <Tooltip content={_t("wallet.claim-reward-balance")}>
@@ -530,7 +530,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                       </div>
                     );
                   })()}
-                  {totalHP}
+                  {totalSP}
                 </div>
 
                 {w.vestingSharesDelegated > 0 && (

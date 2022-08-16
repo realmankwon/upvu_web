@@ -3102,7 +3102,7 @@ exports[`(8) Delegate (1) Step 1 1`] = `
             >
               3.182
                
-              HP
+              SP
             </span>
             <div
               className="balance-hp-hint"
@@ -3219,7 +3219,7 @@ exports[`(8) Delegate (2) Step 2 1`] = `
         >
           0.001
            
-          HP
+          SP
         </div>
         <div
           className="amount-vests"
@@ -3293,7 +3293,7 @@ exports[`(8) Delegate (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"amount\\">0.001 HP</span> delegated from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
+            "__html": "<span class=\\"amount\\">0.001 SP</span> delegated from <span class=\\"from-user\\">foo</span> to <span class=\\"to-user\\">bar</span>",
           }
         }
       />
@@ -3445,7 +3445,7 @@ exports[`(9) Power down (1) Step 1 1`] = `
             >
               3.182
                
-              HP
+              SP
             </span>
             <div
               className="balance-hp-hint"
@@ -3543,7 +3543,7 @@ exports[`(9) Power down (2) Step 2 1`] = `
         >
           2.000
            
-          HP
+          SP
         </div>
         <div
           className="amount-vests"
@@ -3617,7 +3617,7 @@ exports[`(9) Power down (4) Step 4 1`] = `
         className="success"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Power down completed as <span class=\\"amount\\">2.000 HP</span>",
+            "__html": "Power down completed as <span class=\\"amount\\">2.000 SP</span>",
           }
         }
       />

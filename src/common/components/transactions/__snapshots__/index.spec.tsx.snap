@@ -46,7 +46,7 @@ exports[`(1) curation_reward 1`] = `
   <div
     className="transaction-numbers"
   >
-    17.241 HP
+    17.241 SP
   </div>
   <div
     className="transaction-details"
@@ -118,7 +118,7 @@ exports[`(2) author_reward 1`] = `
     <span
       className="number"
     >
-      16.311 HP
+      16.311 SP
        
     </span>
   </div>
@@ -187,7 +187,7 @@ exports[`(3) comment_benefactor_reward 1`] = `
     <span
       className="number"
     >
-      0.002 HP
+      0.002 SP
        
     </span>
   </div>
@@ -243,7 +243,7 @@ exports[`(4) claim_reward_balance 1`] = `
     <span
       className="number"
     >
-      0.414 HP
+      0.414 SP
     </span>
   </div>
   <div
@@ -423,7 +423,7 @@ exports[`(7) withdraw_vesting 1`] = `
     <span
       className="number"
     >
-      0.414 HP
+      0.414 SP
     </span>
   </div>
   <div
@@ -519,7 +519,7 @@ exports[`(9) producer_reward 1`] = `
   <div
     className="transaction-numbers"
   >
-    0.240 HP
+    0.240 SP
   </div>
   <div
     className="transaction-details"
@@ -769,7 +769,7 @@ exports[`(14) return_vesting_delegation 1`] = `
   <div
     className="transaction-numbers"
   >
-    1.965 HP
+    1.965 SP
   </div>
   <div
     className="transaction-details"

@@ -663,7 +663,7 @@
     "reblog-desc": "Comparte lo que te gusta con tus amigos y gana 1 punto.",
     "login-desc": "Cuando inicies sesión en Ecency tienes derecho a recibir 10 puntos automáticamente.",
     "checkin-extra-desc": "El uso consistente de la aplicación te otorga más posibilidades de generar más de 10 puntos, se más activo y gana más.",
-    "delegation-desc": "Puedes ganar ~100 puntos por día por cada delegación de 1000HP.",
+    "delegation-desc": "Puedes ganar ~100 puntos por día por cada delegación de 1000SP.",
     "community-desc": "Registra tu comunidad para obtener 20 puntos por cada publicación publicada con aplicaciones de Ecency.",
     "history": "Historial",
     "post-list-desc": "Puntos por publicar",
@@ -844,7 +844,7 @@
   "delegated-vesting": {
     "title": "Steem Powerdelegado",
     "undelegate": "retirar delegación",
-    "subtitle": " Delegación de HP pendiente de devolución"
+    "subtitle": " Delegación de SP pendiente de devolución"
   },
   "received-vesting": {
     "title": "Hive power recibido"
@@ -1308,7 +1308,7 @@
       "what-delegated-hp-header": "¿Qué es el Steem Powerdelegado?",
       "what-delegated-hp-body": "<p>Steem Powerpuede ser delegado a usuarios por otro usuario. Cuando el usuario es delegado con Steem Power- sus Créditos de Recursos, votos de contenido y recompensas de curación se calculan como si fuera su propio Hive Power. Sin embargo, los usuarios no pueden apagar o retirar fondos delegados de Steem Powerporque todavía pertenece al propietario original.</p>",
       "what-powering-up-header": "¿Qué es aumentar el poder?",
-      "what-powering up-body": "<p>Puedes aumentar el poder tu STEEM ganado como Steem Poweren cualquier momento. Significa que tu STEEM se mantiene en tu billetera y se convierte en STEEM Power, lo que aumenta tu poder de voto y tus créditos de recursos en la cadena de bloques. Tener más Poder de Colmena también incrementa la cantidad de recompensas de curación y nuevos tokens que puedes ganar. Más HP también otorga más influencia en la aprobación de testigos de la Colmena.</p>",
+      "what-powering up-body": "<p>Puedes aumentar el poder tu STEEM ganado como Steem Poweren cualquier momento. Significa que tu STEEM se mantiene en tu billetera y se convierte en STEEM Power, lo que aumenta tu poder de voto y tus créditos de recursos en la cadena de bloques. Tener más Poder de Colmena también incrementa la cantidad de recompensas de curación y nuevos tokens que puedes ganar. Más SP también otorga más influencia en la aprobación de testigos de la Colmena.</p>",
       "what-powering-down-header": "¿Qué es apagar el poder?",
       "what-powering-up-body": "<p>El Steem Powerse puede apagar en las mismas carteras donde se puede encender. Cuando se apaga, el Steem Powerno estará disponible como STEEM inmediatamente. Se convierte en 13 partes iguales y se transfiere a tu cartera STEEM semanalmente, la primera parte solamente estando disponible una semana después de que se iniciara el apagado.</p>",
       "why-different-keys-header": "¿Por qué hay diferentes llaves?",

@@ -56,7 +56,7 @@ exports[`(2) Detail render 1`] = `
       7.132 SBD
        
       <br />
-      28.302 HP
+      28.302 SP
        
       <br />
     </span>
@@ -129,7 +129,7 @@ exports[`(3) Detail render with full power 1`] = `
     <span
       className="value"
     >
-      56.603 HP
+      56.603 SP
        
       <br />
     </span>
@@ -202,7 +202,7 @@ exports[`(4) Detail render with max payout 1`] = `
     <span
       className="value"
     >
-      56.603 HP
+      56.603 SP
        
       <br />
     </span>

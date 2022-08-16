@@ -47,7 +47,7 @@ exports[`(1) Default render. 1`] = `
         className="item-extra"
       >
         <span>
-          126,434.601 HP
+          126,434.601 SP
         </span>
       </div>
     </div>
@@ -91,11 +91,11 @@ exports[`(1) Default render. 1`] = `
         className="item-extra"
       >
         <span>
-          3,236.532 HP
+          3,236.532 SP
         </span>
          + 
         <span>
-          5,492.800 HP
+          5,492.800 SP
            (proxy) 
         </span>
       </div>

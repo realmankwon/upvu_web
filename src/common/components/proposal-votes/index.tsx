@@ -137,12 +137,12 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
                   </div>
                 </div>
                 <div className="item-extra">
-                  <span>{`${strHp} HP`}</span>
+                  <span>{`${strHp} SP`}</span>
                   {x.proxyHp > 0 && (
                     <>
                       {" + "}
                       <span>
-                        {`${strProxyHp} HP`}
+                        {`${strProxyHp} SP`}
                         {" (proxy) "}
                       </span>
                     </>
