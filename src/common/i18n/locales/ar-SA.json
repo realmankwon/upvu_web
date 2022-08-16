@@ -634,6 +634,10 @@
     "withdrawing-amount": "Withdrawing from Savings",
     "reserved-amount": "Reserved for Open order in Market"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "رموز Steem Engine",
     "description": "Steem Engine هو منصة عقود ذكية جانبية لبلوكتشين هايف.",

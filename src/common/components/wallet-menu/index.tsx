@@ -25,12 +25,7 @@ export default class WalletMenu extends Component<Props> {
     return (
       <div className="wallet-menu">
         {global.usePrivate && (
-          <Link
-            className={_c(
-              `menu-item ecency ${active === "ecency" ? "active" : ""}`
-            )}
-            to={`/@${username}/points`}
-          >
+          <Link className={_c(`menu-item ecency ${active === "ecency" ? "active" : ""}`)} to={`/@${username}/points`}>
             <span className="title">Ecency</span>
             <span className="sub-title">Points</span>
             <span className="platform-logo">
@@ -38,22 +33,22 @@ export default class WalletMenu extends Component<Props> {
             </span>
           </Link>
         )}
-        <Link
-          className={_c(`menu-item hive ${active === "steem" ? "active" : ""}`)}
-          to={`/@${username}/wallet`}
-        >
+        <Link className={_c(`menu-item hive ${active === "steem" ? "active" : ""}`)} to={`/@${username}/wallet`}>
           <span className="title">Steem</span>
           <span className="sub-title">Wallet</span>
           <span className="platform-logo">{steemSvg}</span>
         </Link>
         <Link
-          className={_c(
-            `menu-item hive-engine ${active === "engine" ? "active" : ""}`
-          )}
+          className={_c(`menu-item hive-engine ${active === "engine" ? "active" : ""}`)}
           to={`/@${username}/engine`}
         >
           <span className="title">Engine</span>
           <span className="sub-title">Tokens</span>
+          <span className="platform-logo">{hiveEngineSvg}</span>
+        </Link>
+        <Link className={_c(`menu-item hive-engine ${active === "upvu" ? "active" : ""}`)} to={`/@${username}/upvu`}>
+          <span className="title">UPVU</span>
+          <span className="sub-title">Summary</span>
           <span className="platform-logo">{hiveEngineSvg}</span>
         </Link>
       </div>

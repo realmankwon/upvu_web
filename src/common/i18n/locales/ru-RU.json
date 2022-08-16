@@ -634,6 +634,10 @@
     "withdrawing-amount": "Вывод из сбережений",
     "reserved-amount": "Зарезервировано для открытого ордера на рынке"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Токены Steem Engine",
     "description": "Steem Engine - это платформа боковой цепи смарт-контрактов для блокчейна Hive.",

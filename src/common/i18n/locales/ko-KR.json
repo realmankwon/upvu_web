@@ -634,6 +634,10 @@
     "withdrawing-amount": "Withdrawing from Savings",
     "reserved-amount": "Reserved for Open order in Market"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Steem Engine 토큰",
     "description": "Steem Engine은 하이브블록체인을 위한 스마트 계약 사이드체인 플랫폼입니다.",

@@ -634,6 +634,10 @@
     "withdrawing-amount": "Kotiuta säästöistä",
     "reserved-amount": "Varattu avoimeen tilaukseen markkinoilla"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "Steem Engine Tokenit",
     "description": "Steem Engine on Hive-lohkoketjun sivuketju, joka toimii älykkäiden sopimusten pohjalta.",

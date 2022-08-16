@@ -634,6 +634,10 @@
     "withdrawing-amount": "बचत से निकासी",
     "reserved-amount": "बाजार में खुले आदेश के लिए आरक्षित"
   },
+  "wallet-upvu": {
+    "title": "UPVU Summary",
+    "description": "UPVU Summary Page"
+  },
   "wallet-engine": {
     "title": "हाइव इंजन टोकनस",
     "description": "हाइव इंजन हाइव ब्लॉकचेन के लिए एक स्मार्ट कॉन्ट्रैक्ट साइड-चेन प्लेटफॉर्म है।",
