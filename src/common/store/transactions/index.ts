@@ -56,9 +56,7 @@ export const ACCOUNT_OPERATION_GROUPS: Record<OperationGroup, number[]> = {
   ],
 };
 
-const ALL_ACCOUNT_OPERATIONS = [
-  ...Object.values(ACCOUNT_OPERATION_GROUPS),
-].reduce((acc, val) => acc.concat(val), []);
+const ALL_ACCOUNT_OPERATIONS = [...Object.values(ACCOUNT_OPERATION_GROUPS)].reduce((acc, val) => acc.concat(val), []);
 
 export const initialState: Transactions = {
   list: [],
@@ -66,10 +64,7 @@ export const initialState: Transactions = {
   group: "",
 };
 
-export default (
-  state: Transactions = initialState,
-  action: Actions
-): Transactions => {
+export default (state: Transactions = initialState, action: Actions): Transactions => {
   switch (action.type) {
     case ActionTypes.FETCH: {
       return {
@@ -103,38 +98,25 @@ export default (
 
 /* Actions */
 export const fetchTransactions =
-  (
-    username: string,
-    group: OperationGroup | "" = "",
-    start: number = -1,
-    limit: number = 100
-  ) =>
+  (username: string, group: OperationGroup | "" = "", start: number = -1, limit: number = 100) =>
   async (dispatch: Dispatch) => {
     dispatch(fetchAct(group));
 
     const name = username.replace("@", "");
-    debugger;
+    // debugger;
     let filters: any[] = [];
     switch (group) {
       case "transfers":
-        filters = utils.makeBitMaskFilter(
-          ACCOUNT_OPERATION_GROUPS["transfers"]
-        );
+        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["transfers"]);
         break;
       case "market-orders":
-        filters = utils.makeBitMaskFilter(
-          ACCOUNT_OPERATION_GROUPS["market-orders"]
-        );
+        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["market-orders"]);
         break;
       case "interests":
-        filters = utils.makeBitMaskFilter(
-          ACCOUNT_OPERATION_GROUPS["interests"]
-        );
+        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["interests"]);
         break;
       case "stake-operations":
-        filters = utils.makeBitMaskFilter(
-          ACCOUNT_OPERATION_GROUPS["stake-operations"]
-        );
+        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["stake-operations"]);
         break;
       case "rewards":
         filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["rewards"]);
@@ -154,9 +136,7 @@ export const fetchTransactions =
         ...x[1].op[1],
       }));
 
-      const transactions: Transaction[] = mapped
-        .filter((x) => x !== null)
-        .sort((a: any, b: any) => b.num - a.num);
+      const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
 
       dispatch(fetchedAct(transactions));
     } catch (e) {

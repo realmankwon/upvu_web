@@ -14,12 +14,7 @@ import WalletMenu from "../wallet-menu";
 
 import Transfer, { TransferMode } from "../transfer-he";
 
-import {
-  claimRewards,
-  getHiveEngineTokenBalances,
-  getUnclaimedRewards,
-  TokenStatus,
-} from "../../api/hive-engine";
+import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
 import { proxifyImageSrc } from "@ecency/render-helper";
 import {
   informationVariantSvg,
@@ -106,9 +101,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
     let items;
     try {
       items = await getHiveEngineTokenBalances(account.name);
-      items = items.filter(
-        (token) => token.balance !== 0 || token.stakedBalance !== 0
-      );
+      items = items.filter((token) => token.balance !== 0 || token.stakedBalance !== 0);
       items = this.sort(items);
       this._isMounted && this.setState({ tokens: items });
     } catch (e) {
@@ -202,26 +195,16 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                           <Tooltip id={`tooltip-token`}>
                             <div className="tooltip-inner rewards-container">
                               {rewardsToShowInTooltip.map((reward, ind) => (
-                                <div
-                                  className="d-flex py-1 border-bottom"
-                                  key={reward.pending_token + ind}
-                                >
-                                  <div className="mr-1 text-lowercase">
-                                    {reward.symbol}:{" "}
-                                  </div>
-                                  <div>
-                                    {reward.pending_token /
-                                      Math.pow(10, reward.precision)}
-                                  </div>
+                                <div className="d-flex py-1 border-bottom" key={reward.pending_token + ind}>
+                                  <div className="mr-1 text-lowercase">{reward.symbol}: </div>
+                                  <div>{reward.pending_token / Math.pow(10, reward.precision)}</div>
                                 </div>
                               ))}
                             </div>
                           </Tooltip>
                         }
                       >
-                        <div className="d-flex align-items-center">
-                          {`${rewards.length} tokens`}
-                        </div>
+                        <div className="d-flex align-items-center">{`${rewards.length} tokens`}</div>
                       </OverlayTrigger>
                     </span>
                     {isMyPage && (
@@ -249,9 +232,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                         </span>
                         {isMyPage && (
                           <a
-                            className={`claim-btn ${
-                              claiming ? "in-progress" : ""
-                            }`}
+                            className={`claim-btn ${claiming ? "in-progress" : ""}`}
                             onClick={() => this.claimRewards([r])}
                           >
                             {plusCircle}
@@ -267,9 +248,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
             <div className="balance-row alternative">
               <div className="balance-info">
                 <div className="title">{_t("wallet-engine.title")}</div>
-                <div className="description">
-                  {_t("wallet-engine.description")}
-                </div>
+                <div className="description">{_t("wallet-engine.description")}</div>
               </div>
             </div>
 
@@ -279,19 +258,12 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                   <LinearProgress />
                 </div>
               ) : tokens.length === 0 ? (
-                <div className="no-results">
-                  {_t("wallet-engine.no-results")}
-                </div>
+                <div className="no-results">{_t("wallet-engine.no-results")}</div>
               ) : (
                 <div className="entry-list-body">
                   {tokens.map((b, i) => {
-                    const imageSrc = proxifyImageSrc(
-                      b.icon,
-                      0,
-                      0,
-                      global?.canUseWebp ? "webp" : "match"
-                    );
-                    const fallbackImage = require("../../img/noimage.svg");
+                    const imageSrc = proxifyImageSrc(b.icon, 0, 0, global?.canUseWebp ? "webp" : "match");
+                    const fallbackImage = require("../../img/noimage.png");
 
                     return (
                       <div className="entry-list-item" key={i}>
@@ -311,9 +283,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                         <div className="ml-auto d-flex flex-column justify-between">
                           <div className="d-flex mb-1 align-self-end">
                             <div className="entry-body mr-md-2">
-                              <span className="item-balance">
-                                {b.balanced()}
-                              </span>
+                              <span className="item-balance">{b.balanced()}</span>
                             </div>
 
                             <div className="ml-1">
@@ -329,23 +299,15 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                           {_t("wallet-engine.token")}: {b.name}
                                         </p>
                                         <p>
-                                          {_t("wallet-engine.balance")}:{" "}
-                                          {b.balanced()}
+                                          {_t("wallet-engine.balance")}: {b.balanced()}
                                         </p>
                                         <p>
-                                          {_t("wallet-engine.staked")}:{" "}
-                                          {b.staked()}
+                                          {_t("wallet-engine.staked")}: {b.staked()}
                                         </p>
                                         {b.delegationEnabled && (
                                           <>
-                                            <p>
-                                              In:{" "}
-                                              {b.delegationsIn.toLocaleString()}
-                                            </p>
-                                            <p>
-                                              Out:{" "}
-                                              {b.delegationsOut.toLocaleString()}
-                                            </p>
+                                            <p>In: {b.delegationsIn.toLocaleString()}</p>
+                                            <p>Out: {b.delegationsOut.toLocaleString()}</p>
                                           </>
                                         )}
                                       </div>
@@ -354,9 +316,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                 }
                               >
                                 <div className="d-flex align-items-center">
-                                  <span className="info-icon mr-0 mr-md-2">
-                                    {informationVariantSvg}
-                                  </span>
+                                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
                                 </div>
                               </OverlayTrigger>
                             </div>
@@ -379,13 +339,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                               >
                                 <div className="d-flex align-items-center flex-justify-center">
                                   <span
-                                    onClick={() =>
-                                      this.openTransferDialog(
-                                        "transfer",
-                                        b.symbol,
-                                        b.balance
-                                      )
-                                    }
+                                    onClick={() => this.openTransferDialog("transfer", b.symbol, b.balance)}
                                     className="he-icon mr-0 mr-md-2"
                                   >
                                     {transferOutlineSvg}
@@ -394,40 +348,35 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                               </OverlayTrigger>
                             </div>
 
-                            {b.delegationEnabled &&
-                              b.delegationsOut !== b.balance && (
-                                <div className="mr-1">
-                                  <OverlayTrigger
-                                    delay={{ show: 0, hide: 500 }}
-                                    key={"bottom"}
-                                    placement={"bottom"}
-                                    overlay={
-                                      <Tooltip id={`tooltip-${b.symbol}`}>
-                                        <div className="tooltip-inner">
-                                          <div className="profile-info-tooltip-content">
-                                            <p>Delegate</p>
-                                          </div>
+                            {b.delegationEnabled && b.delegationsOut !== b.balance && (
+                              <div className="mr-1">
+                                <OverlayTrigger
+                                  delay={{ show: 0, hide: 500 }}
+                                  key={"bottom"}
+                                  placement={"bottom"}
+                                  overlay={
+                                    <Tooltip id={`tooltip-${b.symbol}`}>
+                                      <div className="tooltip-inner">
+                                        <div className="profile-info-tooltip-content">
+                                          <p>Delegate</p>
                                         </div>
-                                      </Tooltip>
-                                    }
-                                  >
-                                    <div className="d-flex align-items-center flex-justify-center">
-                                      <span
-                                        onClick={() =>
-                                          this.openTransferDialog(
-                                            "delegate",
-                                            b.symbol,
-                                            b.balance - b.delegationsOut
-                                          )
-                                        }
-                                        className="he-icon mr-0 mr-md-2"
-                                      >
-                                        {delegateOutlineSvg}
-                                      </span>
-                                    </div>
-                                  </OverlayTrigger>
-                                </div>
-                              )}
+                                      </div>
+                                    </Tooltip>
+                                  }
+                                >
+                                  <div className="d-flex align-items-center flex-justify-center">
+                                    <span
+                                      onClick={() =>
+                                        this.openTransferDialog("delegate", b.symbol, b.balance - b.delegationsOut)
+                                      }
+                                      className="he-icon mr-0 mr-md-2"
+                                    >
+                                      {delegateOutlineSvg}
+                                    </span>
+                                  </div>
+                                </OverlayTrigger>
+                              </div>
+                            )}
                             {b.delegationEnabled && b.delegationsOut > 0 && (
                               <div className="mr-1">
                                 <OverlayTrigger
@@ -446,13 +395,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                 >
                                   <div className="d-flex align-items-center flex-justify-center">
                                     <span
-                                      onClick={() =>
-                                        this.openTransferDialog(
-                                          "undelegate",
-                                          b.symbol,
-                                          b.delegationsOut
-                                        )
-                                      }
+                                      onClick={() => this.openTransferDialog("undelegate", b.symbol, b.delegationsOut)}
                                       className="he-icon mr-0 mr-md-2"
                                     >
                                       {undelegateOutlineSvg}
@@ -480,13 +423,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                 >
                                   <div className="d-flex align-items-center flex-justify-center align-center">
                                     <span
-                                      onClick={() =>
-                                        this.openTransferDialog(
-                                          "stake",
-                                          b.symbol,
-                                          b.balance
-                                        )
-                                      }
+                                      onClick={() => this.openTransferDialog("stake", b.symbol, b.balance)}
                                       className="he-icon mr-0 mr-md-2"
                                     >
                                       {lockOutlineSvg}
@@ -513,13 +450,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                 >
                                   <div className="d-flex align-items-center flex-justify-center align-center">
                                     <span
-                                      onClick={() =>
-                                        this.openTransferDialog(
-                                          "unstake",
-                                          b.symbol,
-                                          b.stakedBalance
-                                        )
-                                      }
+                                      onClick={() => this.openTransferDialog("unstake", b.symbol, b.stakedBalance)}
                                       className="he-icon mr-0 mr-md-2"
                                     >
                                       {unlockOutlineSvg}

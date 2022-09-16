@@ -34,7 +34,7 @@ exports[`(3) Should render entries 1`] = `
             alt="Imagehoster + Hivesigner and Condenser bounty"
             loading="lazy"
             onError={[Function]}
-            src="noimage.svg"
+            src="noimage.png"
             style={
               Object {
                 "width": "75px",

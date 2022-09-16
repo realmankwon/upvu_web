@@ -308,7 +308,7 @@ export class EditorToolbar extends Component<Props> {
   };
 
   upload = async (file: File) => {
-    debugger;
+    // debugger;
     const { activeUser, global } = this.props;
 
     const username = activeUser?.username!;
@@ -321,7 +321,7 @@ export class EditorToolbar extends Component<Props> {
       // let token = getAccessToken(username);
       // if (token) {
 
-      debugger;
+      // debugger;
       const resp = await uploadImage(file, username);
       imageUrl = resp.url;
 
