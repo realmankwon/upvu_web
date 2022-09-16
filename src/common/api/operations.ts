@@ -125,10 +125,10 @@ const broadcastPostingOperations = (username: string, operations: Operation[]): 
 
 async function callSteemKeychain(username: any, opArray: any) {
   return new Promise<TransactionConfirmation>((resolve) => {
-    if (!steem_keychain) return;
+    if (!window.steem_keychain) return;
     if (!username) return;
 
-    steem_keychain.requestBroadcast(username, opArray, "posting", function (res: any) {
+    window.steem_keychain.requestBroadcast(username, opArray, "posting", function (res: any) {
       let r: TransactionConfirmation = {
         id: res.result.id,
         block_num: res.result.block_num,
