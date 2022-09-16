@@ -1,7 +1,13 @@
 const http = require("http");
 
+// const options = {
+//   host: "localhost",
+//   port: "3030",
+//   path: "/healthcheck.json",
+//   timeout: 5000,
+// };
 const options = {
-  host: "localhost",
+  host: "http://www.steempunks.xyz",
   port: "3030",
   path: "/healthcheck.json",
   timeout: 5000,
