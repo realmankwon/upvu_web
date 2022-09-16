@@ -65,8 +65,8 @@ export const uploadImage = async (
   let sig;
   // if (keychainLogin) {
   if (true) {
-    const response = await new Promise((resolve) => {
-      window.steem_keychain.requestSignBuffer(username, JSON.stringify(buf), "Posting", (response) => {
+    const response: any = await new Promise((resolve) => {
+      window.steem_keychain.requestSignBuffer(username, JSON.stringify(buf), "Posting", (response: any) => {
         resolve(response);
       });
     });
@@ -75,7 +75,7 @@ export const uploadImage = async (
     } else {
       console.log("progress", response);
       // progress({ error: response.message });
-      return;
+      return { url: "" };
     }
   } else {
     // sig = Signature.signBufferSha256(bufSha, d).toHex();
@@ -114,7 +114,7 @@ export const getMarketData = (
   return axios.get(u).then((r) => r.data);
 };
 
-export const getCurrencyRate = (cur: string): Promise<number> => {
+export const getCurrencyRate = (cur: string): Promise<any> => {
   if (cur === "sbd") {
     return new Promise((resolve) => resolve(1));
   }
