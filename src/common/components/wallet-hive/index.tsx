@@ -331,7 +331,10 @@ export class WalletHive extends BaseComponent<Props, State> {
     );
     const totalDelegated = formattedNumber(
       vestsToHp(w.vestingSharesDelegated, steemPerMVests),
-      { prefix: "-", suffix: "SP" }
+      {
+        prefix: "-",
+        suffix: "SP",
+      }
     );
 
     return (
@@ -542,7 +545,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                       >
                         {formattedNumber(
                           vestsToHp(w.vestingSharesDelegated, steemPerMVests),
-                          { prefix: "-", suffix: "SP" }
+                          {
+                            prefix: "-",
+                            suffix: "SP",
+                          }
                         )}
                       </span>
                     </Tooltip>
@@ -556,7 +562,10 @@ export class WalletHive extends BaseComponent<Props, State> {
 
                   const strReceived = formattedNumber(
                     vestsToHp(w.vestingSharesReceived, steemPerMVests),
-                    { prefix: "+", suffix: "SP" }
+                    {
+                      prefix: "+",
+                      suffix: "SP",
+                    }
                   );
 
                   if (global.usePrivate) {
@@ -592,7 +601,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                             w.nextVestingSharesWithdrawal,
                             steemPerMVests
                           ),
-                          { prefix: "-", suffix: "SP" }
+                          {
+                            prefix: "-",
+                            suffix: "SP",
+                          }
                         )}
                       </span>
                     </Tooltip>
@@ -607,7 +619,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                       <span>
                         {formattedNumber(
                           vestsToHp(w.vestingSharesTotal, steemPerMVests),
-                          { prefix: "=", suffix: "SP" }
+                          {
+                            prefix: "=",
+                            suffix: "SP",
+                          }
                         )}
                       </span>
                     </Tooltip>

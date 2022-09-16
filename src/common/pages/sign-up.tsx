@@ -6,11 +6,7 @@ import queryString from "query-string";
 
 import { Button, Form, FormControl, Spinner, Row, Col } from "react-bootstrap";
 
-import {
-  PageProps,
-  pageMapDispatchToProps,
-  pageMapStateToProps,
-} from "./common";
+import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
 
 import Meta from "../components/meta";
 import Theme from "../components/theme/index";
@@ -57,23 +53,17 @@ class SignUpPage extends Component<PageProps, State> {
     }
   }
 
-  usernameChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ) => {
+  usernameChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { value: username } = e.target;
     this.setState({ username: username.toLowerCase() });
   };
 
-  emailChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ) => {
+  emailChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { value: email } = e.target;
     this.setState({ email });
   };
 
-  refCodeChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ) => {
+  refCodeChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { value: referral } = e.target;
     this.setState({ referral: referral.toLowerCase() });
   };
@@ -102,28 +92,16 @@ class SignUpPage extends Component<PageProps, State> {
   render() {
     const { global } = this.props;
 
-    const signupSvg = global.isElectron
-      ? "./img/signup.png"
-      : require("../img/signup.png");
-    const logoCircle = global.isElectron
-      ? "./img/logo-circle.svg"
-      : require("../img/logo-circle.svg");
+    const signupSvg = global.isElectron ? "./img/signup.png" : require("../img/signup.png");
+    const logoCircle = global.isElectron ? "./img/logo-circle.png" : require("../img/logo-circle.png");
 
     //  Meta config
     const metaProps = {
       title: _t("sign-up.header"),
     };
 
-    const { username, email, referral, lockReferral, inProgress, done } =
-      this.state;
-    const spinner = (
-      <Spinner
-        animation="grow"
-        variant="light"
-        size="sm"
-        style={{ marginRight: "6px" }}
-      />
-    );
+    const { username, email, referral, lockReferral, inProgress, done } = this.state;
+    const spinner = <Spinner animation="grow" variant="light" size="sm" style={{ marginRight: "6px" }} />;
     let containerClasses = global.isElectron
       ? "app-content sign-up-page mb-lg-0 mt-0 pt-6"
       : "app-content sign-up-page mb-lg-0";
@@ -200,9 +178,7 @@ class SignUpPage extends Component<PageProps, State> {
                           onChange={this.usernameChanged}
                           autoFocus={true}
                           required={true}
-                          onInvalid={(e: any) =>
-                            handleInvalid(e, "sign-up.", "validation-username")
-                          }
+                          onInvalid={(e: any) => handleInvalid(e, "sign-up.", "validation-username")}
                           onInput={handleOnInput}
                         />
                       </Form.Group>
@@ -213,9 +189,7 @@ class SignUpPage extends Component<PageProps, State> {
                           value={email}
                           onChange={this.emailChanged}
                           required={true}
-                          onInvalid={(e: any) =>
-                            handleInvalid(e, "sign-up.", "validation-email")
-                          }
+                          onInvalid={(e: any) => handleInvalid(e, "sign-up.", "validation-email")}
                           onInput={handleOnInput}
                         />
                       </Form.Group>
@@ -229,12 +203,7 @@ class SignUpPage extends Component<PageProps, State> {
                         />
                       </Form.Group>
                       <div className="d-flex justify-content-center">
-                        <Button
-                          variant="primary"
-                          block={true}
-                          type="submit"
-                          disabled={inProgress}
-                        >
+                        <Button variant="primary" block={true} type="submit" disabled={inProgress}>
                           {inProgress && spinner} {_t("sign-up.submit")}
                         </Button>
                       </div>
@@ -255,9 +224,7 @@ class SignUpPage extends Component<PageProps, State> {
                       </a>
                     </div>
 
-                    <div className="form-bottom-description text-center">
-                      {_t("sign-up.bottom-description")}
-                    </div>
+                    <div className="form-bottom-description text-center">{_t("sign-up.bottom-description")}</div>
                   </div>
                 );
               })()}

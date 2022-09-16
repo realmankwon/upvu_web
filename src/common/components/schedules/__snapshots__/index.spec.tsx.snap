@@ -87,7 +87,7 @@ exports[`(2) With data 1`] = `
                 alt="Eget suscipit quam suspendisse"
                 className="no-img"
                 onError={[Function]}
-                src="noimage.svg"
+                src="noimage.png"
               />
             </div>
           </div>
@@ -218,7 +218,7 @@ exports[`(2) With data 1`] = `
                 alt="Eget suscipit quam suspendisse"
                 className="no-img"
                 onError={[Function]}
-                src="noimage.svg"
+                src="noimage.png"
               />
             </div>
           </div>
@@ -351,7 +351,7 @@ exports[`(2) With data 1`] = `
                 alt="Eget suscipit quam suspendisse"
                 className="no-img"
                 onError={[Function]}
-                src="noimage.svg"
+                src="noimage.png"
               />
             </div>
           </div>
@@ -493,7 +493,7 @@ exports[`(2) With data 1`] = `
                 alt="Eget suscipit quam suspendisse"
                 className="no-img"
                 onError={[Function]}
-                src="noimage.svg"
+                src="noimage.png"
               />
             </div>
           </div>

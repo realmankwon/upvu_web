@@ -69,9 +69,7 @@ const handleChainError = (strErr: string) => {
     return _t("chain-error.comment-children");
   } else if (/comment_cashout/.test(strErr)) {
     return _t("chain-error.comment-cashout");
-  } else if (
-    /Votes evaluating for comment that is paid out is forbidden/.test(strErr)
-  ) {
+  } else if (/Votes evaluating for comment that is paid out is forbidden/.test(strErr)) {
     return _t("chain-error.paid-out-post-forbidden");
   }
 
@@ -105,11 +103,7 @@ export const formatError = (err: any): string => {
   return "";
 };
 
-export const broadcastPostingJSON = (
-  username: string,
-  id: string,
-  json: {}
-): Promise<TransactionConfirmation> => {
+export const broadcastPostingJSON = (username: string, id: string, json: {}): Promise<TransactionConfirmation> => {
   const operations = [
     [
       "custom_json",
@@ -125,10 +119,7 @@ export const broadcastPostingJSON = (
   return callSteemKeychain(username, operations);
 };
 
-const broadcastPostingOperations = (
-  username: string,
-  operations: Operation[]
-): Promise<TransactionConfirmation> => {
+const broadcastPostingOperations = (username: string, operations: Operation[]): Promise<TransactionConfirmation> => {
   return callSteemKeychain(username, operations);
 };
 
@@ -137,20 +128,15 @@ async function callSteemKeychain(username: any, opArray: any) {
     if (!steem_keychain) return;
     if (!username) return;
 
-    steem_keychain.requestBroadcast(
-      username,
-      opArray,
-      "posting",
-      function (res: any) {
-        let r: TransactionConfirmation = {
-          id: res.result.id,
-          block_num: res.result.block_num,
-          trx_num: res.result.trx_num,
-          expired: res.result.expired,
-        };
-        resolve(r);
-      }
-    );
+    steem_keychain.requestBroadcast(username, opArray, "posting", function (res: any) {
+      let r: TransactionConfirmation = {
+        id: res.result.id,
+        block_num: res.result.block_num,
+        trx_num: res.result.trx_num,
+        expired: res.result.expired,
+      };
+      resolve(r);
+    });
   });
 }
 
@@ -172,12 +158,10 @@ export const reblog = (
 
   const json = ["reblog", message];
 
-  return broadcastPostingJSON(username, "follow", json).then(
-    (r: TransactionConfirmation) => {
-      usrActivity(username, 130, r.block_num, r.id).then();
-      return r;
-    }
-  );
+  return broadcastPostingJSON(username, "follow", json).then((r: TransactionConfirmation) => {
+    usrActivity(username, 130, r.block_num, r.id).then();
+    return r;
+  });
 };
 
 export const comment = (
@@ -214,18 +198,14 @@ export const comment = (
       extensions: options.extensions,
     };
 
-    debugger;
+    // debugger;
     opArray.push(["comment_options", CommentOptions]);
   }
 
   return broadcastPostingOperations(username, opArray);
 };
 
-export const deleteComment = (
-  username: string,
-  author: string,
-  permlink: string
-): Promise<TransactionConfirmation> => {
+export const deleteComment = (username: string, author: string, permlink: string): Promise<TransactionConfirmation> => {
   const params = {
     author,
     permlink,
@@ -254,10 +234,7 @@ export const vote = (
   return broadcastPostingOperations(username, opArray);
 };
 
-export const follow = (
-  follower: string,
-  following: string
-): Promise<TransactionConfirmation> => {
+export const follow = (follower: string, following: string): Promise<TransactionConfirmation> => {
   const json = [
     "follow",
     {
@@ -270,10 +247,7 @@ export const follow = (
   return broadcastPostingJSON(follower, "follow", json);
 };
 
-export const unFollow = (
-  follower: string,
-  following: string
-): Promise<TransactionConfirmation> => {
+export const unFollow = (follower: string, following: string): Promise<TransactionConfirmation> => {
   const json = [
     "follow",
     {
@@ -286,10 +260,7 @@ export const unFollow = (
   return broadcastPostingJSON(follower, "follow", json);
 };
 
-export const ignore = (
-  follower: string,
-  following: string
-): Promise<TransactionConfirmation> => {
+export const ignore = (follower: string, following: string): Promise<TransactionConfirmation> => {
   const json = [
     "follow",
     {
@@ -337,12 +308,7 @@ export const transfer = (
   return hiveClient.broadcast.transfer(args, key);
 };
 
-export const transferHot = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferHot = (from: string, to: string, amount: string, memo: string) => {
   const op: Operation = [
     "transfer",
     {
@@ -357,21 +323,9 @@ export const transferHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const transferKc = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferKc = (from: string, to: string, amount: string, memo: string) => {
   const asset = parseAsset(amount);
-  return keychain.transfer(
-    from,
-    to,
-    asset.amount.toFixed(3).toString(),
-    memo,
-    asset.symbol,
-    true
-  );
+  return keychain.transfer(from, to, asset.amount.toFixed(3).toString(), memo, asset.symbol, true);
 };
 
 export const transferPoint = (
@@ -398,12 +352,7 @@ export const transferPoint = (
   return hiveClient.broadcast.json(op, key);
 };
 
-export const transferPointHot = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferPointHot = (from: string, to: string, amount: string, memo: string) => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,
@@ -420,12 +369,7 @@ export const transferPointHot = (
   hotSign("custom-json", params, `@${from}/points`);
 };
 
-export const transferPointKc = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferPointKc = (from: string, to: string, amount: string, memo: string) => {
   const json = JSON.stringify({
     sender: from,
     receiver: to,
@@ -433,13 +377,7 @@ export const transferPointKc = (
     memo,
   });
 
-  return keychain.customJson(
-    from,
-    "ecency_point_transfer",
-    "Active",
-    json,
-    "Point Transfer"
-  );
+  return keychain.customJson(from, "ecency_point_transfer", "Active", json, "Point Transfer");
 };
 
 export const transferToSavings = (
@@ -462,12 +400,7 @@ export const transferToSavings = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const transferToSavingsHot = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferToSavingsHot = (from: string, to: string, amount: string, memo: string) => {
   const op: Operation = [
     "transfer_to_savings",
     {
@@ -482,12 +415,7 @@ export const transferToSavingsHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const transferToSavingsKc = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferToSavingsKc = (from: string, to: string, amount: string, memo: string) => {
   const op: Operation = [
     "transfer_to_savings",
     {
@@ -517,16 +445,12 @@ export const limitOrderCreate = (
     {
       orderid: Math.floor(Date.now() / 1000),
       owner: owner,
-      amount_to_sell: `${
-        orderType === TransactionType.Buy
-          ? amount_to_sell.toFixed(3)
-          : min_to_receive.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "SBD" : "STEEM"}`,
-      min_to_receive: `${
-        orderType === TransactionType.Buy
-          ? min_to_receive.toFixed(3)
-          : amount_to_sell.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "STEEM" : "SBD"}`,
+      amount_to_sell: `${orderType === TransactionType.Buy ? amount_to_sell.toFixed(3) : min_to_receive.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "SBD" : "STEEM"
+      }`,
+      min_to_receive: `${orderType === TransactionType.Buy ? min_to_receive.toFixed(3) : amount_to_sell.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "STEEM" : "SBD"
+      }`,
       fill_or_kill: false,
       expiration: expiration,
     },
@@ -535,11 +459,7 @@ export const limitOrderCreate = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const limitOrderCancel = (
-  owner: string,
-  key: PrivateKey,
-  orderid: number
-): Promise<TransactionConfirmation> => {
+export const limitOrderCancel = (owner: string, key: PrivateKey, orderid: number): Promise<TransactionConfirmation> => {
   const op: Operation = [
     "limit_order_cancel",
     {
@@ -565,16 +485,12 @@ export const limitOrderCreateHot = (
     {
       orderid: Math.floor(Date.now() / 1000),
       owner: owner,
-      amount_to_sell: `${
-        orderType === TransactionType.Buy
-          ? amount_to_sell.toFixed(3)
-          : min_to_receive.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "SBD" : "STEEM"}`,
-      min_to_receive: `${
-        orderType === TransactionType.Buy
-          ? min_to_receive.toFixed(3)
-          : amount_to_sell.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "STEEM" : "SBD"}`,
+      amount_to_sell: `${orderType === TransactionType.Buy ? amount_to_sell.toFixed(3) : min_to_receive.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "SBD" : "STEEM"
+      }`,
+      min_to_receive: `${orderType === TransactionType.Buy ? min_to_receive.toFixed(3) : amount_to_sell.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "STEEM" : "SBD"
+      }`,
       fill_or_kill: false,
       expiration: expiration,
     },
@@ -611,16 +527,12 @@ export const limitOrderCreateKc = (
     {
       orderid: Math.floor(Date.now() / 1000),
       owner: owner,
-      amount_to_sell: `${
-        orderType === TransactionType.Buy
-          ? amount_to_sell.toFixed(3)
-          : min_to_receive.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "SBD" : "STEEM"}`,
-      min_to_receive: `${
-        orderType === TransactionType.Buy
-          ? min_to_receive.toFixed(3)
-          : amount_to_sell.toFixed(3)
-      } ${orderType === TransactionType.Buy ? "STEEM" : "SBD"}`,
+      amount_to_sell: `${orderType === TransactionType.Buy ? amount_to_sell.toFixed(3) : min_to_receive.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "SBD" : "STEEM"
+      }`,
+      min_to_receive: `${orderType === TransactionType.Buy ? min_to_receive.toFixed(3) : amount_to_sell.toFixed(3)} ${
+        orderType === TransactionType.Buy ? "STEEM" : "SBD"
+      }`,
       fill_or_kill: false,
       expiration: expiration,
     },
@@ -641,11 +553,7 @@ export const limitOrderCancelKc = (owner: string, orderid: any) => {
   return keychain.broadcast(owner, [op], "Active");
 };
 
-export const convert = (
-  owner: string,
-  key: PrivateKey,
-  amount: string
-): Promise<TransactionConfirmation> => {
+export const convert = (owner: string, key: PrivateKey, amount: string): Promise<TransactionConfirmation> => {
   const op: Operation = [
     "convert",
     {
@@ -708,12 +616,7 @@ export const transferFromSavings = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const transferFromSavingsHot = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferFromSavingsHot = (from: string, to: string, amount: string, memo: string) => {
   const op: Operation = [
     "transfer_from_savings",
     {
@@ -729,12 +632,7 @@ export const transferFromSavingsHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const transferFromSavingsKc = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const transferFromSavingsKc = (from: string, to: string, amount: string, memo: string) => {
   const op: Operation = [
     "transfer_from_savings",
     {
@@ -778,12 +676,7 @@ export const claimInterest = (
   return hiveClient.broadcast.sendOperations([op, cop], key);
 };
 
-export const claimInterestHot = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const claimInterestHot = (from: string, to: string, amount: string, memo: string) => {
   const rid = new Date().getTime() >>> 0;
   const op: Operation = [
     "transfer_from_savings",
@@ -807,12 +700,7 @@ export const claimInterestHot = (
   return hs.sendOperations([op, cop], params, () => {});
 };
 
-export const claimInterestKc = (
-  from: string,
-  to: string,
-  amount: string,
-  memo: string
-) => {
+export const claimInterestKc = (from: string, to: string, amount: string, memo: string) => {
   const rid = new Date().getTime() >>> 0;
   const op: Operation = [
     "transfer_from_savings",
@@ -853,11 +741,7 @@ export const transferToVesting = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const transferToVestingHot = (
-  from: string,
-  to: string,
-  amount: string
-) => {
+export const transferToVestingHot = (from: string, to: string, amount: string) => {
   const op: Operation = [
     "transfer_to_vesting",
     {
@@ -871,11 +755,7 @@ export const transferToVestingHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const transferToVestingKc = (
-  from: string,
-  to: string,
-  amount: string
-) => {
+export const transferToVestingKc = (from: string, to: string, amount: string) => {
   const op: Operation = [
     "transfer_to_vesting",
     {
@@ -906,11 +786,7 @@ export const delegateVestingShares = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const delegateVestingSharesHot = (
-  delegator: string,
-  delegatee: string,
-  vestingShares: string
-) => {
+export const delegateVestingSharesHot = (delegator: string, delegatee: string, vestingShares: string) => {
   const op: Operation = [
     "delegate_vesting_shares",
     {
@@ -926,11 +802,7 @@ export const delegateVestingSharesHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const delegateVestingSharesKc = (
-  delegator: string,
-  delegatee: string,
-  vestingShares: string
-) => {
+export const delegateVestingSharesKc = (delegator: string, delegatee: string, vestingShares: string) => {
   const op: Operation = [
     "delegate_vesting_shares",
     {
@@ -1006,12 +878,7 @@ export const setWithdrawVestingRoute = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const setWithdrawVestingRouteHot = (
-  from: string,
-  to: string,
-  percent: number,
-  autoVest: boolean
-) => {
+export const setWithdrawVestingRouteHot = (from: string, to: string, percent: number, autoVest: boolean) => {
   const op: Operation = [
     "set_withdraw_vesting_route",
     {
@@ -1026,12 +893,7 @@ export const setWithdrawVestingRouteHot = (
   return hs.sendOperation(op, params, () => {});
 };
 
-export const setWithdrawVestingRouteKc = (
-  from: string,
-  to: string,
-  percent: number,
-  autoVest: boolean
-) => {
+export const setWithdrawVestingRouteKc = (from: string, to: string, percent: number, autoVest: boolean) => {
   const op: Operation = [
     "set_withdraw_vesting_route",
     {
@@ -1063,11 +925,7 @@ export const witnessVote = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const witnessVoteHot = (
-  account: string,
-  witness: string,
-  approve: boolean
-) => {
+export const witnessVoteHot = (account: string, witness: string, approve: boolean) => {
   const params = {
     account,
     witness,
@@ -1077,19 +935,11 @@ export const witnessVoteHot = (
   hotSign("account-witness-vote", params, "witnesses");
 };
 
-export const witnessVoteKc = (
-  account: string,
-  witness: string,
-  approve: boolean
-) => {
+export const witnessVoteKc = (account: string, witness: string, approve: boolean) => {
   return keychain.witnessVote(account, witness, approve);
 };
 
-export const witnessProxy = (
-  account: string,
-  key: PrivateKey,
-  proxy: string
-): Promise<TransactionConfirmation> => {
+export const witnessProxy = (account: string, key: PrivateKey, proxy: string): Promise<TransactionConfirmation> => {
   const op: Operation = [
     "account_witness_proxy",
     {
@@ -1133,11 +983,7 @@ export const proposalVote = (
   return hiveClient.broadcast.sendOperations([op], key);
 };
 
-export const proposalVoteHot = (
-  account: string,
-  proposal: number,
-  approve: boolean
-) => {
+export const proposalVoteHot = (account: string, proposal: number, approve: boolean) => {
   const params = {
     account,
     proposal_ids: JSON.stringify([proposal]),
@@ -1147,11 +993,7 @@ export const proposalVoteHot = (
   hotSign("update-proposal-votes", params, "proposals");
 };
 
-export const proposalVoteKc = (
-  account: string,
-  proposal: number,
-  approve: boolean
-) => {
+export const proposalVoteKc = (account: string, proposal: number, approve: boolean) => {
   const op: Operation = [
     "update_proposal_votes",
     {
@@ -1165,19 +1007,13 @@ export const proposalVoteKc = (
   return keychain.broadcast(account, [op], "Active");
 };
 
-export const subscribe = (
-  username: string,
-  community: string
-): Promise<TransactionConfirmation> => {
+export const subscribe = (username: string, community: string): Promise<TransactionConfirmation> => {
   const json = ["subscribe", { community }];
 
   return broadcastPostingJSON(username, "community", json);
 };
 
-export const unSubscribe = (
-  username: string,
-  community: string
-): Promise<TransactionConfirmation> => {
+export const unSubscribe = (username: string, community: string): Promise<TransactionConfirmation> => {
   const json = ["unsubscribe", { community }];
 
   return broadcastPostingJSON(username, "community", json);
@@ -1207,12 +1043,7 @@ export const promote = (
   return hiveClient.broadcast.json(op, key);
 };
 
-export const promoteHot = (
-  user: string,
-  author: string,
-  permlink: string,
-  duration: number
-) => {
+export const promoteHot = (user: string, author: string, permlink: string, duration: number) => {
   const params = {
     authority: "active",
     required_auths: `["${user}"]`,
@@ -1229,12 +1060,7 @@ export const promoteHot = (
   hotSign("custom-json", params, `@${user}/points`);
 };
 
-export const promoteKc = (
-  user: string,
-  author: string,
-  permlink: string,
-  duration: number
-) => {
+export const promoteKc = (user: string, author: string, permlink: string, duration: number) => {
   const json = JSON.stringify({
     user,
     author,
@@ -1269,12 +1095,7 @@ export const boost = (
   return hiveClient.broadcast.json(op, key);
 };
 
-export const boostHot = (
-  user: string,
-  author: string,
-  permlink: string,
-  amount: string
-) => {
+export const boostHot = (user: string, author: string, permlink: string, amount: string) => {
   const params = {
     authority: "active",
     required_auths: `["${user}"]`,
@@ -1291,12 +1112,7 @@ export const boostHot = (
   hotSign("custom-json", params, `@${user}/points`);
 };
 
-export const boostKc = (
-  user: string,
-  author: string,
-  permlink: string,
-  amount: string
-) => {
+export const boostKc = (user: string, author: string, permlink: string, amount: string) => {
   const json = JSON.stringify({
     user,
     author,
@@ -1307,10 +1123,7 @@ export const boostKc = (
   return keychain.customJson(user, "ecency_boost", "Active", json, "Boost");
 };
 
-export const communityRewardsRegister = (
-  key: PrivateKey,
-  name: string
-): Promise<TransactionConfirmation> => {
+export const communityRewardsRegister = (key: PrivateKey, name: string): Promise<TransactionConfirmation> => {
   const json = JSON.stringify({
     name,
   });
@@ -1344,13 +1157,7 @@ export const communityRewardsRegisterKc = (name: string) => {
     name,
   });
 
-  return keychain.customJson(
-    name,
-    "ecency_registration",
-    "Active",
-    json,
-    "Community Registration"
-  );
+  return keychain.customJson(name, "ecency_registration", "Active", json, "Community Registration");
 };
 
 export const updateProfile = (
@@ -1379,11 +1186,7 @@ export const updateProfile = (
   return broadcastPostingOperations(account.name, opArray);
 };
 
-export const grantPostingPermission = (
-  key: PrivateKey,
-  account: Account,
-  pAccount: string
-) => {
+export const grantPostingPermission = (key: PrivateKey, account: Account, pAccount: string) => {
   if (!account.__loaded) {
     throw "posting|memo_key|json_metadata required with account instance";
   }
@@ -1392,10 +1195,7 @@ export const grantPostingPermission = (
     {},
     { ...account.posting },
     {
-      account_auths: [
-        ...account.posting.account_auths,
-        [pAccount, account.posting.weight_threshold],
-      ],
+      account_auths: [...account.posting.account_auths, [pAccount, account.posting.weight_threshold]],
     }
   );
 
@@ -1414,11 +1214,7 @@ export const grantPostingPermission = (
   );
 };
 
-export const revokePostingPermission = (
-  key: PrivateKey,
-  account: Account,
-  pAccount: string
-) => {
+export const revokePostingPermission = (key: PrivateKey, account: Account, pAccount: string) => {
   if (!account.__loaded) {
     throw "posting|memo_key|json_metadata required with account instance";
   }
@@ -1427,9 +1223,7 @@ export const revokePostingPermission = (
     {},
     { ...account.posting },
     {
-      account_auths: account.posting.account_auths.filter(
-        (x) => x[0] !== pAccount
-      ),
+      account_auths: account.posting.account_auths.filter((x) => x[0] !== pAccount),
     }
   );
 
@@ -1479,10 +1273,7 @@ export const pinPost = (
   permlink: string,
   pin: boolean
 ): Promise<TransactionConfirmation> => {
-  const json = [
-    pin ? "pinPost" : "unpinPost",
-    { community, account, permlink },
-  ];
+  const json = [pin ? "pinPost" : "unpinPost", { community, account, permlink }];
 
   return broadcastPostingJSON(username, "community", json);
 };
@@ -1495,17 +1286,12 @@ export const mutePost = (
   notes: string,
   mute: boolean
 ): Promise<TransactionConfirmation> => {
-  const json = [
-    mute ? "mutePost" : "unmutePost",
-    { community, account, permlink, notes },
-  ];
+  const json = [mute ? "mutePost" : "unmutePost", { community, account, permlink, notes }];
 
   return broadcastPostingJSON(username, "community", json);
 };
 
-export const hiveNotifySetLastRead = (
-  username: string
-): Promise<TransactionConfirmation> => {
+export const hiveNotifySetLastRead = (username: string): Promise<TransactionConfirmation> => {
   const now = new Date().toISOString();
   const date = now.split(".")[0];
 
@@ -1524,17 +1310,10 @@ export const hiveNotifySetLastRead = (
 export const updatePassword = (
   update: AccountUpdateOperation[1],
   ownerKey: PrivateKey
-): Promise<TransactionConfirmation> =>
-  hiveClient.broadcast.updateAccount(update, ownerKey);
+): Promise<TransactionConfirmation> => hiveClient.broadcast.updateAccount(update, ownerKey);
 
 // HE Operations
-export const transferHiveEngineKc = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string,
-  memo: string
-) => {
+export const transferHiveEngineKc = (from: string, to: string, symbol: string, amount: string, memo: string) => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "transfer",
@@ -1548,12 +1327,7 @@ export const transferHiveEngineKc = (
 
   return keychain.customJson(from, "ssc-mainnet1", "Active", json, "Transfer");
 };
-export const delegateHiveEngineKc = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-) => {
+export const delegateHiveEngineKc = (from: string, to: string, symbol: string, amount: string) => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "delegate",
@@ -1566,12 +1340,7 @@ export const delegateHiveEngineKc = (
 
   return keychain.customJson(from, "ssc-mainnet1", "Active", json, "Transfer");
 };
-export const undelegateHiveEngineKc = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-) => {
+export const undelegateHiveEngineKc = (from: string, to: string, symbol: string, amount: string) => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "undelegate",
@@ -1584,12 +1353,7 @@ export const undelegateHiveEngineKc = (
 
   return keychain.customJson(from, "ssc-mainnet1", "Active", json, "Transfer");
 };
-export const stakeHiveEngineKc = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-) => {
+export const stakeHiveEngineKc = (from: string, to: string, symbol: string, amount: string) => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "stake",
@@ -1602,12 +1366,7 @@ export const stakeHiveEngineKc = (
 
   return keychain.customJson(from, "ssc-mainnet1", "Active", json, "Transfer");
 };
-export const unstakeHiveEngineKc = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-) => {
+export const unstakeHiveEngineKc = (from: string, to: string, symbol: string, amount: string) => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "unstake",
@@ -1622,13 +1381,7 @@ export const unstakeHiveEngineKc = (
 };
 
 // HE Hive Signer Operations
-export const transferHiveEngineHs = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string,
-  memo: string
-): any => {
+export const transferHiveEngineHs = (from: string, to: string, symbol: string, amount: string, memo: string): any => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,
@@ -1649,12 +1402,7 @@ export const transferHiveEngineHs = (
   return hotSign("custom-json", params, `@${from}/engine`);
 };
 
-export const delegateHiveEngineHs = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-): any => {
+export const delegateHiveEngineHs = (from: string, to: string, symbol: string, amount: string): any => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,
@@ -1674,12 +1422,7 @@ export const delegateHiveEngineHs = (
   return hotSign("custom-json", params, `@${from}/engine`);
 };
 
-export const undelegateHiveEngineHs = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-): any => {
+export const undelegateHiveEngineHs = (from: string, to: string, symbol: string, amount: string): any => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,
@@ -1699,12 +1442,7 @@ export const undelegateHiveEngineHs = (
   return hotSign("custom-json", params, `@${from}/engine`);
 };
 
-export const stakeHiveEngineHs = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-): any => {
+export const stakeHiveEngineHs = (from: string, to: string, symbol: string, amount: string): any => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,
@@ -1724,12 +1462,7 @@ export const stakeHiveEngineHs = (
   return hotSign("custom-json", params, `@${from}/engine`);
 };
 
-export const unstakeHiveEngineHs = (
-  from: string,
-  to: string,
-  symbol: string,
-  amount: string
-): any => {
+export const unstakeHiveEngineHs = (from: string, to: string, symbol: string, amount: string): any => {
   const params = {
     authority: "active",
     required_auths: `["${from}"]`,

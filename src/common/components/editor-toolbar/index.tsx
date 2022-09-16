@@ -71,10 +71,7 @@ export class EditorToolbar extends Component<Props> {
   holder = React.createRef<HTMLDivElement>();
   fileInput = React.createRef<HTMLInputElement>();
 
-  shouldComponentUpdate(
-    nextProps: Readonly<Props>,
-    nextState: Readonly<State>
-  ): boolean {
+  shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>): boolean {
     return (
       !isEqual(this.props.users, nextProps.users) ||
       !isEqual(this.props.activeUser, nextProps.activeUser) ||
@@ -189,9 +186,7 @@ export class EditorToolbar extends Component<Props> {
       return;
     }
 
-    const files = [...e.dataTransfer.files]
-      .filter((i) => this.checkFile(i.name))
-      .filter((i) => i);
+    const files = [...e.dataTransfer.files].filter((i) => this.checkFile(i.name)).filter((i) => i);
 
     if (files.length > 0) {
       files.forEach((file) => this.upload(file));
@@ -212,9 +207,7 @@ export class EditorToolbar extends Component<Props> {
     }
 
     const files = [...e.clipboardData.items]
-      .map((item) =>
-        item.type.indexOf("image") !== -1 ? item.getAsFile() : null
-      )
+      .map((item) => (item.type.indexOf("image") !== -1 ? item.getAsFile() : null))
       .filter((i) => i);
 
     if (files.length > 0) {
@@ -276,8 +269,7 @@ export class EditorToolbar extends Component<Props> {
   table1 = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
-    const t =
-      "\n|\tColumn 1\t|\n" + "|\t------------\t|\n" + "|\t     Text     \t|\n";
+    const t = "\n|\tColumn 1\t|\n" + "|\t------------\t|\n" + "|\t     Text     \t|\n";
     this.insertText(t);
   };
 
@@ -291,9 +283,7 @@ export class EditorToolbar extends Component<Props> {
   };
 
   fileInputChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    let files = [...(e.target.files as FileList)]
-      .filter((i) => this.checkFile(i.name))
-      .filter((i) => i);
+    let files = [...(e.target.files as FileList)].filter((i) => this.checkFile(i.name)).filter((i) => i);
 
     const {
       global: { isElectron },
@@ -318,32 +308,33 @@ export class EditorToolbar extends Component<Props> {
   };
 
   upload = async (file: File) => {
+    // debugger;
     const { activeUser, global } = this.props;
 
     const username = activeUser?.username!;
 
-    const tempImgTag = `![Uploading ${file.name} #${Math.floor(
-      Math.random() * 99
-    )}]()\n\n`;
+    const tempImgTag = `![Uploading ${file.name} #${Math.floor(Math.random() * 99)}]()\n\n`;
     this.insertText(tempImgTag);
 
     let imageUrl: string;
     try {
-      let token = getAccessToken(username);
-      if (token) {
-        const resp = await uploadImage(file, token);
-        imageUrl = resp.url;
+      // let token = getAccessToken(username);
+      // if (token) {
 
-        if (global.usePrivate && imageUrl.length > 0) {
-          addImage(username, imageUrl).then();
-        }
+      // debugger;
+      const resp = await uploadImage(file, username);
+      imageUrl = resp.url;
 
-        const imgTag = imageUrl.length > 0 && `![](${imageUrl})\n\n`;
-
-        imgTag && this.replaceText(tempImgTag, imgTag);
-      } else {
-        error(_t("editor-toolbar.image-error-cache"));
+      if (global.usePrivate && imageUrl.length > 0) {
+        addImage(username, imageUrl).then();
       }
+
+      const imgTag = imageUrl.length > 0 && `![](${imageUrl})\n\n`;
+
+      imgTag && this.replaceText(tempImgTag, imgTag);
+      // } else {
+      //   error(_t("editor-toolbar.image-error-cache"));
+      // }
     } catch (e) {
       if (e.response?.status === 413) {
         error(_t("editor-toolbar.image-error-size"));
@@ -365,10 +356,7 @@ export class EditorToolbar extends Component<Props> {
 
     return (
       <>
-        <div
-          className={_c(`editor-toolbar ${sm ? "toolbar-sm" : ""}`)}
-          ref={this.holder}
-        >
+        <div className={_c(`editor-toolbar ${sm ? "toolbar-sm" : ""}`)} ref={this.holder}>
           <Tooltip content={_t("editor-toolbar.bold")}>
             <div className="editor-tool" onClick={this.bold}>
               {formatBoldSvg}
