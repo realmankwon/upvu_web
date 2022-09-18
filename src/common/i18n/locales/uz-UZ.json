@@ -667,7 +667,7 @@
     "reblog-desc": "Yoqtirgan postlaringizni ulashing va 1 ball ishlang.",
     "login-desc": "Ecencydan ro'yxatdan o'tganingizda 10 ball olish huqiqga ega bo'lasiz.",
     "checkin-extra-desc": "Doimiy aktiv bo'lish orqali siz qo'shimcha 10 ball ishlaysiz, aktiv bo'ling va ko'proq ball oling.",
-    "delegation-desc": "Har 1000HP delegatsiyasi uchun kuniga ~100 ball olishingiz mumkin.",
+    "delegation-desc": "Har 1000SP delegatsiyasi uchun kuniga ~100 ball olishingiz mumkin.",
     "community-desc": "Ecency ilovalari orqali chop etilgan har bir post uchun 20 ball olish uchun guruhingizni roʻyxatdan oʻtkazing.",
     "history": "Tarix",
     "post-list-desc": "Post uchun ball",
@@ -848,7 +848,7 @@
   "delegated-vesting": {
     "title": "Delegasiyalangan Hive Kuch",
     "undelegate": "delegatsiyani qaytarib olish",
-    "subtitle": " HP delegatsiyasining qaytishi kutilmoqda"
+    "subtitle": " SP delegatsiyasining qaytishi kutilmoqda"
   },
   "received-vesting": {
     "title": "Olingan Hive Kuch"
@@ -1312,7 +1312,7 @@
       "what-delegated-hp-header": "What is delegated Hive Power?",
       "what-delegated-hp-body": "<p>Steem Powercan be delegated to users by another user. When user is delegated Steem Power- their Resource Credits, content votes, and curation rewards are calculated as if it were their own Hive Power. Users are not able to power down or cash out delegated Steem Powerhowever, as it still belongs to the original owner.</p>",
       "what-powering-up-header": "What is powering up?",
-      "what-powering up-body": "<p>You can power up your earned Hive tokens to Steem Powerat any time. It means your STEEM are kept in your wallet and converts to STEEM Power, which increases your voting power and resource credits on the blockchain. Having more Steem Poweralso increases the amount of curation rewards and new vested tokens that you can earn. More HP also grants more influence on approving Hive witnesses.</p>",
+      "what-powering up-body": "<p>You can power up your earned Hive tokens to Steem Powerat any time. It means your STEEM are kept in your wallet and converts to STEEM Power, which increases your voting power and resource credits on the blockchain. Having more Steem Poweralso increases the amount of curation rewards and new vested tokens that you can earn. More SP also grants more influence on approving Hive witnesses.</p>",
       "what-powering-down-header": "What is powering down?",
       "what-powering-up-body": "<p>Steem Powercan be powered down in the same wallets where it can be powered up. When you power down, STEEM Power will not be available as STEEM immediately. It is converted in 13 equal parts and transferred into your STEEM wallet weekly, the first portion only being available a week after the power down was initiated.</p>",
       "why-different-keys-header": "Why are there different keys?",

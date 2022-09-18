@@ -105,7 +105,7 @@ export class List extends BaseComponent<Props, State> {
           }, 0);
 
           const totalDelegatedNumbered = parseFloat(
-            totalDelegated.replace(" HP", "").replace(",", "")
+            totalDelegated.replace(" SP", "").replace(",", "")
           );
           const toBeReturned = totalDelegatedNumbered - totalDelegatedValue;
           setSubtitle && setSubtitle(Number(toBeReturned.toFixed(3)));

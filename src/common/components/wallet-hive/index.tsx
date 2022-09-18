@@ -323,7 +323,7 @@ export class WalletHive extends BaseComponent<Props, State> {
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalHP = formattedNumber(
+    const totalSP = formattedNumber(
       vestsToHp(w.vestingShares, steemPerMVests),
       {
         suffix: "SP",
@@ -533,7 +533,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                       </div>
                     );
                   })()}
-                  {totalHP}
+                  {totalSP}
                 </div>
 
                 {w.vestingSharesDelegated > 0 && (

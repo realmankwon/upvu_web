@@ -131,7 +131,7 @@ exports[`(1) Default render. 1`] = `
           href="#"
           onClick={[Function]}
         >
-          Votes: 30,331,489.512 HP
+          Votes: 30,331,489.512 SP
         </a>
       </div>
     </div>

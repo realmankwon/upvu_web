@@ -24,7 +24,7 @@ exports[`(1) Default Render 1`] = `
           <span
             className="reward-type"
           >
-            10.207 HP
+            10.207 SP
           </span>
         </div>
       </div>
@@ -105,7 +105,7 @@ exports[`(1) Default Render 1`] = `
                 onMouseLeave={[Function]}
               />
             </div>
-            42,924.395 HP
+            42,924.395 SP
           </div>
           <div
             className="amount amount-passive received-shares"
@@ -115,7 +115,7 @@ exports[`(1) Default Render 1`] = `
               onClick={[Function]}
               title="Received Hive Power"
             >
-              + 5.095 HP
+              + 5.095 SP
             </span>
           </div>
           <div
@@ -124,7 +124,7 @@ exports[`(1) Default Render 1`] = `
             <span
               title="Next power down amount"
             >
-              - 3,626.559 HP
+              - 3,626.559 SP
             </span>
           </div>
           <div
@@ -133,7 +133,7 @@ exports[`(1) Default Render 1`] = `
             <span
               title="Total Hive Power"
             >
-              = 39,302.931 HP
+              = 39,302.931 SP
             </span>
           </div>
         </div>
@@ -436,7 +436,7 @@ exports[`(2) Render with converting SBD 1`] = `
           <span
             className="reward-type"
           >
-            10.207 HP
+            10.207 SP
           </span>
         </div>
       </div>
@@ -530,7 +530,7 @@ exports[`(2) Render with converting SBD 1`] = `
                 onMouseLeave={[Function]}
               />
             </div>
-            42,924.395 HP
+            42,924.395 SP
           </div>
           <div
             className="amount amount-passive received-shares"
@@ -540,7 +540,7 @@ exports[`(2) Render with converting SBD 1`] = `
               onClick={[Function]}
               title="Received Hive Power"
             >
-              + 5.095 HP
+              + 5.095 SP
             </span>
           </div>
           <div
@@ -549,7 +549,7 @@ exports[`(2) Render with converting SBD 1`] = `
             <span
               title="Next power down amount"
             >
-              - 3,626.559 HP
+              - 3,626.559 SP
             </span>
           </div>
           <div
@@ -558,7 +558,7 @@ exports[`(2) Render with converting SBD 1`] = `
             <span
               title="Total Hive Power"
             >
-              = 39,302.931 HP
+              = 39,302.931 SP
             </span>
           </div>
         </div>
@@ -887,7 +887,7 @@ exports[`(3) usePrivate = false 1`] = `
           <span
             className="reward-type"
           >
-            10.207 HP
+            10.207 SP
           </span>
         </div>
       </div>
@@ -981,7 +981,7 @@ exports[`(3) usePrivate = false 1`] = `
                 onMouseLeave={[Function]}
               />
             </div>
-            42,924.395 HP
+            42,924.395 SP
           </div>
           <div
             className="amount amount-passive received-shares"
@@ -990,7 +990,7 @@ exports[`(3) usePrivate = false 1`] = `
               className="amount"
               title="Received Hive Power"
             >
-              + 5.095 HP
+              + 5.095 SP
             </span>
           </div>
           <div
@@ -999,7 +999,7 @@ exports[`(3) usePrivate = false 1`] = `
             <span
               title="Next power down amount"
             >
-              - 3,626.559 HP
+              - 3,626.559 SP
             </span>
           </div>
           <div
@@ -1008,7 +1008,7 @@ exports[`(3) usePrivate = false 1`] = `
             <span
               title="Total Hive Power"
             >
-              = 39,302.931 HP
+              = 39,302.931 SP
             </span>
           </div>
         </div>
