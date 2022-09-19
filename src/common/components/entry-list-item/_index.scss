@@ -1,5 +1,4 @@
 .entry-list-item {
-
   @media (max-width: $sm-break) {
     position: unset;
   }
@@ -93,7 +92,6 @@
     }
   }
 
-
   &:not(.limited-area) {
     .entry-list-item {
       @media (min-width: $xl-break) {
@@ -139,7 +137,6 @@
 .entry-list-body {
   &.grid-view,
   .entry-list-item {
-
     &.comments,
     &.replies {
       .item-body {
@@ -147,7 +144,7 @@
           &.noImage {
             display: none;
 
-            &~.item-summary {
+            & ~ .item-summary {
               width: 100%;
             }
           }
@@ -161,6 +158,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  filter: grayscale(1);
+  opacity: 0.5;
 
   img {
     width: 45px;

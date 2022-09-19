@@ -23,7 +23,8 @@
 
             .item-body {
               .item-summary {
-                .item-title, .item-body {
+                .item-title,
+                .item-body {
                   cursor: pointer;
                 }
               }
@@ -63,8 +64,6 @@
                     opacity: 0.7;
                   }
                 }
-
-
               }
             }
           }

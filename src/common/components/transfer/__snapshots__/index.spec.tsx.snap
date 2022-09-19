@@ -26,7 +26,7 @@ exports[`(1) Transfer STEEM (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Move funds to another Hive account
+          Move funds to another Steem account
         </div>
       </div>
     </div>
@@ -462,7 +462,7 @@ exports[`(1) Transfer STEEM (3) Step 3 1`] = `
               src="hive-signer.svg"
             />
              
-            Sign with hivesigner
+            Sign with steemkeychain
           </button>
         </div>
       </div>
@@ -576,7 +576,7 @@ exports[`(2) Transfer SBD (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Move funds to another Hive account
+          Move funds to another Steem account
         </div>
       </div>
     </div>
@@ -1009,7 +1009,7 @@ exports[`(3) Transfer POINT (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Move funds to another Hive account
+          Move funds to another Steem account
         </div>
       </div>
     </div>
@@ -2588,7 +2588,7 @@ exports[`(7) Power up (1) Step 1 1`] = `
         <div
           className="main-title"
         >
-          Stake Hive as Power
+          Stake Steem as Power
         </div>
         <div
           className="sub-title"
@@ -2793,7 +2793,7 @@ exports[`(7) Power up (2) Step 2 1`] = `
         <div
           className="confirm-title"
         >
-          Stake Hive as Power
+          Stake Steem as Power
         </div>
         <div
           className="users"
@@ -2967,7 +2967,7 @@ exports[`(8) Delegate (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Delegate Hive Power
+          Delegate Steem Power
         </div>
       </div>
     </div>
@@ -3107,7 +3107,7 @@ exports[`(8) Delegate (1) Step 1 1`] = `
             <div
               className="balance-hp-hint"
             >
-              * available hive power
+              * available steem power
             </div>
           </div>
         </div>
@@ -3351,7 +3351,7 @@ exports[`(9) Power down (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Power Down Hive Power
+          Power Down Steem Power
         </div>
       </div>
     </div>
@@ -3450,7 +3450,7 @@ exports[`(9) Power down (1) Step 1 1`] = `
             <div
               className="balance-hp-hint"
             >
-              * available hive power
+              * available steem power
             </div>
           </div>
           <div
@@ -3675,7 +3675,7 @@ exports[`(10) Powering down (1) Step 1 1`] = `
         <div
           className="sub-title"
         >
-          Power Down Hive Power
+          Power Down Steem Power
         </div>
       </div>
     </div>

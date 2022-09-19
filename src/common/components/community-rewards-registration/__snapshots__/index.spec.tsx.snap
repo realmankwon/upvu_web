@@ -131,7 +131,7 @@ exports[`(4) Form screen 1`] = `
           src="hive-signer.svg"
         />
          
-        Sign with hivesigner
+        Sign with steemkeychain
       </button>
     </div>
   </div>
