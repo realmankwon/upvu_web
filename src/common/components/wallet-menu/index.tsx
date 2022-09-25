@@ -47,9 +47,20 @@ export default class WalletMenu extends Component<Props> {
           <span className="sub-title">Tokens</span>
           <span className="platform-logo">{hiveEngineSvg}</span>
         </Link>
-        <Link className={_c(`menu-item hive-engine ${active === "upvu" ? "active" : ""}`)} to={`/@${username}/upvu`}>
+        <Link className={_c(`menu-item upvu ${active === "upvu" ? "active" : ""}`)} to={`/@${username}/upvu`}>
           <span className="title">UPVU</span>
           <span className="sub-title">Summary</span>
+          <span className="platform-logo">
+            {" "}
+            <img alt="ecency" src={upvuLogo} />
+          </span>
+        </Link>
+        <Link
+          className={_c(`menu-item shortcut ${active === "shortcut" ? "active" : ""}`)}
+          to={`/@${username}/shortcut`}
+        >
+          <span className="title">Services</span>
+          <span className="sub-title">Shortcut</span>
           <span className="platform-logo">
             {" "}
             <img alt="ecency" src={upvuLogo} />

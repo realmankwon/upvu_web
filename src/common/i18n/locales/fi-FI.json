@@ -634,6 +634,7 @@
     "withdrawing-amount": "Kotiuta säästöistä",
     "reserved-amount": "Varattu avoimeen tilaukseen markkinoilla"
   },
+  "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Summary",
     "description": "UPVU Summary Page"

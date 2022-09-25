@@ -634,6 +634,7 @@
     "withdrawing-amount": "Opnemen van spaargeld",
     "reserved-amount": "Reserved for Open order in Market"
   },
+  "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Summary",
     "description": "UPVU Summary Page"

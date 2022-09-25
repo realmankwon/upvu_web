@@ -634,6 +634,7 @@
     "withdrawing-amount": "Išsiėmimas iš santaupų",
     "reserved-amount": "Rezervuota atviram užsakymui rinkoje"
   },
+  "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Summary",
     "description": "UPVU Summary Page"

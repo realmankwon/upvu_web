@@ -634,6 +634,7 @@
     "withdrawing-amount": "Auszahlung von Ersparnissen",
     "reserved-amount": "Reserviert für Offene Bestellung im Markt"
   },
+  "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Summary",
     "description": "UPVU Summary Page"
