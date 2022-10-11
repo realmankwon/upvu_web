@@ -23,13 +23,11 @@ export default {
   USER_FEED: `/:username(@[\\w\\.\\d-]+)/:section(feed)`,
   USER_SECTION: `/:username(@[\\w\\.\\d-]+)/:section(${profileFilters.join(
     "|"
-  )}|wallet|points|engine|communities|settings|permissions|upvu)`,
+  )}|wallet|points|engine|communities|settings|permissions|upvu|shortcut)`,
   COMMUNITIES: `/communities`,
   COMMUNITIES_CREATE: `/communities/create`,
   COMMUNITIES_CREATE_HS: `/communities/create-hs`,
-  COMMUNITY: `/:filter(${entryFilters.join(
-    "|"
-  )}|subscribers|activities|roles)/:name(hive-[\\d]+)`,
+  COMMUNITY: `/:filter(${entryFilters.join("|")}|subscribers|activities|roles)/:name(hive-[\\d]+)`,
   SUBMIT: `/submit`,
   EDIT: `/:username(@[\\w\\.\\d-]+)/:permlink/edit`,
   EDIT_DRAFT: `/draft/:draftId`,

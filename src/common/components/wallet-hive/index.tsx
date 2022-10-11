@@ -30,12 +30,7 @@ import HiveWallet from "../../helper/hive-wallet";
 
 import { vestsToHp } from "../../helper/vesting";
 
-import {
-  getAccount,
-  getConversionRequests,
-  getSavingsWithdrawFrom,
-  getOpenOrder,
-} from "../../api/hive";
+import { getAccount, getConversionRequests, getSavingsWithdrawFrom, getOpenOrder } from "../../api/hive";
 
 import { claimRewardBalance, formatError } from "../../api/operations";
 
@@ -124,8 +119,7 @@ export class WalletHive extends BaseComponent<Props, State> {
     const decreaseIncrements = deltaBlocks / decreaseRate;
 
     // Current inflation rate
-    let currentInflationRate =
-      initialInflationRate - decreaseIncrements * decreasePercentPerIncrement;
+    let currentInflationRate = initialInflationRate - decreaseIncrements * decreasePercentPerIncrement;
 
     // Cannot go lower than 0.95%
     if (currentInflationRate < 0.95) {
@@ -136,10 +130,7 @@ export class WalletHive extends BaseComponent<Props, State> {
     const vestingRewardPercent = gprops.vestingRewardPercent / 10000;
     const virtualSupply = gprops.virtualSupply;
     const totalVestingFunds = gprops.totalVestingFund;
-    return (
-      (virtualSupply * currentInflationRate * vestingRewardPercent) /
-      totalVestingFunds
-    );
+    return (virtualSupply * currentInflationRate * vestingRewardPercent) / totalVestingFunds;
   };
 
   fetchConvertingAmount = async () => {
@@ -259,12 +250,7 @@ export class WalletHive extends BaseComponent<Props, State> {
           reward_vesting_balance: vestingBalance,
         } = account;
 
-        return claimRewardBalance(
-          activeUser?.username!,
-          steemBalance!,
-          sbdBalance!,
-          vestingBalance!
-        );
+        return claimRewardBalance(activeUser?.username!, steemBalance!, sbdBalance!, vestingBalance!);
       })
       .then(() => getAccount(activeUser.username))
       .then((account) => {
@@ -318,24 +304,17 @@ export class WalletHive extends BaseComponent<Props, State> {
         ? account.savings_sbd_seconds_last_update
         : account.savings_sbd_last_interest_payment
     );
-    const interestAmount =
-      (Number(hbd) / 100) * (w.savingBalanceHbd / (12 * 30)) * lastIPaymentDiff;
+    const interestAmount = (Number(hbd) / 100) * (w.savingBalanceHbd / (12 * 30)) * lastIPaymentDiff;
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalSP = formattedNumber(
-      vestsToHp(w.vestingShares, steemPerMVests),
-      {
-        suffix: "SP",
-      }
-    );
-    const totalDelegated = formattedNumber(
-      vestsToHp(w.vestingSharesDelegated, steemPerMVests),
-      {
-        prefix: "-",
-        suffix: "SP",
-      }
-    );
+    const totalSP = formattedNumber(vestsToHp(w.vestingShares, steemPerMVests), {
+      suffix: "SP",
+    });
+    const totalDelegated = formattedNumber(vestsToHp(w.vestingSharesDelegated, steemPerMVests), {
+      prefix: "-",
+      suffix: "SP",
+    });
 
     return (
       <div className="wallet-hive">
@@ -345,21 +324,12 @@ export class WalletHive extends BaseComponent<Props, State> {
               <div className="unclaimed-rewards">
                 <div className="title">{_t("wallet.unclaimed-rewards")}</div>
                 <div className="rewards">
-                  {w.rewardHiveBalance > 0 && (
-                    <span className="reward-type">{`${w.rewardHiveBalance} STEEM`}</span>
-                  )}
-                  {w.rewardHbdBalance > 0 && (
-                    <span className="reward-type">{`${w.rewardHbdBalance} SBD`}</span>
-                  )}
-                  {w.rewardVestingHive > 0 && (
-                    <span className="reward-type">{`${w.rewardVestingHive} SP`}</span>
-                  )}
+                  {w.rewardHiveBalance > 0 && <span className="reward-type">{`${w.rewardHiveBalance} STEEM`}</span>}
+                  {w.rewardHbdBalance > 0 && <span className="reward-type">{`${w.rewardHbdBalance} SBD`}</span>}
+                  {w.rewardVestingHive > 0 && <span className="reward-type">{`${w.rewardVestingHive} SP`}</span>}
                   {isMyPage && (
                     <Tooltip content={_t("wallet.claim-reward-balance")}>
-                      <a
-                        className={`claim-btn ${claiming ? "in-progress" : ""}`}
-                        onClick={this.claimRewardBalance}
-                      >
+                      <a className={`claim-btn ${claiming ? "in-progress" : ""}`} onClick={this.claimRewardBalance}>
                         {plusCircle}
                       </a>
                     </Tooltip>
@@ -371,9 +341,7 @@ export class WalletHive extends BaseComponent<Props, State> {
             <div className="balance-row hive">
               <div className="balance-info">
                 <div className="title">{_t("wallet.steem")}</div>
-                <div className="description">
-                  {_t("wallet.steem-description")}
-                </div>
+                <div className="description">{_t("wallet.steem-description")}</div>
               </div>
               <div className="balance-values">
                 <div className="amount">
@@ -393,10 +361,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                           {
                             label: _t("wallet.transfer-to-savings"),
                             onClick: () => {
-                              this.openTransferDialog(
-                                "transfer-saving",
-                                "STEEM"
-                              );
+                              this.openTransferDialog("transfer-saving", "STEEM");
                             },
                           },
                           {
@@ -439,12 +404,8 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {openOrders && openOrders.hive > 0 && (
                   <div className="amount amount-passive converting-hbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
-                      <span
-                        className="amount-btn"
-                        onClick={() => this.toggleOpenOrdersList("STEEM")}
-                      >
-                        {"+"}{" "}
-                        {formattedNumber(openOrders.hive, { suffix: "STEEM" })}
+                      <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("STEEM")}>
+                        {"+"} {formattedNumber(openOrders.hive, { suffix: "STEEM" })}
                       </span>
                     </Tooltip>
                   </div>
@@ -452,10 +413,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {withdrawSavings && withdrawSavings.hive > 0 && (
                   <div className="amount amount-passive converting-hbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
-                      <span
-                        className="amount-btn"
-                        onClick={() => this.toggleSavingsWithdrawList("STEEM")}
-                      >
+                      <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("STEEM")}>
                         {"+"}{" "}
                         {formattedNumber(withdrawSavings.hive, {
                           suffix: "STEEM",
@@ -470,9 +428,7 @@ export class WalletHive extends BaseComponent<Props, State> {
             <div className="balance-row steem-power alternative">
               <div className="balance-info">
                 <div className="title">{_t("wallet.steem-power")}</div>
-                <div className="description">
-                  {_t("wallet.steem-power-description")}
-                </div>
+                <div className="description">{_t("wallet.steem-power-description")}</div>
                 <div className="description font-weight-bold mt-2">
                   {_t("wallet.steem-power-apr-rate", { value: hp })}
                 </div>
@@ -539,17 +495,11 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {w.vestingSharesDelegated > 0 && (
                   <div className="amount amount-passive delegated-shares">
                     <Tooltip content={_t("wallet.steem-power-delegated")}>
-                      <span
-                        className="amount-btn"
-                        onClick={this.toggleDelegatedList}
-                      >
-                        {formattedNumber(
-                          vestsToHp(w.vestingSharesDelegated, steemPerMVests),
-                          {
-                            prefix: "-",
-                            suffix: "SP",
-                          }
-                        )}
+                      <span className="amount-btn" onClick={this.toggleDelegatedList}>
+                        {formattedNumber(vestsToHp(w.vestingSharesDelegated, steemPerMVests), {
+                          prefix: "-",
+                          suffix: "SP",
+                        })}
                       </span>
                     </Tooltip>
                   </div>
@@ -560,22 +510,16 @@ export class WalletHive extends BaseComponent<Props, State> {
                     return null;
                   }
 
-                  const strReceived = formattedNumber(
-                    vestsToHp(w.vestingSharesReceived, steemPerMVests),
-                    {
-                      prefix: "+",
-                      suffix: "SP",
-                    }
-                  );
+                  const strReceived = formattedNumber(vestsToHp(w.vestingSharesReceived, steemPerMVests), {
+                    prefix: "+",
+                    suffix: "SP",
+                  });
 
                   if (global.usePrivate) {
                     return (
                       <div className="amount amount-passive received-shares">
                         <Tooltip content={_t("wallet.steem-power-received")}>
-                          <span
-                            className="amount-btn"
-                            onClick={this.toggleReceivedList}
-                          >
+                          <span className="amount-btn" onClick={this.toggleReceivedList}>
                             {strReceived}
                           </span>
                         </Tooltip>
@@ -596,34 +540,23 @@ export class WalletHive extends BaseComponent<Props, State> {
                   <div className="amount amount-passive next-power-down-amount">
                     <Tooltip content={_t("wallet.next-power-down-amount")}>
                       <span>
-                        {formattedNumber(
-                          vestsToHp(
-                            w.nextVestingSharesWithdrawal,
-                            steemPerMVests
-                          ),
-                          {
-                            prefix: "-",
-                            suffix: "SP",
-                          }
-                        )}
+                        {formattedNumber(vestsToHp(w.nextVestingSharesWithdrawal, steemPerMVests), {
+                          prefix: "-",
+                          suffix: "SP",
+                        })}
                       </span>
                     </Tooltip>
                   </div>
                 )}
 
-                {(w.vestingSharesDelegated > 0 ||
-                  w.vestingSharesReceived > 0 ||
-                  w.nextVestingSharesWithdrawal > 0) && (
+                {(w.vestingSharesDelegated > 0 || w.vestingSharesReceived > 0 || w.nextVestingSharesWithdrawal > 0) && (
                   <div className="amount total-steem-power">
                     <Tooltip content={_t("wallet.steem-power-total")}>
                       <span>
-                        {formattedNumber(
-                          vestsToHp(w.vestingSharesTotal, steemPerMVests),
-                          {
-                            prefix: "=",
-                            suffix: "SP",
-                          }
-                        )}
+                        {formattedNumber(vestsToHp(w.vestingSharesTotal, steemPerMVests), {
+                          prefix: "=",
+                          suffix: "SP",
+                        })}
                       </span>
                     </Tooltip>
                   </div>
@@ -634,9 +567,7 @@ export class WalletHive extends BaseComponent<Props, State> {
             <div className="balance-row steem-dollars">
               <div className="balance-info">
                 <div className="title">{_t("wallet.steem-dollars")}</div>
-                <div className="description">
-                  {_t("wallet.steem-dollars-description")}
-                </div>
+                <div className="description">{_t("wallet.steem-dollars-description")}</div>
               </div>
               <div className="balance-values">
                 <div className="amount">
@@ -699,10 +630,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {converting > 0 && (
                   <div className="amount amount-passive converting-hbd">
                     <Tooltip content={_t("wallet.converting-hbd-amount")}>
-                      <span
-                        className="amount-btn"
-                        onClick={this.toggleConvertList}
-                      >
+                      <span className="amount-btn" onClick={this.toggleConvertList}>
                         {"+"} {formattedNumber(converting, { prefix: "$" })}
                       </span>
                     </Tooltip>
@@ -712,12 +640,8 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {withdrawSavings && withdrawSavings.hbd > 0 && (
                   <div className="amount amount-passive converting-hbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
-                      <span
-                        className="amount-btn"
-                        onClick={() => this.toggleSavingsWithdrawList("SBD")}
-                      >
-                        {"+"}{" "}
-                        {formattedNumber(withdrawSavings.hbd, { prefix: "$" })}
+                      <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("SBD")}>
+                        {"+"} {formattedNumber(withdrawSavings.hbd, { prefix: "$" })}
                       </span>
                     </Tooltip>
                   </div>
@@ -726,10 +650,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                 {openOrders && openOrders.hbd > 0 && (
                   <div className="amount amount-passive converting-hbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
-                      <span
-                        className="amount-btn"
-                        onClick={() => this.toggleOpenOrdersList("SBD")}
-                      >
+                      <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("SBD")}>
                         {"+"} {formattedNumber(openOrders.hbd, { prefix: "$" })}
                       </span>
                     </Tooltip>
@@ -741,9 +662,7 @@ export class WalletHive extends BaseComponent<Props, State> {
             <div className="balance-row savings alternative">
               <div className="balance-info">
                 <div className="title">{_t("wallet.savings")}</div>
-                <div className="description">
-                  {_t("wallet.savings-description")}
-                </div>
+                <div className="description">{_t("wallet.savings-description")}</div>
                 <div className="description font-weight-bold mt-2">
                   {_t("wallet.steem-dollars-apr-rate", { value: hbd })}
                 </div>
@@ -756,15 +675,10 @@ export class WalletHive extends BaseComponent<Props, State> {
                   </div>
                 )}
                 {isMyPage && w.savingBalanceHbd > 0 && (
-                  <div
-                    className="unclaimed-rewards"
-                    style={{ marginBottom: "0" }}
-                  >
+                  <div className="unclaimed-rewards" style={{ marginBottom: "0" }}>
                     <div className="rewards" style={{ height: "40px" }}>
                       <a
-                        className={`claim-btn ${
-                          remainingDays >= 0 ? "disabled" : ""
-                        }`}
+                        className={`claim-btn ${remainingDays >= 0 ? "disabled" : ""}`}
                         onClick={this.toggleClaimInterest}
                       >
                         {remainingDays >= 0
@@ -788,12 +702,9 @@ export class WalletHive extends BaseComponent<Props, State> {
                         label: "",
                         items: [
                           {
-                            label: _t("wallet.withdraw-hive"),
+                            label: _t("wallet.withdraw-steem"),
                             onClick: () => {
-                              this.openTransferDialog(
-                                "withdraw-saving",
-                                "STEEM"
-                              );
+                              this.openTransferDialog("withdraw-saving", "STEEM");
                             },
                           },
                         ],
@@ -806,10 +717,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                           {
                             label: _t("wallet.transfer"),
                             onClick: () => {
-                              this.openTransferDialog(
-                                "transfer-saving",
-                                "STEEM"
-                              );
+                              this.openTransferDialog("transfer-saving", "STEEM");
                             },
                           },
                         ],
@@ -821,9 +729,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                       </div>
                     );
                   })()}
-                  <span>
-                    {formattedNumber(w.savingBalance, { suffix: "STEEM" })}
-                  </span>
+                  <span>{formattedNumber(w.savingBalance, { suffix: "STEEM" })}</span>
                 </div>
                 <div className="amount">
                   {(() => {
@@ -834,7 +740,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                         label: "",
                         items: [
                           {
-                            label: _t("wallet.withdraw-hbd"),
+                            label: _t("wallet.withdraw-sbd"),
                             onClick: () => {
                               this.openTransferDialog("withdraw-saving", "SBD");
                             },
@@ -862,9 +768,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     );
                   })()}
 
-                  <span>
-                    {formattedNumber(w.savingBalanceHbd, { suffix: "$" })}
-                  </span>
+                  <span>{formattedNumber(w.savingBalanceHbd, { suffix: "$" })}</span>
                 </div>
               </div>
             </div>
@@ -872,17 +776,11 @@ export class WalletHive extends BaseComponent<Props, State> {
             <div className="balance-row estimated alternative">
               <div className="balance-info">
                 <div className="title">{_t("wallet.estimated")}</div>
-                <div className="description">
-                  {_t("wallet.estimated-description")}
-                </div>
+                <div className="description">{_t("wallet.estimated-description")}</div>
               </div>
               <div className="balance-values">
                 <div className="amount amount-bold">
-                  <FormattedCurrency
-                    {...this.props}
-                    value={w.estimatedValue}
-                    fixAt={3}
-                  />
+                  <FormattedCurrency {...this.props} value={w.estimatedValue} fixAt={3} />
                 </div>
               </div>
             </div>
@@ -890,9 +788,7 @@ export class WalletHive extends BaseComponent<Props, State> {
             {w.isPoweringDown && (
               <div className="next-power-down">
                 {_t("wallet.next-power-down", {
-                  time: dateToFullRelative(
-                    w.nextVestingWithdrawalDate.toString()
-                  ),
+                  time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
                   amount: formattedNumber(w.nextVestingSharesWithdrawalHive, {
                     suffix: "STEEM",
                   }),
@@ -926,19 +822,11 @@ export class WalletHive extends BaseComponent<Props, State> {
         )}
 
         {this.state.receivedList && (
-          <ReceivedVesting
-            {...this.props}
-            account={account}
-            onHide={this.toggleReceivedList}
-          />
+          <ReceivedVesting {...this.props} account={account} onHide={this.toggleReceivedList} />
         )}
 
         {this.state.convertList && (
-          <ConversionRequests
-            {...this.props}
-            account={account}
-            onHide={this.toggleConvertList}
-          />
+          <ConversionRequests {...this.props} account={account} onHide={this.toggleConvertList} />
         )}
 
         {this.state.savingsWithdrawList && (
@@ -960,11 +848,7 @@ export class WalletHive extends BaseComponent<Props, State> {
         )}
 
         {this.state.withdrawRoutes && (
-          <WithdrawRoutes
-            {...this.props}
-            activeUser={activeUser!}
-            onHide={this.toggleWithdrawRoutes}
-          />
+          <WithdrawRoutes {...this.props} activeUser={activeUser!} onHide={this.toggleWithdrawRoutes} />
         )}
       </div>
     );

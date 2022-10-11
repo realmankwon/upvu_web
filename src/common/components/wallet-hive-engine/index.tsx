@@ -283,7 +283,9 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                         <div className="ml-auto d-flex flex-column justify-between">
                           <div className="d-flex mb-1 align-self-end">
                             <div className="entry-body mr-md-2">
-                              <span className="item-balance">{b.balanced()}</span>
+                              <span className="item-balance">
+                                {b.balanced()} ({b.staked()})
+                              </span>
                             </div>
 
                             <div className="ml-1">
@@ -348,7 +350,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                               </OverlayTrigger>
                             </div>
 
-                            {b.delegationEnabled && b.delegationsOut !== b.balance && (
+                            {b.delegationEnabled && b.stake > 0 && (
                               <div className="mr-1">
                                 <OverlayTrigger
                                   delay={{ show: 0, hide: 500 }}
@@ -366,9 +368,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                                 >
                                   <div className="d-flex align-items-center flex-justify-center">
                                     <span
-                                      onClick={() =>
-                                        this.openTransferDialog("delegate", b.symbol, b.balance - b.delegationsOut)
-                                      }
+                                      onClick={() => this.openTransferDialog("delegate", b.symbol, b.stake)}
                                       className="he-icon mr-0 mr-md-2"
                                     >
                                       {delegateOutlineSvg}

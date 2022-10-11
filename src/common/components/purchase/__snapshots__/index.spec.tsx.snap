@@ -133,7 +133,7 @@ exports[`(2) Should switch to transfer 1`] = `
         <div
           className="sub-title"
         >
-          Move funds to another Hive account
+          Move funds to another Steem account
         </div>
       </div>
     </div>
