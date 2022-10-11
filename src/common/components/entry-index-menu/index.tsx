@@ -52,7 +52,8 @@ export const isMyPage = (global: Global, activeUser: ActiveUser | null) => {
 };
 
 export const isActiveUser = (activeUser: ActiveUser | null) => {
-  return activeUser !== null;
+  //   return activeUser !== null;
+  return true;
 };
 
 export class EntryIndexMenu extends Component<Props, States> {
@@ -92,23 +93,17 @@ export class EntryIndexMenu extends Component<Props, States> {
     const {
       global: { filter },
     } = this.props;
-    const { introduction } = this.state;
-    if (introduction === IntroductionType.NONE) {
-      if (typeof window !== "undefined") {
-        document.getElementById("overlay") &&
-          document.getElementById("overlay")!.classList.remove("overlay-for-introduction");
-        document.getElementById("feed") && document.getElementById("feed")!.classList.remove("active");
-        document.getElementById(filter) && document.getElementById(filter)!.classList.add("active");
-        document.getElementsByTagName("ul") &&
-          document.getElementsByTagName("ul")[0] &&
-          document.getElementsByTagName("ul")[0]!.classList.remove("flash");
-        let entryIndexMenuElements = document.getElementsByClassName("entry-index-menu");
-        entryIndexMenuElements &&
-          entryIndexMenuElements.length > 1 &&
-          entryIndexMenuElements[0] &&
-          entryIndexMenuElements[0].classList.remove("entry-index-menu");
-      }
-    }
+    // const { introduction } = this.state;
+    // if(introduction === IntroductionType.NONE){
+    //     if (typeof window !== 'undefined') {
+    //         document.getElementById('overlay') && document.getElementById('overlay')!.classList.remove("overlay-for-introduction");
+    //         document.getElementById('feed') && document.getElementById('feed')!.classList.remove("active");
+    //         document.getElementById(filter) && document.getElementById(filter)!.classList.add("active");
+    //         document.getElementsByTagName('ul') && document.getElementsByTagName('ul')[0] && document.getElementsByTagName('ul')[0]!.classList.remove("flash");
+    //         let entryIndexMenuElements = document.getElementsByClassName("entry-index-menu");
+    //         entryIndexMenuElements && entryIndexMenuElements.length > 1 && entryIndexMenuElements[0] && entryIndexMenuElements[0].classList.remove("entry-index-menu");
+    //     }
+    // }
     this.setState({ isMounted: true });
   }
 

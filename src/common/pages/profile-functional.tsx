@@ -28,6 +28,7 @@ import ProfileSettings from "../components/profile-settings";
 import WalletHive from "../components/wallet-hive";
 import WalletHiveEngine from "../components/wallet-hive-engine";
 import WalletUPVU from "../components/wallet-upvu";
+import ShortCut from "../components/service-shortcut";
 import WalletEcency from "../components/wallet-ecency";
 import ScrollToTop from "../components/scroll-to-top";
 import SearchListItem from "../components/search-list-item";
@@ -41,11 +42,7 @@ import { getAccountFull } from "../api/hive";
 
 import defaults from "../constants/defaults.json";
 import _c from "../util/fix-class-names";
-import {
-  PageProps,
-  pageMapDispatchToProps,
-  pageMapStateToProps,
-} from "./common";
+import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
 
 import { connect } from "react-redux";
 import { Account, FullAccount } from "../store/accounts/types";
@@ -79,9 +76,7 @@ export const Profile = (props: Props) => {
   const [loading, setLoading] = useState(true);
   const [typing, setTyping] = useState(false);
   const [isDefaultPost, setIsDefaultPost] = useState(false);
-  const [searchDataLoading, setSearchDataLoading] = useState(
-    searchParam.length > 0
-  );
+  const [searchDataLoading, setSearchDataLoading] = useState(searchParam.length > 0);
   const [search, setSearch] = useState(searchParam);
   const [pinnedEntry, setPinnedEntry] = useState<Entry | null>(null);
   const [searchData, setSearchData] = useState<any[]>([]);
@@ -117,9 +112,7 @@ export const Profile = (props: Props) => {
     fetchPoints(username);
 
     const accountUsername = username.replace("@", "");
-    const account = accounts.find(
-      (x) => x.name === accountUsername
-    ) as FullAccount;
+    const account = accounts.find((x) => x.name === accountUsername) as FullAccount;
 
     setAccount(account);
     setSection(section || ProfileFilter.blog);
@@ -156,10 +149,7 @@ export const Profile = (props: Props) => {
 
       setUsername(nextUsername);
       setSection(nextSection || ProfileFilter.blog);
-      setAccount(
-        (nextAccount as FullAccount) ||
-          ({ __loaded: false, name: nextUsername } as Account)
-      );
+      setAccount((nextAccount as FullAccount) || ({ __loaded: false, name: nextUsername } as Account));
 
       const entries = prevEntries;
 
@@ -183,10 +173,7 @@ export const Profile = (props: Props) => {
       }
 
       // filter or username changed. fetch posts.
-      if (
-        nextSection !== prevMatchSection ||
-        `@${nextUsername}` !== prevMatchUsername
-      ) {
+      if (nextSection !== prevMatchSection || `@${nextUsername}` !== prevMatchUsername) {
         fetchEntries(global.filter, global.tag, false);
       }
 
@@ -216,10 +203,7 @@ export const Profile = (props: Props) => {
         setSearch("");
       }
 
-      if (
-        ["comments", "replies"].includes(props.global.filter) &&
-        props.global.filter !== prevGlobal?.filter
-      ) {
+      if (["comments", "replies"].includes(props.global.filter) && props.global.filter !== prevGlobal?.filter) {
         setPinnedEntry(null);
       }
 
@@ -230,14 +214,7 @@ export const Profile = (props: Props) => {
         await initPinnedEntry(nextUsername, nextAccount);
       }
     },
-    [
-      props.accounts,
-      props.match,
-      props.global,
-      props.history,
-      props.location,
-      props.activeUser,
-    ]
+    [props.accounts, props.match, props.global, props.history, props.location, props.activeUser]
   );
 
   const ensureAccount = async () => {
@@ -308,10 +285,7 @@ export const Profile = (props: Props) => {
       resetPoints();
       fetchPoints(username);
 
-      if (
-        !section ||
-        (section && Object.keys(ProfileFilter).includes(section))
-      ) {
+      if (!section || (section && Object.keys(ProfileFilter).includes(section))) {
         // reload posts
         invalidateEntries(makeGroupKey(global.filter, global.tag));
         fetchEntries(global.filter, global.tag, false);
@@ -320,9 +294,7 @@ export const Profile = (props: Props) => {
     }
   };
 
-  const handleChangeSearch = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearch(value);
     setTyping(value.length !== 0);
@@ -353,8 +325,7 @@ export const Profile = (props: Props) => {
       }
       if (data && data.results) {
         const sortedResults = data.results.sort(
-          (a: any, b: any) =>
-            Date.parse(b.created_at) - Date.parse(a.created_at)
+          (a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at)
         );
         setSearchData(sortedResults);
         setLoading(false);
@@ -394,9 +365,7 @@ export const Profile = (props: Props) => {
             `${
               account.profile?.about
                 ? `${account.profile?.about} ${section ? `${section}` : ""}`
-                : `${account.profile?.name || account.name} ${
-                    section ? `${section}` : ""
-                  }`
+                : `${account.profile?.name || account.name} ${section ? `${section}` : ""}`
             }` || "",
           url: `/@${username}${section ? `/${section}` : ""}`,
           canonical: url,
@@ -407,24 +376,15 @@ export const Profile = (props: Props) => {
       : {};
   };
 
-  const initPinnedEntry = async (
-    username: string,
-    account: Account | undefined
-  ) => {
-    if (
-      !["blog", "posts"].includes(props.global.filter) ||
-      !(account as FullAccount)?.profile?.pinned
-    ) {
+  const initPinnedEntry = async (username: string, account: Account | undefined) => {
+    if (!["blog", "posts"].includes(props.global.filter) || !(account as FullAccount)?.profile?.pinned) {
       return;
     }
 
     setPinnedEntry(null);
 
     try {
-      const entry = await bridgeApi.getPost(
-        username,
-        (account as FullAccount).profile?.pinned
-      );
+      const entry = await bridgeApi.getPost(username, (account as FullAccount).profile?.pinned);
       if (entry) {
         setPinnedEntry(entry);
       }
@@ -458,34 +418,19 @@ export const Profile = (props: Props) => {
       <Feedback />
       {getNavBar()}
 
-      <div
-        className={
-          props.global.isElectron
-            ? "app-content profile-page mt-0 pt-6"
-            : "app-content profile-page"
-        }
-      >
-        <div className="profile-side">
-          {ProfileCard({ ...props, account, section })}
-        </div>
+      <div className={props.global.isElectron ? "app-content profile-page mt-0 pt-6" : "app-content profile-page"}>
+        <div className="profile-side">{ProfileCard({ ...props, account, section })}</div>
         <span itemScope={true} itemType="http://schema.org/Person">
-          {account.__loaded && (
-            <meta
-              itemProp="name"
-              content={account.profile?.name || account.name}
-            />
-          )}
+          {account.__loaded && <meta itemProp="name" content={account.profile?.name || account.name} />}
         </span>
         <div className="content-side">
           {ProfileMenu({ ...props, username, section })}
 
-          {[...Object.keys(ProfileFilter), "communities"].includes(section) &&
-            ProfileCover({ ...props, account })}
+          {[...Object.keys(ProfileFilter), "communities"].includes(section) && ProfileCover({ ...props, account })}
 
           {data &&
             data.entries.length > 0 &&
-            (props.global.filter === "posts" ||
-              props.global.filter === "comments") &&
+            (props.global.filter === "posts" || props.global.filter === "comments") &&
             section === props.global.filter && (
               <div className="searchProfile">
                 <SearchBox
@@ -546,6 +491,13 @@ export const Profile = (props: Props) => {
                     updateWalletValues: ensureAccount,
                   });
                 }
+                if (section === "shortcut") {
+                  return ShortCut({
+                    ...props,
+                    account,
+                    updateWalletValues: ensureAccount,
+                  });
+                }
                 if (section === "points") {
                   return WalletEcency({
                     ...props,
@@ -566,15 +518,11 @@ export const Profile = (props: Props) => {
                       <div className="container-fluid">
                         <div className="row">
                           <div className="col-12 col-md-6">
-                            <h6 className="border-bottom pb-3">
-                              {_t("view-keys.header")}
-                            </h6>
+                            <h6 className="border-bottom pb-3">{_t("view-keys.header")}</h6>
                             <ViewKeys activeUser={props.activeUser} />
                           </div>
                           <div className="col-12 col-md-6">
-                            <h6 className="border-bottom pb-3">
-                              {_t("password-update.title")}
-                            </h6>
+                            <h6 className="border-bottom pb-3">{_t("password-update.title")}</h6>
                             <PasswordUpdate activeUser={props.activeUser} />
                           </div>
                         </div>
@@ -588,30 +536,20 @@ export const Profile = (props: Props) => {
                 if (data !== undefined) {
                   let entryList = data?.entries;
                   const { profile } = account as FullAccount;
-                  entryList = entryList.filter(
-                    (item) => item.permlink !== profile?.pinned
-                  );
+                  entryList = entryList.filter((item) => item.permlink !== profile?.pinned);
                   if (pinnedEntry) {
                     entryList.unshift(pinnedEntry);
                   }
                   const isLoading = loading || data?.loading;
                   return (
                     <>
-                      <div
-                        className={_c(`entry-list ${loading ? "loading" : ""}`)}
-                      >
+                      <div className={_c(`entry-list ${loading ? "loading" : ""}`)}>
                         <div
                           className={_c(
-                            `entry-list-body ${
-                              props.global.listStyle === ListStyle.grid
-                                ? "grid-view"
-                                : ""
-                            }`
+                            `entry-list-body ${props.global.listStyle === ListStyle.grid ? "grid-view" : ""}`
                           )}
                         >
-                          {loading && entryList.length === 0 && (
-                            <EntryListLoadingItem />
-                          )}
+                          {loading && entryList.length === 0 && <EntryListLoadingItem />}
                           {EntryListContent({
                             ...props,
                             pinEntry,
@@ -622,11 +560,7 @@ export const Profile = (props: Props) => {
                           })}
                         </div>
                       </div>
-                      {loading && entryList.length > 0 ? (
-                        <LinearProgress />
-                      ) : (
-                        ""
-                      )}
+                      {loading && entryList.length > 0 ? <LinearProgress /> : ""}
                       <DetectBottom onBottom={bottomReached} />
                     </>
                   );
@@ -641,7 +575,4 @@ export const Profile = (props: Props) => {
   );
 };
 
-export default connect(
-  pageMapStateToProps,
-  pageMapDispatchToProps
-)(withPersistentScroll(Profile));
+export default connect(pageMapStateToProps, pageMapDispatchToProps)(withPersistentScroll(Profile));

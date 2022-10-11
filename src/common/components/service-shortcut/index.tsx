@@ -57,7 +57,7 @@ interface State {
   assetBalance: number;
 }
 
-export class WalletUPVU extends BaseComponent<Props, State> {
+export class ShortCut extends BaseComponent<Props, State> {
   state: State = {
     tokens: [],
     rewards: [],
@@ -180,17 +180,17 @@ export class WalletUPVU extends BaseComponent<Props, State> {
           <div className="wallet-info">
             <div className="balance-row alternative">
               <div className="balance-info">
-                <div className="title">{_t("wallet-upvu.title")}</div>
-                <div className="description">{_t("wallet-upvu.description")}</div>
+                <div className="title">{_t("shortcut.title")}</div>
+                <div className="description">{_t("shortcut.description")}</div>
               </div>
             </div>
 
             <div className="summary-upvu">
               {/* UPVU Summary 내용 입력 */}
-              <h1>Coming Soon..!!</h1>
+              <h1>Steem Service List</h1>
             </div>
           </div>
-          <WalletMenu global={global} username={account.name} active="upvu" />
+          <WalletMenu global={global} username={account.name} active="shortcut" />
         </div>
         {this.state.transfer && (
           <Transfer
@@ -223,5 +223,5 @@ export default (p: Props) => {
     fetchPoints: p.fetchPoints,
   };
 
-  return <WalletUPVU {...props} />;
+  return <ShortCut {...props} />;
 };

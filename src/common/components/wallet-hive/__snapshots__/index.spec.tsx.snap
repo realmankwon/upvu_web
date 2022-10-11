@@ -113,7 +113,7 @@ exports[`(1) Default Render 1`] = `
             <span
               className="amount-btn"
               onClick={[Function]}
-              title="Received Hive Power"
+              title="Received Steem Power"
             >
               + 5.095 SP
             </span>
@@ -131,7 +131,7 @@ exports[`(1) Default Render 1`] = `
             className="amount total-steem-power"
           >
             <span
-              title="Total Hive Power"
+              title="Total Steem Power"
             >
               = 39,302.931 SP
             </span>
@@ -538,7 +538,7 @@ exports[`(2) Render with converting SBD 1`] = `
             <span
               className="amount-btn"
               onClick={[Function]}
-              title="Received Hive Power"
+              title="Received Steem Power"
             >
               + 5.095 SP
             </span>
@@ -556,7 +556,7 @@ exports[`(2) Render with converting SBD 1`] = `
             className="amount total-steem-power"
           >
             <span
-              title="Total Hive Power"
+              title="Total Steem Power"
             >
               = 39,302.931 SP
             </span>
@@ -988,7 +988,7 @@ exports[`(3) usePrivate = false 1`] = `
           >
             <span
               className="amount"
-              title="Received Hive Power"
+              title="Received Steem Power"
             >
               + 5.095 SP
             </span>
@@ -1006,7 +1006,7 @@ exports[`(3) usePrivate = false 1`] = `
             className="amount total-steem-power"
           >
             <span
-              title="Total Hive Power"
+              title="Total Steem Power"
             >
               = 39,302.931 SP
             </span>

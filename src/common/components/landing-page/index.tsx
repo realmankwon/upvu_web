@@ -141,11 +141,11 @@ export default (props: any) => {
               <p>
                 <span>
                   <Link
-                    to={"https://hive.io"}
+                    to={"https://steem.com"}
                     target="_blank"
                     onClick={() =>
                       isElectron() &&
-                      window.open("https://hive.io", "_blank", "top=500,left=200,frame=false,nodeIntegration=no")
+                      window.open("https://steem.com", "_blank", "top=500,left=200,frame=false,nodeIntegration=no")
                     }
                   >
                     {_t("landing-page.hive-blockchain")}

@@ -624,8 +624,8 @@
     "transfer-to-savings": "Перевод в сейф",
     "convert": "Конвертировать",
     "power-up": "Повысить Силу",
-    "withdraw-hive": "Вывести Hive",
-    "withdraw-hbd": "Вывести Hive Доллар",
+    "withdraw-steem": "Вывести Hive",
+    "withdraw-sbd": "Вывести Hive Доллар",
     "delegate": "Делегировать",
     "power-down": "Понижение Силы",
     "withdraw-routes": "Пути вывода",
@@ -634,6 +634,7 @@
     "withdrawing-amount": "Вывод из сбережений",
     "reserved-amount": "Зарезервировано для открытого ордера на рынке"
   },
+  "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Summary",
     "description": "UPVU Summary Page"
@@ -1234,7 +1235,7 @@
       "search": "Похожие результаты по {{search}} отфильтрованны ниже",
       "search-not-found": "Ничего не найдено. Чтобы спросить наше сообщество, присоединяйтесь к нашему ",
       "search-placeholder": "Поиск статей",
-      "what-is-ecency-body": "<p>Ecency - это <a href=\"https://en.wikipedia.org/wiki/Blockchain\" target=\"_blank\" rel=\"noopener noreferrer\">блокчейн</a> децентрализованная социальная сеть - питается <a href=\"https://hive.io\" target=\"_blank\" rel=\"noopener noreferrer\">Hive</a>.</p><p>Ecency является домом свободного слова и вознаграждения сообществ для создателей контента с подлинной/полной собственностью.</p><p>Проект основан <a class=\"push-link\" href=\"/@good-karma\">@good-karma</a> в августе 2016 года как альтернативная социальная сеть, которая не цензурена, Пользователь спорен, неизменяемый и открытый. Есть <a class=\"push-link\" href=\"/contributors\">много независимых и добровольных вкладов</a> работают вместе, чтобы приобщить видение к массе.</p><p>Эчендж является центром сообществ благодаря новейшим технологиям, в которых пользователи получают плату за свое время, и учитесь при полном контроле над своими счетами, сообществами и контентом. С помощью простоты использования пользователи не только учатся, но и становятся инвесторами, инноваторами в новом Интернете.</p>",
+      "what-is-ecency-body": "<p>Ecency - это <a href=\"https://en.wikipedia.org/wiki/Blockchain\" target=\"_blank\" rel=\"noopener noreferrer\">блокчейн</a> децентрализованная социальная сеть - питается <a href=\"https://steem.com\" target=\"_blank\" rel=\"noopener noreferrer\">Steem</a>.</p><p>Ecency является домом свободного слова и вознаграждения сообществ для создателей контента с подлинной/полной собственностью.</p><p>Проект основан <a class=\"push-link\" href=\"/@good-karma\">@good-karma</a> в августе 2016 года как альтернативная социальная сеть, которая не цензурена, Пользователь спорен, неизменяемый и открытый. Есть <a class=\"push-link\" href=\"/contributors\">много независимых и добровольных вкладов</a> работают вместе, чтобы приобщить видение к массе.</p><p>Эчендж является центром сообществ благодаря новейшим технологиям, в которых пользователи получают плату за свое время, и учитесь при полном контроле над своими счетами, сообществами и контентом. С помощью простоты использования пользователи не только учатся, но и становятся инвесторами, инноваторами в новом Интернете.</p>",
       "what-is-hive-header": "Что такое Hive блокчейн?",
       "what-is-hive-body": "<p>Hive - это блокчейн, который был разработан как быстрая, бесценная, децентрализованная платформа без цензуры для приложений Web3.0, со встроенными функциями, с помощью которых участники могут получать вознаграждения, делая ставки, курируя, публикуя, играя в игры, торгуя - и все это без посредников. человек (децентрализованный). Токены на блокчейне Hive называются STEEM,STEEM DOLLARS, STEEM POWER.</p>",
       "what-is-difference-header": "В чем отличие от других социальных сетей?",
@@ -1309,7 +1310,7 @@
       "what-are-steem-power-body": "<p>Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other's rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 4 weeks.</p>",
       "what-are-hd-header": "What are STEEM DOLLARS or SBD?",
       "what-are-hd-body": "<p>Hive Dollars (commonly abbreviated SBD) are tokens worth about $1.00 of STEEM. Hive Dollars can be traded with STEEM,and transferred to other accounts for commerce or exchange. Hive Dollars may also be converted into STEEM via a process that takes 3.5 days.</p>",
-      "what-delegated-hp-header": "What is delegated Hive Power?",
+      "what-delegated-hp-header": "What is Delegated Steem Power?",
       "what-delegated-hp-body": "<p>Steem Powercan be delegated to users by another user. When user is delegated Steem Power- their Resource Credits, content votes, and curation rewards are calculated as if it were their own Hive Power. Users are not able to power down or cash out delegated Steem Powerhowever, as it still belongs to the original owner.</p>",
       "what-powering-up-header": "What is powering up?",
       "what-powering up-body": "<p>You can power up your earned Hive tokens to Steem Powerat any time. It means your STEEM are kept in your wallet and converts to STEEM Power, which increases your voting power and resource credits on the blockchain. Having more Steem Poweralso increases the amount of curation rewards and new vested tokens that you can earn. More SP also grants more influence on approving Hive witnesses.</p>",

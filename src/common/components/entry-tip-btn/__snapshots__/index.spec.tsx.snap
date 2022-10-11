@@ -47,7 +47,7 @@ exports[`(2) Dialog 1`] = `
         <div
           className="sub-title"
         >
-          Move funds to another Hive account
+          Move funds to another Steem account
         </div>
       </div>
     </div>
