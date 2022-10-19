@@ -92,9 +92,7 @@ const getTokens = (tokens: string[]): Promise<Token[]> => {
     });
 };
 
-export const getHiveEngineTokenBalances = async (
-  account: string
-): Promise<HiveEngineToken[]> => {
+export const getHiveEngineTokenBalances = async (account: string): Promise<HiveEngineToken[]> => {
   // commented just to try removing the non-existing unknowing HiveEngineTokenBalance type
   // ): Promise<HiveEngineTokenBalance[]> => {
   const balances = await getTokenBalances(account);
@@ -102,8 +100,7 @@ export const getHiveEngineTokenBalances = async (
 
   return balances.map((balance) => {
     const token = tokens.find((t) => t.symbol == balance.symbol);
-    const tokenMetadata =
-      token && (JSON.parse(token!.metadata) as TokenMetadata);
+    const tokenMetadata = token && (JSON.parse(token!.metadata) as TokenMetadata);
 
     return new HiveEngineToken({
       ...balance,
@@ -113,9 +110,7 @@ export const getHiveEngineTokenBalances = async (
   });
 };
 
-export const getUnclaimedRewards = async (
-  account: string
-): Promise<TokenStatus[]> => {
+export const getUnclaimedRewards = async (account: string): Promise<TokenStatus[]> => {
   return (
     axios
       .get(`https://scot-api.steem-engine.net/@${account}?steem=1`)
@@ -127,10 +122,7 @@ export const getUnclaimedRewards = async (
   });
 };
 
-export const claimRewards = async (
-  account: string,
-  tokens: string[]
-): Promise<TransactionConfirmation> => {
+export const claimRewards = async (account: string, tokens: string[]): Promise<TransactionConfirmation> => {
   const json = JSON.stringify(
     tokens.map((r) => {
       return { symbol: r };
@@ -140,11 +132,7 @@ export const claimRewards = async (
   return broadcastPostingJSON(account, "scot_claim_token", json);
 };
 
-export const stakeTokens = async (
-  account: string,
-  token: string,
-  amount: string
-): Promise<TransactionConfirmation> => {
+export const stakeTokens = async (account: string, token: string, amount: string): Promise<TransactionConfirmation> => {
   const json = JSON.stringify({
     contractName: "tokens",
     contractAction: "stake",
@@ -156,4 +144,26 @@ export const stakeTokens = async (
   });
 
   return broadcastPostingJSON(account, "ssc-mainnet1", json);
+};
+
+export const getSteemEngineAccountHistoryAsync = async (
+  account: string,
+  tokenSymbol: string = "",
+  start: number = 0,
+  limit: number = 100
+): Promise<any> => {
+  start = start + 1;
+  tokenSymbol = "";
+  return axios({
+    url: `https://api.steem-engine.net/history/accountHistory`,
+    method: "GET",
+    params: {
+      account,
+      limit: limit,
+      offset: start,
+      type: "user",
+      // symbol: tokenSymbol,
+      v: new Date().getTime(),
+    },
+  });
 };
