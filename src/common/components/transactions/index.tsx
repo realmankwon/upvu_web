@@ -517,7 +517,14 @@ interface Props {
   dynamicProps: DynamicProps;
   transactions: Transactions;
   account: Account;
-  fetchTransactions: (username: string, group?: OperationGroup | "", start?: number, limit?: number) => void;
+  steemengine: boolean;
+  fetchTransactions: (
+    username: string,
+    steemengine: boolean,
+    group?: OperationGroup | "",
+    start?: number,
+    limit?: number
+  ) => void;
 }
 
 const List = (props: Props) => {
@@ -526,8 +533,8 @@ const List = (props: Props) => {
   const previousTransactions = usePrevious(props.transactions);
 
   useEffect(() => {
-    const { account, fetchTransactions } = props;
-    account && account.name && fetchTransactions(account.name);
+    const { account, fetchTransactions, steemengine } = props;
+    account && account.name && fetchTransactions(account.name, steemengine);
   }, []);
 
   useEffect(() => {
@@ -541,13 +548,13 @@ const List = (props: Props) => {
   }, [props.transactions]);
 
   const typeChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
-    const { account, fetchTransactions } = props;
+    const { account, fetchTransactions, steemengine } = props;
     const group = e.target.value;
 
     setLoadingLoadMore(loadingLoadMore);
     setTransactionsList(transactionsList);
 
-    fetchTransactions(account.name, group as OperationGroup);
+    fetchTransactions(account.name, steemengine, group as OperationGroup);
   };
 
   const loadMore = () => {
@@ -555,10 +562,11 @@ const List = (props: Props) => {
       account,
       fetchTransactions,
       transactions: { list, group },
+      steemengine,
     } = props;
     if (list.length > 0) {
       const last_num = list[list.length - 1].num - 1;
-      fetchTransactions(account.name, group as OperationGroup, last_num);
+      fetchTransactions(account.name, steemengine, group as OperationGroup, last_num);
     }
   };
 
@@ -600,6 +608,7 @@ export default (p: Props) => {
     dynamicProps: p.dynamicProps,
     transactions: p.transactions,
     account: p.account,
+    steemengine: p.steemengine,
     fetchTransactions: p.fetchTransactions,
   };
 

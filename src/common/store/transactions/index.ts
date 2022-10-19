@@ -14,6 +14,7 @@ import {
 } from "./types";
 
 import { getAccountHistory } from "../../api/hive";
+import { getSteemEngineAccountHistoryAsync } from "../../api/hive-engine";
 
 const ops = utils.operationOrders;
 
@@ -98,7 +99,7 @@ export default (state: Transactions = initialState, action: Actions): Transactio
 
 /* Actions */
 export const fetchTransactions =
-  (username: string, group: OperationGroup | "" = "", start: number = -1, limit: number = 100) =>
+  (username: string, steemengine: boolean, group: OperationGroup | "" = "", start: number = -1, limit: number = 100) =>
   async (dispatch: Dispatch) => {
     dispatch(fetchAct(group));
 
@@ -156,29 +157,53 @@ export const fetchTransactions =
     }
 
     try {
-      let r = await getAccountHistory(name, filters, start, limit);
+      if (steemengine) {
+        let r = await getSteemEngineAccountHistoryAsync(name, "", start, limit);
 
-      // const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
-      //   num: x[0],
-      //   type: x[1].op[0],
-      //   timestamp: x[1].timestamp,
-      //   trx_id: x[1].trx_id,
-      //   ...x[1].op[1],
-      // }));
-      const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
-        num: x[0],
-        type: x[6][0],
-        timestamp: new Date(x[1] * 1000).toISOString().replace("T", " ").split(".")[0],
-        trx_id: x[2],
-        ...x[6][1],
-      }));
+        // const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
+        //   num: x[0],
+        //   type: x[1].op[0],
+        //   timestamp: x[1].timestamp,
+        //   trx_id: x[1].trx_id,
+        //   ...x[1].op[1],
+        // }));
+        const mapped: Transaction[] = r.data.map((x: any) => ({
+          num: x.blockNumber,
+          type: x.operation,
+          timestamp: new Date(x.timestamp * 1000).toISOString().replace("T", " ").split(".")[0],
+          trx_id: x.transactionId,
+          ...x,
+        }));
 
-      // const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
-      const transactions: Transaction[] = mapped
-        .filter((x) => x !== null)
-        .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
+        // const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
+        const transactions: Transaction[] = mapped
+          .filter((x) => x !== null)
+          .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
+        dispatch(fetchedAct(transactions));
+      } else {
+        let r = await getAccountHistory(name, filters, start, limit);
 
-      dispatch(fetchedAct(transactions));
+        // const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
+        //   num: x[0],
+        //   type: x[1].op[0],
+        //   timestamp: x[1].timestamp,
+        //   trx_id: x[1].trx_id,
+        //   ...x[1].op[1],
+        // }));
+        const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
+          num: x[0],
+          type: x[6][0],
+          timestamp: new Date(x[1] * 1000).toISOString().replace("T", " ").split(".")[0],
+          trx_id: x[2],
+          ...x[6][1],
+        }));
+
+        // const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
+        const transactions: Transaction[] = mapped
+          .filter((x) => x !== null)
+          .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
+        dispatch(fetchedAct(transactions));
+      }
     } catch (e) {
       console.log(e);
       console.log("catch");
