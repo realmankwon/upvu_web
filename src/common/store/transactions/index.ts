@@ -104,39 +104,79 @@ export const fetchTransactions =
 
     const name = username.replace("@", "");
     // debugger;
-    let filters: any[] = [];
+    // let filters: any[] = [];
+    // switch (group) {
+    //   case "transfers":
+    //     filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["transfers"]);
+    //     break;
+    //   case "market-orders":
+    //     filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["market-orders"]);
+    //     break;
+    //   case "interests":
+    //     filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["interests"]);
+    //     break;
+    //   case "stake-operations":
+    //     filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["stake-operations"]);
+    //     break;
+    //   case "rewards":
+    //     filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["rewards"]);
+    //     break;
+    //   default:
+    //     filters = utils.makeBitMaskFilter(ALL_ACCOUNT_OPERATIONS); // all
+    // }
+
+    let filters: string;
+    let transfers_filters: string = "transfer,transfer_to_savings,cancel_transfer_from_savings";
+    let orders_filters: string =
+      "fill_convert_request,fill_order,limit_order_create2,limit_order_create,limit_order_cancel";
+    let interests_filters: string = "interest";
+    let stake_filters: string =
+      "return_vesting_delegation,withdraw_vesting,transfer_to_vesting,set_withdraw_vesting_route,update_proposal_votes,fill_vesting_withdraw,account_witness_proxy,delegate_vesting_shares";
+    let rewards_filters: string =
+      "author_reward,curation_reward,producer_reward,claim_reward_balance,comment_benefactor_reward,liquidity_reward";
+
     switch (group) {
       case "transfers":
-        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["transfers"]);
+        filters = transfers_filters;
         break;
       case "market-orders":
-        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["market-orders"]);
+        filters = orders_filters;
         break;
       case "interests":
-        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["interests"]);
+        filters = interests_filters;
         break;
       case "stake-operations":
-        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["stake-operations"]);
+        filters = stake_filters;
         break;
       case "rewards":
-        filters = utils.makeBitMaskFilter(ACCOUNT_OPERATION_GROUPS["rewards"]);
+        filters = rewards_filters;
         break;
       default:
-        filters = utils.makeBitMaskFilter(ALL_ACCOUNT_OPERATIONS); // all
+        filters = `${transfers_filters},${orders_filters},${interests_filters},${stake_filters},${rewards_filters}`; // all
     }
 
     try {
       let r = await getAccountHistory(name, filters, start, limit);
 
-      const mapped: Transaction[] = r.map((x: any) => ({
+      // const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
+      //   num: x[0],
+      //   type: x[1].op[0],
+      //   timestamp: x[1].timestamp,
+      //   trx_id: x[1].trx_id,
+      //   ...x[1].op[1],
+      // }));
+      const mapped: Transaction[] = r.data.result.rows.map((x: any) => ({
         num: x[0],
-        type: x[1].op[0],
-        timestamp: x[1].timestamp,
-        trx_id: x[1].trx_id,
-        ...x[1].op[1],
+        type: x[6][0],
+        timestamp: new Date(x[1] * 1000).toISOString().replace("T", " ").split(".")[0],
+        trx_id: x[2],
+        ...x[6][1],
       }));
 
-      const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
+      // const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
+      const transactions: Transaction[] = mapped
+        .filter((x) => x !== null)
+        .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
 
       dispatch(fetchedAct(transactions));
     } catch (e) {

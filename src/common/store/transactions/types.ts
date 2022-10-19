@@ -247,12 +247,7 @@ export type Transaction =
   | EffectiveCommentVote
   | DelegateVestingShares;
 
-export type OperationGroup =
-  | "transfers"
-  | "market-orders"
-  | "interests"
-  | "stake-operations"
-  | "rewards";
+export type OperationGroup = "transfers" | "market-orders" | "interests" | "stake-operations" | "rewards";
 
 export interface Transactions {
   list: Transaction[];
@@ -285,8 +280,4 @@ export interface ResetAction {
   type: ActionTypes.RESET;
 }
 
-export type Actions =
-  | FetchAction
-  | FetchedAction
-  | FetchErrorAction
-  | ResetAction;
+export type Actions = FetchAction | FetchedAction | FetchErrorAction | ResetAction;

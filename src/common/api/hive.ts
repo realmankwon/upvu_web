@@ -14,6 +14,8 @@ import SERVERS from "../constants/servers.json";
 import { dataLimit } from "./bridge";
 import moment from "moment";
 
+import axios from "axios";
+
 export const client = new Client(SERVERS, {
   timeout: 3000,
   failoverThreshold: 3,
@@ -278,14 +280,19 @@ export const getDynamicGlobalProperties = (): Promise<DynamicGlobalProperties> =
 
 export const getAccountHistory = (
   username: string,
-  filters: any[] | any,
+  filters: string,
   start: number = -1,
-  limit: number = 100
+  limit: number = 10000
 ): Promise<any> => {
-  // // debugger;
-  return filters
-    ? client.database.getAccountHistory(username, start, limit, ...filters)
-    : client.call("condenser_api", "get_account_history", [username, start, limit]);
+  start = 0;
+  limit = 10000;
+
+  return axios({
+    url: `https://sds.steemworld.org/account_history_api/getHistoryByOpTypesTime/${username}/${filters}/1420070400-32503680000/${limit}/${start}`,
+    method: "GET",
+    params: "",
+  });
+
   // return filters
   //   ? client.call("condenser_api", "get_account_history", [
   //       username,

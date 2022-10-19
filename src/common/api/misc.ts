@@ -25,8 +25,6 @@ export const uploadImage = async (
   //   })
   //   .then((r) => r.data);
 
-  // debugger;
-
   const keychainLogin = true;
 
   let data: any, dataBs64;

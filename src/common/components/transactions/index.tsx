@@ -5,11 +5,7 @@ import { History } from "history";
 import { FormControl, Button } from "react-bootstrap";
 
 import { DynamicProps } from "../../store/dynamic-props/types";
-import {
-  OperationGroup,
-  Transaction,
-  Transactions,
-} from "../../store/transactions/types";
+import { OperationGroup, Transaction, Transactions } from "../../store/transactions/types";
 import { Account } from "../../store/accounts/types";
 
 import LinearProgress from "../linear-progress";
@@ -65,14 +61,7 @@ export class TransactionRow extends Component<RowProps> {
       flag = true;
       icon = cashCoinSvg;
 
-      numbers = (
-        <>
-          {formattedNumber(
-            vestsToHp(parseAsset(tr.reward).amount, steemPerMVests),
-            { suffix: "SP" }
-          )}
-        </>
-      );
+      numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.reward).amount, steemPerMVests), { suffix: "SP" })}</>;
       details = EntryLink({
         ...this.props,
         entry: {
@@ -89,10 +78,7 @@ export class TransactionRow extends Component<RowProps> {
       });
     }
 
-    if (
-      tr.type === "author_reward" ||
-      tr.type === "comment_benefactor_reward"
-    ) {
+    if (tr.type === "author_reward" || tr.type === "comment_benefactor_reward") {
       flag = true;
       icon = cashCoinSvg;
 
@@ -102,21 +88,14 @@ export class TransactionRow extends Component<RowProps> {
       numbers = (
         <>
           {sbd_payout.amount > 0 && (
-            <span className="number">
-              {formattedNumber(sbd_payout.amount, { suffix: "SBD" })}
-            </span>
+            <span className="number">{formattedNumber(sbd_payout.amount, { suffix: "SBD" })}</span>
           )}
           {steem_payout.amount > 0 && (
-            <span className="number">
-              {formattedNumber(steem_payout.amount, { suffix: "STEEM" })}
-            </span>
+            <span className="number">{formattedNumber(steem_payout.amount, { suffix: "STEEM" })}</span>
           )}
           {vesting_payout.amount > 0 && (
             <span className="number">
-              {formattedNumber(
-                vestsToHp(vesting_payout.amount, steemPerMVests),
-                { suffix: "SP" }
-              )}{" "}
+              {formattedNumber(vestsToHp(vesting_payout.amount, steemPerMVests), { suffix: "SP" })}{" "}
             </span>
           )}
         </>
@@ -148,14 +127,10 @@ export class TransactionRow extends Component<RowProps> {
       numbers = (
         <>
           {reward_sbd.amount > 0 && (
-            <span className="number">
-              {formattedNumber(reward_sbd.amount, { suffix: "SBD" })}
-            </span>
+            <span className="number">{formattedNumber(reward_sbd.amount, { suffix: "SBD" })}</span>
           )}
           {reward_steem.amount > 0 && (
-            <span className="number">
-              {formattedNumber(reward_steem.amount, { suffix: "STEEM" })}
-            </span>
+            <span className="number">{formattedNumber(reward_steem.amount, { suffix: "STEEM" })}</span>
           )}
           {reward_vests.amount > 0 && (
             <span className="number">
@@ -168,14 +143,9 @@ export class TransactionRow extends Component<RowProps> {
       );
     }
 
-    if (
-      tr.type === "transfer" ||
-      tr.type === "transfer_to_vesting" ||
-      tr.type === "transfer_to_savings"
-    ) {
+    if (tr.type === "transfer" || tr.type === "transfer_to_vesting" || tr.type === "transfer_to_savings") {
       flag = true;
-      icon =
-        tr.type === "transfer_to_vesting" ? powerUpSvg : compareHorizontalSvg;
+      icon = tr.type === "transfer_to_vesting" ? powerUpSvg : compareHorizontalSvg;
 
       details = (
         <span>
@@ -202,8 +172,7 @@ export class TransactionRow extends Component<RowProps> {
           {"Auto Vest:"} {tr.auto_vest} <br />
           {"Percent:"} {tr.percent} <br />
           <>
-            <strong>@{tr.from_account}</strong> -&gt;{" "}
-            <strong>@{tr.to_account}</strong>
+            <strong>@{tr.from_account}</strong> -&gt; <strong>@{tr.to_account}</strong>
           </>
         </span>
       );
@@ -211,10 +180,7 @@ export class TransactionRow extends Component<RowProps> {
       numbers = <span className="number">{tr.percent}</span>;
     }
 
-    if (
-      tr.type === "recurrent_transfer" ||
-      tr.type === "fill_recurrent_transfer"
-    ) {
+    if (tr.type === "recurrent_transfer" || tr.type === "fill_recurrent_transfer") {
       flag = true;
       icon = compareHorizontalSvg;
 
@@ -265,10 +231,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = closeSvg;
 
       details = (
-        <Tsx
-          k="transactions.type-cancel_transfer_from_savings-detail"
-          args={{ from: tr.from, request: tr.request_id }}
-        >
+        <Tsx k="transactions.type-cancel_transfer_from_savings-detail" args={{ from: tr.from, request: tr.request_id }}>
           <span />
         </Tsx>
       );
@@ -310,8 +273,7 @@ export class TransactionRow extends Component<RowProps> {
       details = tr.delegatee ? (
         <span>
           <>
-            <strong>@{tr.delegator}</strong> -&gt;{" "}
-            <strong>@{tr.delegatee}</strong>
+            <strong>@{tr.delegator}</strong> -&gt; <strong>@{tr.delegatee}</strong>
           </>
         </span>
       ) : null;
@@ -371,12 +333,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = pickAxeSvg;
 
       numbers = (
-        <>
-          {formattedNumber(
-            vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests),
-            { suffix: "SP" }
-          )}
-        </>
+        <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
       );
     }
 
@@ -422,12 +379,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = powerUpSvg;
 
       numbers = (
-        <>
-          {formattedNumber(
-            vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests),
-            { suffix: "SP" }
-          )}
-        </>
+        <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
       );
     }
 
@@ -443,10 +395,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = tr.approve ? chevronUpSvgForVote : chevronDownSvgForSlider;
 
       details = (
-        <Tsx
-          k="transactions.type-update_proposal_vote-detail"
-          args={{ pid: tr.proposal_ids }}
-        >
+        <Tsx k="transactions.type-update_proposal_vote-detail" args={{ pid: tr.proposal_ids }}>
           <span />
         </Tsx>
       );
@@ -479,13 +428,7 @@ export class TransactionRow extends Component<RowProps> {
       const payout = parseAsset(tr.payout);
 
       numbers = (
-        <>
-          {payout.amount > 0 && (
-            <span className="number">
-              {formattedNumber(payout.amount, { suffix: "SBD" })}
-            </span>
-          )}
-        </>
+        <>{payout.amount > 0 && <span className="number">{formattedNumber(payout.amount, { suffix: "SBD" })}</span>}</>
       );
 
       details = EntryLink({
@@ -511,19 +454,12 @@ export class TransactionRow extends Component<RowProps> {
 
       numbers = (
         <>
-          {amount.amount > 0 && (
-            <span className="number">
-              {formattedNumber(amount.amount, { suffix: "STEEM" })}
-            </span>
-          )}
+          {amount.amount > 0 && <span className="number">{formattedNumber(amount.amount, { suffix: "STEEM" })}</span>}
         </>
       );
 
       details = (
-        <Tsx
-          k="transactions.type-collateralized_convert-detail"
-          args={{ request: tr.requestid }}
-        >
+        <Tsx k="transactions.type-collateralized_convert-detail" args={{ request: tr.requestid }}>
           <span />
         </Tsx>
       );
@@ -535,13 +471,7 @@ export class TransactionRow extends Component<RowProps> {
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (
-        <>
-          {payout.amount > 0 && (
-            <span className="number">
-              {formattedNumber(payout.amount, { suffix: "SBD" })}
-            </span>
-          )}
-        </>
+        <>{payout.amount > 0 && <span className="number">{formattedNumber(payout.amount, { suffix: "SBD" })}</span>}</>
       );
 
       details = EntryLink({
@@ -565,12 +495,8 @@ export class TransactionRow extends Component<RowProps> {
         <div className="transaction-list-item">
           <div className="transaction-icon">{icon}</div>
           <div className="transaction-title">
-            <div className="transaction-name">
-              {_t(`transactions.type-${tr.type}`)}
-            </div>
-            <div className="transaction-date">
-              {dateToFullRelative(tr.timestamp)}
-            </div>
+            <div className="transaction-name">{_t(`transactions.type-${tr.type}`)}</div>
+            <div className="transaction-date">{dateToFullRelative(tr.timestamp)}</div>
           </div>
           <div className="transaction-numbers">{numbers}</div>
           <div className="transaction-details">{details}</div>
@@ -591,12 +517,7 @@ interface Props {
   dynamicProps: DynamicProps;
   transactions: Transactions;
   account: Account;
-  fetchTransactions: (
-    username: string,
-    group?: OperationGroup | "",
-    start?: number,
-    limit?: number
-  ) => void;
+  fetchTransactions: (username: string, group?: OperationGroup | "", start?: number, limit?: number) => void;
 }
 
 const List = (props: Props) => {
@@ -611,22 +532,15 @@ const List = (props: Props) => {
 
   useEffect(() => {
     const { transactions } = props;
-    if (
-      previousTransactions &&
-      previousTransactions.list !== transactions.list
-    ) {
+    if (previousTransactions && previousTransactions.list !== transactions.list) {
       setTransactionsList([
-        ...(previousTransactions.group === transactions.group
-          ? transactionsList
-          : []),
+        ...(previousTransactions.group === transactions.group ? transactionsList : []),
         ...transactions.list,
       ]);
     }
   }, [props.transactions]);
 
-  const typeChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ) => {
+  const typeChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { account, fetchTransactions } = props;
     const group = e.target.value;
 
@@ -652,19 +566,9 @@ const List = (props: Props) => {
     <div className="transaction-list">
       <div className="transaction-list-header">
         <h2>{_t("transactions.title")} </h2>
-        <FormControl
-          as="select"
-          value={props.transactions.group}
-          onChange={typeChanged}
-        >
+        <FormControl as="select" value={props.transactions.group} onChange={typeChanged}>
           <option value="">{_t("transactions.group-all")}</option>
-          {[
-            "transfers",
-            "market-orders",
-            "interests",
-            "stake-operations",
-            "rewards",
-          ].map((x) => (
+          {["transfers", "market-orders", "interests", "stake-operations", "rewards"].map((x) => (
             <option key={x} value={x}>
               {_t(`transactions.group-${x}`)}
             </option>
@@ -682,12 +586,7 @@ const List = (props: Props) => {
         !props.transactions.loading &&
         props.transactions.list.length > 0 &&
         transactionsList.length > 0 && (
-          <Button
-            disabled={loadingLoadMore}
-            block={true}
-            onClick={loadMore}
-            className="mt-2"
-          >
+          <Button disabled={loadingLoadMore} block={true} onClick={loadMore} className="mt-2">
             {_t("g.load-more")}
           </Button>
         )}
