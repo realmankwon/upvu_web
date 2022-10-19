@@ -1,18 +1,18 @@
-import { Dispatch } from 'redux';
-import { DeckState, IdentifiableDeckModel } from '../types';
-import { _t } from '../../../i18n';
-import { getNotifications } from '../../../api/private-api';
-import { getAllTrendingTags } from '../../../api/hive';
-import { getAccountPosts, getPostsRanked } from '../../../api/bridge';
-import { setDataAct, setReloadingAct } from '../acts';
-import { fetchTransactions } from '../../transactions/fetchTransactions';
+import { Dispatch } from "redux";
+import { DeckState, IdentifiableDeckModel } from "../types";
+import { _t } from "../../../i18n";
+import { getNotifications } from "../../../api/private-api";
+import { getAllTrendingTags } from "../../../api/hive";
+import { getAccountPosts, getPostsRanked } from "../../../api/bridge";
+import { setDataAct, setReloadingAct } from "../acts";
+import { fetchTransactions } from "../../transactions";
 
 export const fetchDeckData = (title: string) => async (dispatch: Dispatch, getState: () => { deck: DeckState }) => {
   const [deckType, account] = title.split(" @");
   const decks = getState().deck.items;
   const deckToUpdate = decks.find((d: IdentifiableDeckModel) => d.header.title === title);
 
-  if  (!deckToUpdate) {
+  if (!deckToUpdate) {
     return;
   }
 
@@ -21,8 +21,7 @@ export const fetchDeckData = (title: string) => async (dispatch: Dispatch, getSt
   const isPost =
     deckType.toLocaleLowerCase() === _t("decks.posts").toLocaleLowerCase() ||
     deckType.toLocaleLowerCase() === _t("decks.blogs").toLocaleLowerCase() ||
-    deckType.toLocaleLowerCase() ===
-    _t("decks.comments").toLocaleLowerCase() ||
+    deckType.toLocaleLowerCase() === _t("decks.comments").toLocaleLowerCase() ||
     deckType.toLocaleLowerCase() === _t("decks.replies").toLocaleLowerCase();
   const isCommunity = title.includes("hive-");
   if (!isPost && !isCommunity) {
@@ -60,4 +59,4 @@ export const fetchDeckData = (title: string) => async (dispatch: Dispatch, getSt
   }
 
   dispatch(setReloadingAct({ title: deckToUpdate.header.title, isReloading: false }));
-}
+};
