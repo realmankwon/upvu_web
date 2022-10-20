@@ -490,6 +490,119 @@ export class TransactionRow extends Component<RowProps> {
       });
     }
 
+    // steem-engine transaction start
+    if (tr.type === "tokens_transfer") {
+      flag = true;
+      icon = compareHorizontalSvg;
+
+      details = (
+        <span>
+          {tr.transaction.memo ? (
+            <>
+              {tr.transaction.memo} <br /> <br />
+            </>
+          ) : null}
+          <>
+            <strong>@{tr.transaction.from}</strong> -&gt; <strong>@{tr.transaction.to}</strong>
+          </>
+        </span>
+      );
+
+      let sign = "";
+
+      if (tr.transaction.to != tr.transaction.account) sign = "-";
+      numbers = (
+        <span className="number">
+          {sign} {tr.transaction.quantity} {tr.transaction.symbol}
+        </span>
+      );
+    }
+
+    if (tr.type === "tokens_delegate") {
+      flag = true;
+      icon = starSvg;
+
+      let sign = "";
+
+      if (tr.transaction.to != tr.transaction.account) sign = "-";
+      numbers = (
+        <span className="number">
+          {sign} {tr.transaction.quantity} {tr.transaction.symbol}
+        </span>
+      );
+
+      details = tr.transaction.to ? (
+        <span>
+          <>
+            <strong>@{tr.transaction.from}</strong> -&gt; <strong>@{tr.transaction.to}</strong>
+          </>
+        </span>
+      ) : null;
+    }
+
+    if (tr.type === "tokens_stake") {
+      flag = true;
+      icon = powerUpSvg;
+
+      details = (
+        <span>
+          <>
+            <strong>@{tr.transaction.from}</strong> -&gt; <strong>@{tr.transaction.to}</strong>
+          </>
+        </span>
+      );
+
+      let sign = "";
+
+      if (tr.transaction.to != tr.transaction.account) sign = "-";
+      numbers = (
+        <span className="number">
+          {sign} {tr.transaction.quantity} {tr.transaction.symbol}
+        </span>
+      );
+    }
+
+    if (tr.type === "tokens_issue") {
+      flag = true;
+      icon = cashMultiple;
+
+      details = (
+        <span>
+          <>
+            <strong>@{tr.transaction.from}</strong> -&gt; <strong>@{tr.transaction.to}</strong>
+          </>
+        </span>
+      );
+
+      let sign = "";
+
+      if (tr.transaction.to != tr.transaction.account) sign = "-";
+      numbers = (
+        <span className="number">
+          {sign} {tr.transaction.quantity} {tr.transaction.symbol}
+        </span>
+      );
+    }
+
+    if (tr.type === "tokens_unstake" || tr.type === "tokens_unstakeStart") {
+      flag = true;
+      icon = powerDownSvg;
+
+      details = (
+        <span>
+          <>
+            <strong>@{tr.transaction.account}</strong>
+          </>
+        </span>
+      );
+
+      numbers = (
+        <span className="number">
+          {tr.transaction.quantity} {tr.transaction.symbol}
+        </span>
+      );
+    }
+
     if (flag) {
       return (
         <div className="transaction-list-item">
@@ -565,7 +678,7 @@ const List = (props: Props) => {
       steemengine,
     } = props;
     if (list.length > 0) {
-      const last_num = list[list.length - 1].num - 1;
+      const last_num = list[list.length - 1].num + 1;
       fetchTransactions(account.name, steemengine, group as OperationGroup, last_num);
     }
   };

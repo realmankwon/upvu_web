@@ -217,6 +217,37 @@ export interface EffectiveCommentVote extends BaseTransaction {
   weight: number;
 }
 
+// steem engine transaction
+export interface SteemEngineTransfer extends BaseTransaction {
+  type: "tokens_transfer";
+  transaction: any;
+}
+
+export interface SteemEngineDelegate extends BaseTransaction {
+  type: "tokens_delegate";
+  transaction: any;
+}
+
+export interface SteemEngineStake extends BaseTransaction {
+  type: "tokens_stake";
+  transaction: any;
+}
+
+export interface SteemEngineIssue extends BaseTransaction {
+  type: "tokens_issue";
+  transaction: any;
+}
+
+export interface SteemEngineUnstake extends BaseTransaction {
+  type: "tokens_unstake";
+  transaction: any;
+}
+
+export interface SteemEngineUnstakeStart extends BaseTransaction {
+  type: "tokens_unstakeStart";
+  transaction: any;
+}
+
 export type Transaction =
   | CurationReward
   | AuthorReward
@@ -245,7 +276,13 @@ export type Transaction =
   | LimitOrderCancel
   | FillVestingWithdraw
   | EffectiveCommentVote
-  | DelegateVestingShares;
+  | DelegateVestingShares
+  | SteemEngineTransfer
+  | SteemEngineDelegate
+  | SteemEngineStake
+  | SteemEngineIssue
+  | SteemEngineUnstake
+  | SteemEngineUnstakeStart;
 
 export type OperationGroup = "transfers" | "market-orders" | "interests" | "stake-operations" | "rewards";
 
