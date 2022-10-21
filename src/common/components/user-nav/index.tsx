@@ -236,7 +236,7 @@ export default class UserNav extends Component<Props, State> {
 
           <WalletBadge activeUser={activeUser} dynamicProps={dynamicProps} />
 
-          {
+          {global.usePrivate && (
             <ToolTip content={_t("user-nav.notifications")}>
               <span className="notifications" onClick={this.toggleNotifications}>
                 {unread > 0 && (
@@ -247,7 +247,7 @@ export default class UserNav extends Component<Props, State> {
                 {global.notifications ? bellSvg : bellOffSvg}
               </span>
             </ToolTip>
-          }
+          )}
 
           <DropDown {...dropDownConfig} float="right" header={`@${activeUser.username}`} />
         </div>

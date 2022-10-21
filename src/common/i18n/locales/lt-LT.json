@@ -1012,6 +1012,7 @@
     "type-delegations": "Delegations",
     "group-title-recent": "Recent",
     "vote-str": "{{p}}% likes your post:",
+    "vote-quantity-str": "${{p}} likes your post:",
     "reply-str": "replied to your post:",
     "mention-str": "paminėjo jus:",
     "followed-str": "seka",
