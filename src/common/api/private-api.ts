@@ -9,6 +9,7 @@ import { getAccessToken } from "../helper/user-token";
 import { apiBase } from "./helper";
 
 import { AppWindow } from "../../client/window";
+import { proxifyImageSrc, setProxyBase } from "@ecency/render-helper";
 
 declare var window: AppWindow;
 
@@ -537,4 +538,10 @@ export const getPromotedEntries = (): Promise<Entry[]> => {
   }
 
   return new Promise((resolve) => resolve([]));
+};
+
+export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, format = "match"): string => {
+  const imageSrc = proxifyImageSrc(url, width, height, "match");
+  debugger;
+  return imageSrc.replace("images.ecency.com/webp", "steemitimages.com");
 };

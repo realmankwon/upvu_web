@@ -1,4 +1,5 @@
-import { postBodySummary, proxifyImageSrc } from "@ecency/render-helper";
+import { postBodySummary } from "@ecency/render-helper";
+import { proxifyImageSrcConvert } from "../../api/private-api";
 import React, { Fragment } from "react";
 import { history } from "../../../common/store";
 import { Link } from "react-router-dom";
@@ -221,7 +222,7 @@ export const SearchListItem = ({
                   <div
                     className="search-post-image d-flex align-self-center mt-3"
                     style={{
-                      backgroundImage: `url(${proxifyImageSrc(
+                      backgroundImage: `url(${proxifyImageSrcConvert(
                         json_metadata.image[0],
                         undefined,
                         undefined,
