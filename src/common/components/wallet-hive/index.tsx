@@ -54,9 +54,10 @@ interface Props {
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
-  fetchTransactions: (username: string, group?: OperationGroup | "") => void;
+  fetchTransactions: (username: string, steemengine: boolean, group?: OperationGroup | "") => void;
   fetchPoints: (username: string, type?: number) => void;
   updateWalletValues: () => void;
+  steemengine: boolean;
 }
 
 interface State {
@@ -870,6 +871,7 @@ export default (p: Props) => {
     fetchTransactions: p.fetchTransactions,
     updateWalletValues: p.updateWalletValues,
     fetchPoints: p.fetchPoints,
+    steemengine: false,
   };
 
   return <WalletHive {...props} />;

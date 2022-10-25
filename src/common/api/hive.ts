@@ -142,7 +142,28 @@ export const getTradeHistory = (limit: number = 1000): Promise<OrdersDataItem[]>
 };
 
 export const getActiveVotes = (author: string, permlink: string): Promise<Vote[]> =>
-  client.database.call("get_active_votes", [author, permlink]);
+  client.database.call("get_active_votes", [author, permlink]).then(async (votes: Vote[]) => {
+    const results = await getAccounts(
+      votes.map((vote: { voter: any }) => {
+        return vote.voter;
+      })
+    );
+
+    votes = votes.map((vote) => {
+      const info = results.filter((account) => {
+        return account.name == vote.voter;
+      });
+
+      if (info.length > 0) {
+        vote.reputation = +info[0].reputation;
+      }
+
+      debugger;
+      return vote;
+    });
+
+    return votes;
+  });
 
 export const getTrendingTags = (afterTag: string = "", limit: number = 250): Promise<string[]> =>
   client.database.call("get_trending_tags", [afterTag, limit]).then((tags: TrendingTag[]) => {

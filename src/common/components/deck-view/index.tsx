@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch } from "react-redux";
 import {
   communities,
   globalTrending,
@@ -10,20 +10,17 @@ import {
   wallet,
   trelloSvg,
 } from "../../img/svg";
-import {
-  pageMapDispatchToProps,
-  pageMapStateToProps,
-} from "../../pages/common";
+import { pageMapDispatchToProps, pageMapStateToProps } from "../../pages/common";
 import { DeckAddModal } from "../deck-add-modal";
 import ListStyleToggle from "../list-style-toggle";
-import { DraggableDeckView } from './draggable-deck-view';
+import { DraggableDeckView } from "./draggable-deck-view";
 import { HotListItem, SearchListItem } from "../deck/deck-items";
 import { TransactionRow } from "../transactions";
 import MyTooltip from "../tooltip";
 import { NotificationListItem } from "../notifications";
 import { _t } from "../../i18n";
 import { error } from "../feedback";
-import { IdentifiableDeckModel } from './types';
+import { IdentifiableDeckModel } from "./types";
 
 const DeckViewContainer = ({
   global,
@@ -91,8 +88,7 @@ const DeckViewContainer = ({
   useEffect(() => {
     let draggableContainer = document!.getElementById("draggable-container")!;
     if (loadingNewContent && draggableContainer) {
-      draggableContainer.scrollLeft =
-        draggableContainer.getBoundingClientRect().width;
+      draggableContainer.scrollLeft = draggableContainer.getBoundingClientRect().width;
     }
   }, [loadingNewContent]);
 
@@ -120,9 +116,9 @@ const DeckViewContainer = ({
   }, [user]);
 
   useEffect(() => {
-    const items = (deck.items as IdentifiableDeckModel[]);
+    const items = deck.items as IdentifiableDeckModel[];
     if (!fetched && items.length) {
-      items.forEach(({header: {title}}) => fetchDeckData(title));
+      items.forEach(({ header: { title } }) => fetchDeckData(title));
       setFetched(true);
     }
   }, [deck.items]);
@@ -148,46 +144,32 @@ const DeckViewContainer = ({
             />
           </div>
           <div className="d-flex flex-column align-items-center sidebar-icons-wrapper">
-            {deck.items.length > 0 && deck.items.map((d: any, index: number) => {
+            {deck.items.length > 0 &&
+              deck.items.map((d: any, index: number) => {
                 let avatar = d.header.title.split("@")[1];
                 if (avatar) {
-                  avatar = `https://images.ecency.com/${
-                    global.canUseWebp ? "webp/" : ""
-                  }u/${avatar}/avatar/medium`;
+                  avatar = `https://steemitimages.com/u/${avatar}/avatar/medium`;
                 }
 
                 return (
                   <div
-                    className={`${
-                      index % 2 === 1 ? "my-icons-5 " : ""
-                    }cursor-pointer position-relative`}
+                    className={`${index % 2 === 1 ? "my-icons-5 " : ""}cursor-pointer position-relative`}
                     key={d.header.title + index}
                     onClick={() => {
                       let elementToFocus = document!.getElementById(d.id);
-                      let toScrollValue =
-                        elementToFocus!.getBoundingClientRect().left;
+                      let toScrollValue = elementToFocus!.getBoundingClientRect().left;
                       elementToFocus?.classList.add("active-deck");
                       setTimeout(() => {
                         elementToFocus?.classList.remove("active-deck");
                       }, 5000);
 
-                      document!.getElementById(
-                        "draggable-container"
-                      )!.scrollLeft = toScrollValue;
+                      document!.getElementById("draggable-container")!.scrollLeft = toScrollValue;
                     }}
                   >
                     {avatar && (
                       <div className="position-absolute avatar-xs rounded-circle">
-                        <MyTooltip
-                          content={d.header.title.replace(
-                            /^./,
-                            d.header.title[0].toUpperCase()
-                          )}
-                        >
-                          <img
-                            src={avatar}
-                            className="w-100 h-100 rounded-circle"
-                          />
+                        <MyTooltip content={d.header.title.replace(/^./, d.header.title[0].toUpperCase())}>
+                          <img src={avatar} className="w-100 h-100 rounded-circle" />
                         </MyTooltip>
                       </div>
                     )}
@@ -203,11 +185,7 @@ const DeckViewContainer = ({
 
           <div
             className="my-icons-5 cursor-pointer"
-            onClick={() =>
-              deck.items.length === 10
-                ? error(_t("decks.limit-warning"))
-                : setOpenModal(true)
-            }
+            onClick={() => (deck.items.length === 10 ? error(_t("decks.limit-warning")) : setOpenModal(true))}
           >
             {plusEncircled}
           </div>
@@ -215,9 +193,7 @@ const DeckViewContainer = ({
         <div className="decks-container d-flex pt-5 pb-3 mt-5 overflow-auto flex-grow-1">
           {deck.items.length === 0 ? (
             <div className="d-flex justify-content-center align-items-center flex-grow-1 w-100 flex-column">
-              <span style={{width: 50}}>
-                {trelloSvg}
-              </span>
+              <span style={{ width: 50 }}>{trelloSvg}</span>
               <div className="mt-3">
                 <h4>{_t("decks.empty-decks")}</h4>
               </div>
@@ -241,7 +217,4 @@ const DeckViewContainer = ({
   );
 };
 
-export const DeckView = connect(
-  pageMapStateToProps,
-  pageMapDispatchToProps
-)(DeckViewContainer);
+export const DeckView = connect(pageMapStateToProps, pageMapDispatchToProps)(DeckViewContainer);

@@ -13,11 +13,7 @@ import { history } from "../../store";
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { ToggleType } from "../../store/ui/types";
-import {
-  ApiMentionNotification,
-  NotificationFilter,
-  Notifications,
-} from "../../store/notifications/types";
+import { ApiMentionNotification, NotificationFilter, Notifications } from "../../store/notifications/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 import { ApiNotification } from "../../store/notifications/types";
 import { ActiveUser } from "../../store/active-user/types";
@@ -70,17 +66,10 @@ export class NotificationListItem extends Component<{
   toggleUIProp: (what: ToggleType) => void;
 }> {
   markAsRead = () => {
-    const {
-      notification: primaryNotification,
-      entry,
-      markNotifications,
-    } = this.props;
+    const { notification: primaryNotification, entry, markNotifications } = this.props;
     const notification = primaryNotification || entry;
 
-    if (
-      notification!.read === 0 &&
-      !(notification as ApiMentionNotification).deck
-    ) {
+    if (notification!.read === 0 && !(notification as ApiMentionNotification).deck) {
       markNotifications(notification!.id);
     }
   };
@@ -92,11 +81,7 @@ export class NotificationListItem extends Component<{
   };
 
   render() {
-    const {
-      notification: primaryNotification,
-      entry,
-      dynamicProps,
-    } = this.props;
+    const { notification: primaryNotification, entry, dynamicProps } = this.props;
     const notification = primaryNotification || entry;
     const { steemPerMVests } = dynamicProps;
 
@@ -127,45 +112,31 @@ export class NotificationListItem extends Component<{
         <div
           title={notification.timestamp}
           className={_c(
-            `list-item ${
-              notification.read === 0 &&
-              !(notification as ApiMentionNotification).deck
-                ? "not-read"
-                : " "
-            }`
+            `list-item ${notification.read === 0 && !(notification as ApiMentionNotification).deck ? "not-read" : " "}`
           )}
         >
-          <div
-            className={`item-inner ${
-              (notification as ApiMentionNotification).deck ? "p-2 m-0" : ""
-            }`}
-          >
-            <div
-              className={`item-control ${
-                (notification as ApiMentionNotification).deck
-                  ? "item-control-deck"
-                  : ""
-              }`}
-            >
-              {!(notification as ApiMentionNotification).deck &&
-                notification.read === 0 && (
-                  <Tooltip content={_t("notifications.mark-read")}>
-                    <span onClick={this.markAsRead} className="mark-read" />
-                  </Tooltip>
-                )}
+          <div className={`item-inner ${(notification as ApiMentionNotification).deck ? "p-2 m-0" : ""}`}>
+            <div className={`item-control ${(notification as ApiMentionNotification).deck ? "item-control-deck" : ""}`}>
+              {!(notification as ApiMentionNotification).deck && notification.read === 0 && (
+                <Tooltip content={_t("notifications.mark-read")}>
+                  <span onClick={this.markAsRead} className="mark-read" />
+                </Tooltip>
+              )}
             </div>
 
             <div className="source">{sourceLinkMain}</div>
 
             {/* Votes */}
-            {(notification.type === "vote" ||
-              notification.type === "unvote") && (
+            {(notification.type === "vote" || notification.type === "unvote") && (
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
                   <span className="item-action">
-                    {_t("notifications.vote-str", {
+                    {/* {_t("notifications.vote-str", {
                       p: notification.weight / 100,
+                    })} */}
+                    {_t("notifications.vote-quantity-str", {
+                      p: notification.weight,
                     })}
                   </span>
                 </div>
@@ -178,9 +149,7 @@ export class NotificationListItem extends Component<{
                       permlink: notification.permlink,
                     },
                     afterClick: this.afterClick,
-                    children: (
-                      <a className="post-link">{notification.permlink}</a>
-                    ),
+                    children: <a className="post-link">{notification.permlink}</a>,
                   })}
                 </div>
               </div>
@@ -191,9 +160,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.reply-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.reply-str")}</span>
                   <div className="vert-separator" />
                   {EntryLink({
                     ...this.props,
@@ -203,11 +170,7 @@ export class NotificationListItem extends Component<{
                       permlink: notification.parent_permlink,
                     },
                     afterClick: this.afterClick,
-                    children: (
-                      <a className="post-link">
-                        {notification.parent_permlink}
-                      </a>
-                    ),
+                    children: <a className="post-link">{notification.parent_permlink}</a>,
                   })}
                 </div>
                 <div className="second-line">
@@ -234,9 +197,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.mention-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.mention-str")}</span>
                 </div>
                 <div className="second-line">
                   {EntryLink({
@@ -247,35 +208,25 @@ export class NotificationListItem extends Component<{
                       permlink: notification.permlink,
                     },
                     afterClick: this.afterClick,
-                    children: (
-                      <a className="post-link">{notification.permlink}</a>
-                    ),
+                    children: <a className="post-link">{notification.permlink}</a>,
                   })}
                 </div>
               </div>
             )}
 
             {/* Follows */}
-            {(notification.type === "follow" ||
-              notification.type === "unfollow" ||
-              notification.type === "ignore") && (
+            {(notification.type === "follow" || notification.type === "unfollow" || notification.type === "ignore") && (
               <div className="item-content">
                 <div className="first-line">{sourceLink}</div>
                 <div className="second-line">
                   {notification.type === "follow" && (
-                    <span className="follow-label">
-                      {_t("notifications.followed-str")}
-                    </span>
+                    <span className="follow-label">{_t("notifications.followed-str")}</span>
                   )}
                   {notification.type === "unfollow" && (
-                    <span className="unfollow-label">
-                      {_t("notifications.unfollowed-str")}
-                    </span>
+                    <span className="unfollow-label">{_t("notifications.unfollowed-str")}</span>
                   )}
                   {notification.type === "ignore" && (
-                    <span className="ignore-label">
-                      {_t("notifications.ignored-str")}
-                    </span>
+                    <span className="ignore-label">{_t("notifications.ignored-str")}</span>
                   )}
                 </div>
               </div>
@@ -286,9 +237,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.reblog-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.reblog-str")}</span>
                 </div>
                 <div className="second-line">
                   {EntryLink({
@@ -299,9 +248,7 @@ export class NotificationListItem extends Component<{
                       permlink: notification.permlink,
                     },
                     afterClick: this.afterClick,
-                    children: (
-                      <a className="post-link">{notification.permlink}</a>
-                    ),
+                    children: <a className="post-link">{notification.permlink}</a>,
                   })}
                 </div>
               </div>
@@ -313,18 +260,13 @@ export class NotificationListItem extends Component<{
                 <div className="first-line">
                   {sourceLink}
                   <span className="item-action">
-                    {_t("notifications.transfer-str")}{" "}
-                    <span className="transfer-amount">
-                      {notification.amount}
-                    </span>
+                    {_t("notifications.transfer-str")} <span className="transfer-amount">{notification.amount}</span>
                   </span>
                 </div>
                 {notification.memo && (
                   <div className="second-line">
                     <div className="transfer-memo">
-                      {notification.memo
-                        .substring(0, 120)
-                        .replace("https://peakd.com/", "https://ecency.com/")}
+                      {notification.memo.substring(0, 120).replace("https://peakd.com/", "https://ecency.com/")}
                     </div>
                   </div>
                 )}
@@ -339,13 +281,7 @@ export class NotificationListItem extends Component<{
                   <span className="item-action">
                     {_t("notifications.delegations-str")}{" "}
                     <span className="transfer-amount">
-                      {formattedNumber(
-                        vestsToHp(
-                          parseFloat(notification.amount),
-                          steemPerMVests
-                        ),
-                        { suffix: "SP" }
-                      )}
+                      {formattedNumber(vestsToHp(parseFloat(notification.amount), steemPerMVests), { suffix: "SP" })}
                     </span>
                   </span>
                 </div>
@@ -357,9 +293,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.spin-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.spin-str")}</span>
                 </div>
               </div>
             )}
@@ -369,9 +303,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.inactive-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.inactive-str")}</span>
                 </div>
               </div>
             )}
@@ -381,9 +313,7 @@ export class NotificationListItem extends Component<{
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
-                  <span className="item-action">
-                    {_t("notifications.referral-str")}
-                  </span>
+                  <span className="item-action">{_t("notifications.referral-str")}</span>
                 </div>
               </div>
             )}
@@ -498,47 +428,32 @@ export class DialogContent extends Component<NotificationProps> {
       <div className="notification-list">
         <div className="list-header">
           <div className="list-filter">
-            <span>
-              {filter
-                ? _t(`notifications.type-${filter}`)
-                : _t("notifications.type-all")}
-            </span>
+            <span>{filter ? _t(`notifications.type-${filter}`) : _t("notifications.type-all")}</span>
             <DropDown {...dropDownConfig} float="left" />
           </div>
           <div className="list-actions">
             {global.notifications && (
               <Tooltip content={_t("notifications.mute")}>
-                <span
-                  className={_c(`list-action ${loading ? "disabled" : ""}`)}
-                  onClick={this.mute}
-                >
+                <span className={_c(`list-action ${loading ? "disabled" : ""}`)} onClick={this.mute}>
                   {bellOffSvg}
                 </span>
               </Tooltip>
             )}
             {!global.notifications && (
               <Tooltip content={_t("notifications.unmute")}>
-                <span
-                  className={_c(`list-action ${loading ? "disabled" : ""}`)}
-                  onClick={this.unMute}
-                >
+                <span className={_c(`list-action ${loading ? "disabled" : ""}`)} onClick={this.unMute}>
                   {bellCheckSvg}
                 </span>
               </Tooltip>
             )}
             <Tooltip content={_t("notifications.refresh")}>
-              <span
-                className={_c(`list-action ${loading ? "disabled" : ""}`)}
-                onClick={this.refresh}
-              >
+              <span className={_c(`list-action ${loading ? "disabled" : ""}`)} onClick={this.refresh}>
                 {syncSvg}
               </span>
             </Tooltip>
             <Tooltip content={_t("notifications.mark-all-read")}>
               <span
-                className={_c(
-                  `list-action ${loading || unread === 0 ? "disabled" : ""}`
-                )}
+                className={_c(`list-action ${loading || unread === 0 ? "disabled" : ""}`)}
                 onClick={this.markAsRead}
               >
                 {checkSvg}
@@ -603,12 +518,7 @@ export default class NotificationsDialog extends Component<Props> {
 
   render() {
     return (
-      <Modal
-        show={true}
-        centered={true}
-        onHide={this.hide}
-        className="notifications-modal drawer"
-      >
+      <Modal show={true} centered={true} onHide={this.hide} className="notifications-modal drawer">
         <Modal.Body>
           <DialogContent {...this.props} />
         </Modal.Body>

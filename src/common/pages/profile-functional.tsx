@@ -158,7 +158,7 @@ export const Profile = (props: Props) => {
         setPinnedEntry(null);
         await ensureAccount();
         props.resetTransactions();
-        props.fetchTransactions(`@${nextUsername}`);
+        props.fetchTransactions(`@${nextUsername}`, false);
 
         props.resetPoints();
         props.fetchPoints(`@${nextUsername}`);
@@ -279,7 +279,7 @@ export const Profile = (props: Props) => {
       await ensureAccount();
       // reload transactions
       resetTransactions();
-      fetchTransactions(username);
+      fetchTransactions(username, false);
 
       // reload points
       resetPoints();
