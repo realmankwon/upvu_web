@@ -19,7 +19,8 @@ export class UserAvatar extends Component<Props> {
     debugger;
     let imageSrc = src;
     if (!imageSrc) {
-      imageSrc = `https://steemitimages.com/u/${username}/avatar/${imgSize}`;
+      // imageSrc = `https://steemitimages.com/u/${username}/avatar/${imgSize}`;
+      imageSrc = `https://steemitimages.com/u/${username}/avatar`;
     }
     imageSrc = proxifyImageSrcConvert(imageSrc, 0, 0, global?.canUseWebp ? "webp" : "match");
 
