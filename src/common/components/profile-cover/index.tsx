@@ -40,7 +40,8 @@ export class ProfileCover extends Component<Props> {
     if (account.__loaded) {
       bgImage = global.theme === "day" ? coverFallbackDay : coverFallbackNight;
       if (account.profile?.cover_image) {
-        bgImage = proxifyImageSrcConvert(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
+        // bgImage = proxifyImageSrcConvert(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
+        bgImage = `https://steemitimages.com/2048x512/${account.profile.cover_image}`;
       }
     }
 
