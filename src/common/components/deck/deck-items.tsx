@@ -22,18 +22,11 @@ export interface HotListItemProps {
   toggleListStyle?: (listStyle: ListStyle) => void;
 }
 
-export const HotListItem = ({
-  index,
-  entry,
-  toggleListStyle,
-}: HotListItemProps) => {
+export const HotListItem = ({ index, entry, toggleListStyle }: HotListItemProps) => {
   return (
     <div className="pb-5 d-flex align-items-center">
       <div className="hot-item-index">{index}</div>
-      <div
-        className="flex-grow-1 ml-3 hot-item-link"
-        onClick={() => toggleListStyle && toggleListStyle(ListStyle.row)}
-      >
+      <div className="flex-grow-1 ml-3 hot-item-link" onClick={() => toggleListStyle && toggleListStyle(ListStyle.row)}>
         <Link to={`/trending/${entry.name}`}>#{entry.name}</Link>
       </div>
       <div className="hot-item-post-count">
@@ -154,21 +147,14 @@ export const SearchListItem = ({
         <div className="d-flex">
           {username && (
             <img
-              src={`https://images.ecency.com/${
-                (rest as any).global.canUseWebp ? "webp/" : ""
-              }u/${username}/avatar/medium`}
+              src={`https://steemitimages.com/u/${username}/avatar/medium`}
               alt={username}
               className="rounded-circle search-item-avatar"
             />
           )}
           <div className="ml-3 deck-body">
-            <div
-              onClick={() => history && history.push(url)}
-              className="pointer text-dark"
-            >
-              <div className="d-flex align-items-start flex-grow-1 hot-item-link">
-                {msg}
-              </div>
+            <div onClick={() => history && history.push(url)} className="pointer text-dark">
+              <div className="d-flex align-items-start flex-grow-1 hot-item-link">{msg}</div>
             </div>
           </div>
 
@@ -187,9 +173,7 @@ export const SearchListItem = ({
       <div className="d-flex">
         {author && (
           <img
-            src={`https://images.ecency.com/${
-              (rest as any).global.canUseWebp ? "webp/" : ""
-            }u/${author}/avatar/medium`}
+            src={`https://steemitimages.com/u/${author}/avatar/medium`}
             alt={title}
             className="rounded-circle search-item-avatar"
           />
@@ -205,14 +189,13 @@ export const SearchListItem = ({
               {community && (
                 <div className="ml-2 flex-grow-1">
                   {" "}
-                  {_t('entry.community-in')}{" "}
-                  <Link to={`/created/${community}`}> {community_title} </Link>
+                  {_t("entry.community-in")} <Link to={`/created/${community}`}> {community_title} </Link>
                 </div>
               )}
               {!community && (
                 <div className="ml-2 flex-grow-1">
                   {" "}
-                  {_t('entry.community-in')} <Link to={`/created/${category}`}> #{category} </Link>
+                  {_t("entry.community-in")} <Link to={`/created/${category}`}> #{category} </Link>
                 </div>
               )}
               {isPinned && (
@@ -224,15 +207,10 @@ export const SearchListItem = ({
                 <small>{`${dateToRelative(created)}`}</small>
               </div>
             </div>
-            <div
-              onClick={() => history && history.push(url)}
-              className="pointer"
-            >
+            <div onClick={() => history && history.push(url)} className="pointer">
               {title && (
                 <div className="d-flex">
-                  <div className="hot-item-link font-weight-bold mt-3">
-                    {title}
-                  </div>
+                  <div className="hot-item-link font-weight-bold mt-3">{title}</div>
                 </div>
               )}
 
