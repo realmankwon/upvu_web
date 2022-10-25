@@ -15,7 +15,7 @@ import WalletMenu from "../wallet-menu";
 import Transfer, { TransferMode } from "../transfer-he";
 
 import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
-import { proxifyImageSrc } from "@ecency/render-helper";
+
 import {
   informationVariantSvg,
   plusCircle,

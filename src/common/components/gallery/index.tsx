@@ -4,8 +4,6 @@ import { Modal } from "react-bootstrap";
 
 import { ActiveUser } from "../../store/active-user/types";
 
-import { proxifyImageSrc, setProxyBase } from "@ecency/render-helper";
-
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
 import PopoverConfirm from "../popover-confirm";
@@ -23,8 +21,6 @@ import clipboard from "../../util/clipboard";
 
 import defaults from "../../constants/defaults.json";
 import { Global } from "../../store/global/types";
-
-setProxyBase(defaults.imageServer);
 
 interface Props {
   global: Global;
