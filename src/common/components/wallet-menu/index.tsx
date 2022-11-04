@@ -27,7 +27,7 @@ export default class WalletMenu extends Component<Props> {
       <div className="wallet-menu">
         {global.usePrivate && (
           <Link className={_c(`menu-item ecency ${active === "ecency" ? "active" : ""}`)} to={`/@${username}/points`}>
-            <span className="title">Ecency</span>
+            <span className="title">Punks</span>
             <span className="sub-title">Points</span>
             <span className="platform-logo">
               <img alt="ecency" src={logo} />
@@ -49,7 +49,7 @@ export default class WalletMenu extends Component<Props> {
         </Link>
         <Link className={_c(`menu-item upvu ${active === "upvu" ? "active" : ""}`)} to={`/@${username}/upvu`}>
           <span className="title">UPVU</span>
-          <span className="sub-title">Summary</span>
+          <span className="sub-title">Dashboard</span>
           <span className="platform-logo">
             {" "}
             <img alt="ecency" src={upvuLogo} />
