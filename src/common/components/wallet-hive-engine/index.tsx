@@ -1,5 +1,7 @@
 import React from "react";
 
+import { History } from "history";
+
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
@@ -15,7 +17,8 @@ import WalletMenu from "../wallet-menu";
 import Transfer, { TransferMode } from "../transfer-he";
 
 import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
-import { proxifyImageSrc } from "@ecency/render-helper";
+import { proxifyImageSrcConvert } from "../../api/private-api";
+
 import {
   informationVariantSvg,
   plusCircle,
@@ -28,10 +31,12 @@ import {
 import { error, success } from "../feedback";
 import { formatError } from "../../api/operations";
 import formattedNumber from "../../util/formatted-number";
+import TransactionList from "../transactions";
 
 import { _t } from "../../i18n";
 
 interface Props {
+  history: History;
   global: Global;
   dynamicProps: DynamicProps;
   account: Account;
@@ -43,6 +48,8 @@ interface Props {
   setSigningKey: (key: string) => void;
   fetchPoints: (username: string, type?: number) => void;
   updateWalletValues: () => void;
+  fetchTransactions: (username: string, steemengine: boolean, group?: OperationGroup | "") => void;
+  steemengine: boolean;
 }
 
 interface State {
@@ -262,7 +269,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
               ) : (
                 <div className="entry-list-body">
                   {tokens.map((b, i) => {
-                    const imageSrc = proxifyImageSrc(b.icon, 0, 0, global?.canUseWebp ? "webp" : "match");
+                    const imageSrc = proxifyImageSrcConvert(b.icon, 0, 0, global?.canUseWebp ? "webp" : "match");
                     const fallbackImage = require("../../img/noimage.png");
 
                     return (
@@ -467,6 +474,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
                 </div>
               )}
             </div>
+            {TransactionList({ ...this.props })}
           </div>
           <WalletMenu global={global} username={account.name} active="engine" />
         </div>
@@ -488,6 +496,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
 
 export default (p: Props) => {
   const props = {
+    history: p.history,
     global: p.global,
     dynamicProps: p.dynamicProps,
     account: p.account,
@@ -499,6 +508,8 @@ export default (p: Props) => {
     setSigningKey: p.setSigningKey,
     updateWalletValues: p.updateWalletValues,
     fetchPoints: p.fetchPoints,
+    fetchTransactions: p.fetchTransactions,
+    steemengine: true,
   };
 
   return <WalletHiveEngine {...props} />;

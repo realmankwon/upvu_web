@@ -152,7 +152,7 @@ export const getSteemEngineAccountHistoryAsync = async (
   start: number = 0,
   limit: number = 100
 ): Promise<any> => {
-  start = start + 1;
+  start = start;
   tokenSymbol = "";
   return axios({
     url: `https://api.steem-engine.net/history/accountHistory`,
