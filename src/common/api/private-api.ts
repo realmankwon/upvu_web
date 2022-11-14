@@ -9,7 +9,6 @@ import { getAccessToken } from "../helper/user-token";
 import { apiBase } from "./helper";
 
 import { AppWindow } from "../../client/window";
-import { proxifyImageSrc, setProxyBase } from "@ecency/render-helper";
 
 declare var window: AppWindow;
 
@@ -96,7 +95,7 @@ export const usrActivity = (username: string, ty: number, bl: string | number = 
   return axios.post(apiBase(`/private-api/usr-activity`), params);
 };
 
-export const getNotifications = async (
+export const getNotifications = (
   username: string,
   filter: NotificationFilter | null,
   since: string | null = null,
@@ -121,7 +120,7 @@ export const getNotifications = async (
     data.user = user;
   }
 
-  return await axios
+  return axios
     .post("https://api.steemit.com/", {
       id: 3,
       jsonrpc: "2.0",
@@ -538,10 +537,4 @@ export const getPromotedEntries = (): Promise<Entry[]> => {
   }
 
   return new Promise((resolve) => resolve([]));
-};
-
-export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, format = "match"): string => {
-  // const imageSrc = proxifyImageSrc(url, width, height, "match");
-  if (!url) url = "";
-  return url.replace("images.ecency.com", "steemitimages.com").replace("/webp", "");
 };
