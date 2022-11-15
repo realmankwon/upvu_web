@@ -384,6 +384,12 @@ export default (props: any) => {
                   <li>
                     <Link to="/faq">{_t("landing-page.help")}</Link>
                   </li>
+                  <li>
+                    <Link to="/ecosystem">{_t("landing-page.ecosystem")}</Link>
+                  </li>
+                  <li>
+                    <Link to="/faq">{_t("landing-page.help")}</Link>
+                  </li>
                 </ul>
               </div>
 

@@ -167,3 +167,10 @@ export const getSteemEngineAccountHistoryAsync = async (
     },
   });
 };
+
+export const getEcosystem = async (): Promise<any> => {
+  const ecosystem = await axios.get(`http://localhost:3001/api/getEcosystem`).then((r) => r.data);
+
+  // console.log("ecosystem", ecosystem);
+  return ecosystem;
+};

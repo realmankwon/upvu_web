@@ -96,6 +96,7 @@
     "filter-alltime": "Koko ajalta"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Löydä uutta",
     "communities": "Yhteisöt",
     "post": "Luo julkaisu",

@@ -96,6 +96,7 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "찾기",
     "communities": "커뮤니티",
     "post": "글쓰기",

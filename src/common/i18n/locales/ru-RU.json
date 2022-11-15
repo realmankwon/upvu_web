@@ -96,6 +96,7 @@
     "filter-alltime": "За все время"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Подборка",
     "communities": "Сообщества",
     "post": "Создать пост",

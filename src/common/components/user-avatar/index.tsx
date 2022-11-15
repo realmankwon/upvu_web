@@ -16,7 +16,6 @@ export class UserAvatar extends Component<Props> {
     const { username, size, global, src } = this.props;
     const imgSize = size === "xLarge" ? "large" : size === "normal" || size === "small" ? "small" : "medium";
     const cls = `user-avatar ${size}`;
-    debugger;
     let imageSrc = src;
     if (!imageSrc) {
       // imageSrc = `https://steemitimages.com/u/${username}/avatar/${imgSize}`;

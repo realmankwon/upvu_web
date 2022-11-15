@@ -96,6 +96,7 @@
     "filter-alltime": "Todos los tiempos"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Descubrir",
     "communities": "Comunidades",
     "post": "Crear publicación",

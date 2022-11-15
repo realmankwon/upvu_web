@@ -97,7 +97,6 @@ export class EntryVotesDetail extends BaseComponent<DetailProps, DetailState> {
     this.stateSet({ loading: true });
     getActiveVotes(entry.author, entry.permlink)
       .then((r) => {
-        debugger;
         this.setVotes(r);
       })
       .finally(() => {

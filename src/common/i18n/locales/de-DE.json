@@ -95,7 +95,7 @@
     "filter-year": "This year",
     "filter-alltime": "All time"
   },
-  "navbar": {
+  "navbar": {"ecosystem":"Ecosystem",
     "discover": "Entdecken",
     "communities": "Communities",
     "post": "Beitrag erstellen",
@@ -1424,6 +1424,7 @@
     "terms-of-service": "Terms of Service",
     "faq": "FAQ",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "sign-in": "Sign in",
     "communities": "Communities",
     "help": "Help",

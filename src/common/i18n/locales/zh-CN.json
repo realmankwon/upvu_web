@@ -96,6 +96,7 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "发现",
     "communities": "所有社区",
     "post": "创建文章",

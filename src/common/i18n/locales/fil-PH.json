@@ -96,6 +96,7 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Tuklasin",
     "communities": "Mga pamayanan",
     "post": "Gumawa ng Artikulo",
@@ -1430,6 +1431,7 @@
     "terms-of-service": "Terms of Service",
     "faq": "FAQ",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "sign-in": "Sign in",
     "communities": "Communities",
     "help": "Help",

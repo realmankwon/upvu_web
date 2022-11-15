@@ -45,7 +45,9 @@
     "filter-feed-subscriptions": "Communities"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "communities": "Communities",
     "about": "About",
     "post": "Create Post",

@@ -96,7 +96,9 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "communities": "Communities",
     "post": "Create Post",
     "day-theme": "Day Theme",
@@ -1431,6 +1433,7 @@
     "terms-of-service": "Terms of Service",
     "faq": "FAQ",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "sign-in": "Sign in",
     "communities": "Communities",
     "help": "Help",

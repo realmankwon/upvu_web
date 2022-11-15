@@ -96,6 +96,7 @@
     "filter-alltime": "За весь час"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Відкрийте для себе",
     "communities": "Спільноти",
     "post": "Створити допис",
@@ -1430,6 +1431,7 @@
     "terms-of-service": "Terms of Service",
     "faq": "FAQ",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "sign-in": "Sign in",
     "communities": "Спільноти",
     "help": "Help",
