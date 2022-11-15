@@ -18,7 +18,7 @@ import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common
 import { getEcosystem } from "../api/hive-engine";
 import Ecosystem from "../components/ecosystem";
 
-class DiscoverPage extends Component<PageProps> {
+class EcosystemPage extends Component<PageProps> {
   // componentDidMount() {
   //   console.log('IMOUNTED')
   // }
@@ -26,12 +26,12 @@ class DiscoverPage extends Component<PageProps> {
   render() {
     //  Meta config
     const metaProps = {
-      title: _t("discover.title"),
-      description: _t("discover.description"),
+      title: _t("ecosystem.title"),
+      description: _t("ecosystem.description"),
     };
 
     const { global } = this.props;
-    let containerClasses = global.isElectron ? "app-content discover-page mt-0 pt-6" : "app-content discover-page";
+    let containerClasses = global.isElectron ? "app-content ecosystem-page mt-0 pt-6" : "app-content ecosystem-page";
 
     return (
       <>
@@ -45,9 +45,13 @@ class DiscoverPage extends Component<PageProps> {
             })
           : NavBar({ ...this.props })}
         <div className={containerClasses}>
-          <div>
-            <div>Steem Ecosystem</div>
-            <Ecosystem />
+          <div className="ecosystem-list">
+            <div className="list-header">
+              <h1 className="list-title">{_t("ecosystem.title")}</h1>
+            </div>
+            <div className="list-items">
+              <Ecosystem {...this.props} />
+            </div>
           </div>
         </div>
       </>
@@ -55,4 +59,4 @@ class DiscoverPage extends Component<PageProps> {
   }
 }
 
-export default connect(pageMapStateToProps, pageMapDispatchToProps)(DiscoverPage);
+export default connect(pageMapStateToProps, pageMapDispatchToProps)(EcosystemPage);

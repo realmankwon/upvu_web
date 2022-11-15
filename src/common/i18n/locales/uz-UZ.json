@@ -1048,6 +1048,10 @@
   "popular-users": {
     "title": "Mashhur Foydalanuvchilar"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Kashf qilish",
     "description": "Eng faol foydalanuvchilarni topish"

@@ -491,13 +491,6 @@ export const Profile = (props: Props) => {
                     updateWalletValues: ensureAccount,
                   });
                 }
-                if (section === "shortcut") {
-                  return ShortCut({
-                    ...props,
-                    account,
-                    updateWalletValues: ensureAccount,
-                  });
-                }
                 if (section === "points") {
                   return WalletEcency({
                     ...props,

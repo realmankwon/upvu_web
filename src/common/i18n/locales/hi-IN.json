@@ -1048,6 +1048,10 @@
   "popular-users": {
     "title": "लोकप्रिय उपयोगकर्ता"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "खोजिए",
     "description": "शीर्ष ऑनलाइन उपयोगकर्ताओं की खोज करें"

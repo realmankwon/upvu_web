@@ -47,7 +47,6 @@
   "navbar": {
     "ecosystem": "Ecosystem",
     "discover": "Discover",
-    "ecosystem": "Ecosystem",
     "communities": "Communities",
     "about": "About",
     "post": "Create Post",
@@ -637,6 +636,10 @@
   },
   "popular-users": {
     "title": "Popular Users"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Discover",

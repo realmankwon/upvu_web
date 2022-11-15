@@ -95,7 +95,8 @@
     "filter-year": "This year",
     "filter-alltime": "All time"
   },
-  "navbar": {"ecosystem":"Ecosystem",
+  "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Entdecken",
     "communities": "Communities",
     "post": "Beitrag erstellen",
@@ -1046,6 +1047,10 @@
   },
   "popular-users": {
     "title": "Beliebte Benutzer"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Entdecken",

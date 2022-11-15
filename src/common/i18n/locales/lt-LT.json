@@ -1049,6 +1049,10 @@
   "popular-users": {
     "title": "Populiarūs Vartotojai"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Atraskite",
     "description": "Atraskite top aktyvius narius"

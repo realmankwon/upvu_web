@@ -1055,6 +1055,10 @@
   "popular-users": {
     "title": "Məşhur istifadəçilər"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Kəşf et",
     "description": "Ən yaxşı onlayn istifadəçiləri kəşf edin"

@@ -1048,6 +1048,10 @@
   "popular-users": {
     "title": "Suositut käyttäjät"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Löydä",
     "description": "Löydä kovimmat online-käyttäjät"

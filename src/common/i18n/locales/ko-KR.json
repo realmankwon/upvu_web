@@ -1048,6 +1048,10 @@
   "popular-users": {
     "title": "인기 사용자"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "찾기",
     "description": "최고의 온라인 사용자 찾기"

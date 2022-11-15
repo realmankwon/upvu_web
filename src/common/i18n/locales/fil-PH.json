@@ -1054,6 +1054,10 @@
   "popular-users": {
     "title": "Mga Sikat na Gumagamit"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Tuklasin",
     "description": "Tuklasin ang mga nangungunang online na gumagamit"
