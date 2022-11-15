@@ -6,7 +6,7 @@ import { Entry } from "../store/entries/types";
 
 import { getAccessToken } from "../helper/user-token";
 
-import { apiBase } from "./helper";
+import { apiUpvuBase, apiBase } from "./helper";
 
 import { AppWindow } from "../../client/window";
 
@@ -77,49 +77,12 @@ export const subscribeEmail = (email: string): Promise<any> =>
       return resp;
     });
 
-export const usrActivity = (username: string, ty: number, bl: string | number = "", tx: string | number = "") => {
-  if (!window.usePrivate) {
-    return new Promise((resolve) => resolve(null));
-  }
-
-  const params: {
-    code: string | undefined;
-    ty: number;
-    bl?: string | number;
-    tx?: string | number;
-  } = { code: getAccessToken(username), ty };
-
-  if (bl) params.bl = bl;
-  if (tx) params.tx = tx;
-
-  return axios.post(apiBase(`/private-api/usr-activity`), params);
-};
-
 export const getNotifications = (
   username: string,
   filter: NotificationFilter | null,
   since: string | null = null,
   user: string | null = null
 ): Promise<ApiNotification[]> => {
-  const data: {
-    code: string | undefined;
-    filter?: string;
-    since?: string;
-    user?: string;
-  } = { code: getAccessToken(username) };
-
-  if (filter) {
-    data.filter = filter;
-  }
-
-  if (since) {
-    data.since = since;
-  }
-
-  if (user) {
-    data.user = user;
-  }
-
   return axios
     .post("https://api.steemit.com/", {
       id: 3,
@@ -176,34 +139,6 @@ export const getNotifications = (
         return notification;
       })
     );
-
-  // let result = await axios.post(apiBase(`/private-api/notifications`), data).then((resp) => resp.data);
-  // debugger;
-  // return result;
-  // return axios.post(apiBase(`/private-api/notifications`), data).then((resp) => resp.data);
-};
-
-export const saveNotificationSetting = (
-  username: string,
-  system: string,
-  allows_notify: number,
-  notify_types: number[],
-  token: string
-): Promise<ApiNotificationSetting> => {
-  const data = {
-    code: getAccessToken(username),
-    username,
-    token,
-    system,
-    allows_notify,
-    notify_types,
-  };
-  return axios.post(apiBase(`/private-api/register-device`), data).then((resp) => resp.data);
-};
-
-export const getNotificationSetting = (username: string, token: string): Promise<ApiNotificationSetting> => {
-  const data = { code: getAccessToken(username), username, token };
-  return axios.post(apiBase(`/private-api/detail-device`), data).then((resp) => resp.data);
 };
 
 export const getCurrencyTokenRate = (currency: string, token: string): Promise<number> =>
@@ -212,21 +147,14 @@ export const getCurrencyTokenRate = (currency: string, token: string): Promise<n
     .then((resp: any) => resp.data);
 
 export const getUnreadNotificationCount = (username: string): Promise<number> => {
-  const data = { code: getAccessToken(username) };
-
-  return data.code
-    ? axios
-        .post("https://api.steemit.com/", {
-          id: 2,
-          jsonrpc: "2.0",
-          method: "bridge.unread_notifications",
-          params: { account: username },
-        })
-        .then((resp) => resp.data.result.unread)
-    : Promise.resolve(0);
-  // return data.code
-  //   ? axios.post(apiBase(`/private-api/notifications/unread`), data).then((resp) => resp.data.count)
-  //   : Promise.resolve(0);
+  return axios
+    .post("https://api.steemit.com/", {
+      id: 2,
+      jsonrpc: "2.0",
+      method: "bridge.unread_notifications",
+      params: { account: username },
+    })
+    .then((resp) => resp.data.result.unread);
 };
 
 export const markNotifications = (username: string, id: string | null = null) => {
@@ -247,44 +175,27 @@ export interface UserImage {
   _id: string;
 }
 
-export const getImages = (username: string): Promise<UserImage[]> => {
-  const data = { code: getAccessToken(username) };
-  return axios.post(apiBase(`/private-api/images`), data).then((resp) => resp.data);
-};
-
-export const deleteImage = (username: string, imageID: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id: imageID };
-  return axios.post(apiBase(`/private-api/images-delete`), data).then((resp) => resp.data);
-};
-
-export const addImage = (username: string, url: string): Promise<any> => {
-  const data = { code: getAccessToken(username), url: url };
-  return axios.post(apiBase(`/private-api/images-add`), data).then((resp) => resp.data);
-};
-
 export interface Draft {
   body: string;
-  created: string;
-  post_type: string;
+  createdAt: string;
   tags: string;
-  timestamp: number;
   title: string;
-  _id: string;
+  _id: number;
 }
 
 export const getDrafts = (username: string): Promise<Draft[]> => {
   const data = { code: getAccessToken(username) };
-  return axios.post(apiBase(`/private-api/drafts`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/get-draft`), data).then((resp) => resp.data);
 };
 
 export const addDraft = (username: string, title: string, body: string, tags: string): Promise<{ drafts: Draft[] }> => {
   const data = { code: getAccessToken(username), title, body, tags };
-  return axios.post(apiBase(`/private-api/drafts-add`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/add-draft`), data).then((resp) => resp.data);
 };
 
 export const updateDraft = (
   username: string,
-  draftId: string,
+  draftId: number,
   title: string,
   body: string,
   tags: string
@@ -296,10 +207,10 @@ export const updateDraft = (
     body,
     tags,
   };
-  return axios.post(apiBase(`/private-api/drafts-update`), data).then((resp) => resp.data);
+  return axios.post(apiBase(`/upvuweb-api/modify-draft`), data).then((resp) => resp.data);
 };
 
-export const deleteDraft = (username: string, draftId: string): Promise<any> => {
+export const deleteDraft = (username: string, draftId: number): Promise<any> => {
   const data = { code: getAccessToken(username), id: draftId };
   return axios.post(apiBase(`/private-api/drafts-delete`), data).then((resp) => resp.data);
 };
@@ -344,7 +255,8 @@ export const addSchedule = (
     schedule,
     reblog,
   };
-  return axios.post(apiBase(`/private-api/schedules-add`), data).then((resp) => resp.data);
+  debugger;
+  return axios.post(apiBase(`/upvuweb-api/add-schedules`), data).then((resp) => resp.data);
 };
 
 export const deleteSchedule = (username: string, id: string): Promise<any> => {
@@ -537,4 +449,10 @@ export const getPromotedEntries = (): Promise<Entry[]> => {
   }
 
   return new Promise((resolve) => resolve([]));
+};
+
+export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, format = "match"): string => {
+  // const imageSrc = proxifyImageSrc(url, width, height, "match");
+  if (!url) url = "";
+  return url.replace("images.ecency.com", "steemitimages.com").replace("/webp", "");
 };

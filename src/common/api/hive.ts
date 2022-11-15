@@ -158,7 +158,6 @@ export const getActiveVotes = (author: string, permlink: string): Promise<Vote[]
         vote.reputation = +info[0].reputation;
       }
 
-      debugger;
       return vote;
     });
 

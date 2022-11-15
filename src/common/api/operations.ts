@@ -14,10 +14,6 @@ import { client as hiveClient } from "./hive";
 
 import { Account } from "../store/accounts/types";
 
-import { usrActivity } from "./private-api";
-
-import { getAccessToken, getPostingKey } from "../helper/user-token";
-
 import * as keychain from "../helper/keychain";
 
 import parseAsset from "../helper/parse-asset";
@@ -159,7 +155,6 @@ export const reblog = (
   const json = ["reblog", message];
 
   return broadcastPostingJSON(username, "follow", json).then((r: TransactionConfirmation) => {
-    usrActivity(username, 130, r.block_num, r.id).then();
     return r;
   });
 };
@@ -198,7 +193,6 @@ export const comment = (
       extensions: options.extensions,
     };
 
-    // debugger;
     opArray.push(["comment_options", CommentOptions]);
   }
 

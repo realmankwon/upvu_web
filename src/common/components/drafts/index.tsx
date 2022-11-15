@@ -198,9 +198,12 @@ export class Drafts extends BaseComponent<Props, State> {
     this.stateSet({ loading: true });
     getDrafts(activeUser?.username!)
       .then((items) => {
+        debugger;
         this.stateSet({ list: this.sort(items) });
       })
       .catch(() => {
+        debugger;
+
         error(_t("g.server-error"));
       })
       .finally(() => {
@@ -210,7 +213,7 @@ export class Drafts extends BaseComponent<Props, State> {
 
   sort = (items: Draft[]) =>
     items.sort((a, b) => {
-      return new Date(b.created).getTime() > new Date(a.created).getTime() ? 1 : -1;
+      return new Date(b.createdAt).getTime() > new Date(a.createdAt).getTime() ? 1 : -1;
     });
 
   delete = (item: Draft) => {

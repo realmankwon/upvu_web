@@ -35,7 +35,6 @@ export default class UploadButton extends BaseComponent<UploadButtonProps, Uploa
   };
 
   handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // debugger;
     const files = [...e.target.files];
 
     if (files.length === 0) {

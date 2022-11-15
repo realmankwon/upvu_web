@@ -14,7 +14,6 @@ import ToolTip from "../tooltip";
 import UserAvatar from "../user-avatar";
 import DropDown from "../dropdown";
 import UserNotifications from "../notifications";
-import Gallery from "../gallery";
 import Drafts from "../drafts";
 import Bookmarks from "../bookmarks";
 import Schedules from "../schedules";
@@ -97,7 +96,6 @@ interface Props {
 }
 
 interface State {
-  gallery: boolean;
   drafts: boolean;
   bookmarks: boolean;
   schedules: boolean;
@@ -106,7 +104,6 @@ interface State {
 
 export default class UserNav extends Component<Props, State> {
   state: State = {
-    gallery: false,
     drafts: false,
     bookmarks: false,
     schedules: false,
@@ -121,11 +118,6 @@ export default class UserNav extends Component<Props, State> {
   toggleDrafts = () => {
     const { drafts } = this.state;
     this.setState({ drafts: !drafts });
-  };
-
-  toggleGallery = () => {
-    const { gallery } = this.state;
-    this.setState({ gallery: !gallery });
   };
 
   toggleBookmarks = () => {
@@ -154,7 +146,7 @@ export default class UserNav extends Component<Props, State> {
   };
 
   render() {
-    const { gallery, drafts, bookmarks, schedules, fragments } = this.state;
+    const { drafts, bookmarks, schedules, fragments } = this.state;
     const { activeUser, ui, notifications, global, dynamicProps } = this.props;
     const { unread } = notifications;
 
@@ -186,10 +178,6 @@ export default class UserNav extends Component<Props, State> {
             {
               label: _t("user-nav.drafts"),
               onClick: this.toggleDrafts,
-            },
-            {
-              label: _t("user-nav.gallery"),
-              onClick: this.toggleGallery,
             },
             {
               label: _t("user-nav.bookmarks"),
@@ -252,7 +240,6 @@ export default class UserNav extends Component<Props, State> {
           <DropDown {...dropDownConfig} float="right" header={`@${activeUser.username}`} />
         </div>
         {ui.notifications && <UserNotifications {...this.props} />}
-        {gallery && <Gallery {...this.props} onHide={this.toggleGallery} />}
         {drafts && <Drafts {...this.props} onHide={this.toggleDrafts} />}
         {bookmarks && <Bookmarks {...this.props} onHide={this.toggleBookmarks} />}
         {schedules && <Schedules {...this.props} onHide={this.toggleSchedules} />}

@@ -29,11 +29,10 @@ import { getAuthUrl, makeHsCode } from "../../helper/hive-signer";
 import { hsLogin } from "../../../desktop/app/helper/hive-signer";
 
 import { getAccount } from "../../api/hive";
-import { usrActivity } from "../../api/private-api";
 import { hsTokenRenew } from "../../api/auth-api";
 import { formatError, grantPostingPermission, revokePostingPermission } from "../../api/operations";
 
-import { getRefreshToken } from "../../helper/user-token";
+import { getAccessToken, getRefreshToken } from "../../helper/user-token";
 
 import { addAccountAuthority, removeAccountAuthority, signBuffer } from "../../helper/keychain";
 
@@ -641,9 +640,11 @@ export default class LoginDialog extends Component<Props> {
 
   doLogin = async (hsCode: string, postingKey: null | undefined | string, account: Account) => {
     const { global, setActiveUser, updateActiveUser, addUser } = this.props;
-
+    const access_token = getAccessToken(account.name);
+    const refresh_token = getRefreshToken(account.name);
     // get access token from code
-    return hsTokenRenew(hsCode).then((x) => {
+    return hsTokenRenew(hsCode, access_token, refresh_token).then((x) => {
+      debugger;
       const user: User = {
         username: x.username,
         accessToken: x.access_token,
@@ -660,11 +661,6 @@ export default class LoginDialog extends Component<Props> {
 
       // add account data of the user to the reducer
       updateActiveUser(account);
-
-      if (global.usePrivate) {
-        // login activity
-        usrActivity(user.username, 20);
-      }
 
       // redirection based on path name
       const { location, history } = this.props;

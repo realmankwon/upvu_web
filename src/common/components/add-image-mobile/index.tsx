@@ -8,7 +8,7 @@ import { ActiveUser } from "../../store/active-user/types";
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
 
-import { getImages, UserImage, proxifyImageSrcConvert } from "../../api/private-api";
+import { UserImage, proxifyImageSrcConvert } from "../../api/private-api";
 
 import { error } from "../feedback";
 
@@ -23,7 +23,6 @@ interface Props {
   activeUser: ActiveUser | null;
   onHide: () => void;
   onPick: (url: string) => void;
-  onGallery: () => void;
   onUpload: () => void;
 }
 
@@ -51,14 +50,6 @@ export class AddImage extends BaseComponent<Props, State> {
     }
 
     this.stateSet({ loading: true });
-    getImages(activeUser?.username!)
-      .then((items) => {
-        this.stateSet({ items: this.sort(items).slice(0, 3), loading: false });
-      })
-      .catch(() => {
-        this.stateSet({ loading: false });
-        error(_t("g.server-error"));
-      });
   };
 
   sort = (items: UserImage[]) =>
@@ -68,10 +59,6 @@ export class AddImage extends BaseComponent<Props, State> {
 
   upload = () => {
     this.props.onUpload();
-  };
-
-  gallery = () => {
-    this.props.onGallery();
   };
 
   itemClicked = (item: UserImage) => {
@@ -90,9 +77,6 @@ export class AddImage extends BaseComponent<Props, State> {
       );
     }
 
-    const btnGallery = global.usePrivate ? (
-      <Button onClick={this.gallery}>{_t("add-image-mobile.gallery")}</Button>
-    ) : null;
     const btnUpload = <Button onClick={this.upload}>{_t("add-image-mobile.upload")}</Button>;
 
     if (items.length === 0) {
@@ -128,10 +112,7 @@ export class AddImage extends BaseComponent<Props, State> {
             </>
           )}
         </div>
-        <div className="d-flex justify-content-between">
-          {btnGallery}
-          {btnUpload}
-        </div>
+        <div className="d-flex justify-content-between">{btnUpload}</div>
       </div>
     );
   }
