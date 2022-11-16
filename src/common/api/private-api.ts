@@ -180,7 +180,7 @@ export interface Draft {
   createdAt: string;
   tags: string;
   title: string;
-  _id: number;
+  permlink: string;
 }
 
 export const getDrafts = (username: string): Promise<Draft[]> => {
@@ -195,35 +195,35 @@ export const addDraft = (username: string, title: string, body: string, tags: st
 
 export const updateDraft = (
   username: string,
-  draftId: number,
+  draftId: string,
   title: string,
   body: string,
   tags: string
 ): Promise<any> => {
   const data = {
     code: getAccessToken(username),
-    id: draftId,
+    permlink: draftId,
     title,
     body,
     tags,
   };
-  return axios.post(apiBase(`/upvuweb-api/modify-draft`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/modify-draft`), data).then((resp) => resp.data);
 };
 
-export const deleteDraft = (username: string, draftId: number): Promise<any> => {
-  const data = { code: getAccessToken(username), id: draftId };
-  return axios.post(apiBase(`/private-api/drafts-delete`), data).then((resp) => resp.data);
+export const deleteDraft = (username: string, draftId: string): Promise<any> => {
+  const data = { code: getAccessToken(username), permlink: draftId };
+  return axios.post(apiUpvuBase(`/upvuweb-api/remove-draft`), data).then((resp) => resp.data);
 };
 
 export interface Schedule {
-  _id: string;
   username: string;
   permlink: string;
   title: string;
   body: string;
-  tags: string[];
-  tags_arr: string;
-  schedule: string;
+  tags: string;
+  tags_arr: string[];
+  scheduledAt: string;
+
   original_schedule: string;
   reblog: boolean;
   status: 1 | 2 | 3 | 4;
@@ -232,7 +232,7 @@ export interface Schedule {
 
 export const getSchedules = (username: string): Promise<Schedule[]> => {
   const data = { code: getAccessToken(username) };
-  return axios.post(apiBase(`/private-api/schedules`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/get-schedule`), data).then((resp) => resp.data);
 };
 
 export const addSchedule = (
@@ -242,7 +242,7 @@ export const addSchedule = (
   body: string,
   meta: {},
   options: {},
-  schedule: string,
+  scheduledAt: string,
   reblog: boolean
 ): Promise<any> => {
   const data = {
@@ -252,21 +252,21 @@ export const addSchedule = (
     body,
     meta,
     options,
-    schedule,
+    scheduledAt,
     reblog,
   };
-  debugger;
-  return axios.post(apiBase(`/upvuweb-api/add-schedules`), data).then((resp) => resp.data);
+
+  return axios.post(apiUpvuBase(`/upvuweb-api/add-schedule`), data).then((resp) => resp.data);
 };
 
-export const deleteSchedule = (username: string, id: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id };
-  return axios.post(apiBase(`/private-api/schedules-delete`), data).then((resp) => resp.data);
+export const deleteSchedule = (username: string, permlink: string): Promise<any> => {
+  const data = { code: getAccessToken(username), permlink };
+  return axios.post(apiUpvuBase(`/upvuweb-api/remove-schedule`), data).then((resp) => resp.data);
 };
 
-export const moveSchedule = (username: string, id: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id };
-  return axios.post(apiBase(`/private-api/schedules-move`), data).then((resp) => resp.data);
+export const moveSchedule = (username: string, permlink: string): Promise<any> => {
+  const data = { code: getAccessToken(username), permlink };
+  return axios.post(apiUpvuBase(`/upvuweb-api/move-schedule`), data).then((resp) => resp.data);
 };
 
 export interface Bookmark {

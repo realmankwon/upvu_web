@@ -61,9 +61,9 @@ export class ListItem extends Component<ItemProps> {
     const img = catchPostImage(post.body, 600, 500, global.canUseWebp ? "webp" : "match") || noImage;
     const summary = postBodySummary(post.body, 200);
 
-    const dateRelative = dateToFullRelative(post.schedule);
-    const dateRelativeShort = dateToRelative(post.schedule);
-    const dateFormatted = dateToFormatted(post.schedule, "YYYY-MM-DD HH:mm");
+    const dateRelative = dateToFullRelative(post.scheduledAt);
+    const dateRelativeShort = dateToRelative(post.scheduledAt);
+    const dateFormatted = dateToFormatted(post.scheduledAt, "YYYY-MM-DD HH:mm");
 
     return (
       <div className="schedules-list-item">
@@ -228,9 +228,13 @@ export class Schedules extends BaseComponent<Props, State> {
     this.stateSet({ loading: true });
     getSchedules(activeUser.username)
       .then((items) => {
+        debugger;
+
         this.stateSet({ list: this.sort(items) });
       })
       .catch(() => {
+        debugger;
+
         error(_t("g.server-error"));
       })
       .finally(() => {
@@ -240,13 +244,13 @@ export class Schedules extends BaseComponent<Props, State> {
 
   sort = (items: Schedule[]) =>
     items.sort((a, b) => {
-      return new Date(b.schedule).getTime() > new Date(a.schedule).getTime() ? 1 : -1;
+      return new Date(b.scheduledAt).getTime() > new Date(a.scheduledAt).getTime() ? 1 : -1;
     });
 
   delete = (item: Schedule) => {
     const { activeUser } = this.props;
 
-    deleteSchedule(activeUser.username, item._id)
+    deleteSchedule(activeUser.username, item.permlink)
       .then((resp) => {
         this.stateSet({ list: this.sort(resp) });
       })
@@ -258,7 +262,7 @@ export class Schedules extends BaseComponent<Props, State> {
   move = (item: Schedule) => {
     const { activeUser } = this.props;
 
-    moveSchedule(activeUser.username, item._id)
+    moveSchedule(activeUser.username, item.permlink)
       .then((resp) => {
         this.stateSet({ list: resp });
       })
@@ -306,7 +310,13 @@ export class Schedules extends BaseComponent<Props, State> {
                 <div className="schedules-list">
                   <div className="schedules-list-body">
                     {items.map((item) => (
-                      <ListItem key={item._id} {...this.props} post={item} moveFn={this.move} deleteFn={this.delete} />
+                      <ListItem
+                        key={item.permlink}
+                        {...this.props}
+                        post={item}
+                        moveFn={this.move}
+                        deleteFn={this.delete}
+                      />
                     ))}
                   </div>
                 </div>

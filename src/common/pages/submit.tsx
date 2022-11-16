@@ -282,7 +282,7 @@ class SubmitPage extends BaseComponent<Props, State> {
         drafts = [];
       }
 
-      drafts = drafts.filter((x) => x._id === params.draftId);
+      drafts = drafts.filter((x) => x.permlink === params.draftId);
       if (drafts.length === 1) {
         const [draft] = drafts;
         const { title, body } = draft;
@@ -710,7 +710,7 @@ class SubmitPage extends BaseComponent<Props, State> {
     this.stateSet({ saving: true });
 
     if (editingDraft) {
-      promise = updateDraft(activeUser?.username!, editingDraft._id, title, body, tagJ).then(() => {
+      promise = updateDraft(activeUser?.username!, editingDraft.permlink, title, body, tagJ).then(() => {
         success(_t("submit.draft-updated"));
       });
     } else {
@@ -720,7 +720,7 @@ class SubmitPage extends BaseComponent<Props, State> {
         const { drafts } = resp;
         const draft = drafts[drafts.length - 1];
 
-        history.push(`/draft/${draft._id}`);
+        history.push(`/draft/${draft.permlink}`);
       });
     }
 

@@ -644,7 +644,6 @@ export default class LoginDialog extends Component<Props> {
     const refresh_token = getRefreshToken(account.name);
     // get access token from code
     return hsTokenRenew(hsCode, access_token, refresh_token).then((x) => {
-      debugger;
       const user: User = {
         username: x.username,
         accessToken: x.access_token,
