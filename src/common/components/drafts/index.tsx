@@ -59,8 +59,8 @@ export class ListItem extends Component<ItemProps> {
     const img = catchPostImage(draft.body, 600, 500, global.canUseWebp ? "webp" : "match") || noImage;
     const summary = postBodySummary(draft.body, 200);
 
-    const dateRelative = dateToFullRelative(draft.created);
-    const dateFormatted = dateToFormatted(draft.created);
+    const dateRelative = dateToFullRelative(draft.createdAt);
+    const dateFormatted = dateToFormatted(draft.createdAt);
 
     return (
       <div className="drafts-list-item">
@@ -210,21 +210,21 @@ export class Drafts extends BaseComponent<Props, State> {
 
   sort = (items: Draft[]) =>
     items.sort((a, b) => {
-      return new Date(b.created).getTime() > new Date(a.created).getTime() ? 1 : -1;
+      return new Date(b.createdAt).getTime() > new Date(a.createdAt).getTime() ? 1 : -1;
     });
 
   delete = (item: Draft) => {
     const { activeUser, location, history } = this.props;
 
-    deleteDraft(activeUser?.username!, item._id)
+    deleteDraft(activeUser?.username!, item.permlink)
       .then(() => {
         const { list } = this.state;
-        const nList = [...list].filter((x) => x._id !== item._id);
+        const nList = [...list].filter((x) => x.permlink !== item.permlink);
 
         this.stateSet({ list: this.sort(nList) });
 
         // if user editing the draft, redirect to submit page
-        if (location.pathname === `/draft/${item._id}`) {
+        if (location.pathname === `/draft/${item.permlink}`) {
           history.push("/submit");
         }
       })
@@ -236,7 +236,7 @@ export class Drafts extends BaseComponent<Props, State> {
   edit = (item: Draft) => {
     const { history, onHide } = this.props;
 
-    history.push(`/draft/${item._id}`);
+    history.push(`/draft/${item.permlink}`);
     onHide();
   };
 
@@ -279,7 +279,13 @@ export class Drafts extends BaseComponent<Props, State> {
                 <div className="drafts-list">
                   <div className="drafts-list-body">
                     {items.map((item) => (
-                      <ListItem key={item._id} {...this.props} draft={item} editFn={this.edit} deleteFn={this.delete} />
+                      <ListItem
+                        key={item.permlink}
+                        {...this.props}
+                        draft={item}
+                        editFn={this.edit}
+                        deleteFn={this.delete}
+                      />
                     ))}
                   </div>
                 </div>

@@ -17,10 +17,7 @@ import { DynamicProps } from "../../store/dynamic-props/types";
 import { Global } from "../../store/global/types";
 import { User } from "../../store/users/types";
 import { ActiveUser } from "../../store/active-user/types";
-import {
-  Discussion as DiscussionType,
-  SortOrder,
-} from "../../store/discussion/types";
+import { Discussion as DiscussionType, SortOrder } from "../../store/discussion/types";
 import { UI, ToggleType } from "../../store/ui/types";
 
 import BaseComponent from "../base";
@@ -44,23 +41,14 @@ import { comment, formatError } from "../../api/operations";
 
 import * as ss from "../../util/session-storage";
 
-import {
-  createReplyPermlink,
-  makeJsonMetaDataReply,
-} from "../../helper/posting";
+import { createReplyPermlink, makeJsonMetaDataReply } from "../../helper/posting";
 import tempEntry from "../../helper/temp-entry";
 
 import { error } from "../feedback";
 
 import _c from "../../util/fix-class-names";
 
-import {
-  commentSvg,
-  pencilOutlineSvg,
-  deleteForeverSvg,
-  menuDownSvg,
-  dotsHorizontal,
-} from "../../img/svg";
+import { commentSvg, pencilOutlineSvg, deleteForeverSvg, menuDownSvg, dotsHorizontal } from "../../img/svg";
 
 import { version } from "../../../../package.json";
 import { getFollowing } from "../../api/hive";
@@ -86,12 +74,7 @@ export class ItemBody extends Component<ItemBodyProps> {
       __html: renderPostBody(entry.body, false, global.canUseWebp),
     };
 
-    return (
-      <div
-        className="item-body markdown-view mini-markdown"
-        dangerouslySetInnerHTML={renderedBody}
-      />
-    );
+    return <div className="item-body markdown-view mini-markdown" dangerouslySetInnerHTML={renderedBody} />;
   }
 }
 
@@ -133,17 +116,7 @@ export const Item = (props: ItemProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const [lsDraft, setLsDraft] = useState("");
 
-  const {
-    entry,
-    updateReply,
-    activeUser,
-    addReply,
-    deleteReply,
-    global,
-    community,
-    location,
-    history,
-  } = props;
+  const { entry, updateReply, activeUser, addReply, deleteReply, global, community, location, history } = props;
 
   useEffect(() => {
     setIsMounted(true);
@@ -201,23 +174,10 @@ export const Item = (props: ItemProps) => {
     const author = activeUser.username;
     const permlink = createReplyPermlink(entry.author);
 
-    const jsonMeta = makeJsonMetaDataReply(
-      entry.json_metadata.tags || ["ecency"],
-      version
-    );
+    const jsonMeta = makeJsonMetaDataReply(entry.json_metadata.tags || ["upvu.web"], version);
     setInProgress(true);
 
-    comment(
-      author,
-      parentAuthor,
-      parentPermlink,
-      permlink,
-      "",
-      text,
-      jsonMeta,
-      null,
-      true
-    )
+    comment(author, parentAuthor, parentPermlink, permlink, "", text, jsonMeta, null, true)
       .then(() => {
         const nReply = tempEntry({
           author: activeUser.data as FullAccount,
@@ -259,27 +219,11 @@ export const Item = (props: ItemProps) => {
   };
 
   const _updateReply = (text: string) => {
-    const {
-      permlink,
-      parent_author: parentAuthor,
-      parent_permlink: parentPermlink,
-    } = entry;
-    const jsonMeta = makeJsonMetaDataReply(
-      entry.json_metadata.tags || ["ecency"],
-      version
-    );
+    const { permlink, parent_author: parentAuthor, parent_permlink: parentPermlink } = entry;
+    const jsonMeta = makeJsonMetaDataReply(entry.json_metadata.tags || ["upvu.web"], version);
     setInProgress(true);
 
-    comment(
-      activeUser?.username!,
-      parentAuthor!,
-      parentPermlink!,
-      permlink,
-      "",
-      text,
-      jsonMeta,
-      null
-    )
+    comment(activeUser?.username!, parentAuthor!, parentPermlink!, permlink, "", text, jsonMeta, null)
       .then(() => {
         const nReply: Entry = {
           ...entry,
@@ -322,29 +266,17 @@ export const Item = (props: ItemProps) => {
       ? !!community.team.find((m) => {
           return (
             m[0] === activeUser.username &&
-            [
-              ROLES.OWNER.toString(),
-              ROLES.ADMIN.toString(),
-              ROLES.MOD.toString(),
-            ].includes(m[1])
+            [ROLES.OWNER.toString(), ROLES.ADMIN.toString(), ROLES.MOD.toString()].includes(m[1])
           );
         })
       : false;
 
   const anchorId = `anchor-@${entry.author}/${entry.permlink}`;
 
-  const selected =
-    location.hash &&
-    location.hash.replace("#", "") === `@${entry.author}/${entry.permlink}`;
+  const selected = location.hash && location.hash.replace("#", "") === `@${entry.author}/${entry.permlink}`;
 
   let normalComponent = (
-    <div
-      className={_c(
-        `discussion-item depth-${entry.depth} ${
-          selected ? "selected-item" : ""
-        }`
-      )}
-    >
+    <div className={_c(`discussion-item depth-${entry.depth} ${selected ? "selected-item" : ""}`)}>
       <div className="position-relative">
         <div className="item-anchor" id={anchorId} />
       </div>
@@ -366,10 +298,7 @@ export const Item = (props: ItemProps) => {
         </div>
         <div className="item-content">
           <div className="item-header">
-            <div
-              className="d-flex align-items-center"
-              id={`${entry.author}-${entry.permlink}`}
-            >
+            <div className="d-flex align-items-center" id={`${entry.author}-${entry.permlink}`}>
               <ProfilePopover {...props} />
             </div>
             <span className="separator" />
@@ -391,9 +320,7 @@ export const Item = (props: ItemProps) => {
                 icon: pencilOutlineSvg,
               },
             ];
-            if (
-              !(entry.is_paidout || entry.net_rshares > 0 || entry.children > 0)
-            ) {
+            if (!(entry.is_paidout || entry.net_rshares > 0 || entry.children > 0)) {
               let deleteItem = {
                 label: "",
                 onClick: () => {},
@@ -422,26 +349,16 @@ export const Item = (props: ItemProps) => {
             const isComment = !!entry.parent_author;
             const ownEntry = activeUser && activeUser.username === entry.author;
             const isHidden = entry?.net_rshares < -500000000; // 1000 SP
-            const isMuted =
-              entry?.stats?.gray &&
-              entry?.net_rshares >= 0 &&
-              entry?.author_reputation >= 0;
-            const isLowReputation =
-              entry?.stats?.gray &&
-              entry?.net_rshares >= 0 &&
-              entry?.author_reputation < 0;
-            const mightContainMutedComments =
-              activeUser && entryIsMuted && !isComment && !ownEntry;
+            const isMuted = entry?.stats?.gray && entry?.net_rshares >= 0 && entry?.author_reputation >= 0;
+            const isLowReputation = entry?.stats?.gray && entry?.net_rshares >= 0 && entry?.author_reputation < 0;
+            const mightContainMutedComments = activeUser && entryIsMuted && !isComment && !ownEntry;
 
             return (
               <>
                 {isMuted && (
                   <div className="hidden-warning mt-2">
                     <span>
-                      <Tsx
-                        k="entry.muted-warning"
-                        args={{ community: entry.community_title }}
-                      >
+                      <Tsx k="entry.muted-warning" args={{ community: entry.community_title }}>
                         <span />
                       </Tsx>
                     </span>
@@ -484,10 +401,7 @@ export const Item = (props: ItemProps) => {
                       ...props,
                       entry,
                     })}
-                    <a
-                      className={_c(`reply-btn ${edit ? "disabled" : ""}`)}
-                      onClick={toggleReply}
-                    >
+                    <a className={_c(`reply-btn ${edit ? "disabled" : ""}`)} onClick={toggleReply}>
                       {_t("g.reply")}
                     </a>
                     {community &&
@@ -502,11 +416,7 @@ export const Item = (props: ItemProps) => {
                       })}
                     {canEdit && (
                       <div className="ml-3 dropdown-container">
-                        <MyDropDown
-                          {...menuConfig}
-                          float="right"
-                          alignBottom={true}
-                        />
+                        <MyDropDown {...menuConfig} float="right" alignBottom={true} />
                       </div>
                     )}
                   </div>
@@ -605,10 +515,7 @@ export class List extends Component<ListProps> {
   }
 
   shouldComponentUpdate(nextProps: Readonly<Props>) {
-    if (
-      this.props.discussion === nextProps.discussion &&
-      this.props.activeUser === nextProps.activeUser
-    ) {
+    if (this.props.discussion === nextProps.discussion && this.props.activeUser === nextProps.activeUser) {
       return false;
     } else {
       return true;
@@ -633,11 +540,7 @@ export class List extends Component<ListProps> {
 
     const { list } = discussion;
 
-    let filtered = list.filter(
-      (x) =>
-        x.parent_author === parent.author &&
-        x.parent_permlink === parent.permlink
-    );
+    let filtered = list.filter((x) => x.parent_author === parent.author && x.parent_permlink === parent.permlink);
 
     if (filtered.length === 0) {
       return null;
@@ -645,46 +548,26 @@ export class List extends Component<ListProps> {
 
     let mutedContent = filtered.filter(
       (item) =>
-        activeUser &&
-        mutedData.includes(item.author) &&
-        item.depth === 1 &&
-        item.parent_author === parent.author
+        activeUser && mutedData.includes(item.author) && item.depth === 1 && item.parent_author === parent.author
     );
-    let unmutedContent = filtered.filter((md) =>
-      mutedContent.every((fd) => fd.post_id !== md.post_id)
-    );
-    let data = isHiddenPermitted
-      ? [...unmutedContent, ...mutedContent]
-      : unmutedContent;
+    let unmutedContent = filtered.filter((md) => mutedContent.every((fd) => fd.post_id !== md.post_id));
+    let data = isHiddenPermitted ? [...unmutedContent, ...mutedContent] : unmutedContent;
     if (!activeUser) {
       data = filtered;
     }
     return (
       <div className="discussion-list">
         {data.map((d) => (
-          <Item
-            key={`${d.author}-${d.permlink}`}
-            {...this.props}
-            entry={d}
-            hideControls={this.props.hideControls}
-          />
+          <Item key={`${d.author}-${d.permlink}`} {...this.props} entry={d} hideControls={this.props.hideControls} />
         ))}
-        {!isHiddenPermitted &&
-          mutedContent.length > 0 &&
-          activeUser &&
-          activeUser.username && (
-            <div className="hidden-warning d-flex justify-content-between flex-1 align-items-center mt-3">
-              <div className="flex-1">
-                {_t("discussion.reveal-muted-long-description")}
-              </div>
-              <div
-                onClick={() => this.setState({ isHiddenPermitted: true })}
-                className="pointer p-3"
-              >
-                <b>{_t("g.show")}</b>
-              </div>
+        {!isHiddenPermitted && mutedContent.length > 0 && activeUser && activeUser.username && (
+          <div className="hidden-warning d-flex justify-content-between flex-1 align-items-center mt-3">
+            <div className="flex-1">{_t("discussion.reveal-muted-long-description")}</div>
+            <div onClick={() => this.setState({ isHiddenPermitted: true })} className="pointer p-3">
+              <b>{_t("g.show")}</b>
             </div>
-          )}
+          </div>
+        )}
       </div>
     );
   }
@@ -767,9 +650,7 @@ export class Discussion extends Component<Props, State> {
     fetchDiscussion(author, permlink);
   };
 
-  orderChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ) => {
+  orderChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const order = e.target.value as SortOrder;
     const { sortDiscussion } = this.props;
     sortDiscussion(SortOrder[order]);
@@ -813,10 +694,7 @@ export class Discussion extends Component<Props, State> {
       return <div className="discussion empty" />;
     }
 
-    const strCount =
-      count > 1
-        ? _t("discussion.n-replies", { n: count })
-        : _t("discussion.replies");
+    const strCount = count > 1 ? _t("discussion.n-replies", { n: count }) : _t("discussion.replies");
 
     if (!visible && count >= 1) {
       return (
@@ -824,11 +702,7 @@ export class Discussion extends Component<Props, State> {
           <div className="discussion-card">
             <div className="icon">{commentSvg}</div>
             <div className="label">{strCount}</div>
-            {this.props.hideControls ? (
-              <></>
-            ) : (
-              <Button onClick={this.show}>{_t("g.show")}</Button>
-            )}
+            {this.props.hideControls ? <></> : <Button onClick={this.show}>{_t("g.show")}</Button>}
           </div>
         </div>
       );
@@ -848,23 +722,11 @@ export class Discussion extends Component<Props, State> {
           ) : (
             <div className="order">
               <span className="order-label">{_t("discussion.order")}</span>
-              <Form.Control
-                as="select"
-                size="sm"
-                value={order}
-                onChange={this.orderChanged}
-                disabled={loading}
-              >
-                <option value="trending">
-                  {_t("discussion.order-trending")}
-                </option>
-                <option value="author_reputation">
-                  {_t("discussion.order-reputation")}
-                </option>
+              <Form.Control as="select" size="sm" value={order} onChange={this.orderChanged} disabled={loading}>
+                <option value="trending">{_t("discussion.order-trending")}</option>
+                <option value="author_reputation">{_t("discussion.order-reputation")}</option>
                 <option value="votes">{_t("discussion.order-votes")}</option>
-                <option value="created">
-                  {_t("discussion.order-created")}
-                </option>
+                <option value="created">{_t("discussion.order-created")}</option>
               </Form.Control>
             </div>
           )}
