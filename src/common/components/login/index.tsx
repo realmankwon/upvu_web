@@ -431,19 +431,19 @@ export class Login extends BaseComponent<LoginProps, State> {
         return;
       }
 
-      // const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
+      const hasPostingPerm = account?.posting!.account_auths.filter((x) => x[0] === "upvu.web").length > 0;
 
-      // if (!hasPostingPerm) {
-      //     this.stateSet({inProgress: true});
-      //     try {
-      //         await grantPostingPermission(thePrivateKey, account, "ecency.app")
-      //     } catch (err) {
-      //         error(_t('login.error-permission'));
-      //         return;
-      //     } finally {
-      //         this.stateSet({inProgress: false});
-      //     }
-      // }
+      if (!hasPostingPerm) {
+        this.stateSet({ inProgress: true });
+        try {
+          await grantPostingPermission(thePrivateKey, account, "upvu.web");
+        } catch (err) {
+          error(_t("login.error-permission"));
+          return;
+        } finally {
+          this.stateSet({ inProgress: false });
+        }
+      }
     }
 
     // Prepare hivesigner code

@@ -46,7 +46,7 @@ export interface CommentOptions {
   author: string;
   permlink: string;
   max_accepted_payout: string;
-  percent_sbd: number;
+  percent_steem_dollars: number;
   extensions: Array<[0, { beneficiaries: BeneficiaryRoute[] }]>;
 }
 
@@ -189,7 +189,7 @@ export const comment = (
       author: options.author,
       permlink: options.permlink,
       max_accepted_payout: options.max_accepted_payout,
-      percent_steem_dollars: options.percent_sbd,
+      percent_steem_dollars: options.percent_steem_dollars,
       extensions: options.extensions,
     };
 

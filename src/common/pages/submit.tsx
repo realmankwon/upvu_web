@@ -600,7 +600,7 @@ class SubmitPage extends BaseComponent<Props, State> {
             description,
           }),
           max_accepted_payout: options.max_accepted_payout,
-          percent_sbd: options.percent_sbd,
+          percent_steem_dollars: options.percent_steem_dollars,
         };
         addEntry(entry);
 

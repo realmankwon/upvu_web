@@ -10,10 +10,7 @@ import { BeneficiaryRoute } from "../api/operations";
 
 const permlinkRnd = () => (Math.random() + 1).toString(16).substring(2);
 
-export const createPermlink = (
-  title: string,
-  random: boolean = false
-): string => {
+export const createPermlink = (title: string, random: boolean = false): string => {
   const slug = getSlug(title);
   let perm = slug.toString();
 
@@ -44,11 +41,9 @@ export const createPermlink = (
 };
 
 export const extractMetaData = (body: string): MetaData => {
-  const urlReg =
-    /(\b(https?|ftp):\/\/[A-Z0-9+&@#/%?=~_|!:,.;-]*[-A-Z0-9+&@#/%=~_|])/gim;
+  const urlReg = /(\b(https?|ftp):\/\/[A-Z0-9+&@#/%?=~_|!:,.;-]*[-A-Z0-9+&@#/%=~_|])/gim;
   const userReg = /(^|\s)(@[a-z][-.a-z\d]+[a-z\d])/gim;
-  const imgReg =
-    /(https?:\/\/.*\.(?:tiff?|jpe?g|gif|png|svg|ico|heic|webp))/gim;
+  const imgReg = /(https?:\/\/.*\.(?:tiff?|jpe?g|gif|png|svg|ico|heic|webp))/gim;
 
   const out: MetaData = {};
 
@@ -123,25 +118,22 @@ export const makeCommentOptions = (
     author,
     permlink,
     max_accepted_payout: "1000000.000 SBD",
-    percent_sbd: 10000,
-    extensions:
-      beneficiaries && beneficiaries.length > 0
-        ? [[0, { beneficiaries: beneficiaries }]]
-        : [],
+    percent_steem_dollars: 10000,
+    extensions: beneficiaries && beneficiaries.length > 0 ? [[0, { beneficiaries: beneficiaries }]] : [],
   };
 
   switch (rewardType) {
     case "sp":
       opt.max_accepted_payout = "1000000.000 SBD";
-      opt.percent_sbd = 0;
+      opt.percent_steem_dollars = 0;
       break;
     case "dp":
       opt.max_accepted_payout = "0.000 SBD";
-      opt.percent_sbd = 10000;
+      opt.percent_steem_dollars = 10000;
       break;
     case "default":
       opt.max_accepted_payout = "1000000.000 SBD";
-      opt.percent_sbd = 10000;
+      opt.percent_steem_dollars = 10000;
       break;
   }
 
@@ -151,19 +143,14 @@ export const makeCommentOptions = (
 export const createReplyPermlink = (toAuthor: string) => {
   const t = new Date(Date.now());
 
-  const timeFormat = `${t.getFullYear().toString()}${(
-    t.getMonth() + 1
-  ).toString()}${t.getDate().toString()}t${t.getHours().toString()}${t
-    .getMinutes()
-    .toString()}${t.getSeconds().toString()}${t.getMilliseconds().toString()}z`;
+  const timeFormat = `${t.getFullYear().toString()}${(t.getMonth() + 1).toString()}${t.getDate().toString()}t${t
+    .getHours()
+    .toString()}${t.getMinutes().toString()}${t.getSeconds().toString()}${t.getMilliseconds().toString()}z`;
 
   return `re-${toAuthor.replace(/\./g, "")}-${timeFormat}`;
 };
 
-export const createPatch = (
-  text1: string,
-  text2: string
-): string | undefined => {
+export const createPatch = (text1: string, text2: string): string | undefined => {
   const dmp = new diff_match_patch();
   if (text1 === "") return undefined;
   const patches = dmp.patch_make(text1, text2);
