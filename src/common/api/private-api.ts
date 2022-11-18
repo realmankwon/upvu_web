@@ -545,3 +545,23 @@ export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, form
   if (!url) url = "";
   return url.replace("images.ecency.com", "steemitimages.com").replace("/webp", "");
 };
+
+export const getEcosystem = async (): Promise<any> => {
+  const ecosystem = await axios.get(`http://localhost:3001/api/getEcosystem`).then((r) => r.data);
+
+  // console.log("ecosystem", ecosystem);
+  return ecosystem;
+};
+
+export const getUPVUInfos = async (account: string): Promise<any> => {
+  if (!account) return [];
+
+  const data = {
+    account,
+  };
+
+  const upvuInfos = await axios.post(`http://localhost:3001/myPage/getUpvuInfo`, data).then((r) => r.data);
+
+  console.log("upvuInfos", upvuInfos);
+  return upvuInfos;
+};

@@ -15,7 +15,6 @@ import ScrollToTop from "../components/scroll-to-top";
 import { _t } from "../i18n";
 
 import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
-import { getEcosystem } from "../api/hive-engine";
 import Ecosystem from "../components/ecosystem";
 
 class EcosystemPage extends Component<PageProps> {

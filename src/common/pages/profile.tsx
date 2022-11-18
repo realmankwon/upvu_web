@@ -49,6 +49,7 @@ import { connect } from "react-redux";
 import { FullAccount } from "../store/accounts/types";
 import tag from "../components/tag";
 import { withPersistentScroll } from "../components/with-persistent-scroll";
+import WalletUPVU from "../components/wallet-upvu";
 
 interface MatchParams {
   username: string;
@@ -514,6 +515,14 @@ class ProfilePage extends BaseComponent<Props, State> {
 
                   if (section === "engine") {
                     return WalletHiveEngine({
+                      ...this.props,
+                      account,
+                      updateWalletValues: this.ensureAccount,
+                    });
+                  }
+
+                  if (section === "upvu") {
+                    return WalletUPVU({
                       ...this.props,
                       account,
                       updateWalletValues: this.ensureAccount,

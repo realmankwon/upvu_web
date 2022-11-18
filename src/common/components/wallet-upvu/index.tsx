@@ -30,6 +30,7 @@ import { formatError } from "../../api/operations";
 import formattedNumber from "../../util/formatted-number";
 
 import { _t } from "../../i18n";
+import { WalletUPVUInfos } from "../wallet-upvu-infos";
 
 interface Props {
   global: Global;
@@ -73,95 +74,11 @@ export class WalletUPVU extends BaseComponent<Props, State> {
 
   componentDidMount() {
     this._isMounted = true;
-    this._isMounted && this.fetch();
-    this._isMounted && this.fetchUnclaimedRewards();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
-
-  openTransferDialog = (mode: TransferMode, asset: string, balance: number) => {
-    this.stateSet({
-      transfer: true,
-      transferMode: mode,
-      transferAsset: asset,
-      assetBalance: balance,
-    });
-  };
-
-  closeTransferDialog = () => {
-    this.stateSet({ transfer: false, transferMode: null, transferAsset: null });
-  };
-
-  fetch = async () => {
-    const { account } = this.props;
-
-    this.setState({ loading: true });
-    let items;
-    try {
-      items = await getHiveEngineTokenBalances(account.name);
-      items = items.filter((token) => token.balance !== 0 || token.stakedBalance !== 0);
-      items = this.sort(items);
-      this._isMounted && this.setState({ tokens: items });
-    } catch (e) {
-      console.log("engine tokens", e);
-    }
-
-    this.setState({ loading: false });
-  };
-
-  sort = (items: HiveEngineToken[]) =>
-    items.sort((a: HiveEngineToken, b: HiveEngineToken) => {
-      if (a.balance !== b.balance) {
-        return a.balance < b.balance ? 1 : -1;
-      }
-
-      if (a.stake !== b.stake) {
-        return a.stake < b.stake ? 1 : -1;
-      }
-
-      return a.symbol > b.symbol ? 1 : -1;
-    });
-
-  fetchUnclaimedRewards = async () => {
-    const { account } = this.props;
-    try {
-      const rewards = await getUnclaimedRewards(account.name);
-      this._isMounted && this.setState({ rewards });
-    } catch (e) {
-      console.log("fetchUnclaimedRewards", e);
-    }
-  };
-
-  claimRewards = (tokens: TokenStatus[]) => {
-    const { activeUser } = this.props;
-    const { claiming } = this.state;
-
-    if (claiming || !activeUser) {
-      return;
-    }
-
-    this.setState({ claiming: true });
-
-    return claimRewards(
-      activeUser.username,
-      tokens.map((t) => t.symbol)
-    )
-      .then((account) => {
-        success(_t("wallet.claim-reward-balance-ok"));
-      })
-      .then(() => {
-        this.setState({ rewards: [] });
-      })
-      .catch((err) => {
-        console.log(err);
-        error(formatError(err));
-      })
-      .finally(() => {
-        this.setState({ claiming: false });
-      });
-  };
 
   render() {
     const { global, dynamicProps, account, activeUser } = this.props;
@@ -186,23 +103,12 @@ export class WalletUPVU extends BaseComponent<Props, State> {
             </div>
 
             <div className="summary-upvu">
-              {/* UPVU Summary 내용 입력 */}
-              <h1>Coming Soon..!!</h1>
+              {/* UPVU Dashboard 내용 입력 */}
+              <WalletUPVUInfos {...this.props} />
             </div>
           </div>
           <WalletMenu global={global} username={account.name} active="upvu" />
         </div>
-        {this.state.transfer && (
-          <Transfer
-            {...this.props}
-            activeUser={activeUser!}
-            to={isMyPage ? undefined : account.name}
-            mode={this.state.transferMode!}
-            asset={this.state.transferAsset!}
-            onHide={this.closeTransferDialog}
-            assetBalance={this.state.assetBalance}
-          />
-        )}
       </div>
     );
   }
