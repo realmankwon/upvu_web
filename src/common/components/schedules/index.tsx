@@ -228,13 +228,9 @@ export class Schedules extends BaseComponent<Props, State> {
     this.stateSet({ loading: true });
     getSchedules(activeUser.username)
       .then((items) => {
-        debugger;
-
         this.stateSet({ list: this.sort(items) });
       })
       .catch(() => {
-        debugger;
-
         error(_t("g.server-error"));
       })
       .finally(() => {

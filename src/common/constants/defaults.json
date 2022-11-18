@@ -8,7 +8,7 @@
     "symbol": "$"
   },
   "locale": "en-US",
-  "upvubase": "http://localhost:4000",
+  "upvubase": "https://upvu.org",
   "base": "https://ecency.com",
   "imageServer": "https://images.ecency.com",
   "nwsServer": "wss://enotify.esteem.app",

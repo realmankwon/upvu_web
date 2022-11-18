@@ -717,14 +717,14 @@ class SubmitPage extends BaseComponent<Props, State> {
       promise = addDraft(activeUser?.username!, title, body, tagJ).then((resp) => {
         success(_t("submit.draft-saved"));
 
-        const { drafts } = resp;
+        const drafts = resp;
         const draft = drafts[drafts.length - 1];
 
         history.push(`/draft/${draft.permlink}`);
       });
     }
 
-    promise.catch(() => error(_t("g.server-error"))).finally(() => this.stateSet({ saving: false }));
+    promise.catch((e) => error(_t("g.server-error"))).finally(() => this.stateSet({ saving: false }));
   };
 
   schedule = async () => {

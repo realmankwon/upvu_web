@@ -30,7 +30,6 @@ class AuthPage extends Component<Props> {
     const { location, history, addUser, setActiveUser, updateActiveUser } = this.props;
     const qs = queryString.parse(location.search);
     const code = qs.code as string;
-    debugger;
     // const access_token = getAccessToken(username);
     // const refresh_token = getRefreshToken(username);
 
