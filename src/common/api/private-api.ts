@@ -491,7 +491,7 @@ export const getUPVUInfos = async (account: string): Promise<any> => {
   const data = {
     code: getAccessToken(account),
   };
-  debugger;
+
   // const upvuInfos = await axios.post(`http://localhost:3001/upvuweb-api/get-upvuinfo`, data).then((r) => r.data);
   const upvuInfos = await axios
     .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
