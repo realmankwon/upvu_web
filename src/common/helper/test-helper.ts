@@ -159,6 +159,7 @@ export const globalInstance: Global = {
   nsfw: false,
   newVersion: null,
   usePrivate: true,
+  developingPrivate: false,
   lastIndexPath: null,
 };
 

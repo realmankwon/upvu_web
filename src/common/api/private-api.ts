@@ -274,22 +274,22 @@ export interface Bookmark {
   author: string;
   permlink: string;
   timestamp: number;
-  created: string;
+  createdAt: string;
 }
 
 export const getBookmarks = (username: string): Promise<Bookmark[]> => {
   const data = { code: getAccessToken(username) };
-  return axios.post(apiBase(`/private-api/bookmarks`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks`), data).then((resp) => resp.data);
 };
 
 export const addBookmark = (username: string, author: string, permlink: string): Promise<{ bookmarks: Bookmark[] }> => {
   const data = { code: getAccessToken(username), author, permlink };
-  return axios.post(apiBase(`/private-api/bookmarks-add`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-add`), data).then((resp) => resp.data);
 };
 
 export const deleteBookmark = (username: string, bookmarkId: string): Promise<any> => {
   const data = { code: getAccessToken(username), id: bookmarkId };
-  return axios.post(apiBase(`/private-api/bookmarks-delete`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-delete`), data).then((resp) => resp.data);
 };
 
 export interface Favorite {
@@ -300,22 +300,22 @@ export interface Favorite {
 
 export const getFavorites = (username: string): Promise<Favorite[]> => {
   const data = { code: getAccessToken(username) };
-  return axios.post(apiBase(`/private-api/favorites`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/favorites`), data).then((resp) => resp.data);
 };
 
 export const checkFavorite = (username: string, account: string): Promise<boolean> => {
   const data = { code: getAccessToken(username), account };
-  return axios.post(apiBase(`/private-api/favorites-check`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-check`), data).then((resp) => resp.data);
 };
 
 export const addFavorite = (username: string, account: string): Promise<{ favorites: Favorite[] }> => {
   const data = { code: getAccessToken(username), account };
-  return axios.post(apiBase(`/private-api/favorites-add`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-add`), data).then((resp) => resp.data);
 };
 
 export const deleteFavorite = (username: string, account: string): Promise<any> => {
   const data = { code: getAccessToken(username), account };
-  return axios.post(apiBase(`/private-api/favorites-delete`), data).then((resp) => resp.data);
+  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-delete`), data).then((resp) => resp.data);
 };
 
 export interface Fragment {
@@ -352,7 +352,7 @@ export const getPoints = (
   points: string;
   unclaimed_points: string;
 }> => {
-  if (window.usePrivate) {
+  if (window.developingPrivate) {
     const data = { username };
     return axios.post(apiBase(`/private-api/points`), data).then((resp) => resp.data);
   }
@@ -366,7 +366,7 @@ export const getPoints = (
 };
 
 export const getPointTransactions = (username: string, type?: number): Promise<PointTransaction[]> => {
-  if (window.usePrivate) {
+  if (window.developingPrivate) {
     const data = { username, type };
     return axios.post(apiBase(`/private-api/point-list`), data).then((resp) => resp.data);
   }
@@ -444,7 +444,7 @@ export const commentHistory = (
 };
 
 export const getPromotedEntries = (): Promise<Entry[]> => {
-  if (window.usePrivate) {
+  if (window.developingPrivate) {
     return axios.get(apiBase(`/private-api/promoted-entries`)).then((resp) => resp.data);
   }
 
