@@ -30,7 +30,7 @@ export default class WalletMenu extends Component<Props> {
             <span className="title">Punks</span>
             <span className="sub-title">Points</span>
             <span className="platform-logo">
-              <img alt="ecency" src={logo} />
+              <img alt="punks" src={logo} />
             </span>
           </Link>
         )}

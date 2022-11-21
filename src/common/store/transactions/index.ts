@@ -104,7 +104,6 @@ export const fetchTransactions =
     dispatch(fetchAct(group));
 
     const name = username.replace("@", "");
-    // debugger;
     // let filters: any[] = [];
     // switch (group) {
     //   case "transfers":

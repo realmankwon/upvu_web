@@ -14,10 +14,6 @@ import { client as hiveClient } from "./hive";
 
 import { Account } from "../store/accounts/types";
 
-import { usrActivity } from "./private-api";
-
-import { getAccessToken, getPostingKey } from "../helper/user-token";
-
 import * as keychain from "../helper/keychain";
 
 import parseAsset from "../helper/parse-asset";
@@ -50,7 +46,7 @@ export interface CommentOptions {
   author: string;
   permlink: string;
   max_accepted_payout: string;
-  percent_sbd: number;
+  percent_steem_dollars: number;
   extensions: Array<[0, { beneficiaries: BeneficiaryRoute[] }]>;
 }
 
@@ -159,7 +155,6 @@ export const reblog = (
   const json = ["reblog", message];
 
   return broadcastPostingJSON(username, "follow", json).then((r: TransactionConfirmation) => {
-    usrActivity(username, 130, r.block_num, r.id).then();
     return r;
   });
 };
@@ -194,11 +189,10 @@ export const comment = (
       author: options.author,
       permlink: options.permlink,
       max_accepted_payout: options.max_accepted_payout,
-      percent_steem_dollars: options.percent_sbd,
+      percent_steem_dollars: options.percent_steem_dollars,
       extensions: options.extensions,
     };
 
-    // debugger;
     opArray.push(["comment_options", CommentOptions]);
   }
 

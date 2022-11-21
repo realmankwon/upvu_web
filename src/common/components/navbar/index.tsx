@@ -26,7 +26,6 @@ import Search from "../search";
 import Login from "../login";
 import UserNav from "../user-nav";
 import UserNotifications from "../notifications";
-import Gallery from "../gallery";
 import Drafts from "../drafts";
 import Bookmarks from "../bookmarks";
 import Schedules from "../schedules";
@@ -101,7 +100,6 @@ interface State {
   floating: boolean;
   showMobileSearch: boolean;
   showProfileMenu: boolean;
-  gallery: boolean;
   drafts: boolean;
   bookmarks: boolean;
   schedules: boolean;
@@ -115,7 +113,6 @@ export class NavBar extends Component<Props, State> {
     floating: false,
     showProfileMenu: false,
     showMobileSearch: false,
-    gallery: false,
     drafts: false,
     bookmarks: false,
     schedules: false,
@@ -244,7 +241,7 @@ export class NavBar extends Component<Props, State> {
         ? `${tagValue}/${global.filter}`
         : `/${global.filter}${tagValue}`
       : "/";
-    const { smVisible, floating, showMobileSearch, showProfileMenu, drafts, bookmarks, fragments, gallery, schedules } =
+    const { smVisible, floating, showMobileSearch, showProfileMenu, drafts, bookmarks, fragments, schedules } =
       this.state;
 
     const transparentVerify =
@@ -463,13 +460,6 @@ export class NavBar extends Component<Props, State> {
 
                       <div
                         className="p-1 menu-item"
-                        onClick={() => this.setState({ gallery: !gallery, smVisible: false })}
-                      >
-                        <div className="item-text">{_t("user-nav.gallery")}</div>
-                      </div>
-
-                      <div
-                        className="p-1 menu-item"
                         onClick={() => this.setState({ bookmarks: !bookmarks, smVisible: false })}
                       >
                         <div className="item-text">{_t("user-nav.bookmarks")}</div>
@@ -562,7 +552,6 @@ export class NavBar extends Component<Props, State> {
           </div>
           {ui.login && <Login {...this.props} />}
           {global.usePrivate && <NotificationHandler {...this.props} />}
-          {gallery && <Gallery {...this.props} onHide={() => this.setState({ gallery: !gallery })} />}
           {ui.notifications && activeUser && <UserNotifications {...this.props} activeUser={activeUser} />}
           {drafts && activeUser && (
             <Drafts

@@ -29,11 +29,10 @@ import { getAuthUrl, makeHsCode } from "../../helper/hive-signer";
 import { hsLogin } from "../../../desktop/app/helper/hive-signer";
 
 import { getAccount } from "../../api/hive";
-import { usrActivity } from "../../api/private-api";
 import { hsTokenRenew } from "../../api/auth-api";
 import { formatError, grantPostingPermission, revokePostingPermission } from "../../api/operations";
 
-import { getRefreshToken } from "../../helper/user-token";
+import { getAccessToken, getRefreshToken } from "../../helper/user-token";
 
 import { addAccountAuthority, removeAccountAuthority, signBuffer } from "../../helper/keychain";
 
@@ -102,21 +101,21 @@ export class LoginKc extends BaseComponent<LoginKcProps, LoginKcState> {
       return;
     }
 
-    // const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
+    const hasPostingPerm = account?.posting!.account_auths.filter((x) => x[0] === "upvu.web").length > 0;
 
-    // if (!hasPostingPerm) {
-    //     const weight = account.posting!.weight_threshold;
+    if (!hasPostingPerm) {
+      const weight = account.posting!.weight_threshold;
 
-    //     this.stateSet({inProgress: true});
-    //     try {
-    //         await addAccountAuthority(username, "ecency.app", "Posting", weight)
-    //     } catch (err) {
-    //         error(_t('login.error-permission'));
-    //         return;
-    //     } finally {
-    //         this.stateSet({inProgress: false});
-    //     }
-    // }
+      this.stateSet({ inProgress: true });
+      try {
+        await addAccountAuthority(username, "upvu.web", "Posting", weight);
+      } catch (err) {
+        error(_t("login.error-permission"));
+        return;
+      } finally {
+        this.stateSet({ inProgress: false });
+      }
+    }
 
     this.stateSet({ inProgress: true });
 
@@ -432,19 +431,19 @@ export class Login extends BaseComponent<LoginProps, State> {
         return;
       }
 
-      // const hasPostingPerm = account?.posting!.account_auths.filter(x => x[0] === "ecency.app").length > 0;
+      const hasPostingPerm = account?.posting!.account_auths.filter((x) => x[0] === "upvu.web").length > 0;
 
-      // if (!hasPostingPerm) {
-      //     this.stateSet({inProgress: true});
-      //     try {
-      //         await grantPostingPermission(thePrivateKey, account, "ecency.app")
-      //     } catch (err) {
-      //         error(_t('login.error-permission'));
-      //         return;
-      //     } finally {
-      //         this.stateSet({inProgress: false});
-      //     }
-      // }
+      if (!hasPostingPerm) {
+        this.stateSet({ inProgress: true });
+        try {
+          await grantPostingPermission(thePrivateKey, account, "upvu.web");
+        } catch (err) {
+          error(_t("login.error-permission"));
+          return;
+        } finally {
+          this.stateSet({ inProgress: false });
+        }
+      }
     }
 
     // Prepare hivesigner code
@@ -641,9 +640,10 @@ export default class LoginDialog extends Component<Props> {
 
   doLogin = async (hsCode: string, postingKey: null | undefined | string, account: Account) => {
     const { global, setActiveUser, updateActiveUser, addUser } = this.props;
-
+    const access_token = getAccessToken(account.name);
+    const refresh_token = getRefreshToken(account.name);
     // get access token from code
-    return hsTokenRenew(hsCode).then((x) => {
+    return hsTokenRenew(hsCode, access_token, refresh_token).then((x) => {
       const user: User = {
         username: x.username,
         accessToken: x.access_token,
@@ -660,11 +660,6 @@ export default class LoginDialog extends Component<Props> {
 
       // add account data of the user to the reducer
       updateActiveUser(account);
-
-      if (global.usePrivate) {
-        // login activity
-        usrActivity(user.username, 20);
-      }
 
       // redirection based on path name
       const { location, history } = this.props;

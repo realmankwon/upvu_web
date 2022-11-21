@@ -282,7 +282,7 @@ class SubmitPage extends BaseComponent<Props, State> {
         drafts = [];
       }
 
-      drafts = drafts.filter((x) => x._id === params.draftId);
+      drafts = drafts.filter((x) => x.permlink === params.draftId);
       if (drafts.length === 1) {
         const [draft] = drafts;
         const { title, body } = draft;
@@ -600,7 +600,7 @@ class SubmitPage extends BaseComponent<Props, State> {
             description,
           }),
           max_accepted_payout: options.max_accepted_payout,
-          percent_sbd: options.percent_sbd,
+          percent_steem_dollars: options.percent_steem_dollars,
         };
         addEntry(entry);
 
@@ -710,21 +710,21 @@ class SubmitPage extends BaseComponent<Props, State> {
     this.stateSet({ saving: true });
 
     if (editingDraft) {
-      promise = updateDraft(activeUser?.username!, editingDraft._id, title, body, tagJ).then(() => {
+      promise = updateDraft(activeUser?.username!, editingDraft.permlink, title, body, tagJ).then(() => {
         success(_t("submit.draft-updated"));
       });
     } else {
       promise = addDraft(activeUser?.username!, title, body, tagJ).then((resp) => {
         success(_t("submit.draft-saved"));
 
-        const { drafts } = resp;
+        const drafts = resp;
         const draft = drafts[drafts.length - 1];
 
-        history.push(`/draft/${draft._id}`);
+        history.push(`/draft/${draft.permlink}`);
       });
     }
 
-    promise.catch(() => error(_t("g.server-error"))).finally(() => this.stateSet({ saving: false }));
+    promise.catch((e) => error(_t("g.server-error"))).finally(() => this.stateSet({ saving: false }));
   };
 
   schedule = async () => {

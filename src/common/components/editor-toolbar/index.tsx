@@ -8,7 +8,6 @@ import { Global } from "../../store/global/types";
 
 import Tooltip from "../tooltip";
 import EmojiPicker from "../emoji-picker";
-import Gallery from "../gallery";
 import Fragments from "../fragments";
 import AddImage from "../add-image";
 import AddImageMobile from "../add-image-mobile";
@@ -16,15 +15,11 @@ import AddLink from "../add-link";
 
 import { uploadImage } from "../../api/misc";
 
-import { addImage } from "../../api/private-api";
-
 import { error } from "../feedback";
 
 import { _t } from "../../i18n";
 
 import { insertOrReplace, replace } from "../../util/input-util";
-
-import { getAccessToken } from "../../helper/user-token";
 
 import _c from "../../util/fix-class-names";
 
@@ -52,7 +47,6 @@ interface Props {
 }
 
 interface State {
-  gallery: boolean;
   fragments: boolean;
   image: boolean;
   link: boolean;
@@ -61,7 +55,6 @@ interface State {
 
 export class EditorToolbar extends Component<Props> {
   state: State = {
-    gallery: false,
     fragments: false,
     image: false,
     link: false,
@@ -79,11 +72,6 @@ export class EditorToolbar extends Component<Props> {
       !isEqual(this.state, nextState)
     );
   }
-
-  toggleGallery = () => {
-    const { gallery } = this.state;
-    this.setState({ gallery: !gallery });
-  };
 
   toggleFragments = () => {
     const { fragments } = this.state;
@@ -308,7 +296,6 @@ export class EditorToolbar extends Component<Props> {
   };
 
   upload = async (file: File) => {
-    // debugger;
     const { activeUser, global } = this.props;
 
     const username = activeUser?.username!;
@@ -318,23 +305,12 @@ export class EditorToolbar extends Component<Props> {
 
     let imageUrl: string;
     try {
-      // let token = getAccessToken(username);
-      // if (token) {
-
-      // debugger;
       const resp = await uploadImage(file, username);
       imageUrl = resp.url;
-
-      if (global.usePrivate && imageUrl.length > 0) {
-        addImage(username, imageUrl).then();
-      }
 
       const imgTag = imageUrl.length > 0 && `![](${imageUrl})\n\n`;
 
       imgTag && this.replaceText(tempImgTag, imgTag);
-      // } else {
-      //   error(_t("editor-toolbar.image-error-cache"));
-      // }
     } catch (e) {
       if (e.response?.status === 413) {
         error(_t("editor-toolbar.image-error-size"));
@@ -351,7 +327,7 @@ export class EditorToolbar extends Component<Props> {
   };
 
   render() {
-    const { gallery, fragments, image, link, mobileImage } = this.state;
+    const { fragments, image, link, mobileImage } = this.state;
     const { global, sm, activeUser, showEmoji = true } = this.props;
 
     return (
@@ -448,17 +424,6 @@ export class EditorToolbar extends Component<Props> {
                       >
                         {_t("editor-toolbar.upload")}
                       </div>
-                      {global.usePrivate && (
-                        <div
-                          className="sub-tool-menu-item"
-                          onClick={(e: React.MouseEvent<HTMLElement>) => {
-                            e.stopPropagation();
-                            this.toggleGallery();
-                          }}
-                        >
-                          {_t("editor-toolbar.gallery")}
-                        </div>
-                      )}
                     </div>
                   )}
                 </div>
@@ -511,18 +476,6 @@ export class EditorToolbar extends Component<Props> {
           multiple={true}
           style={{ display: "none" }}
         />
-        {gallery && activeUser && (
-          <Gallery
-            global={global}
-            activeUser={activeUser}
-            onHide={this.toggleGallery}
-            onPick={(url: string) => {
-              const fileName = "";
-              this.image(fileName, url);
-              this.toggleGallery();
-            }}
-          />
-        )}
         {fragments && activeUser && (
           <Fragments
             activeUser={activeUser}
@@ -560,10 +513,6 @@ export class EditorToolbar extends Component<Props> {
               const fileName = "";
               this.image(fileName, url);
               this.toggleMobileImage();
-            }}
-            onGallery={() => {
-              this.toggleMobileImage();
-              this.toggleGallery();
             }}
             onUpload={() => {
               this.toggleMobileImage();

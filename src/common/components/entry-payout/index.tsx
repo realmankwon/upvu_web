@@ -37,20 +37,18 @@ export class EntryPayoutDetail extends Component<Props> {
     const authorPayout = parseAsset(entry.author_payout_value).amount;
     const curatorPayout = parseAsset(entry.curator_payout_value).amount;
     const maxPayout = parseAsset(entry.max_accepted_payout).amount;
-    const fullPower = entry.percent_sbd === 0;
+    const fullPower = entry.percent_steem_dollars === 0;
 
     const totalPayout = pendingPayout + authorPayout + curatorPayout;
     const payoutLimitHit = totalPayout >= maxPayout;
 
     const SBD_PRINT_RATE_MAX = 10000;
-    const percentSteemDollars = entry.percent_sbd / 20000;
+    const percentSteemDollars = entry.percent_steem_dollars / 20000;
     const pendingPayoutSbd = pendingPayout * percentSteemDollars;
     const pricePerSteem = base / quote;
     const pendingPayoutSp = (pendingPayout - pendingPayoutSbd) / pricePerSteem;
-    const pendingPayoutPrintedSbd =
-      pendingPayoutSbd * (sbdPrintRate / SBD_PRINT_RATE_MAX);
-    const pendingPayoutPrintedSteem =
-      (pendingPayoutSbd - pendingPayoutPrintedSbd) / pricePerSteem;
+    const pendingPayoutPrintedSbd = pendingPayoutSbd * (sbdPrintRate / SBD_PRINT_RATE_MAX);
+    const pendingPayoutPrintedSteem = (pendingPayoutSbd - pendingPayoutPrintedSbd) / pricePerSteem;
 
     let breakdownPayout: string[] = [];
     if (pendingPayout > 0) {
@@ -73,9 +71,7 @@ export class EntryPayoutDetail extends Component<Props> {
       }
 
       if (pendingPayoutSp > 0) {
-        breakdownPayout.push(
-          formattedNumber(pendingPayoutSp, { fractionDigits: 3, suffix: "SP" })
-        );
+        breakdownPayout.push(formattedNumber(pendingPayoutSp, { fractionDigits: 3, suffix: "SP" }));
       }
     }
 
@@ -91,11 +87,7 @@ export class EntryPayoutDetail extends Component<Props> {
           <p>
             <span className="label">{_t("entry-payout.pending-payout")}</span>
             <span className="value">
-              <FormattedCurrency
-                {...this.props}
-                value={pendingPayout}
-                fixAt={3}
-              />
+              <FormattedCurrency {...this.props} value={pendingPayout} fixAt={3} />
             </span>
           </p>
         )}
@@ -103,11 +95,7 @@ export class EntryPayoutDetail extends Component<Props> {
           <p>
             <span className="label">{_t("entry-payout.promoted")}</span>
             <span className="value">
-              <FormattedCurrency
-                {...this.props}
-                value={promotedPayout}
-                fixAt={3}
-              />
+              <FormattedCurrency {...this.props} value={promotedPayout} fixAt={3} />
             </span>
           </p>
         )}
@@ -115,11 +103,7 @@ export class EntryPayoutDetail extends Component<Props> {
           <p>
             <span className="label">{_t("entry-payout.author-payout")}</span>
             <span className="value">
-              <FormattedCurrency
-                {...this.props}
-                value={authorPayout}
-                fixAt={3}
-              />
+              <FormattedCurrency {...this.props} value={authorPayout} fixAt={3} />
             </span>
           </p>
         )}
@@ -127,11 +111,7 @@ export class EntryPayoutDetail extends Component<Props> {
           <p>
             <span className="label">{_t("entry-payout.curators-payout")}</span>
             <span className="value">
-              <FormattedCurrency
-                {...this.props}
-                value={curatorPayout}
-                fixAt={3}
-              />
+              <FormattedCurrency {...this.props} value={curatorPayout} fixAt={3} />
             </span>
           </p>
         )}
@@ -228,11 +208,7 @@ export class EntryPayout extends Component<Props> {
     );
 
     return searchPayout <= 0 ? (
-      <OverlayTrigger
-        trigger={["hover", "focus"]}
-        overlay={popover}
-        delay={1000}
-      >
+      <OverlayTrigger trigger={["hover", "focus"]} overlay={popover} delay={1000}>
         <div
           className={_c(
             `entry-payout ${isPayoutDeclined ? "payout-declined" : ""} ${
