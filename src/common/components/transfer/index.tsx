@@ -6,15 +6,7 @@ import numeral from "numeral";
 
 import isEqual from "react-fast-compare";
 
-import {
-  Modal,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
 import badActors from "@hiveio/hivescript/bad-actors.json";
 
@@ -22,10 +14,7 @@ import { Global } from "../../store/global/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 import { Account } from "../../store/accounts/types";
 import { ActiveUser } from "../../store/active-user/types";
-import {
-  DelegateVestingShares,
-  Transactions,
-} from "../../store/transactions/types";
+import { DelegateVestingShares, Transactions } from "../../store/transactions/types";
 
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
@@ -39,12 +28,7 @@ import amountFormatCheck from "../../helper/amount-format-check";
 import parseAsset from "../../helper/parse-asset";
 import { vestsToHp, hpToVests } from "../../helper/vesting";
 
-import {
-  DelegatedVestingShare,
-  getAccount,
-  getAccountFull,
-  getVestingDelegations,
-} from "../../api/hive";
+import { DelegatedVestingShare, getAccount, getAccountFull, getVestingDelegations } from "../../api/hive";
 
 import {
   transfer,
@@ -115,11 +99,7 @@ class AssetSwitch extends Component<AssetSwitchProps> {
     return (
       <div className="asset-switch">
         {options.map((opt) => (
-          <a
-            key={opt}
-            onClick={() => this.clicked(opt)}
-            className={`asset ${selected === opt ? "selected" : ""}`}
-          >
+          <a key={opt} onClick={() => this.clicked(opt)} className={`asset ${selected === opt ? "selected" : ""}`}>
             {opt}
           </a>
         ))}
@@ -136,9 +116,7 @@ class FormText extends Component<{
     return (
       <Row>
         <Col md={{ span: 10, offset: 2 }}>
-          <Form.Text className={`text-${this.props.type} tr-form-text`}>
-            {this.props.msg}
-          </Form.Text>
+          <Form.Text className={`text-${this.props.type} tr-form-text`}>{this.props.msg}</Form.Text>
         </Col>
       </Row>
     );
@@ -185,14 +163,7 @@ const pureState = (props: Props): State => {
   let _toData: Account | null = null;
 
   if (
-    [
-      "transfer-saving",
-      "withdraw-saving",
-      "convert",
-      "power-up",
-      "power-down",
-      "claim-interest",
-    ].includes(props.mode)
+    ["transfer-saving", "withdraw-saving", "convert", "power-up", "power-down", "claim-interest"].includes(props.mode)
   ) {
     _to = props.activeUser.username;
     _toData = props.activeUser.data;
@@ -253,22 +224,17 @@ export class Transfer extends BaseComponent<Props, State> {
     this.stateSet({ to }, this.handleTo);
   };
 
-  amountChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ): void => {
+  amountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: amount } = e.target;
     this.stateSet({ amount }, () => {
       this.checkAmount();
     });
   };
 
-  memoChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ): void => {
+  memoChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: memo } = e.target;
     const mError = cryptoUtils.isWif(memo.trim());
-    if (mError)
-      this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
+    if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
     this.stateSet({ memo });
   };
 
@@ -305,36 +271,25 @@ export class Transfer extends BaseComponent<Props, State> {
             activeUser &&
               activeUser.username &&
               mode === "delegate" &&
-              getVestingDelegations(activeUser.username, to, 1000).then(
-                (res) => {
-                  const delegateAccount =
-                    res &&
-                    res.length > 0 &&
-                    res!.find(
-                      (item) =>
-                        (item as any).delegatee === to &&
-                        (item as any).delegator === activeUser.username
-                    );
-                  const previousAmount = delegateAccount
-                    ? Number(
-                        formattedNumber(
-                          vestsToHp(
-                            Number(
-                              parseAsset(delegateAccount!.vesting_shares).amount
-                            ),
-                            steemPerMVests
-                          )
-                        )
+              getVestingDelegations(activeUser.username, to, 1000).then((res) => {
+                const delegateAccount =
+                  res &&
+                  res.length > 0 &&
+                  res!.find(
+                    (item) => (item as any).delegatee === to && (item as any).delegator === activeUser.username
+                  );
+                const previousAmount = delegateAccount
+                  ? Number(
+                      formattedNumber(
+                        vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
                       )
-                    : "";
-                  this.setState({
-                    delegationList: res as any[],
-                    amount: previousAmount
-                      ? previousAmount.toString()
-                      : "0.001",
-                  });
-                }
-              );
+                    )
+                  : "";
+                this.setState({
+                  delegationList: res as any[],
+                  amount: previousAmount ? previousAmount.toString() : "0.001",
+                });
+              });
           } else {
             this.stateSet({
               toError: _t("transfer.to-not-found"),
@@ -436,16 +391,8 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   canSubmit = () => {
-    const { toData, toError, amountError, memoError, inProgress, amount } =
-      this.state;
-    return (
-      toData &&
-      !toError &&
-      !amountError &&
-      !memoError &&
-      !inProgress &&
-      parseFloat(amount) > 0
-    );
+    const { toData, toError, amountError, memoError, inProgress, amount } = this.state;
+    return toData && !toError && !amountError && !memoError && !inProgress && parseFloat(amount) > 0;
   };
 
   next = () => {
@@ -656,15 +603,7 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   finish = () => {
-    const {
-      onHide,
-      mode,
-      asset,
-      account,
-      activeUser,
-      fetchPoints,
-      updateWalletValues,
-    } = this.props;
+    const { onHide, mode, asset, account, activeUser, fetchPoints, updateWalletValues } = this.props;
     if (account && activeUser && account.name !== activeUser.username) {
       if (mode === "transfer" && asset === "POINT") {
         fetchPoints(account.name);
@@ -704,16 +643,9 @@ export class Transfer extends BaseComponent<Props, State> {
           .filter(
             (x) =>
               (x.type === "transfer" && x.from === activeUser.username) ||
-              (x.type === "delegate_vesting_shares" &&
-                x.delegator === activeUser.username)
+              (x.type === "delegate_vesting_shares" && x.delegator === activeUser.username)
           )
-          .map((x) =>
-            x.type === "transfer"
-              ? x.to
-              : x.type === "delegate_vesting_shares"
-              ? x.delegatee
-              : ""
-          )
+          .map((x) => (x.type === "transfer" ? x.to : x.type === "delegate_vesting_shares" ? x.delegatee : ""))
           .filter((x) => {
             if (to.trim() === "") {
               return true;
@@ -731,8 +663,7 @@ export class Transfer extends BaseComponent<Props, State> {
       renderer: (i: string) => {
         return (
           <>
-            {UserAvatar({ ...this.props, username: i, size: "medium" })}{" "}
-            <span style={{ marginLeft: "4px" }}>{i}</span>
+            {UserAvatar({ ...this.props, username: i, size: "medium" })} <span style={{ marginLeft: "4px" }}>{i}</span>
           </>
         );
       },
@@ -742,7 +673,7 @@ export class Transfer extends BaseComponent<Props, State> {
     let assets: TransferAsset[] = [];
     switch (mode) {
       case "transfer":
-        if (global.usePrivate) {
+        if (global.developingPrivate) {
           assets = ["STEEM", "SBD", "POINT"];
         } else {
           assets = ["STEEM", "SBD"];
@@ -767,18 +698,8 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
     }
 
-    const showTo = [
-      "transfer",
-      "transfer-saving",
-      "withdraw-saving",
-      "power-up",
-      "delegate",
-    ].includes(mode);
-    const showMemo = [
-      "transfer",
-      "transfer-saving",
-      "withdraw-saving",
-    ].includes(mode);
+    const showTo = ["transfer", "transfer-saving", "withdraw-saving", "power-up", "delegate"].includes(mode);
+    const showMemo = ["transfer", "transfer-saving", "withdraw-saving"].includes(mode);
 
     const delegateAccount =
       delegationList &&
@@ -789,14 +710,7 @@ export class Transfer extends BaseComponent<Props, State> {
           (item as DelegateVestingShares).delegator === activeUser.username
       );
     const previousAmount = delegateAccount
-      ? Number(
-          formattedNumber(
-            vestsToHp(
-              Number(parseAsset(delegateAccount!.vesting_shares).amount),
-              steemPerMVests
-            )
-          )
-        )
+      ? Number(formattedNumber(vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)))
       : "";
 
     let balance: string | number = this.formatBalance(this.getBalance());
@@ -805,10 +719,7 @@ export class Transfer extends BaseComponent<Props, State> {
       balance = Number(balance).toFixed(3);
     }
 
-    const titleLngKey =
-      mode === "transfer" && asset === "POINT"
-        ? _t("transfer-title-point")
-        : `${mode}-title`;
+    const titleLngKey = mode === "transfer" && asset === "POINT" ? _t("transfer-title-point") : `${mode}-title`;
     const subTitleLngKey = `${mode}-sub-title`;
     const summaryLngKey = `${mode}-summary`;
 
@@ -865,13 +776,8 @@ export class Transfer extends BaseComponent<Props, State> {
                 <p>
                   {" "}
                   {_t("wallet.next-power-down", {
-                    time: dateToFullRelative(
-                      w.nextVestingWithdrawalDate.toString()
-                    ),
-                    amount: `${this.formatNumber(
-                      w.nextVestingSharesWithdrawalHive,
-                      3
-                    )} STEEM`,
+                    time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
+                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, 3)} STEEM`,
                   })}
                 </p>
                 <p>
@@ -889,9 +795,7 @@ export class Transfer extends BaseComponent<Props, State> {
     return (
       <div className="transfer-dialog-content">
         {step === 1 && (
-          <div
-            className={`transaction-form ${inProgress ? "in-progress" : ""}`}
-          >
+          <div className={`transaction-form ${inProgress ? "in-progress" : ""}`}>
             {formHeader1}
             {inProgress && <LinearProgress />}
             <Form className="transaction-form-body">
@@ -952,25 +856,15 @@ export class Transfer extends BaseComponent<Props, State> {
                       placeholder={_t("transfer.amount-placeholder")}
                       value={amount}
                       onChange={this.amountChanged}
-                      className={
-                        amount > balance && amountError ? "is-invalid" : ""
-                      }
+                      className={amount > balance && amountError ? "is-invalid" : ""}
                       autoFocus={mode !== "transfer"}
                     />
                   </InputGroup>
-                  {assets.length > 1 && (
-                    <AssetSwitch
-                      options={assets}
-                      selected={asset}
-                      onChange={this.assetChanged}
-                    />
-                  )}
+                  {assets.length > 1 && <AssetSwitch options={assets} selected={asset} onChange={this.assetChanged} />}
                 </Col>
               </Form.Group>
 
-              {amountError && amount > balance && (
-                <FormText msg={amountError} type="danger" />
-              )}
+              {amountError && amount > balance && <FormText msg={amountError} type="danger" />}
 
               <Row>
                 <Col lg={{ span: 10, offset: 2 }}>
@@ -982,33 +876,25 @@ export class Transfer extends BaseComponent<Props, State> {
                     <span className="balance-num" onClick={this.copyBalance}>
                       {balance} {asset}
                     </span>
-                    {asset === "SP" && (
-                      <div className="balance-hp-hint">
-                        {_t("transfer.available-hp-hint")}
-                      </div>
-                    )}
+                    {asset === "SP" && <div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>}
                   </div>
-                  {to.length > 0 &&
-                    Number(amount) > 0 &&
-                    toData?.__loaded &&
-                    mode === "delegate" && (
-                      <div className="text-muted mt-1 override-warning">
-                        {_t("transfer.override-warning-1")}
-                        {delegateAccount && (
-                          <>
-                            <br />
-                            {_t("transfer.override-warning-2", {
-                              account: to,
-                              previousAmount: previousAmount,
-                            })}
-                          </>
-                        )}
-                      </div>
-                    )}
+                  {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" && (
+                    <div className="text-muted mt-1 override-warning">
+                      {_t("transfer.override-warning-1")}
+                      {delegateAccount && (
+                        <>
+                          <br />
+                          {_t("transfer.override-warning-2", {
+                            account: to,
+                            previousAmount: previousAmount,
+                          })}
+                        </>
+                      )}
+                    </div>
+                  )}
                   {(() => {
                     if (mode === "power-down") {
-                      const hive =
-                        Math.round((Number(amount) / 13) * 1000) / 1000;
+                      const hive = Math.round((Number(amount) / 13) * 1000) / 1000;
                       if (!isNaN(hive) && hive > 0) {
                         return (
                           <div className="power-down-estimation">
@@ -1059,9 +945,7 @@ export class Transfer extends BaseComponent<Props, State> {
             {formHeader2}
             <div className="transaction-form-body">
               <div className="confirmation">
-                <div className="confirm-title">
-                  {_t(`transfer.${titleLngKey}`)}
-                </div>
+                <div className="confirm-title">{_t(`transfer.${titleLngKey}`)}</div>
                 <div className="users">
                   <div className="from-user">
                     {UserAvatar({
@@ -1086,19 +970,11 @@ export class Transfer extends BaseComponent<Props, State> {
                 <div className="amount">
                   {amount} {asset}
                 </div>
-                {asset === "SP" && (
-                  <div className="amount-vests">
-                    {this.hpToVests(Number(amount))}
-                  </div>
-                )}
+                {asset === "SP" && <div className="amount-vests">{this.hpToVests(Number(amount))}</div>}
                 {memo && <div className="memo">{memo}</div>}
               </div>
               <div className="d-flex justify-content-center">
-                <Button
-                  variant="outline-secondary"
-                  disabled={inProgress}
-                  onClick={this.back}
-                >
+                <Button variant="outline-secondary" disabled={inProgress} onClick={this.back}>
                   {_t("g.back")}
                 </Button>
                 <span className="hr-6px-btn-spacer" />

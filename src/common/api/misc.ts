@@ -12,6 +12,19 @@ export const uploadImage = async (
 ): Promise<{
   url: string;
 }> => {
+  // const fData = new FormData();
+  // fData.append("file", file);
+
+  // // const postUrl = `${defaults.imageServer}/hs/${token}`;
+  // const postUrl = `${defaults.imageServer}/`;
+  // return axios
+  //   .post(postUrl, fData, {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   })
+  //   .then((r) => r.data);
+
   const keychainLogin = true;
 
   let data: any, dataBs64;

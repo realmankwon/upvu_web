@@ -25,7 +25,7 @@ export default class WalletMenu extends Component<Props> {
 
     return (
       <div className="wallet-menu">
-        {global.usePrivate && (
+        {global.developingPrivate && (
           <Link className={_c(`menu-item ecency ${active === "ecency" ? "active" : ""}`)} to={`/@${username}/points`}>
             <span className="title">Punks</span>
             <span className="sub-title">Points</span>
