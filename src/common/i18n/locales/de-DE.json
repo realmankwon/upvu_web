@@ -96,6 +96,7 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Entdecken",
     "communities": "Communities",
     "post": "Beitrag erstellen",
@@ -636,8 +637,8 @@
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
-    "title": "UPVU Summary",
-    "description": "UPVU Summary Page"
+    "title": "UPVU Dashboard",
+    "description": "Contents related to UPVU service"
   },
   "wallet-engine": {
     "title": "Hive-Engine-Token",
@@ -1047,6 +1048,10 @@
   "popular-users": {
     "title": "Beliebte Benutzer"
   },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
+  },
   "discover": {
     "title": "Entdecken",
     "description": "Entdecke Top-Online-Benutzer"
@@ -1424,6 +1429,7 @@
     "terms-of-service": "Terms of Service",
     "faq": "FAQ",
     "discover": "Discover",
+    "ecosystem": "Ecosystem",
     "sign-in": "Sign in",
     "communities": "Communities",
     "help": "Help",

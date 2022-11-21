@@ -96,6 +96,7 @@
     "filter-alltime": "All time"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Jelajahi",
     "communities": "Komunitas",
     "post": "Buat Postingan",
@@ -636,8 +637,8 @@
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
-    "title": "UPVU Summary",
-    "description": "UPVU Summary Page"
+    "title": "UPVU Dashboard",
+    "description": "Contents related to UPVU service"
   },
   "wallet-engine": {
     "title": "Token Steem Engine",
@@ -1046,6 +1047,10 @@
   },
   "popular-users": {
     "title": "Pengguna Populer"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Jelajahi",

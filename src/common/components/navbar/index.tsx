@@ -228,6 +228,7 @@ export class NavBar extends Component<Props, State> {
             "engine",
             "wallet",
             "points",
+            "upvu",
             "communities",
             "settings",
             "permissions",
@@ -251,11 +252,14 @@ export class NavBar extends Component<Props, State> {
 
     const textMenu = (
       <div className="text-menu">
-        <Link className="menu-item mt-0" to="/discover">
+        {/* <Link className="menu-item mt-0" to="/discover">
           {_t("navbar.discover")}
-        </Link>
+        </Link> */}
         <Link className="menu-item mt-0" to="/communities">
           {_t("navbar.communities")}
+        </Link>
+        <Link className="menu-item mt-0" to="/ecosystem">
+          {_t("navbar.ecosystem")}
         </Link>
       </div>
     );

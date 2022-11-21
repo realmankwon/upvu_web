@@ -33,6 +33,9 @@ const CommunityPage = (props: any) => <CommunityContainer {...props} />;
 const DiscoverContainer = loadable(() => import("./pages/discover"));
 const DiscoverPage = (props: any) => <DiscoverContainer {...props} />;
 
+const EcosystemContainer = loadable(() => import("./pages/ecosystem"));
+const EcosystemPage = (props: any) => <EcosystemContainer {...props} />;
+
 const WitnessesContainer = loadable(() => import("./pages/witnesses"));
 const WitnessesPage = (props: any) => <WitnessesContainer {...props} />;
 
@@ -91,6 +94,7 @@ const App = ({ setLang }: any) => {
         <Route exact={true} strict={true} path={routes.COMMUNITY} component={CommunityPage} />
         <Route exact={true} strict={true} path={routes.FILTER_TAG} component={EntryIndexContainer} />
         <Route exact={true} strict={true} path={routes.DISCOVER} component={DiscoverPage} />
+        <Route exact={true} strict={true} path={routes.ECOSYSTEM} component={EcosystemPage} />
         <Route exact={true} path={routes.SEARCH} component={SearchPageContainer} />
         <Route exact={true} path={routes.SEARCH_MORE} component={SearchMorePageContainer} />
         <Route exact={true} strict={true} path={routes.AUTH} component={AuthPage} />

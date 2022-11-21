@@ -55,17 +55,17 @@ export default class WalletMenu extends Component<Props> {
             <img alt="ecency" src={upvuLogo} />
           </span>
         </Link>
-        <Link
-          className={_c(`menu-item shortcut ${active === "shortcut" ? "active" : ""}`)}
-          to={`/@${username}/shortcut`}
+        {/* <Link
+          className={_c(`menu-item ecosystem ${active === "ecosystem" ? "active" : ""}`)}
+          to={`/@${username}/ecosystem`}
         >
-          <span className="title">Services</span>
-          <span className="sub-title">Shortcut</span>
+          <span className="title">Ecosystem</span>
+          <span className="sub-title">List</span>
           <span className="platform-logo">
             {" "}
             <img alt="ecency" src={upvuLogo} />
           </span>
-        </Link>
+        </Link> */}
       </div>
     );
   }

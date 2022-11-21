@@ -96,6 +96,7 @@
     "filter-alltime": "Visą laiką"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Atrasti",
     "communities": "Bendruomenės",
     "post": "Sukurti Įrašą",
@@ -636,8 +637,8 @@
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
-    "title": "UPVU Summary",
-    "description": "UPVU Summary Page"
+    "title": "UPVU Dashboard",
+    "description": "Contents related to UPVU service"
   },
   "wallet-engine": {
     "title": "Steem Engine žetonai",
@@ -1047,6 +1048,10 @@
   },
   "popular-users": {
     "title": "Populiarūs Vartotojai"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Atraskite",

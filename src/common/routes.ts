@@ -23,7 +23,7 @@ export default {
   USER_FEED: `/:username(@[\\w\\.\\d-]+)/:section(feed)`,
   USER_SECTION: `/:username(@[\\w\\.\\d-]+)/:section(${profileFilters.join(
     "|"
-  )}|wallet|points|engine|communities|settings|permissions|upvu|shortcut)`,
+  )}|wallet|points|engine|upvu|communities|settings|permissions)`,
   COMMUNITIES: `/communities`,
   COMMUNITIES_CREATE: `/communities/create`,
   COMMUNITIES_CREATE_HS: `/communities/create-hs`,
@@ -32,6 +32,7 @@ export default {
   EDIT: `/:username(@[\\w\\.\\d-]+)/:permlink/edit`,
   EDIT_DRAFT: `/draft/:draftId`,
   DISCOVER: `/discover`,
+  ECOSYSTEM: `/ecosystem`,
   SEARCH: `/search/`,
   SEARCH_MORE: `/search-more/`,
   WITNESSES: `/witnesses`,

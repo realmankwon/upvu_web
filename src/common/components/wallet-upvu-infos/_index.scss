@@ -1,0 +1,247 @@
+.wallet-upvu {
+  @include wallet;
+
+  .wallet-main {
+    .wallet-info {
+      .unclaimed-rewards {
+        flex-direction: row;
+        flex-flow: wrap;
+        margin-bottom: 10px;
+
+        .rewards {
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .item-image {
+      margin-right: 10px;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background: $pinkish-grey;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .view-container {
+      border-radius: 12px;
+      padding: 15px 10px;
+      font-weight: 500;
+      background: $light-powder-blue;
+      color: $dark-two;
+      margin-bottom: 20px;
+
+      .header {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: $dark-three;
+
+        @include themify(night) {
+          color: $light-powder-blue;
+        }
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        color: $dark-sky-blue;
+        padding: 0px;
+        flex-wrap: wrap;
+
+        @media (min-width: $sm-break) {
+          padding: 0px 20px;
+        }
+
+        .width-full {
+          width: 100%;
+
+          .max-btn {
+            color: white;
+            background-color: $green1;
+          }
+
+          .claim-btn {
+            color: white;
+            background-color: $dark-sky-blue;
+          }
+        }
+
+        .tooltip-format {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+
+          @media (min-width: $sm-break) {
+            padding: 0px;
+          }
+        }
+
+        &.newline {
+          margin-top: 1rem;
+        }
+      }
+
+      @include themify(night) {
+        background: #283241;
+        color: $pinkish-grey;
+      }
+    }
+  }
+}
+
+.text-lowercase::first-letter {
+  text-transform: uppercase;
+}
+
+.transaction-list-item {
+  border-radius: 8px;
+  box-sizing: content-box;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
+
+  @media (min-width: $sm-break) {
+    flex-wrap: nowrap;
+  }
+
+  .transaction-icon {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    font-size: 16px;
+    height: 32px;
+    justify-content: center;
+    margin-right: 10px;
+    width: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @include themify(day) {
+      background: $white;
+      color: $steel-grey;
+    }
+
+    @include themify(night) {
+      background: $metallic-blue;
+      color: lighten($metallic-blue, 40);
+    }
+  }
+
+  .transaction-title {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    width: 30%;
+
+    &.date {
+      text-align: center;
+    }
+
+    &.permlink {
+      min-width: 400px;
+      text-align: center;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .transaction-upper {
+      @include themify(day) {
+        color: $steel-grey;
+      }
+
+      @include themify(night) {
+        color: $metallic-blue;
+      }
+    }
+
+    .transaction-bottom {
+      // font-size: 12px;
+
+      @include themify(day) {
+        color: $steel-grey;
+      }
+
+      @include themify(night) {
+        color: $metallic-blue;
+      }
+    }
+  }
+
+  .transaction-numbers {
+    color: $dark-sky-blue;
+    flex-grow: 1;
+
+    font-weight: 500;
+    margin-right: 30px;
+    text-align: right;
+
+    .number {
+      margin-right: 4px;
+    }
+  }
+
+  .transaction-details {
+    color: $steel-grey;
+    width: 30%;
+    word-break: break-all;
+  }
+
+  &:nth-child(odd) {
+    @include themify(day) {
+      background: $white-three;
+    }
+
+    @include themify(night) {
+      background: lighten($dark-six, 4);
+    }
+  }
+
+  @include themify(day) {
+    &:nth-child(even) {
+      .transaction-icon {
+        background-color: $white-three;
+      }
+    }
+  }
+
+  &.col-header {
+    background: lightgray;
+    text-align: "center";
+
+    @include themify(night) {
+      background: $white;
+    }
+  }
+}
+
+.transaction-list-header {
+  margin-bottom: 20px;
+
+  .select-history {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    justify-items: end;
+    align-items: flex-end;
+
+    .select-box {
+      width: 100%;
+
+      @media (min-width: $sm-break) {
+        width: 25%;
+        text-align: center;
+      }
+    }
+  }
+}

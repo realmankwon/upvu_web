@@ -45,6 +45,7 @@
     "filter-feed-subscriptions": "Communities"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Discover",
     "communities": "Communities",
     "about": "About",
@@ -635,6 +636,10 @@
   },
   "popular-users": {
     "title": "Popular Users"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Discover",

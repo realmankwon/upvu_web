@@ -96,6 +96,7 @@
     "filter-alltime": "Doimiy"
   },
   "navbar": {
+    "ecosystem": "Ecosystem",
     "discover": "Kashf qilish\n",
     "communities": "Guruhlar",
     "post": "Post Yaratish",
@@ -636,8 +637,8 @@
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
-    "title": "UPVU Summary",
-    "description": "UPVU Summary Page"
+    "title": "UPVU Dashboard",
+    "description": "Contents related to UPVU service"
   },
   "wallet-engine": {
     "title": "Steem Engine Tokenlari",
@@ -1046,6 +1047,10 @@
   },
   "popular-users": {
     "title": "Mashhur Foydalanuvchilar"
+  },
+  "ecosystem": {
+    "title": "Ecosystem",
+    "description": "Steem Ecosystem"
   },
   "discover": {
     "title": "Kashf qilish",

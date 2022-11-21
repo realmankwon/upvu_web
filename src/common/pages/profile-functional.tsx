@@ -28,7 +28,7 @@ import ProfileSettings from "../components/profile-settings";
 import WalletHive from "../components/wallet-hive";
 import WalletHiveEngine from "../components/wallet-hive-engine";
 import WalletUPVU from "../components/wallet-upvu";
-import ShortCut from "../components/service-shortcut";
+import ShortCut from "../components/ecosystem";
 import WalletEcency from "../components/wallet-ecency";
 import ScrollToTop from "../components/scroll-to-top";
 import SearchListItem from "../components/search-list-item";
@@ -486,13 +486,6 @@ export const Profile = (props: Props) => {
                 }
                 if (section === "upvu") {
                   return WalletUPVU({
-                    ...props,
-                    account,
-                    updateWalletValues: ensureAccount,
-                  });
-                }
-                if (section === "shortcut") {
-                  return ShortCut({
                     ...props,
                     account,
                     updateWalletValues: ensureAccount,
