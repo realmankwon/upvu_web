@@ -320,8 +320,8 @@ export class EntryIndexMenu extends Component<Props, States> {
           EntryFilter.trending,
           EntryFilter.hot,
           EntryFilter.created,
-          EntryFilter.rising,
-          EntryFilter.controversial,
+          // EntryFilter.rising,
+          // EntryFilter.controversial,
         ].map((x) => {
           return {
             label: _t(`entry-filter.filter-${x}`),

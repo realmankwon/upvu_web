@@ -1,10 +1,10 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-import { Dispatch } from 'redux';
+import { Dispatch } from "redux";
 
-import defaults from '../../constants/defaults.json';
+import defaults from "../../constants/defaults.json";
 
-import { AppState } from '../index';
+import { AppState } from "../index";
 
 import {
   Actions,
@@ -24,13 +24,13 @@ import {
   SetLastIndexPathAction,
   Theme,
   ThemeChangeAction,
-} from './types';
+} from "./types";
 
-import { CommonActionTypes } from '../common';
+import { CommonActionTypes } from "../common";
 
-import * as ls from '../../util/local-storage';
+import * as ls from "../../util/local-storage";
 
-import filterTagExtract from '../../helper/filter-tag-extract';
+import filterTagExtract from "../../helper/filter-tag-extract";
 
 export const initialState: Global = {
   filter: AllFilter[defaults.filter],
@@ -51,6 +51,7 @@ export const initialState: Global = {
   nsfw: false,
   isMobile: false,
   usePrivate: true,
+  developingPrivate: false,
   lastIndexPath: null,
 };
 
@@ -113,15 +114,12 @@ export default (state: Global = initialState, action: Actions): Global => {
 };
 
 /* Actions */
-export const toggleTheme = (theme_key?:Theme) => (
-  dispatch: Dispatch,
-  getState: () => AppState
-) => {
+export const toggleTheme = (theme_key?: Theme) => (dispatch: Dispatch, getState: () => AppState) => {
   const { global } = getState();
 
   const { theme, isMobile } = global;
   let newTheme: any = theme === Theme.day ? Theme.night : Theme.day;
-  
+
   if (!!theme_key) {
     newTheme = theme_key;
   }
@@ -139,10 +137,7 @@ export const toggleTheme = (theme_key?:Theme) => (
   }
 };
 
-export const toggleListStyle = (view: string | null) => (
-  dispatch: Dispatch,
-  getState: () => AppState
-) => {
+export const toggleListStyle = (view: string | null) => (dispatch: Dispatch, getState: () => AppState) => {
   const { global } = getState();
 
   const { listStyle } = global;
@@ -151,7 +146,8 @@ export const toggleListStyle = (view: string | null) => (
   if (view) {
     newStyle = view === ListStyle.row ? ListStyle.row : view === ListStyle.grid ? ListStyle.grid : ListStyle.deck;
   } else {
-    newStyle = listStyle === ListStyle.row ? ListStyle.grid : listStyle === ListStyle.grid ? ListStyle.row : ListStyle.deck;
+    newStyle =
+      listStyle === ListStyle.row ? ListStyle.grid : listStyle === ListStyle.grid ? ListStyle.row : ListStyle.deck;
   }
 
   ls.set("list-style", newStyle);
@@ -183,9 +179,7 @@ export const unMuteNotifications = () => (dispatch: Dispatch) => {
   dispatch(unMuteNotificationsAct());
 };
 
-export const setCurrency = (currency: string, rate: number, symbol: string) => (
-  dispatch: Dispatch
-) => {
+export const setCurrency = (currency: string, rate: number, symbol: string) => (dispatch: Dispatch) => {
   ls.set("currency", currency);
 
   dispatch(setCurrencyAct(currency, rate, symbol));
@@ -205,7 +199,7 @@ export const setNsfw = (value: boolean) => (dispatch: Dispatch) => {
 
 export const setLastIndexPath = (path: string | null) => (dispatch: Dispatch) => {
   dispatch(setLastIndexPathAct(path));
-}
+};
 
 /* Action Creators */
 export const themeChangeAct = (theme: Theme): ThemeChangeAction => {
@@ -221,18 +215,14 @@ export const hideIntroAct = (): IntroHideAction => {
   };
 };
 
-export const listStyleChangeAct = (
-  listStyle: ListStyle
-): ListStyleChangeAction => {
+export const listStyleChangeAct = (listStyle: ListStyle): ListStyleChangeAction => {
   return {
     type: ActionTypes.LIST_STYLE_CHANGE,
     listStyle,
   };
 };
 
-export const newVersionChangeAct = (
-  version: string | null
-): NewVersionChangeAction => {
+export const newVersionChangeAct = (version: string | null): NewVersionChangeAction => {
   return {
     type: ActionTypes.NEW_VERSION_CHANGE,
     version,
@@ -251,11 +241,7 @@ export const unMuteNotificationsAct = (): NotificationsUnMuteAction => {
   };
 };
 
-export const setCurrencyAct = (
-  currency: string,
-  currencyRate: number,
-  currencySymbol: string
-): CurrencySetAction => {
+export const setCurrencyAct = (currency: string, currencyRate: number, currencySymbol: string): CurrencySetAction => {
   return {
     type: ActionTypes.CURRENCY_SET,
     currency,

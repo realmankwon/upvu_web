@@ -10,15 +10,22 @@
 
     .kind {
       font-size: 1.5rem;
+      color: white;
       background-color: $dusk-blue;
       padding: 2px 5px;
       text-align: center;
       margin-top: 40px;
       margin-bottom: 20px;
       width: 100%;
+      border-radius: 10px;
 
       @media (min-width: $md-break) {
         width: 30%;
+      }
+
+      @include themify(night) {
+        background-color: $dusk-blue;
+        color: $dark-grey;
       }
     }
 
