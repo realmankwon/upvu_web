@@ -216,7 +216,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                   <MyInformation {...upvuInfos} />
                   <AdditionalInformation {...upvuInfos} />
                   <TronInformation {...upvuInfos} />
-                  <TronClaim {...upvuInfos} account={account} />
+                  <TronClaim {...upvuInfos} account={account.name} />
                   <DelegationSP {...upvuInfos} />
                   <hr />
 
@@ -252,7 +252,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                   <div className="header">
                     <div>You are not UPVU user.</div>
                     <div>You can become a UPVU user by delegating Steem power or sending Steem to @upvu account.</div>
-                    <div>Effective from the next day after SP delegation or Steam transfer.</div>
+                    <div>Effective from the next day after SP delegation or Steam transfer.(150 SP)</div>
                   </div>
                   <DelegationSP {...upvuInfos} />
                 </div>
