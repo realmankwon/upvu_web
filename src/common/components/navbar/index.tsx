@@ -228,7 +228,6 @@ export class NavBar extends Component<Props, State> {
             "engine",
             "wallet",
             "points",
-            "upvu",
             "communities",
             "settings",
             "permissions",
@@ -252,14 +251,11 @@ export class NavBar extends Component<Props, State> {
 
     const textMenu = (
       <div className="text-menu">
-        {/* <Link className="menu-item mt-0" to="/discover">
+        <Link className="menu-item mt-0" to="/discover">
           {_t("navbar.discover")}
-        </Link> */}
+        </Link>
         <Link className="menu-item mt-0" to="/communities">
           {_t("navbar.communities")}
-        </Link>
-        <Link className="menu-item mt-0" to="/ecosystem">
-          {_t("navbar.ecosystem")}
         </Link>
       </div>
     );
@@ -299,7 +295,9 @@ export class NavBar extends Component<Props, State> {
               </div>
               {textMenu}
               <div className="flex-spacer" />
-              {(step !== 1 || transparentVerify) && <div className="search-bar">{Search({ ...this.props })}</div>}
+              {global.developingPrivate && (step !== 1 || transparentVerify) && (
+                <div className="search-bar">{Search({ ...this.props })}</div>
+              )}
               <div className="switch-menu">
                 {SwitchLang({ ...this.props })}
                 {(step !== 1 || transparentVerify) && (
@@ -516,12 +514,12 @@ export class NavBar extends Component<Props, State> {
                     <div className="navbar-icon text-dark">{notificationSvg}</div>
                     <div className="ml-3 text-15">{_t("user-nav.notifications")}</div>
                   </div>
-                  {/* <Link to={`/@${activeUser.username}/points`} onClick={() => this.setState({ smVisible: false })}>
+                  <Link to={`/@${activeUser.username}/points`} onClick={() => this.setState({ smVisible: false })}>
                     <div className="p-2 pl-3 w-100 mb-2 d-flex align-items-center list-item text-dark">
                       <div className="navbar-icon text-dark">{gifCardSvg}</div>
                       <div className="ml-3 text-15">{_t("user-nav.points")}</div>
                     </div>
-                  </Link> */}
+                  </Link>
                   <Link to={`/@${activeUser?.username}/wallet`} onClick={() => this.setState({ smVisible: false })}>
                     <div className="p-2 pl-3 w-100 mb-2 d-flex align-items-center list-item text-dark">
                       <div className="icon-stroke text-dark">{walletSvg}</div>

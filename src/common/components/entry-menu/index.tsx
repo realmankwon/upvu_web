@@ -597,14 +597,14 @@ export class EntryMenu extends BaseComponent<Props, State> {
               {shareVariantSvg}
             </div>
             <div className="all-buttons">
-              <div
+              {/* <div
                 className="share-button"
                 onClick={() => {
                   shareReddit(entry);
                 }}
               >
                 {redditSvg}
-              </div>
+              </div> */}
               <div
                 className="share-button"
                 onClick={() => {

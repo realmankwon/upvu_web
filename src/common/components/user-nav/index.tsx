@@ -220,7 +220,7 @@ export default class UserNav extends Component<Props, State> {
     return (
       <>
         <div className="user-nav">
-          {global.usePrivate && <PointsBadge activeUser={activeUser} />}
+          {global.developingPrivate && <PointsBadge activeUser={activeUser} />}
 
           <WalletBadge activeUser={activeUser} dynamicProps={dynamicProps} />
 
