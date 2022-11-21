@@ -106,15 +106,6 @@
   flex-wrap: wrap;
   padding: 16px;
 
-  &.col-header {
-    background-color: lightgray;
-    text-align: "center";
-
-    @include themify(night) {
-      background-color: darkgray;
-    }
-  }
-
   @media (min-width: $sm-break) {
     flex-wrap: nowrap;
   }
@@ -157,6 +148,10 @@
 
     &.permlink {
       min-width: 400px;
+      text-align: center;
+    }
+
+    .center {
       text-align: center;
     }
 
@@ -219,6 +214,15 @@
       }
     }
   }
+
+  &.col-header {
+    background: lightgray;
+    text-align: "center";
+
+    @include themify(night) {
+      background: $white;
+    }
+  }
 }
 
 .transaction-list-header {
@@ -235,7 +239,8 @@
       width: 100%;
 
       @media (min-width: $sm-break) {
-        width: 30%;
+        width: 25%;
+        text-align: center;
       }
     }
   }
