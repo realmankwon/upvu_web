@@ -94,10 +94,7 @@ const App = ({ setLang }: any) => {
         <Route exact={true} strict={true} path={routes.COMMUNITY} component={CommunityPage} />
         <Route exact={true} strict={true} path={routes.FILTER_TAG} component={EntryIndexContainer} />
         <Route exact={true} strict={true} path={routes.DISCOVER} component={DiscoverPage} />
-<<<<<<< HEAD
         <Route exact={true} strict={true} path={routes.ECOSYSTEM} component={EcosystemPage} />
-=======
->>>>>>> dbb184004a8a7c177088a5e830d06d4b9cfd75ce
         <Route exact={true} path={routes.SEARCH} component={SearchPageContainer} />
         <Route exact={true} path={routes.SEARCH_MORE} component={SearchMorePageContainer} />
         <Route exact={true} strict={true} path={routes.AUTH} component={AuthPage} />
