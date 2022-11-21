@@ -60,6 +60,6 @@ export const androidURI = async (req: express.Request, res: express.Response) =>
 
 export const nodeList = async (req: express.Request, res: express.Response) => {
   res.send({
-    hived: ["https://api.upvu.org", "https://api.steemit.com", "https://api.justyy.com"],
+    hived: ["https://api.steemit.com", "https://api.justyy.com"],
   });
 };
