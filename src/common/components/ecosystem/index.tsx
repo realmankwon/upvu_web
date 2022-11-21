@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 import BaseComponent from "../base";
 
-import { getEcosystem } from "../../api/hive-engine";
+import { getEcosystem } from "../../api/private-api";
 
 import {
   informationVariantSvg,

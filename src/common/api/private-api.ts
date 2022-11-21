@@ -6,8 +6,7 @@ import { Entry } from "../store/entries/types";
 
 import { getAccessToken } from "../helper/user-token";
 
-import { apiUpvuBase, apiBase } from "./helper";
-
+import { apiBase, apiUpvuBase } from "./helper";
 import { AppWindow } from "../../client/window";
 
 declare var window: AppWindow;
@@ -456,3 +455,106 @@ export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, form
   if (!url) url = "";
   return url.replace("images.ecency.com", "steemitimages.com").replace("/webp", "");
 };
+
+// export const getEcosystem = async (): Promise<any> => {
+//   const ecosystem = await axios.get(apiUpvuBase(`/api/getEcosystem`)).then((resp) => resp.data);
+
+//   // console.log("ecosystem", ecosystem);
+//   return ecosystem;
+// };
+
+// export const getUPVUInfos = async (account: string): Promise<any> => {
+//   if (!account) return [];
+
+//   const data = {
+//   code: getAccessToken(account),
+// };
+
+//   const upvuInfos = await axios.post(apiUpvuBase(`/myPage/getUpvuInfo`), data).then((r) => r.data);
+
+//   console.log("upvuInfos", upvuInfos);
+//   return upvuInfos;
+// };
+
+export const getEcosystem = async (): Promise<any> => {
+  const ecosystem = await axios.get(apiUpvuBase(`/upvuweb-api/ecosystem`)).then((r) => r.data);
+
+  // console.log("ecosystem", ecosystem);
+  return ecosystem;
+};
+
+export const getUPVUInfos = async (account: string): Promise<any> => {
+  if (!account) return [];
+
+  // const data = {  author, permlink };
+
+  const data = {
+    code: getAccessToken(account),
+  };
+  debugger;
+  // const upvuInfos = await axios.post(`http://localhost:3001/upvuweb-api/get-upvuinfo`, data).then((r) => r.data);
+  const upvuInfos = await axios
+    .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
+    .then((r) => r.data)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  console.log("upvuInfos", upvuInfos);
+  return upvuInfos;
+};
+
+export const requestClaimTronReward = async (account: string, address: string, amount: number): Promise<any> => {
+  if (!account) return [];
+
+  const data = {
+    code: getAccessToken(account),
+    address,
+    amount,
+  };
+
+  // const requesetClaimTron = await axios.post(`http://localhost:3001/upvuweb-api/upvu-claim`, data).then((r) => r.data);
+  const requesetClaimTron = await axios.post(apiUpvuBase(`/upvuweb-api/upvu-claim`), data).then((r) => r.data);
+
+  console.log("requestClaimTronReward", requesetClaimTron);
+  return requesetClaimTron;
+};
+
+// export const getEcosystem = async (): Promise<any> => {
+//   const ecosystem = await axios.get(`http://localhost:3001/api/getEcosystem`).then((r) => r.data);
+
+//   // console.log("ecosystem", ecosystem);
+//   return ecosystem;
+// };
+
+// export const getUPVUInfos = async (account: string): Promise<any> => {
+//   if (!account) return [];
+
+//   // const data = {  author, permlink };
+
+//   const data = {
+//     code: getAccessToken(account),
+//   };
+
+//   // const upvuInfos = await axios.post(`http://localhost:3001/upvuweb-api/get-upvuinfo`, data).then((r) => r.data);
+//   const upvuInfos = await axios.post(`http://localhost:3001/myPage/getUpvuInfo`, data).then((r) => r.data);
+
+//   console.log("upvuInfos", upvuInfos);
+//   return upvuInfos;
+// };
+
+// export const requestClaimTronReward = async (account: string, address: string, amount: number): Promise<any> => {
+//   if (!account) return [];
+
+//   const data = {
+//     code: getAccessToken(account),
+//     address,
+//     amount,
+//   };
+
+//   // const requesetClaimTron = await axios.post(`http://localhost:3001/upvuweb-api/upvu-claim`, data).then((r) => r.data);
+//   const requesetClaimTron = await axios.post(`http://localhost:3001/myPage/claim_tron`, data).then((r) => r.data);
+
+//   console.log("requestClaimTronReward", requesetClaimTron);
+//   return requesetClaimTron;
+// };
