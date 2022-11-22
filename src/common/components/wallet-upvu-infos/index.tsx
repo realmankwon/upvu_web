@@ -152,6 +152,13 @@ interface State {
   isUPVUUser: boolean;
 }
 
+interface ValueDescWithTooltipProps {
+  val: any;
+  desc: string;
+  children: JSX.Element;
+  existIcon?: boolean;
+}
+
 const historyKindArray = ["Voting History", "Reward History(KRW)", "Reward History(USD)", "Delegation History"];
 
 export class WalletUPVUInfos extends BaseComponent<Props, State> {
@@ -213,11 +220,12 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
             <div>
               {isUPVUUser && upvuInfos ? (
                 <div>
-                  <MyInformation {...upvuInfos} />
-                  <AdditionalInformation {...upvuInfos} />
+                  <MyUpvuPower {...upvuInfos} />
+                  <UPVUStatus {...upvuInfos} />
+                  <MyRewards {...upvuInfos} />
+                  <DelegationSP {...upvuInfos} />
                   <TronInformation {...upvuInfos} />
                   <TronClaim {...upvuInfos} account={account.name} />
-                  <DelegationSP {...upvuInfos} />
                   <hr />
 
                   <div className="transaction-list-header">
@@ -229,9 +237,9 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                         value={selectedHistory}
                         onChange={this.filterChanged}
                       >
-                        {historyKindArray.map((x) => (
-                          <option key={x} value={x}>
-                            {x}
+                        {historyKindArray.map((kind) => (
+                          <option key={kind} value={kind}>
+                            {kind}
                           </option>
                         ))}
                       </FormControl>
@@ -269,96 +277,121 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
   }
 }
 
-const MyInformation = ({ user_sp, summary }: UpvuInfoProps) => {
+const ValueDescWithTooltip = ({ val, desc, children, existIcon = true }: ValueDescWithTooltipProps) => {
+  return (
+    <div className="tooltip-format">
+      <ValueDescView val={val} desc={desc} />
+      <div className="">
+        <OverlayTrigger
+          delay={{ show: 0, hide: 300 }}
+          key={"bottom"}
+          placement={"top"}
+          overlay={
+            <Tooltip id={`tooltip-info`}>
+              <div className="tooltip-inner">
+                <div className="profile-info-tooltip-content">{children}</div>
+              </div>
+            </Tooltip>
+          }
+        >
+          <div className="d-flex align-items-center">
+            <span className="info-icon mr-0 mr-md-2">{existIcon ? informationVariantSvg : ""}</span>
+          </div>
+        </OverlayTrigger>
+      </div>
+    </div>
+  );
+};
+
+const MyUpvuPower = ({ user_sp, summary }: UpvuInfoProps) => {
   return (
     <>
-      {/* My Information */}
       <div className="view-container">
-        <div className="header">My Information</div>
+        <div className="header">My UPVU Power</div>
 
         <div className="content">
-          <div className="tooltip-format">
-            <ValueDescView val={formattedNumber(user_sp.account_sp, { fractionDigits: 3 })} desc="Your Steem Power" />
+          <ValueDescWithTooltip val={formattedNumber(summary.total_sp, { fractionDigits: 0 })} desc={"Total Amount"}>
+            <>
+              <p>Delegated SP + UPVU Token</p>
+            </>
+          </ValueDescWithTooltip>
+
+          <ValueDescWithTooltip
+            val={formattedNumber(summary.delegated_sp, { fractionDigits: 2 })}
+            desc={"Delegated SP"}
+          >
+            <>
+              <p>Delegated Amount to @upvu</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip val={formattedNumber(summary.token_amount, { fractionDigits: 2 })} desc={"UPVU Token"}>
+            <>
+              <p>UPVU tokens you hold</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.today_voting_rate / 100, { fractionDigits: 2 })}%`}
+            desc={"VP Weight"}
+          >
+            <>
+              <p>Today Voting Power Weight from @upvu</p>
+            </>
+          </ValueDescWithTooltip>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
+  return (
+    <>
+      <div className="view-container">
+        <div className="header">UPVU Status</div>
+
+        <div className="content">
+          <ValueDescWithTooltip
+            val={`${formattedNumber(
+              ((parseFloat(summary.total_reward) + summary.author_reward) / summary.total_sp) * 100,
+              {
+                fractionDigits: 2,
+              }
+            )}%`}
+            desc={"Earning Rate"}
+          >
+            <>
+              <p>(Liquid Steem Reward + Author Reward) / Your UPVU Power * 100</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip val={`${user.reward_type}`} desc={"Reward Type"}>
+            <>
+              <p>You receive Selected Reward Type Daily</p>
+            </>
+          </ValueDescWithTooltip>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Label> </Form.Label>
+                  <Form.Control className="claim-btn" type="button" value="Set Type" onClick={() => {}} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
           </div>
-          <div className="tooltip-format">
-            <ValueDescView val={`${formattedNumber(summary.total_sp, { fractionDigits: 0 })}`} desc="Joined Amount" />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Steem Power: {formattedNumber(summary.delegated_sp, { fractionDigits: 2 })}</p>
-                        <p>UPVU Token: {formattedNumber(summary.token_amount, { fractionDigits: 2 })}</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          {/* <ValueDescView
-            val={`${summary.total_sp}(${summary.delegated_sp} SP + ${summary.token_amount} UPVU)`}
-            desc="Joined Amount"
-          /> */}
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.total_reward, { fractionDigits: 2 })}`}
-              desc="Total Steem Reward"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Your Total Liquid Steem Reward</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.author_reward, { fractionDigits: 2 })}`}
-              desc="Total Author Reward"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Your Total Author Steem Reward</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
+          <ValueDescWithTooltip val={`${user.proxy}`} desc={"Boost Reward"}>
+            <>
+              <p>You can get 100% STEEM Reward when you set up a proxy with @upvu.proxy. (otherwise 50%)</p>
+            </>
+          </ValueDescWithTooltip>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Label> </Form.Label>
+                  <Form.Control className="claim-btn" type="button" value="Set Proxy" onClick={() => {}} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
           </div>
         </div>
       </div>
@@ -366,118 +399,48 @@ const MyInformation = ({ user_sp, summary }: UpvuInfoProps) => {
   );
 };
 
-const AdditionalInformation = ({ summary, user }: UpvuInfoProps) => {
+const MyRewards = ({ summary, user }: UpvuInfoProps) => {
   return (
     <>
       {/* Additional Information */}
       <div className="view-container">
-        <div className="header">Additional Information</div>
+        <div className="header">My Rewards</div>
 
         <div className="content">
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(
-                ((parseFloat(summary.total_reward) + summary.author_reward) / summary.total_sp) * 100,
-                {
-                  fractionDigits: 2,
-                }
-              )}%`}
-              desc="Earning Rate"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>(Total Steem Reward + Total Author Reward) / Joined Amount * 100</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView val={`${user.reward_type}`} desc="Reward Type" />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>You receive Selected Reward Type Daily</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView val={`${user.proxy}`} desc="Boost Reward" />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>You can get 100% STEEM Reward when you set up a proxy with @upvu.proxy. (otherwise 50%)</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.today_voting_rate / 100, { fractionDigits: 2 })}%`}
-              desc="Today Voting Rate"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Today Upvoting Rate from @upvu</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.total_reward, { fractionDigits: 2 })}`}
+            desc="Liquid Steem"
+          >
+            <>
+              <p>Your Total Liquid Steem Reward</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.author_reward, { fractionDigits: 2 })}`}
+            desc={"Author Reward"}
+          >
+            <>
+              <p>Your Total Author Steem Reward</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.trx_reward, {
+              fractionDigits: 0,
+            })}`}
+            desc={"Tron Reward"}
+          >
+            <>
+              <p>Total Received Tron Reward</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip
+            val={`${summary.interest_trx_reward ? summary.interest_trx_reward : 0}`}
+            desc={"Tron Interest"}
+          >
+            <>
+              <p>Interest on Vault operated by Tron</p>
+            </>
+          </ValueDescWithTooltip>
         </div>
       </div>
     </>
@@ -489,118 +452,39 @@ const TronInformation = ({ summary }: UpvuInfoProps) => {
     <>
       {/* Tron Information */}
       <div className="view-container">
-        <div className="header">Tron Reward Information</div>
+        <div className="header">Tron Rewards</div>
 
         <div className="content">
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.trx_reward, {
-                fractionDigits: 0,
-              })}`}
-              desc="Total Reward"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Total Received Tron Reward</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${summary.interest_trx_reward ? summary.interest_trx_reward : 0}`}
-              desc="Interest Reward"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Interest on Vault operated by Tron</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.claimed_trx_reward, {
-                fractionDigits: 2,
-              })}`}
-              desc="Claimed Amount"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Claimed TRON Amount So Far</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.trx_reward, {
+              fractionDigits: 0,
+            })}`}
+            desc="Total Reward"
+          >
+            <>
+              <p>Total Received Tron Reward</p>
+            </>
+          </ValueDescWithTooltip>
 
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(summary.remain_trx_reward, { fractionDigits: 2 })}`}
-              desc="Remained Reward"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Unclaimed remaining amount(Amount that can be claimed)</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.claimed_trx_reward, {
+              fractionDigits: 2,
+            })}`}
+            desc="Already Claimed"
+          >
+            <>
+              <p>Claimed TRON Amount So Far</p>
+            </>
+          </ValueDescWithTooltip>
+
+          <ValueDescWithTooltip
+            val={`${formattedNumber(summary.remain_trx_reward, { fractionDigits: 2 })}`}
+            desc="Available"
+          >
+            <>
+              <p>Unclaimed remaining amount(Amount that can be claimed)</p>
+            </>
+          </ValueDescWithTooltip>
         </div>
       </div>
     </>
@@ -678,20 +562,37 @@ const TronClaim = ({ account, summary, tron_address }: UpvuInfoProps) => {
 };
 
 const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem }: UpvuInfoProps) => {
-  const [amount, setAmount] = useState(0);
+  const [delegationAmount, setDelegationAmount] = useState(0);
+  const [transferAmount, setTransferAmount] = useState(0);
+  const maxDelegationAmount = user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate;
+  const maxTransferAmount = parseFloat(user_steem);
 
-  const onClickMax = () => {
-    setAmount(summary.remain_trx_reward);
+  const onClickDelegationMax = () => {
+    setDelegationAmount(maxDelegationAmount);
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeDelegation = (e: ChangeEvent<HTMLInputElement>): void => {
     const val = parseFloat(e.target.value);
 
-    setAmount(val < 0 ? 0 : val);
+    setDelegationAmount(val < 0 ? 0 : val);
   };
 
-  const onClickClaim = () => {
-    console.log("cliaasdflkjasd;flkjas;dlkfsad");
+  const onClickDelegation = () => {
+    console.log("onClickDelegation");
+  };
+
+  const onClickTransferMax = () => {
+    setTransferAmount(maxTransferAmount);
+  };
+
+  const onChangeTransfer = (e: ChangeEvent<HTMLInputElement>): void => {
+    const val = parseFloat(e.target.value);
+
+    setTransferAmount(val < 0 ? 0 : val);
+  };
+
+  const onClickTransfer = () => {
+    console.log("onClickTransfer");
   };
 
   return (
@@ -700,82 +601,81 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem }: UpvuInfoP
         <div className="header">Delegate Steem Power</div>
 
         <div className="content">
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
-                fractionDigits: 0,
-              })}`}
-              desc="Available Amount"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Maximum Delegation Possible Amount.</p>
-                        <p>You must leave a minimum amount for the activity.</p>
-                        <p>Depending on the % of the current voting power, the available amount may vary.</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div className="tooltip-format">
-            <ValueDescView
-              val={`${formattedNumber(user_steem, {
-                fractionDigits: 3,
-              })}`}
-              desc="Steem Balance"
-            />
-            <div className="">
-              <OverlayTrigger
-                delay={{ show: 0, hide: 300 }}
-                key={"bottom"}
-                placement={"top"}
-                overlay={
-                  <Tooltip id={`tooltip-info`}>
-                    <div className="tooltip-inner">
-                      <div className="profile-info-tooltip-content">
-                        <p>Current STEEM Amount</p>
-                      </div>
-                    </div>
-                  </Tooltip>
-                }
-              >
-                <div className="d-flex align-items-center">
-                  <span className="info-icon mr-0 mr-md-2">{informationVariantSvg}</span>
-                </div>
-              </OverlayTrigger>
-            </div>
-          </div>
-          <div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
+              fractionDigits: 0,
+            })}`}
+            desc={"Available Amount"}
+          >
+            <>
+              <p>Maximum Delegation Possible Amount.</p>
+              <p>You must leave a minimum amount for the activity.</p>
+              <p>Depending on the % of the current voting power, the available amount may vary.</p>
+            </>
+          </ValueDescWithTooltip>
+          <div className="tooltip-format max-width-300">
             <Form.Row className="width-full">
-              <Col lg={4}>
+              <Col lg={5}>
                 <Form.Group>
-                  <Form.Label>Amount</Form.Label>
-                  <Form.Control type="number" value={amount} maxLength={10} data-var="name" onChange={onChange} />
+                  <Form.Label></Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={delegationAmount}
+                    maxLength={10}
+                    data-var="name"
+                    onChange={onChangeDelegation}
+                  />
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
+                <Form.Group>
+                  <Form.Label></Form.Label>
+                  <Form.Control className="max-btn" type="button" value="Max" onClick={onClickDelegationMax} />
                 </Form.Group>
               </Col>
               <Col lg={4}>
                 <Form.Group>
-                  <Form.Label>Delegate</Form.Label>
-                  <Form.Control className="max-btn" type="button" value="Delegate" onClick={onClickMax} />
+                  <Form.Label></Form.Label>
+                  <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(user_steem, {
+              fractionDigits: 3,
+            })}`}
+            desc={"Steem Balance"}
+          >
+            <>
+              <p>Current STEEM Amount</p>
+            </>
+          </ValueDescWithTooltip>
+
+          <div className="tooltip-format max-width-300">
+            <Form.Row className="width-full">
+              <Col lg={5}>
+                <Form.Group>
+                  <Form.Label></Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={transferAmount}
+                    maxLength={10}
+                    data-var="name"
+                    onChange={onChangeTransfer}
+                  />
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
+                <Form.Group>
+                  <Form.Label></Form.Label>
+                  <Form.Control className="max-btn" type="button" value="Max" onClick={onClickTransferMax} />
                 </Form.Group>
               </Col>
               <Col lg={4}>
                 <Form.Group>
-                  <Form.Label>Transfer</Form.Label>
-                  <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickClaim} />
+                  <Form.Label></Form.Label>
+                  <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
             </Form.Row>
