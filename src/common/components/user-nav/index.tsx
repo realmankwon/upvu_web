@@ -187,10 +187,11 @@ export default class UserNav extends Component<Props, State> {
               label: _t("user-nav.schedules"),
               onClick: this.toggleSchedules,
             },
-            {
-              label: _t("user-nav.fragments"),
-              onClick: this.toggleFragments,
-            },
+            // global.developingPrivate &&
+            // {
+            //   label: _t("user-nav.fragments"),
+            //   onClick: this.toggleFragments,
+            // },
           ]
         : []),
       {

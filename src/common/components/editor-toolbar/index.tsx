@@ -459,7 +459,7 @@ export class EditorToolbar extends Component<Props> {
               )}
             </div>
           </Tooltip>
-          {global.usePrivate && (
+          {global.developingPrivate && (
             <Tooltip content={_t("editor-toolbar.fragments")}>
               <div className="editor-tool" onClick={this.toggleFragments}>
                 {textShortSvg}
@@ -476,7 +476,7 @@ export class EditorToolbar extends Component<Props> {
           multiple={true}
           style={{ display: "none" }}
         />
-        {fragments && activeUser && (
+        {global.developingPrivate && fragments && activeUser && (
           <Fragments
             activeUser={activeUser}
             onHide={this.toggleFragments}

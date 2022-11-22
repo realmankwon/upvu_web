@@ -470,14 +470,14 @@ export class NavBar extends Component<Props, State> {
                       >
                         <div className="item-text">{_t("user-nav.schedules")}</div>
                       </div>
-
-                      <div
-                        className="p-1 menu-item"
-                        onClick={() => this.setState({ fragments: !fragments, smVisible: false })}
-                      >
-                        <div className="item-text">{_t("user-nav.fragments")}</div>
-                      </div>
-
+                      {global.developingPrivate && (
+                        <div
+                          className="p-1 menu-item"
+                          onClick={() => this.setState({ fragments: !fragments, smVisible: false })}
+                        >
+                          <div className="item-text">{_t("user-nav.fragments")}</div>
+                        </div>
+                      )}
                       <div className="p-1 menu-item">
                         <Link
                           to={`/@${activeUser.username}/settings`}
@@ -514,12 +514,14 @@ export class NavBar extends Component<Props, State> {
                     <div className="navbar-icon text-dark">{notificationSvg}</div>
                     <div className="ml-3 text-15">{_t("user-nav.notifications")}</div>
                   </div>
-                  <Link to={`/@${activeUser.username}/points`} onClick={() => this.setState({ smVisible: false })}>
-                    <div className="p-2 pl-3 w-100 mb-2 d-flex align-items-center list-item text-dark">
-                      <div className="navbar-icon text-dark">{gifCardSvg}</div>
-                      <div className="ml-3 text-15">{_t("user-nav.points")}</div>
-                    </div>
-                  </Link>
+                  {global.developingPrivate && (
+                    <Link to={`/@${activeUser.username}/points`} onClick={() => this.setState({ smVisible: false })}>
+                      <div className="p-2 pl-3 w-100 mb-2 d-flex align-items-center list-item text-dark">
+                        <div className="navbar-icon text-dark">{gifCardSvg}</div>
+                        <div className="ml-3 text-15">{_t("user-nav.points")}</div>
+                      </div>
+                    </Link>
+                  )}
                   <Link to={`/@${activeUser?.username}/wallet`} onClick={() => this.setState({ smVisible: false })}>
                     <div className="p-2 pl-3 w-100 mb-2 d-flex align-items-center list-item text-dark">
                       <div className="icon-stroke text-dark">{walletSvg}</div>
@@ -573,7 +575,7 @@ export class NavBar extends Component<Props, State> {
               activeUser={activeUser as ActiveUser}
             />
           )}
-          {fragments && activeUser && (
+          {global.developingPrivate && fragments && activeUser && (
             <Fragments
               {...this.props}
               onHide={() => this.setState({ fragments: !fragments })}
