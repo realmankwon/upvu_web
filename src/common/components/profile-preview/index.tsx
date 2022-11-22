@@ -93,7 +93,7 @@ export const ProfilePreview = ({ username, global, onClose, activeUser, ...props
     : require("../../img/cover-fallback-night.png");
   const reputation = profile && accountReputation(profile.reputation);
   const loggedIn = activeUser && activeUser.username;
-
+  debugger;
   return isMounted ? (
     <div className="profile-parent">
       <div className="shadow bg-white profile-container rounded">
@@ -108,7 +108,7 @@ export const ProfilePreview = ({ username, global, onClose, activeUser, ...props
               <img
                 src={
                   profile.profile.cover_image
-                    ? `https://steemitimages.com/u/${username}/cover`
+                    ? `https://steemitimages.com/1024X256/${profile.profile.cover_image}`
                     : global.theme === "day"
                     ? coverFallbackDay
                     : coverFallbackNight
