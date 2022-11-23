@@ -217,6 +217,17 @@ export interface EffectiveCommentVote extends BaseTransaction {
   weight: number;
 }
 
+export interface Vote extends BaseTransaction {
+  type: "vote";
+  voter: string;
+  author: string;
+  permlink: string;
+  pending_payout: string;
+  total_vote_weight: number;
+  rshares: number;
+  weight: number;
+}
+
 // steem engine transaction
 export interface SteemEngineTransfer extends BaseTransaction {
   type: "tokens_transfer";
@@ -276,6 +287,7 @@ export type Transaction =
   | LimitOrderCancel
   | FillVestingWithdraw
   | EffectiveCommentVote
+  | Vote
   | DelegateVestingShares
   | SteemEngineTransfer
   | SteemEngineDelegate

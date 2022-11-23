@@ -468,6 +468,7 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "effective_comment_vote") {
       flag = true;
 
+      debugger;
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (
@@ -484,6 +485,31 @@ export class TransactionRow extends Component<RowProps> {
         children: (
           <span>
             {"@"}
+            {tr.author}/{tr.permlink}
+          </span>
+        ),
+      });
+    }
+
+    if (tr.type === "vote") {
+      flag = true;
+
+      // debugger;
+      const weight = +tr.weight;
+
+      numbers = <>{<span className="number">{weight / 100} %</span>}</>;
+
+      details = EntryLink({
+        ...this.props,
+        entry: {
+          category: "history",
+          author: tr.author,
+          permlink: tr.permlink,
+        },
+        children: (
+          <span>
+            {"@"}
+            {tr.voter} votes {"@"}
             {tr.author}/{tr.permlink}
           </span>
         ),
@@ -687,14 +713,14 @@ const List = (props: Props) => {
     <div className="transaction-list">
       <div className="transaction-list-header">
         <h2>{_t("transactions.title")} </h2>
-        <FormControl as="select" value={props.transactions.group} onChange={typeChanged}>
+        {/* <FormControl as="select" value={props.transactions.group} onChange={typeChanged}>
           <option value="">{_t("transactions.group-all")}</option>
           {["transfers", "market-orders", "interests", "stake-operations", "rewards"].map((x) => (
             <option key={x} value={x}>
               {_t(`transactions.group-${x}`)}
             </option>
           ))}
-        </FormControl>
+        </FormControl> */}
       </div>
       {props.transactions.loading && <LinearProgress />}
       {transactionsList.map((x, k) => (
