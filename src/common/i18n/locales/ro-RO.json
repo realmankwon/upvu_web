@@ -807,6 +807,7 @@
     "group-stake-operations": "Stake operations",
     "group-rewards": "Rewards",
     "type-curation_reward": "Curation reward",
+    "type-vote": "Vote",
     "type-author_reward": "Author reward",
     "type-comment_benefactor_reward": "Comment benefactor reward",
     "type-claim_reward_balance": "Cere plata",

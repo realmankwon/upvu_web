@@ -302,29 +302,20 @@ export const getAccountHistory = (
   username: string,
   filters: string,
   start: number = -1,
-  limit: number = 10000
+  limit: number = 100
 ): Promise<any> => {
-  start = 0;
-  limit = 10000;
-
-  return axios({
-    url: `https://sds.steemworld.org/account_history_api/getHistoryByOpTypesTime/${username}/${filters}/1420070400-32503680000/${limit}/${start}`,
-    method: "GET",
-    params: "",
-  });
+  // return axios({
+  //   url: `https://sds.steemworld.org/account_history_api/getHistoryByOpTypesTime/${username}/${filters}/1420070400-32503680000/${limit}/${start}`,
+  //   method: "GET",
+  //   params: "",
+  // });
+  // return client.call("database_api", "get_account_history", [username, start, limit]);
+  return client.database.getAccountHistory(username, start, limit);
 
   // return filters
-  //   ? client.call("condenser_api", "get_account_history", [
-  //       username,
-  //       start,
-  //       limit,
-  //       ...filters,
-  //     ])
-  //   : client.call("condenser_api", "get_account_history", [
-  //       username,
-  //       start,
-  //       limit,
-  //     ]);
+  // ? client.call("condenser_api", "get_account_history", [username, start, limit, ...filters])
+  // :
+  // client.call("condenser_api", "get_account_history", [username, start, limit]);
 };
 
 export const getFeedHistory = (): Promise<FeedHistory> => client.database.call("get_feed_history");

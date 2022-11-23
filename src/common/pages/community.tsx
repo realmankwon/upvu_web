@@ -10,11 +10,7 @@ import { EntryFilter } from "../store/global/types";
 import { makeGroupKey } from "../store/entries";
 import { search as searchApi, SearchResult } from "../api/search-api";
 
-import {
-  PageProps,
-  pageMapDispatchToProps,
-  pageMapStateToProps,
-} from "./common";
+import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
 
 import BaseComponent from "../components/base";
 import Meta from "../components/meta";
@@ -125,10 +121,7 @@ class CommunityPage extends BaseComponent<Props, State> {
     }
 
     //  community or filter changed
-    if (
-      (filter !== prevParams.filter || name !== prevParams.name) &&
-      EntryFilter[filter]
-    ) {
+    if ((filter !== prevParams.filter || name !== prevParams.name) && EntryFilter[filter]) {
       fetchEntries(match.params.filter, match.params.name, false);
     }
 
@@ -144,14 +137,7 @@ class CommunityPage extends BaseComponent<Props, State> {
   }
 
   ensureData = (): Promise<void> => {
-    const {
-      match,
-      communities,
-      addCommunity,
-      accounts,
-      addAccount,
-      activeUser,
-    } = this.props;
+    const { match, communities, addCommunity, accounts, addAccount, activeUser } = this.props;
 
     const name = match.params.name;
     const community = communities.find((x) => x.name === name);
@@ -218,10 +204,7 @@ class CommunityPage extends BaseComponent<Props, State> {
       const data: any = await searchApi(query, "newest", "0");
 
       if (data && data.results) {
-        let sortedResults = data.results.sort(
-          (a: any, b: any) =>
-            Date.parse(b.created_at) - Date.parse(a.created_at)
-        );
+        let sortedResults = data.results.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at));
         this.setState({
           searchData: sortedResults,
           loading: false,
@@ -233,9 +216,7 @@ class CommunityPage extends BaseComponent<Props, State> {
 
   delayedSearch = _.debounce(this.handleInputChange, 2000);
 
-  handleChangeSearch = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
+  handleChangeSearch = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const { value } = event.target;
     this.setState({ search: value, typing: value.length === 0 ? false : true });
     this.delayedSearch(value);
@@ -243,8 +224,7 @@ class CommunityPage extends BaseComponent<Props, State> {
 
   render() {
     const { global, entries, communities, accounts, match } = this.props;
-    const { loading, search, searchData, searchDataLoading, typing } =
-      this.state;
+    const { loading, search, searchData, searchDataLoading, typing } = this.state;
 
     const navBar = global.isElectron
       ? NavBarElectron({
@@ -286,9 +266,7 @@ class CommunityPage extends BaseComponent<Props, State> {
     const metaProps = { title, description, url, rss, image, canonical };
 
     const promoted = entries["__promoted__"].entries;
-    let containerClasses = global.isElectron
-      ? "app-content community-page mt-0 pt-6"
-      : "app-content community-page";
+    let containerClasses = global.isElectron ? "app-content community-page mt-0 pt-6" : "app-content community-page";
 
     return (
       <>
@@ -307,15 +285,8 @@ class CommunityPage extends BaseComponent<Props, State> {
             })}
           </div>
           <span itemScope={true} itemType="http://schema.org/Organization">
-            <meta
-              itemProp="name"
-              content={community.title.trim() || community.name}
-            />
-            <span
-              itemProp="logo"
-              itemScope={true}
-              itemType="http://schema.org/ImageObject"
-            >
+            <meta itemProp="name" content={community.title.trim() || community.name} />
+            <span itemProp="logo" itemScope={true} itemType="http://schema.org/ImageObject">
               <meta itemProp="url" content={image} />
             </span>
             <meta itemProp="url" content={`${defaults.base}${url}`} />
@@ -334,15 +305,11 @@ class CommunityPage extends BaseComponent<Props, State> {
 
             {(() => {
               if (filter === "subscribers") {
-                return (
-                  <CommunitySubscribers {...this.props} community={community} />
-                );
+                return <CommunitySubscribers {...this.props} community={community} />;
               }
 
               if (filter === "activities") {
-                return (
-                  <CommunityActivities {...this.props} community={community} />
-                );
+                return <CommunityActivities {...this.props} community={community} />;
               }
 
               if (filter === "roles") {
@@ -358,22 +325,14 @@ class CommunityPage extends BaseComponent<Props, State> {
 
                 return (
                   <>
-                    {loading && entryList.length === 0 ? (
-                      <LinearProgress />
-                    ) : (
-                      ""
-                    )}
+                    {loading && entryList.length === 0 ? <LinearProgress /> : ""}
 
-                    {(filter === "hot" ||
-                      filter === "created" ||
-                      filter === "trending") &&
+                    {(filter === "hot" || filter === "created" || filter === "trending") &&
                       !loading &&
                       entryList.length > 0 && (
                         <div className="searchProfile">
                           <SearchBox
-                            placeholder={_t(
-                              "search-comment.search-placeholder"
-                            )}
+                            placeholder={_t("search-comment.search-placeholder")}
                             value={search}
                             onChange={this.handleChangeSearch}
                             autoComplete="off"
@@ -390,9 +349,7 @@ class CommunityPage extends BaseComponent<Props, State> {
                     ) : searchData.length > 0 && search.length > 0 ? (
                       <div className="search-list">
                         {searchData.map((res) => (
-                          <Fragment
-                            key={`${res.author}-${res.permlink}-${res.id}`}
-                          >
+                          <Fragment key={`${res.author}-${res.permlink}-${res.id}`}>
                             {SearchListItem({ ...this.props, res: res })}
                           </Fragment>
                         ))}
@@ -401,21 +358,11 @@ class CommunityPage extends BaseComponent<Props, State> {
                       _t("g.no-matches")
                     )}
                     {search.length === 0 && !searchDataLoading && (
-                      <div
-                        className={_c(`entry-list ${loading ? "loading" : ""}`)}
-                      >
+                      <div className={_c(`entry-list ${loading ? "loading" : ""}`)}>
                         <div
-                          className={_c(
-                            `entry-list-body ${
-                              global.listStyle === ListStyle.grid
-                                ? "grid-view"
-                                : ""
-                            }`
-                          )}
+                          className={_c(`entry-list-body ${global.listStyle === ListStyle.grid ? "grid-view" : ""}`)}
                         >
-                          {loading && entryList.length === 0 && (
-                            <EntryListLoadingItem />
-                          )}
+                          {loading && entryList.length === 0 && <EntryListLoadingItem />}
                           {EntryListContent({
                             ...this.props,
                             entries: entryList,
@@ -426,11 +373,7 @@ class CommunityPage extends BaseComponent<Props, State> {
                         </div>
                       </div>
                     )}
-                    {search.length === 0 && loading && entryList.length > 0 ? (
-                      <LinearProgress />
-                    ) : (
-                      ""
-                    )}
+                    {search.length === 0 && loading && entryList.length > 0 ? <LinearProgress /> : ""}
                     <DetectBottom onBottom={this.bottomReached} />
                   </>
                 );
@@ -445,7 +388,4 @@ class CommunityPage extends BaseComponent<Props, State> {
   }
 }
 
-export default connect(
-  pageMapStateToProps,
-  pageMapDispatchToProps
-)(withPersistentScroll(CommunityPage));
+export default connect(pageMapStateToProps, pageMapDispatchToProps)(withPersistentScroll(CommunityPage));

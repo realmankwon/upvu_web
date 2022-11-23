@@ -81,7 +81,7 @@ export class NotificationListItem extends Component<{
   };
 
   render() {
-    const { notification: primaryNotification, entry, dynamicProps } = this.props;
+    const { notification: primaryNotification, entry, dynamicProps, global } = this.props;
     const notification = primaryNotification || entry;
     const { steemPerMVests } = dynamicProps;
 
@@ -173,22 +173,24 @@ export class NotificationListItem extends Component<{
                     children: <a className="post-link">{notification.parent_permlink}</a>,
                   })}
                 </div>
-                <div className="second-line">
-                  {EntryLink({
-                    ...this.props,
-                    entry: {
-                      category: "category",
-                      author: notification.author,
-                      permlink: notification.permlink,
-                    },
-                    afterClick: this.afterClick,
-                    children: (
-                      <div className="markdown-view mini-markdown reply-body">
-                        {postBodySummary(notification.body, 100)}
-                      </div>
-                    ),
-                  })}
-                </div>
+                {global.developingPrivate && (
+                  <div className="second-line">
+                    {EntryLink({
+                      ...this.props,
+                      entry: {
+                        category: "category",
+                        author: notification.author,
+                        permlink: notification.permlink,
+                      },
+                      afterClick: this.afterClick,
+                      children: (
+                        <div className="markdown-view mini-markdown reply-body">
+                          {postBodySummary(notification.body, 100)}
+                        </div>
+                      ),
+                    })}
+                  </div>
+                )}
               </div>
             )}
 

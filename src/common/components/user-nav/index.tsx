@@ -187,10 +187,11 @@ export default class UserNav extends Component<Props, State> {
               label: _t("user-nav.schedules"),
               onClick: this.toggleSchedules,
             },
-            {
-              label: _t("user-nav.fragments"),
-              onClick: this.toggleFragments,
-            },
+            // global.developingPrivate &&
+            // {
+            //   label: _t("user-nav.fragments"),
+            //   onClick: this.toggleFragments,
+            // },
           ]
         : []),
       {
@@ -220,7 +221,7 @@ export default class UserNav extends Component<Props, State> {
     return (
       <>
         <div className="user-nav">
-          {global.usePrivate && <PointsBadge activeUser={activeUser} />}
+          {global.developingPrivate && <PointsBadge activeUser={activeUser} />}
 
           <WalletBadge activeUser={activeUser} dynamicProps={dynamicProps} />
 

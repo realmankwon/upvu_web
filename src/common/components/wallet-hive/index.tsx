@@ -516,7 +516,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     suffix: "SP",
                   });
 
-                  if (global.usePrivate) {
+                  if (global.developingPrivate) {
                     return (
                       <div className="amount amount-passive received-shares">
                         <Tooltip content={_t("wallet.steem-power-received")}>
