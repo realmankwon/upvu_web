@@ -485,7 +485,8 @@
   },
   "transactions": {
     "title": "History",
-    "type-curation_reward": "Curation Reward",
+    "type-curation_reward": "Curation reward",
+    "type-vote": "Vote",
     "type-author_reward": "Author Reward",
     "type-comment_benefactor_reward": "Comment Benefactor Reward",
     "type-claim_reward_balance": "Claim rewards",
