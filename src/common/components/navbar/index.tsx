@@ -228,7 +228,7 @@ export class NavBar extends Component<Props, State> {
             "engine",
             "wallet",
             "points",
-            "upvu",
+            "dashboard",
             "communities",
             "settings",
             "permissions",

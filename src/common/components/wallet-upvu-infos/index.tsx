@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { Form, Col, FormControl } from "react-bootstrap";
 
+import { History } from "history";
+
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
@@ -9,17 +11,21 @@ import { ActiveUser } from "../../store/active-user/types";
 
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Modal } from "react-bootstrap";
 import { getUPVUInfos, requestClaimTronReward } from "../../api/private-api";
+import DelegatedVesting from "../delegated-vesting";
+import Transfer, { TransferMode, TransferAsset } from "../transfer";
 
 import { informationVariantSvg } from "../../img/svg";
 import formattedNumber from "../../util/formatted-number";
 
 import { _t } from "../../i18n";
 import { ValueDescView } from "../value-desc-view";
+import { render } from "../../../server/template";
 
 interface Props {
   global: Global;
+  history: History;
   dynamicProps: DynamicProps;
   account: Account;
   activeUser: ActiveUser | null;
@@ -150,13 +156,31 @@ interface State {
   selectedHistory: string;
   isSmaeAccount: boolean;
   isUPVUUser: boolean;
+  showTransferDialog: boolean;
+  showDelegationDialog: boolean;
+  transferMode: null | TransferMode;
+  transferAsset: null | TransferAsset;
 }
+
+// {transfer && (
+//   <Transfer
+//     {...this.props}
+//     activeUser={activeUser!}
+//     to={isMyPage ? undefined : account.name}
+//     mode={transferMode!}
+//     asset={transferAsset!}
+//     onHide={this.closeTransferDialog}
 
 interface ValueDescWithTooltipProps {
   val: any;
   desc: string;
   children: JSX.Element;
   existIcon?: boolean;
+}
+
+interface DialogProps {
+  showDialog: boolean;
+  children: JSX.Element;
 }
 
 const historyKindArray = ["Voting History", "Reward History(KRW)", "Reward History(USD)", "Delegation History"];
@@ -168,11 +192,15 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     selectedHistory: historyKindArray[0],
     isSmaeAccount: false,
     isUPVUUser: false,
+    showTransferDialog: false,
+    showDelegationDialog: false,
+    transferMode: null,
+    transferAsset: null,
   };
 
   componentDidMount() {
     const { activeUser } = this.props;
-    const accountInPath = window.location.pathname.match(new RegExp(/@[\w]+/));
+    const accountInPath = window.location.pathname.match(new RegExp(/@[\w.\-]+/));
     const account = activeUser ? activeUser?.username : "";
 
     if (account && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${account}`) > -1) {
@@ -203,9 +231,35 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     this.setState({ selectedHistory: e.target.value });
   };
 
+  openTransferDialog = (mode: TransferMode, asset: TransferAsset) => {
+    this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset });
+  };
+
+  closeTransferDialog = () => {
+    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
+  };
+
+  // openDelegationDialog = (mode: TransferMode, asset: TransferAsset) => {
+  //   this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset });
+  // };
+
+  // closeDelegationDialog = () => {
+  //   this.setState({ showDelegationDialog: false, transferMode: null, transferAsset: null });
+  // };
+
   render() {
-    const { account } = this.props;
-    const { upvuInfos, loading, selectedHistory, isSmaeAccount, isUPVUUser } = this.state;
+    const { account, activeUser } = this.props;
+    const {
+      upvuInfos,
+      loading,
+      selectedHistory,
+      isSmaeAccount,
+      isUPVUUser,
+      showTransferDialog,
+      showDelegationDialog,
+      transferMode,
+      transferAsset,
+    } = this.state;
 
     if (!account.__loaded) {
       return null;
@@ -223,7 +277,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                   <MyUpvuPower {...upvuInfos} />
                   <UPVUStatus {...upvuInfos} />
                   <MyRewards {...upvuInfos} />
-                  <DelegationSP {...upvuInfos} />
+                  <DelegationSP {...upvuInfos} openTransferDialog={this.openTransferDialog} />
                   <TronInformation {...upvuInfos} />
                   <TronClaim {...upvuInfos} account={account.name} />
                   <hr />
@@ -257,10 +311,15 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                 </div>
               ) : upvuInfos ? (
                 <div>
-                  <div className="header">
-                    <div>You are not UPVU user.</div>
-                    <div>You can become a UPVU user by delegating Steem power or sending Steem to @upvu account.</div>
-                    <div>Effective from the next day after SP delegation or Steam transfer.(150 SP)</div>
+                  <div className="view-container warn-box">
+                    <div className="header">Information</div>
+                    <div className="content">
+                      <div>
+                        <p>Oh! You are not yet a member of UPVU.</p>
+                        <p>Delegate your SP to @upvu and become a UPVU member.</p>
+                        <p>Enjoy Steemit with more rewards! (Min amount : 200 SP)</p>
+                      </div>
+                    </div>
                   </div>
                   <DelegationSP {...upvuInfos} />
                 </div>
@@ -270,8 +329,29 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
             </div>
           )
         ) : (
-          <div>You can only see the information of the logged in account</div>
+          <div className="view-container warn-box">
+            <div className="header">WARNING</div>
+            <div className="content">
+              <div>
+                <p>The dashboard is only visible to the OWNER of the account.</p>
+                <p>If you are this account owner, please log in first.</p>
+              </div>
+            </div>
+          </div>
         )}
+
+        {showTransferDialog && (
+          <Transfer
+            {...this.props}
+            activeUser={activeUser!}
+            to={isSmaeAccount ? undefined : account.name}
+            mode={transferMode!}
+            asset={transferAsset!}
+            onHide={this.closeTransferDialog}
+          />
+        )}
+
+        {/* <ShowDialog showDialog={} /> */}
       </div>
     );
   }
@@ -372,7 +452,7 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Label> </Form.Label>
+                  {/* <Form.Label> </Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Set Type" onClick={() => {}} />
                 </Form.Group>
               </Col>
@@ -387,7 +467,7 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Label> </Form.Label>
+                  {/* <Form.Label> </Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Set Proxy" onClick={() => {}} />
                 </Form.Group>
               </Col>
@@ -561,38 +641,38 @@ const TronClaim = ({ account, summary, tron_address }: UpvuInfoProps) => {
   );
 };
 
-const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem }: UpvuInfoProps) => {
-  const [delegationAmount, setDelegationAmount] = useState(0);
-  const [transferAmount, setTransferAmount] = useState(0);
-  const maxDelegationAmount = user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate;
-  const maxTransferAmount = parseFloat(user_steem);
+const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransferDialog }: UpvuInfoProps | any) => {
+  // const [delegationAmount, setDelegationAmount] = useState(0);
+  // const [transferAmount, setTransferAmount] = useState(0);
+  // const maxDelegationAmount = user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate;
+  // const maxTransferAmount = parseFloat(user_steem);
 
-  const onClickDelegationMax = () => {
-    setDelegationAmount(maxDelegationAmount);
-  };
+  // const onClickDelegationMax = () => {
+  //   setDelegationAmount(maxDelegationAmount);
+  // };
 
-  const onChangeDelegation = (e: ChangeEvent<HTMLInputElement>): void => {
-    const val = parseFloat(e.target.value);
+  // const onChangeDelegation = (e: ChangeEvent<HTMLInputElement>): void => {
+  //   const val = parseFloat(e.target.value);
 
-    setDelegationAmount(val < 0 ? 0 : val);
-  };
+  //   setDelegationAmount(val < 0 ? 0 : val);
+  // };
 
   const onClickDelegation = () => {
-    console.log("onClickDelegation");
+    openTransferDialog("delegate", "SP");
   };
 
-  const onClickTransferMax = () => {
-    setTransferAmount(maxTransferAmount);
-  };
+  // const onClickTransferMax = () => {
+  //   setTransferAmount(maxTransferAmount);
+  // };
 
-  const onChangeTransfer = (e: ChangeEvent<HTMLInputElement>): void => {
-    const val = parseFloat(e.target.value);
+  // const onChangeTransfer = (e: ChangeEvent<HTMLInputElement>): void => {
+  //   const val = parseFloat(e.target.value);
 
-    setTransferAmount(val < 0 ? 0 : val);
-  };
+  //   setTransferAmount(val < 0 ? 0 : val);
+  // };
 
   const onClickTransfer = () => {
-    console.log("onClickTransfer");
+    openTransferDialog("transfer", "STEEM");
   };
 
   return (
@@ -613,29 +693,11 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem }: UpvuInfoP
               <p>Depending on the % of the current voting power, the available amount may vary.</p>
             </>
           </ValueDescWithTooltip>
-          <div className="tooltip-format max-width-300">
+          <div className="tooltip-format min-width-150">
             <Form.Row className="width-full">
-              <Col lg={5}>
+              <Col lg={12}>
                 <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={delegationAmount}
-                    maxLength={10}
-                    data-var="name"
-                    onChange={onChangeDelegation}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={3}>
-                <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control className="max-btn" type="button" value="Max" onClick={onClickDelegationMax} />
-                </Form.Group>
-              </Col>
-              <Col lg={4}>
-                <Form.Group>
-                  <Form.Label></Form.Label>
+                  {/* <Form.Label></Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
                 </Form.Group>
               </Col>
@@ -652,29 +714,11 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem }: UpvuInfoP
             </>
           </ValueDescWithTooltip>
 
-          <div className="tooltip-format max-width-300">
+          <div className="tooltip-format min-width-150">
             <Form.Row className="width-full">
-              <Col lg={5}>
+              <Col lg={12}>
                 <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={transferAmount}
-                    maxLength={10}
-                    data-var="name"
-                    onChange={onChangeTransfer}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={3}>
-                <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control className="max-btn" type="button" value="Max" onClick={onClickTransferMax} />
-                </Form.Group>
-              </Col>
-              <Col lg={4}>
-                <Form.Group>
-                  <Form.Label></Form.Label>
+                  {/* <Form.Label></Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
@@ -878,9 +922,33 @@ const DelegationHistory = ({ delegate }: UpvuInfoProps) => {
   );
 };
 
+const ShowDialog = ({ showDialog, children }: DialogProps) => {
+  const [show, setShow] = useState(showDialog);
+
+  const onClickClose = () => {
+    setShow(false);
+  };
+
+  return (
+    <Modal
+      animation={false}
+      show={show}
+      centered={true}
+      onHide={onClickClose}
+      keyboard={false}
+      className="transfer-dialog modal-thin-header"
+      size="lg"
+    >
+      <Modal.Header closeButton={true} />
+      <Modal.Body>{children}</Modal.Body>
+    </Modal>
+  );
+};
+
 export default (p: Props) => {
   const props = {
     global: p.global,
+    history: p.history,
     dynamicProps: p.dynamicProps,
     account: p.account,
     activeUser: p.activeUser,

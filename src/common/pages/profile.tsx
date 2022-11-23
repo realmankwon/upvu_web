@@ -521,7 +521,7 @@ class ProfilePage extends BaseComponent<Props, State> {
                     });
                   }
 
-                  if (section === "upvu") {
+                  if (section === "dashboard") {
                     return WalletUPVU({
                       ...this.props,
                       account,

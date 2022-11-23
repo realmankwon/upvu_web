@@ -34,6 +34,14 @@
       color: $dark-two;
       margin-bottom: 20px;
 
+      &.warn-box {
+        color: $science-blue;
+
+        @include themify(night) {
+          color: $light-powder-blue;
+        }
+      }
+
       .header {
         margin-left: 10px;
         margin-bottom: 10px;
@@ -90,6 +98,14 @@
 
             @media (min-width: $sm-break) {
               min-width: 150px;
+            }
+          }
+
+          &.max-width-200 {
+            max-width: 200px;
+
+            @media (min-width: $sm-break) {
+              max-width: 200px;
             }
           }
 
