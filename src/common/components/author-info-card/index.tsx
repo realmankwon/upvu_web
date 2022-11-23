@@ -21,7 +21,6 @@ interface MatchParams {
 interface Props extends PageProps {
   match: match<MatchParams>;
   entry: Entry;
-  activeUser: ActiveUser;
 }
 
 const AuthorInfoCard = (props: Props) => {
