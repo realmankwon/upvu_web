@@ -484,7 +484,7 @@ export const Profile = (props: Props) => {
                     updateWalletValues: ensureAccount,
                   });
                 }
-                if (section === "upvu") {
+                if (section === "dashboard") {
                   return WalletUPVU({
                     ...props,
                     account,

@@ -286,7 +286,7 @@ export class Transfer extends BaseComponent<Props, State> {
                   ? Number(
                       formattedNumber(
                         vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
-                      )
+                      ).replace(/,/g, "")
                     )
                   : "";
                 this.setState({
@@ -311,8 +311,33 @@ export class Transfer extends BaseComponent<Props, State> {
     }, 500);
   };
 
+  getPreviousDelegatedAmount = () => {
+    const { activeUser, dynamicProps } = this.props;
+    const { to, delegationList } = this.state;
+    const { steemPerMVests } = dynamicProps;
+
+    const delegateAccount =
+      delegationList &&
+      delegationList.length > 0 &&
+      delegationList!.find(
+        (item) =>
+          (item as DelegateVestingShares).delegatee === to &&
+          (item as DelegateVestingShares).delegator === activeUser.username
+      );
+    return delegateAccount
+      ? Number(
+          formattedNumber(
+            vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
+          ).replace(/,/g, "")
+        )
+      : 0;
+  };
+
   checkAmount = () => {
     const { amount } = this.state;
+    const previousDelegatedAmount = this.getPreviousDelegatedAmount();
+
+    console.log("previousDelegatedAmount ", previousDelegatedAmount);
 
     if (amount === "") {
       this.stateSet({ amountError: "" });
@@ -334,7 +359,7 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     let balance = Number(this.formatBalance(this.getBalance()));
-    if (parseFloat(amount) > balance) {
+    if (parseFloat(amount) - previousDelegatedAmount > balance) {
       this.stateSet({ amountError: _t("trx-common.insufficient-funds") });
       return;
     }
@@ -344,7 +369,9 @@ export class Transfer extends BaseComponent<Props, State> {
 
   copyBalance = () => {
     const amount = this.formatBalance(this.getBalance());
-    this.stateSet({ amount }, () => {
+    const totalAmount = parseFloat(amount) + this.getPreviousDelegatedAmount();
+
+    this.stateSet({ amount: totalAmount + "" }, () => {
       this.checkAmount();
     });
   };
@@ -581,8 +608,9 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
       }
       case "delegate": {
-        const vests = this.hpToVests(Number(amount));
-        promise = delegateVestingSharesKc(username, to, vests);
+        // const vests = this.hpToVests(Number(amount));
+        // console.log("delegation.....", amount);
+        promise = delegateVestingSharesKc(username, to, amount);
         break;
       }
       default:
@@ -746,7 +774,11 @@ export class Transfer extends BaseComponent<Props, State> {
           (item as DelegateVestingShares).delegator === activeUser.username
       );
     const previousAmount = delegateAccount
-      ? Number(formattedNumber(vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)))
+      ? Number(
+          formattedNumber(
+            vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
+          ).replace(/,/g, "")
+        )
       : "";
 
     let balance: string | number = this.formatBalance(this.getBalance());
