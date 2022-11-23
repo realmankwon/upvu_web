@@ -224,6 +224,10 @@ export class Transfer extends BaseComponent<Props, State> {
     this.stateSet({ to }, this.handleTo);
   };
 
+  memoSelected = (memo: string) => {
+    this.stateSet({ memo }, this.handleTo);
+  };
+
   amountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: amount } = e.target;
     this.stateSet({ amount }, () => {
@@ -654,7 +658,24 @@ export class Transfer extends BaseComponent<Props, State> {
             return x.indexOf(to) !== -1;
           })
           .reverse()
-          .slice(0, 5)
+        // .slice(0, 10)
+      ),
+    ];
+
+    const recentMemo = [
+      ...new Set(
+        transactions.list
+          .filter((x) => x.type === "transfer" && x.from === activeUser.username)
+          .map((x) => (x.type === "transfer" ? x.memo : ""))
+          .filter((x) => {
+            if (memo.trim() === "") {
+              return true;
+            }
+
+            return x.indexOf(memo) !== -1;
+          })
+          .reverse()
+        // .slice(0, 10)
       ),
     ];
 
@@ -668,6 +689,21 @@ export class Transfer extends BaseComponent<Props, State> {
         );
       },
       onSelect: this.toSelected,
+    };
+
+    const suggestionMemoProps = {
+      header: _t("transfer.recent-memos"),
+      renderer: (i: string) => {
+        return (
+          <>
+            {UserAvatar({ ...this.props, username: i, size: "medium" })}{" "}
+            <span style={{ marginLeft: "4px" }}>
+              {i} {this.props.memo}
+            </span>
+          </>
+        );
+      },
+      onSelect: this.memoSelected,
     };
 
     let assets: TransferAsset[] = [];
@@ -917,11 +953,22 @@ export class Transfer extends BaseComponent<Props, State> {
                       {_t("transfer.memo")}
                     </Form.Label>
                     <Col sm="10">
-                      <Form.Control
+                      <SuggestionList items={recentMemo} {...suggestionMemoProps}>
+                        <InputGroup>
+                          <Form.Control
+                            type="text"
+                            placeholder={_t("transfer.memo-placeholder")}
+                            value={memo}
+                            onChange={this.memoChanged}
+                            className={toError ? "is-invalid" : ""}
+                          />
+                        </InputGroup>
+                      </SuggestionList>
+                      {/* <Form.Control
                         placeholder={_t("transfer.memo-placeholder")}
                         value={memo}
                         onChange={this.memoChanged}
-                      />
+                      /> */}
                     </Col>
                   </Form.Group>
                   <FormText msg={_t("transfer.memo-help")} type="muted" />
