@@ -1,4 +1,5 @@
 import React from "react";
+import { History } from "history";
 
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
@@ -34,6 +35,7 @@ import { WalletUPVUInfos } from "../wallet-upvu-infos";
 
 interface Props {
   global: Global;
+  history: History;
   dynamicProps: DynamicProps;
   account: Account;
   activeUser: ActiveUser | null;
@@ -107,7 +109,7 @@ export class WalletUPVU extends BaseComponent<Props, State> {
               <WalletUPVUInfos {...this.props} />
             </div>
           </div>
-          <WalletMenu global={global} username={account.name} active="upvu" />
+          <WalletMenu global={global} username={account.name} active="dashboard" />
         </div>
       </div>
     );
@@ -117,6 +119,7 @@ export class WalletUPVU extends BaseComponent<Props, State> {
 export default (p: Props) => {
   const props = {
     global: p.global,
+    history: p.history,
     dynamicProps: p.dynamicProps,
     account: p.account,
     activeUser: p.activeUser,

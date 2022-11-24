@@ -88,10 +88,7 @@ export class List extends BaseComponent<Props, State> {
           getData(account, r[limit - 1].delegatee, limit);
         } else {
           const sorted: DelegatedVestingShare[] = totalData.sort((a, b) => {
-            return (
-              parseAsset(b.vesting_shares).amount -
-              parseAsset(a.vesting_shares).amount
-            );
+            return parseAsset(b.vesting_shares).amount - parseAsset(a.vesting_shares).amount;
           });
 
           const totalDelegatedValue = sorted.reduce((n, item) => {
@@ -104,9 +101,7 @@ export class List extends BaseComponent<Props, State> {
             return parsedValue;
           }, 0);
 
-          const totalDelegatedNumbered = parseFloat(
-            totalDelegated.replace(" SP", "").replace(",", "")
-          );
+          const totalDelegatedNumbered = parseFloat(totalDelegated.replace(" SP", "").replace(",", ""));
           const toBeReturned = totalDelegatedNumbered - totalDelegatedValue;
           setSubtitle && setSubtitle(Number(toBeReturned.toFixed(3)));
 
@@ -119,23 +114,16 @@ export class List extends BaseComponent<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.searchText !== this.props.searchText &&
-      this.props.searchText &&
-      this.props.searchText.length > 0
-    ) {
+    if (prevProps.searchText !== this.props.searchText && this.props.searchText && this.props.searchText.length > 0) {
       let filteredItems = this.state.data.filter((item) =>
-        item.delegatee
-          .toLocaleLowerCase()
-          .includes(this.props.searchText!.toLocaleLowerCase())
+        item.delegatee.toLocaleLowerCase().includes(this.props.searchText!.toLocaleLowerCase())
       );
       this.setState({ searchData: filteredItems, page: 1 });
     }
   }
 
   render() {
-    const { loading, data, hideList, inProgress, searchData, page } =
-      this.state;
+    const { loading, data, hideList, inProgress, searchData, page } = this.state;
     const { dynamicProps, activeUser, account, searchText } = this.props;
     const { steemPerMVests } = dynamicProps;
 
@@ -156,18 +144,10 @@ export class List extends BaseComponent<Props, State> {
     const sliced = dataToShow.slice(start, end);
 
     return (
-      <div
-        className={_c(
-          `delegated-vesting-content ${inProgress ? "in-progress" : ""} ${
-            hideList ? "hidden" : ""
-          }`
-        )}
-      >
+      <div className={_c(`delegated-vesting-content ${inProgress ? "in-progress" : ""} ${hideList ? "hidden" : ""}`)}>
         <div className="user-list">
           <div className="list-body">
-            {sliced.length === 0 && (
-              <div className="empty-list">{_t("g.empty-list")}</div>
-            )}
+            {sliced.length === 0 && <div className="empty-list">{_t("g.empty-list")}</div>}
             {sliced.map((x) => {
               const vestingShares = parseAsset(x.vesting_shares).amount;
               const { delegatee: username } = x;
@@ -188,30 +168,17 @@ export class List extends BaseComponent<Props, State> {
                       },
                       onKey: (key) => {
                         this.setState({ inProgress: true });
-                        delegateVestingShares(
-                          activeUser.username,
-                          key,
-                          username,
-                          "0.000000 VESTS"
-                        )
+                        delegateVestingShares(activeUser.username, key, username, "0.000000 VESTS")
                           .then(() => this.fetch())
                           .catch((err) => error(formatError(err)))
                           .finally(() => this.setState({ inProgress: false }));
                       },
                       onHot: () => {
-                        delegateVestingSharesHot(
-                          activeUser.username,
-                          username,
-                          "0.000000 VESTS"
-                        );
+                        delegateVestingSharesHot(activeUser.username, username, "0.000000 VESTS");
                       },
                       onKc: () => {
                         this.setState({ inProgress: true });
-                        delegateVestingSharesKc(
-                          activeUser.username,
-                          username,
-                          "0.000000 VESTS"
-                        )
+                        delegateVestingSharesKc(activeUser.username, username, "0.000000 VESTS")
                           .then(() => this.fetch())
                           .catch((err) => error(formatError(err)))
                           .finally(() => this.setState({ inProgress: false }));
@@ -239,20 +206,13 @@ export class List extends BaseComponent<Props, State> {
                       {ProfileLink({
                         ...this.props,
                         username,
-                        children: (
-                          <a className="item-name notransalte">{username}</a>
-                        ),
+                        children: <a className="item-name notransalte">{username}</a>,
                       })}
                     </div>
                   </div>
                   <div className="item-extra">
                     <Tooltip content={x.vesting_shares}>
-                      <span>
-                        {formattedNumber(
-                          vestsToHp(vestingShares, steemPerMVests),
-                          { suffix: "SP" }
-                        )}
-                      </span>
+                      <span>{formattedNumber(vestsToHp(vestingShares, steemPerMVests), { suffix: "SP" })}</span>
                     </Tooltip>
                     {deleteBtn}
                   </div>
@@ -281,10 +241,7 @@ interface DelegatedVestingState {
   subtitle: string;
 }
 
-export default class DelegatedVesting extends Component<
-  Props,
-  DelegatedVestingState
-> {
+export default class DelegatedVesting extends Component<Props, DelegatedVestingState> {
   state = {
     searchText: "",
     subtitle: "",
@@ -323,10 +280,7 @@ export default class DelegatedVesting extends Component<
               searchText={searchText}
               setSubtitle={(value) =>
                 this.setState({
-                  subtitle:
-                    value === 0
-                      ? ""
-                      : `+${value} ${_t("delegated-vesting.subtitle")}`,
+                  subtitle: value === 0 ? "" : `+${value} ${_t("delegated-vesting.subtitle")}`,
                 })
               }
             />
