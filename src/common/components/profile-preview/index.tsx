@@ -93,7 +93,6 @@ export const ProfilePreview = ({ username, global, onClose, activeUser, ...props
     : require("../../img/cover-fallback-night.png");
   const reputation = profile && accountReputation(profile.reputation);
   const loggedIn = activeUser && activeUser.username;
-  debugger;
   return isMounted ? (
     <div className="profile-parent">
       <div className="shadow bg-white profile-container rounded">

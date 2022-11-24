@@ -468,7 +468,6 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "effective_comment_vote") {
       flag = true;
 
-      debugger;
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (
@@ -494,7 +493,6 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "vote") {
       flag = true;
 
-      // debugger;
       const weight = +tr.weight;
 
       numbers = <>{<span className="number">{weight / 100} %</span>}</>;
