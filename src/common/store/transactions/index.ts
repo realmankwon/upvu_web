@@ -190,7 +190,6 @@ export const fetchTransactions =
             };
           });
 
-          debugger;
           const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
 
           dispatch(fetchedAct(transactions));

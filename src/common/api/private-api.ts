@@ -80,6 +80,7 @@ export const getNotifications = (
   username: string,
   filter: NotificationFilter | null,
   since: string | null = null,
+  lastread: string,
   user: string | null = null
 ): Promise<ApiNotification[]> => {
   return axios
@@ -87,13 +88,47 @@ export const getNotifications = (
       id: 3,
       jsonrpc: "2.0",
       method: "bridge.account_notifications",
-      params: { account: username },
+      params: { account: username, last_id: since, limit: 50 },
     })
-    .then((resp) =>
-      resp.data.result.map((data: any) => {
+    .then((resp) => {
+      let notifications = resp.data.result.filter((data: any) => {
+        if (!filter) return true;
+        else if (filter === "rvotes" && (data.type === "vote" || data.type === "unvote")) {
+          return true;
+        } else if (filter === "mentions" && data.type === "mention") {
+          return true;
+        } else if (
+          filter === "follows" &&
+          (data.type === "follow" || data.type === "unfollow" || data.type === "ignore")
+        ) {
+          return true;
+        } else if (filter === "replies" && data.type === "reply") {
+          return true;
+        } else if (filter === "reblogs" && data.type === "reblog") {
+          return true;
+        } else return false;
+      });
+      let gkf: any[] = [];
+
+      notifications = notifications.map((data: any) => {
         const notification: any = {};
         notification.type = data.type;
         notification.timestamp = data.date;
+
+        if (new Date(lastread) < new Date(notification.timestamp)) {
+          notification.read = 0;
+        } else {
+          notification.read = 1;
+        }
+
+        if (!gkf.includes(data.date.split("T")[0])) {
+          notification.gkf = true;
+          gkf.push(data.date.split("T")[0]);
+        } else {
+          notification.gkf = false;
+        }
+        notification.gk = data.date.split("T")[0];
+
         notification.id = data.id;
         notification.source = data.msg.split(" ")[0].replace("@", "");
 
@@ -136,8 +171,9 @@ export const getNotifications = (
           notification.img_url = null;
         }
         return notification;
-      })
-    );
+      });
+      return notifications;
+    });
 };
 
 export const getCurrencyTokenRate = (currency: string, token: string): Promise<number> =>
@@ -153,7 +189,7 @@ export const getUnreadNotificationCount = (username: string): Promise<number> =>
       method: "bridge.unread_notifications",
       params: { account: username },
     })
-    .then((resp) => resp.data.result.unread);
+    .then((resp) => resp.data.result);
 };
 
 export const markNotifications = (username: string, id: string | null = null) => {
