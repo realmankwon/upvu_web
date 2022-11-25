@@ -8,6 +8,7 @@ import { getAccessToken } from "../helper/user-token";
 
 import { apiBase, apiUpvuBase } from "./helper";
 import { AppWindow } from "../../client/window";
+import moment from "moment";
 
 declare var window: AppWindow;
 
@@ -121,13 +122,21 @@ export const getNotifications = (
           notification.read = 1;
         }
 
-        if (!gkf.includes(data.date.split("T")[0])) {
+        let tempGk = data.date.split("T")[0];
+
+        if (new Date().toISOString().split("T")[0] === tempGk) {
+          moment(data.date, "YYYY-MM-DD HH:mm:ss").fromNow();
+          // tempGk = `${(new Date().getUTCDate().getTime() - new Date(data.date).getTime()) / (1000 * 60 * 60)} hours`;
+          tempGk = moment.utc(data.date, "YYYY-MM-DD HH:mm:ss").fromNow();
+        }
+
+        if (!gkf.includes(tempGk)) {
           notification.gkf = true;
-          gkf.push(data.date.split("T")[0]);
+          gkf.push(tempGk);
         } else {
           notification.gkf = false;
         }
-        notification.gk = data.date.split("T")[0];
+        notification.gk = tempGk;
 
         notification.id = data.id;
         notification.source = data.msg.split(" ")[0].replace("@", "");

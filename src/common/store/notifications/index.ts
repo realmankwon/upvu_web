@@ -141,7 +141,7 @@ export const fetchNotifications =
     const { activeUser } = getState();
 
     const { filter } = notifications;
-    debugger;
+
     getNotifications(activeUser?.username!, filter, since, notifications.lastread)
       .then((r) => {
         if (since) {
@@ -159,7 +159,7 @@ export const fetchUnreadNotificationCount = () => (dispatch: Dispatch, getState:
   const { activeUser } = getState();
 
   getUnreadNotificationCount(activeUser?.username!).then((result: any) => {
-    dispatch(setUnreadCountAct(result.count, result.lastread));
+    dispatch(setUnreadCountAct(result.unread, result.lastread));
   });
 };
 
