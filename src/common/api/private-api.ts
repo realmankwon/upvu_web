@@ -508,6 +508,12 @@ export const getEcosystem = async (): Promise<any> => {
   return ecosystem;
 };
 
+export const getRewardType = async (): Promise<any> => {
+  const rewardTypeList = await axios.get(apiUpvuBase(`/upvuweb-api/reward-type`)).then((r) => r.data);
+
+  return rewardTypeList;
+};
+
 export const getUPVUInfos = async (account: string): Promise<any> => {
   if (!account) return [];
 
@@ -539,4 +545,20 @@ export const requestClaimTronReward = async (account: string, address: string, a
 
   console.log("requestClaimTronReward", requesetClaimTron);
   return requesetClaimTron;
+};
+
+export const updateRewardType = async (account: string, reward_type: string): Promise<any> => {
+  if (!account) return [];
+
+  const data = {
+    code: getAccessToken(account),
+    reward_type,
+  };
+
+  const updateRewardTypeResult = await axios
+    .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
+    .then((r) => r.data);
+
+  console.log("updateRewardTypeResult", updateRewardTypeResult);
+  return updateRewardTypeResult;
 };

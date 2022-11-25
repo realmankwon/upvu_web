@@ -37,7 +37,7 @@ export const date2key = (s: string): string => {
   if (s === "Yesterday") {
     return moment().subtract(1, "days").fromNow();
   }
-  debugger;
+
   if (s.indexOf("minutes") > -1) {
     const h = parseInt(s, 10);
     const result = moment().subtract(h, "minutes").fromNow();
