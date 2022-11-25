@@ -38,6 +38,11 @@ export const date2key = (s: string): string => {
     return moment().subtract(1, "days").fromNow();
   }
 
+  if (s.indexOf("minutes") > -1) {
+    const h = parseInt(s, 10);
+    return moment().subtract(h, "minutes").fromNow();
+  }
+
   if (s.indexOf("hours") > -1) {
     const h = parseInt(s, 10);
     return moment().subtract(h, "hours").fromNow();
