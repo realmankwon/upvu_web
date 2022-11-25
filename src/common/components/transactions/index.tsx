@@ -703,6 +703,7 @@ const List = (props: Props) => {
       transactions: { list, group },
       steemengine,
     } = props;
+
     if (list.length > 0) {
       const last_num = list[list.length - 1].num + 1;
       fetchTransactions(account.name, steemengine, group as OperationGroup, last_num);
