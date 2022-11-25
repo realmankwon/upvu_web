@@ -468,7 +468,7 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "effective_comment_vote") {
       flag = true;
 
-      debugger;
+      // debugger;
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (
