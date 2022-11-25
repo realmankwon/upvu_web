@@ -31,6 +31,7 @@ export const initialState: Notifications = {
   loading: false,
   hasMore: true,
   unreadFetchFlag: true,
+  lastread: "",
 };
 
 export default (state: Notifications = initialState, action: Actions): Notifications => {
@@ -89,6 +90,7 @@ export default (state: Notifications = initialState, action: Actions): Notificat
         ...state,
         unread: action.count,
         unreadFetchFlag: false,
+        lastread: action.lastread,
       };
     }
     case ActionTypes.MARK: {
@@ -140,7 +142,7 @@ export const fetchNotifications =
 
     const { filter } = notifications;
 
-    getNotifications(activeUser?.username!, filter, since)
+    getNotifications(activeUser?.username!, filter, since, notifications.lastread)
       .then((r) => {
         if (since) {
           dispatch(fetchedAct(r, NFetchMode.APPEND));
@@ -156,8 +158,8 @@ export const fetchNotifications =
 export const fetchUnreadNotificationCount = () => (dispatch: Dispatch, getState: () => AppState) => {
   const { activeUser } = getState();
 
-  getUnreadNotificationCount(activeUser?.username!).then((count) => {
-    dispatch(setUnreadCountAct(count));
+  getUnreadNotificationCount(activeUser?.username!).then((result: any) => {
+    dispatch(setUnreadCountAct(result.unread, result.lastread));
   });
 };
 
@@ -174,8 +176,8 @@ export const markNotifications = (id: string | null) => (dispatch: Dispatch, get
     .then(() => {
       return getUnreadNotificationCount(activeUser?.username!);
     })
-    .then((count) => {
-      dispatch(setUnreadCountAct(count));
+    .then((result: any) => {
+      dispatch(setUnreadCountAct(result.count, result.lastread));
     });
 };
 
@@ -202,10 +204,11 @@ export const setFilterAct = (filter: NotificationFilter | null): SetFilterAction
   };
 };
 
-export const setUnreadCountAct = (count: number): SetUnreadCountAction => {
+export const setUnreadCountAct = (count: number, lastread: string): SetUnreadCountAction => {
   return {
     type: ActionTypes.SET_UNREAD_COUNT,
     count,
+    lastread,
   };
 };
 
