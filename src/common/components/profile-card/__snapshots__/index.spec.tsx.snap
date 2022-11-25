@@ -179,7 +179,7 @@ exports[`(2) Render with loaded data 1`] = `
         />
       </svg>
       <a
-        href="https://ecency.com/@user1/rss.xml"
+        href="https://upvu.org/@user1/rss.xml"
         target="_external"
       >
         RSS feed
@@ -342,7 +342,7 @@ exports[`(3) Should show profile edits 1`] = `
         />
       </svg>
       <a
-        href="https://ecency.com/@user1/rss.xml"
+        href="https://upvu.org/@user1/rss.xml"
         target="_external"
       >
         RSS feed
