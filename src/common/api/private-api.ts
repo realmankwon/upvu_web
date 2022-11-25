@@ -103,7 +103,7 @@ export const getNotifications = (
           (data.type === "follow" || data.type === "unfollow" || data.type === "ignore")
         ) {
           return true;
-        } else if (filter === "replies" && data.type === "reply") {
+        } else if (filter === "replies" && data.type === "reply" && data.type === "reply_comment") {
           return true;
         } else if (filter === "reblogs" && data.type === "reblog") {
           return true;
