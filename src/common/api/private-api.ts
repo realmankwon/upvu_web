@@ -103,7 +103,7 @@ export const getNotifications = (
           (data.type === "follow" || data.type === "unfollow" || data.type === "ignore")
         ) {
           return true;
-        } else if (filter === "replies" && data.type === "reply" && data.type === "reply_comment") {
+        } else if (filter === "replies" && (data.type === "reply" || data.type === "reply_comment")) {
           return true;
         } else if (filter === "reblogs" && data.type === "reblog") {
           return true;
@@ -161,7 +161,7 @@ export const getNotifications = (
           notification.blog = true;
           notification.title = null;
           notification.img_url = null;
-        } else if (data.type === "reply") {
+        } else if (data.type === "reply" || data.type === "reply_comment") {
           notification.author = data.url.split("/")[0].replace("@", "");
           notification.permlink = data.url.split("/")[1];
           notification.title = "";
