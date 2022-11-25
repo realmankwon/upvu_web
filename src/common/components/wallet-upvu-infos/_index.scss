@@ -78,6 +78,11 @@
             color: white;
             background-color: $dark-sky-blue;
           }
+
+          .claim-btn:disabled {
+            color: white;
+            background-color: $warm-grey;
+          }
         }
 
         .tooltip-format {
@@ -282,6 +287,76 @@
       @media (min-width: $sm-break) {
         width: 25%;
         text-align: center;
+      }
+    }
+  }
+}
+
+.dialog {
+  .modal-dialog {
+    width: 90%;
+
+    @media (min-width: $sm-break) {
+      max-width: 500px;
+    }
+
+    .dialog-header {
+      margin-left: 10px;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: $dark-three;
+
+      @include themify(night) {
+        color: $light-powder-blue;
+      }
+    }
+
+    .dialog-body {
+      .dialog-content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .rewardtype-row {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          font-size: 1.2rem;
+          background-color: $pinkish-grey;
+          border: 0px;
+          margin: 10px;
+          border-radius: 10px;
+          color: white;
+          width: 300px;
+
+          &.selected {
+            background-color: $science-blue;
+          }
+
+          // @include themify(day) {
+          //   color: $steel-grey;
+          // }
+
+          // @include themify(night) {
+          //   color: $metallic-blue;
+          // }
+
+          .image {
+            width: 32px;
+          }
+
+          .reward-type {
+            padding-left: 10px;
+          }
+
+          // .reward-chain {
+          //   color: red;
+          // }
+
+          // .reward-fee {
+          //   color: yellow;
+          // }
+        }
       }
     }
   }

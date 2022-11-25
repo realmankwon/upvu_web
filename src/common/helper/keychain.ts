@@ -222,22 +222,6 @@ export const witnessVote = (
     );
   });
 
-export const witnessProxy = (account: string, proxy: string, rpc: string | null = null): Promise<TxResponse> =>
-  new Promise<TxResponse>((resolve, reject) => {
-    window.steem_keychain?.requestProxy(
-      account,
-      proxy,
-      (resp) => {
-        if (!resp.success) {
-          reject({ message: "Operation cancelled" });
-        }
-
-        resolve(resp);
-      },
-      rpc
-    );
-  });
-
 export interface KeyChainImpl {
   requestHandshake(callback: () => void): void;
 
