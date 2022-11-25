@@ -945,8 +945,16 @@ export const witnessProxyHot = (account: string, proxy: string) => {
   hotSign("account-witness-proxy", params, "witnesses");
 };
 
-export const witnessProxyKc = (account: string, witness: string) => {
-  return keychain.witnessProxy(account, witness);
+export const witnessProxyKc = (account: string, proxy: string) => {
+  const op: Operation = [
+    "account_witness_proxy",
+    {
+      account,
+      proxy,
+    },
+  ];
+
+  return keychain.broadcast(account, [op], "Active");
 };
 
 export const proposalVote = (
