@@ -150,7 +150,7 @@ export class AddressBar extends Component<AddressBarProps, AddressBarState> {
       }
 
       // website address is just a placeholder here
-      const url = new URL(address, "https://ecency.com");
+      const url = new URL(address, "https://upvu.org");
 
       // check if entered value matches with a route
       const pathMatch = Object.values(routes).find((p) => {

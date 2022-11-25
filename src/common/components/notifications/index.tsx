@@ -43,6 +43,11 @@ export const date2key = (s: string): string => {
     return moment().subtract(h, "minutes").fromNow();
   }
 
+  if (s.indexOf("hour") > -1) {
+    const h = parseInt(s, 10);
+    return moment().subtract(h, "hour").fromNow();
+  }
+
   if (s.indexOf("hours") > -1) {
     const h = parseInt(s, 10);
     return moment().subtract(h, "hours").fromNow();
@@ -52,7 +57,7 @@ export const date2key = (s: string): string => {
     return moment.utc(s).fromNow();
   }
 
-  const gt = _t(`notifications.group-title-${s.toLowerCase()}`);
+  const gt = _t(`notifications.group-title-recent`);
   if (gt) {
     return gt;
   }
@@ -273,7 +278,7 @@ export class NotificationListItem extends Component<{
                 {notification.memo && (
                   <div className="second-line">
                     <div className="transfer-memo">
-                      {notification.memo.substring(0, 120).replace("https://peakd.com/", "https://ecency.com/")}
+                      {notification.memo.substring(0, 120).replace("https://peakd.com/", "https://upvu.org/")}
                     </div>
                   </div>
                 )}

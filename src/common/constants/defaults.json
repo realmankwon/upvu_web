@@ -9,7 +9,7 @@
   },
   "locale": "en-US",
   "upvubase": "https://upvuweb-api.upvu.org/",
-  "base": "https://ecency.com",
+  "base": "https://upvu.org",
   "imageServer": "https://images.ecency.com",
   "nwsServer": "wss://enotify.esteem.app",
   "name": "Upvu",
