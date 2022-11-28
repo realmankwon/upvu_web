@@ -468,7 +468,6 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "effective_comment_vote") {
       flag = true;
 
-      debugger;
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (
@@ -494,7 +493,6 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "vote") {
       flag = true;
 
-      // debugger;
       const weight = +tr.weight;
 
       numbers = <>{<span className="number">{weight / 100} %</span>}</>;
@@ -703,6 +701,7 @@ const List = (props: Props) => {
       transactions: { list, group },
       steemengine,
     } = props;
+
     if (list.length > 0) {
       const last_num = list[list.length - 1].num + 1;
       fetchTransactions(account.name, steemengine, group as OperationGroup, last_num);
@@ -713,19 +712,45 @@ const List = (props: Props) => {
     <div className="transaction-list">
       <div className="transaction-list-header">
         <h2>{_t("transactions.title")} </h2>
-        {/* <FormControl as="select" value={props.transactions.group} onChange={typeChanged}>
+        <FormControl as="select" value={props.transactions.group} onChange={typeChanged}>
           <option value="">{_t("transactions.group-all")}</option>
           {["transfers", "market-orders", "interests", "stake-operations", "rewards"].map((x) => (
             <option key={x} value={x}>
               {_t(`transactions.group-${x}`)}
             </option>
           ))}
-        </FormControl> */}
+        </FormControl>
       </div>
+
       {props.transactions.loading && <LinearProgress />}
-      {transactionsList.map((x, k) => (
-        <TransactionRow {...props} key={k} transaction={x} />
-      ))}
+      {transactionsList.map(
+        (x, k) =>
+          (!props.transactions.group ||
+            (props.transactions.group == "transfers" &&
+              (x.type === "transfer" ||
+                x.type === "transfer_to_savings" ||
+                x.type === "cancel_transfer_from_savings")) ||
+            (props.transactions.group == "interests" && x.type === "interest") ||
+            (props.transactions.group == "market-orders" &&
+              (x.type === "fill_convert_request" ||
+                x.type === "fill_order" ||
+                x.type === "limit_order_create" ||
+                x.type === "limit_order_cancel")) ||
+            (props.transactions.group == "stake-operations" &&
+              (x.type === "return_vesting_delegation" ||
+                x.type === "withdraw_vesting" ||
+                x.type === "transfer_to_vesting" ||
+                x.type === "set_withdraw_vesting_route" ||
+                x.type === "update_proposal_votes" ||
+                x.type === "fill_vesting_withdraw" ||
+                x.type === "delegate_vesting_shares")) ||
+            (props.transactions.group == "rewards" &&
+              (x.type === "author_reward" ||
+                x.type === "curation_reward" ||
+                x.type === "producer_reward" ||
+                x.type === "claim_reward_balance" ||
+                x.type === "comment_benefactor_reward"))) && <TransactionRow {...props} key={k} transaction={x} />
+      )}
       {!props.transactions.loading && transactionsList.length === 0 && (
         <p className="text-muted empty-list">{_t("g.empty-list")}</p>
       )}

@@ -36,7 +36,7 @@ export interface WsFollowNotification extends BaseWsNotification {
 }
 
 export interface WsReplyNotification extends BaseWsNotification {
-  type: "reply";
+  type: "reply" | "reply_comment";
   extra: {
     title: string;
     body: string;
@@ -147,7 +147,7 @@ export interface ApiReblogNotification extends BaseAPiNotification {
 }
 
 export interface ApiReplyNotification extends BaseAPiNotification {
-  type: "reply";
+  type: "reply" | "reply_comment";
   author: string;
   permlink: string;
   title: string;
@@ -210,8 +210,8 @@ export enum NotificationFilter {
   FOLLOWS = "follows",
   REPLIES = "replies",
   REBLOGS = "reblogs",
-  TRANSFERS = "transfers",
-  DELEGATIONS = "delegations",
+  // TRANSFERS = "transfers",
+  // DELEGATIONS = "delegations",
 }
 
 export enum NFetchMode {
@@ -226,6 +226,7 @@ export interface Notifications {
   loading: boolean;
   hasMore: boolean;
   unreadFetchFlag: boolean;
+  lastread: string;
 }
 
 export enum ActionTypes {
@@ -255,6 +256,7 @@ export interface SetFilterAction {
 export interface SetUnreadCountAction {
   type: ActionTypes.SET_UNREAD_COUNT;
   count: number;
+  lastread: string;
 }
 
 export interface MarkAction {

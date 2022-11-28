@@ -12,16 +12,17 @@ import { ActiveUser } from "../../store/active-user/types";
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
 import { OverlayTrigger, Tooltip, Modal } from "react-bootstrap";
-import { getUPVUInfos, requestClaimTronReward } from "../../api/private-api";
-import DelegatedVesting from "../delegated-vesting";
+import { getUPVUInfos, requestClaimTronReward, getRewardType, updateRewardType } from "../../api/private-api";
 import Transfer, { TransferMode, TransferAsset } from "../transfer";
+import { error, success } from "../feedback";
 
 import { informationVariantSvg } from "../../img/svg";
 import formattedNumber from "../../util/formatted-number";
 
 import { _t } from "../../i18n";
 import { ValueDescView } from "../value-desc-view";
-import { render } from "../../../server/template";
+
+import { witnessProxyKc, witnessProxy, witnessProxyHot } from "../../api/operations";
 
 interface Props {
   global: Global;
@@ -150,26 +151,25 @@ interface UpvuInfoProps {
   account?: string;
 }
 
-interface State {
-  loading: boolean;
-  upvuInfos: UpvuInfoProps | null;
-  selectedHistory: string;
-  isSmaeAccount: boolean;
-  isUPVUUser: boolean;
-  showTransferDialog: boolean;
-  showDelegationDialog: boolean;
-  transferMode: null | TransferMode;
-  transferAsset: null | TransferAsset;
+interface RewardTypeProps {
+  id: number;
+  reward_type: string;
+  use_tag?: string;
+  sort?: number;
+  enabled?: string;
+  chain?: string;
+  fee?: number;
+  fee_unit?: string;
+  image_url?: string;
 }
 
-// {transfer && (
-//   <Transfer
-//     {...this.props}
-//     activeUser={activeUser!}
-//     to={isMyPage ? undefined : account.name}
-//     mode={transferMode!}
-//     asset={transferAsset!}
-//     onHide={this.closeTransferDialog}
+interface UpvuStatusProps {
+  summary: SummaryProps;
+  user: UserProps;
+  rewardTypeList: RewardTypeProps[];
+  selectedRewardType: string;
+  showDialog: () => void;
+}
 
 interface ValueDescWithTooltipProps {
   val: any;
@@ -178,9 +178,23 @@ interface ValueDescWithTooltipProps {
   existIcon?: boolean;
 }
 
-interface DialogProps {
-  showDialog: boolean;
+interface SetTypeDialogProps {
+  onHide: () => void;
   children: JSX.Element;
+}
+
+interface State {
+  loading: boolean;
+  upvuInfos: UpvuInfoProps | null;
+  selectedHistory: string;
+  selectedRewardType: string;
+  isSmaeAccount: boolean;
+  isUPVUUser: boolean;
+  showTransferDialog: boolean;
+  showSetTypeDialog: boolean;
+  transferMode: null | TransferMode;
+  transferAsset: null | TransferAsset;
+  rewardTypeList: RewardTypeProps[];
 }
 
 const historyKindArray = ["Voting History", "Reward History(KRW)", "Reward History(USD)", "Delegation History"];
@@ -190,12 +204,14 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     loading: true,
     upvuInfos: null,
     selectedHistory: historyKindArray[0],
+    selectedRewardType: "",
     isSmaeAccount: false,
     isUPVUUser: false,
     showTransferDialog: false,
-    showDelegationDialog: false,
+    showSetTypeDialog: false,
     transferMode: null,
     transferAsset: null,
+    rewardTypeList: [],
   };
 
   componentDidMount() {
@@ -210,9 +226,14 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
           const upvuInfo = r.infos as UpvuInfoProps;
 
           if (upvuInfo.summary.total_sp) {
-            this.setState({ upvuInfos: r.infos, loading: false, isUPVUUser: true });
+            this.setState({
+              upvuInfos: upvuInfo,
+              loading: false,
+              isUPVUUser: true,
+              selectedRewardType: upvuInfo.user.reward_type,
+            });
           } else {
-            this.setState({ upvuInfos: r.infos, loading: false, isUPVUUser: false });
+            this.setState({ upvuInfos: upvuInfo, loading: false, isUPVUUser: false });
           }
         } else {
           alert("fail to load upvuInfos list");
@@ -221,6 +242,15 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     } else {
       this.setState({ isSmaeAccount: false });
     }
+
+    getRewardType().then((r) => {
+      console.log("getRewardType", r);
+      if (r.success) {
+        this.setState({ rewardTypeList: r.list });
+      } else {
+        error("Fail to load reward type list");
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -239,13 +269,19 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
   };
 
-  // openDelegationDialog = (mode: TransferMode, asset: TransferAsset) => {
-  //   this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset });
-  // };
+  openSetRewardTypeDialog = () => {
+    this.setState({ showSetTypeDialog: true });
+  };
 
-  // closeDelegationDialog = () => {
-  //   this.setState({ showDelegationDialog: false, transferMode: null, transferAsset: null });
-  // };
+  closeSetRewardTypeDialog = () => {
+    this.setState({ showSetTypeDialog: false });
+  };
+
+  selectRewardType = (e?: React.MouseEvent<HTMLElement>) => {
+    if (e) {
+      e.stopPropagation();
+    }
+  };
 
   render() {
     const { account, activeUser } = this.props;
@@ -253,12 +289,14 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
       upvuInfos,
       loading,
       selectedHistory,
+      selectedRewardType,
       isSmaeAccount,
       isUPVUUser,
       showTransferDialog,
-      showDelegationDialog,
+      showSetTypeDialog,
       transferMode,
       transferAsset,
+      rewardTypeList,
     } = this.state;
 
     if (!account.__loaded) {
@@ -275,7 +313,13 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
               {isUPVUUser && upvuInfos ? (
                 <div>
                   <MyUpvuPower {...upvuInfos} />
-                  <UPVUStatus {...upvuInfos} />
+                  <UPVUStatus
+                    summary={upvuInfos.summary}
+                    user={upvuInfos.user}
+                    rewardTypeList={rewardTypeList}
+                    showDialog={this.openSetRewardTypeDialog}
+                    selectedRewardType={selectedRewardType}
+                  />
                   <MyRewards {...upvuInfos} />
                   <DelegationSP {...upvuInfos} openTransferDialog={this.openTransferDialog} />
                   <TronInformation {...upvuInfos} />
@@ -344,14 +388,43 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
           <Transfer
             {...this.props}
             activeUser={activeUser!}
-            to={isSmaeAccount ? undefined : account.name}
+            to={isSmaeAccount ? "upvu" : account.name}
             mode={transferMode!}
             asset={transferAsset!}
             onHide={this.closeTransferDialog}
           />
         )}
 
-        {/* <ShowDialog showDialog={} /> */}
+        {showSetTypeDialog && activeUser?.username && (
+          <ShowSetTypeDialog onHide={this.closeSetRewardTypeDialog}>
+            <div className="dialog-content">
+              {rewardTypeList.map((rewardType, idx) => (
+                <button
+                  className={`rewardtype-row ${selectedRewardType === rewardType.reward_type ? "selected" : ""}`}
+                  key={idx}
+                  onClick={() => {
+                    updateRewardType(activeUser.username, rewardType.reward_type).then((r) => {
+                      if (r.success) {
+                        this.setState({
+                          selectedRewardType: rewardType.reward_type,
+                        });
+
+                        this.closeSetRewardTypeDialog();
+
+                        success(`Update reward type to ${rewardType.reward_type} successfully!`);
+                      } else {
+                        error("Fail to update reward type");
+                      }
+                    });
+                  }}
+                >
+                  <img className="image" src={`${rewardType.image_url}`} />
+                  <div className="reward-type">{rewardType.reward_type}</div>
+                </button>
+              ))}
+            </div>
+          </ShowSetTypeDialog>
+        )}
       </div>
     );
   }
@@ -383,7 +456,7 @@ const ValueDescWithTooltip = ({ val, desc, children, existIcon = true }: ValueDe
   );
 };
 
-const MyUpvuPower = ({ user_sp, summary }: UpvuInfoProps) => {
+const MyUpvuPower = ({ summary }: UpvuInfoProps) => {
   return (
     <>
       <div className="view-container">
@@ -423,7 +496,27 @@ const MyUpvuPower = ({ user_sp, summary }: UpvuInfoProps) => {
   );
 };
 
-const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
+const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatusProps) => {
+  const [proxy, setProxy] = useState(user.proxy);
+
+  const onClickSetProxy = () => {
+    if (proxy === "Y") {
+      success("You already set proxy.");
+      return;
+    }
+
+    witnessProxyKc(user.account, "upvu.proxy")
+      .then((r) => {
+        console.log(r);
+        setProxy("Y");
+        success("Set proxy successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+        error("Fail to set proxy");
+      });
+  };
+
   return (
     <>
       <div className="view-container">
@@ -443,7 +536,7 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
               <p>(Liquid Steem Reward + Author Reward) / Your UPVU Power * 100</p>
             </>
           </ValueDescWithTooltip>
-          <ValueDescWithTooltip val={`${user.reward_type}`} desc={"Reward Type"}>
+          <ValueDescWithTooltip val={`${selectedRewardType}`} desc={"Reward Type"}>
             <>
               <p>You receive Selected Reward Type Daily</p>
             </>
@@ -452,13 +545,12 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  {/* <Form.Label> </Form.Label> */}
-                  <Form.Control className="claim-btn" type="button" value="Set Type" onClick={() => {}} />
+                  <Form.Control className="claim-btn" type="button" value="Change Type" onClick={showDialog} />
                 </Form.Group>
               </Col>
             </Form.Row>
           </div>
-          <ValueDescWithTooltip val={`${user.proxy}`} desc={"Boost Reward"}>
+          <ValueDescWithTooltip val={`${proxy}`} desc={"Boost Reward"}>
             <>
               <p>You can get 100% STEEM Reward when you set up a proxy with @upvu.proxy. (otherwise 50%)</p>
             </>
@@ -467,8 +559,13 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  {/* <Form.Label> </Form.Label> */}
-                  <Form.Control className="claim-btn" type="button" value="Set Proxy" onClick={() => {}} />
+                  <Form.Control
+                    className="claim-btn"
+                    type="button"
+                    value="Set Proxy"
+                    onClick={onClickSetProxy}
+                    disabled={proxy === "Y"}
+                  />
                 </Form.Group>
               </Col>
             </Form.Row>
@@ -479,10 +576,9 @@ const UPVUStatus = ({ summary, user }: UpvuInfoProps) => {
   );
 };
 
-const MyRewards = ({ summary, user }: UpvuInfoProps) => {
+const MyRewards = ({ summary }: UpvuInfoProps) => {
   return (
     <>
-      {/* Additional Information */}
       <div className="view-container">
         <div className="header">My Rewards</div>
 
@@ -530,7 +626,6 @@ const MyRewards = ({ summary, user }: UpvuInfoProps) => {
 const TronInformation = ({ summary }: UpvuInfoProps) => {
   return (
     <>
-      {/* Tron Information */}
       <div className="view-container">
         <div className="header">Tron Rewards</div>
 
@@ -591,9 +686,29 @@ const TronClaim = ({ account, summary, tron_address }: UpvuInfoProps) => {
 
   const onClickClaim = () => {
     if (account) {
+      if (!amount) {
+        error("Please input amount.");
+        return;
+      }
+
+      if (summary.remain_trx_reward < amount) {
+        error("The quantity requested is greater than the claimable quantity.");
+        return;
+      }
+
+      if (10 > amount) {
+        error("The minimum claimable quantity is 10.");
+        return;
+      }
+
       requestClaimTronReward(account, address, amount)
         .then((r) => {
           console.log(r);
+          if (r.result) {
+            success("The claim was successful(It will be sent within 5 minutes.)");
+          } else {
+            error("Claim failed. Please refresh and try again.");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -642,34 +757,9 @@ const TronClaim = ({ account, summary, tron_address }: UpvuInfoProps) => {
 };
 
 const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransferDialog }: UpvuInfoProps | any) => {
-  // const [delegationAmount, setDelegationAmount] = useState(0);
-  // const [transferAmount, setTransferAmount] = useState(0);
-  // const maxDelegationAmount = user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate;
-  // const maxTransferAmount = parseFloat(user_steem);
-
-  // const onClickDelegationMax = () => {
-  //   setDelegationAmount(maxDelegationAmount);
-  // };
-
-  // const onChangeDelegation = (e: ChangeEvent<HTMLInputElement>): void => {
-  //   const val = parseFloat(e.target.value);
-
-  //   setDelegationAmount(val < 0 ? 0 : val);
-  // };
-
   const onClickDelegation = () => {
     openTransferDialog("delegate", "SP");
   };
-
-  // const onClickTransferMax = () => {
-  //   setTransferAmount(maxTransferAmount);
-  // };
-
-  // const onChangeTransfer = (e: ChangeEvent<HTMLInputElement>): void => {
-  //   const val = parseFloat(e.target.value);
-
-  //   setTransferAmount(val < 0 ? 0 : val);
-  // };
 
   const onClickTransfer = () => {
     openTransferDialog("transfer", "STEEM");
@@ -697,7 +787,6 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  {/* <Form.Label></Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
                 </Form.Group>
               </Col>
@@ -718,7 +807,6 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  {/* <Form.Label></Form.Label> */}
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
@@ -922,25 +1010,13 @@ const DelegationHistory = ({ delegate }: UpvuInfoProps) => {
   );
 };
 
-const ShowDialog = ({ showDialog, children }: DialogProps) => {
-  const [show, setShow] = useState(showDialog);
-
-  const onClickClose = () => {
-    setShow(false);
-  };
-
+const ShowSetTypeDialog = ({ onHide, children }: SetTypeDialogProps) => {
   return (
-    <Modal
-      animation={false}
-      show={show}
-      centered={true}
-      onHide={onClickClose}
-      keyboard={false}
-      className="transfer-dialog modal-thin-header"
-      size="lg"
-    >
-      <Modal.Header closeButton={true} />
-      <Modal.Body>{children}</Modal.Body>
+    <Modal animation={false} show={true} centered={true} onHide={onHide} keyboard={false} className="dialog" size="lg">
+      <Modal.Header className="dialog-header" closeButton={true}>
+        Choose Reward Type
+      </Modal.Header>
+      <Modal.Body className="dialog-body">{children}</Modal.Body>
     </Modal>
   );
 };
