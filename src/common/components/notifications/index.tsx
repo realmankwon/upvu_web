@@ -38,9 +38,21 @@ export const date2key = (s: string): string => {
     return moment().subtract(1, "days").fromNow();
   }
 
+  if (s.indexOf("minutes") > -1) {
+    const h = parseInt(s, 10);
+    const result = moment().subtract(h, "minutes").fromNow();
+    return result;
+  }
+
+  if (s.indexOf("an hour") > -1) {
+    const result = moment().subtract(1, "hour").fromNow();
+    return result;
+  }
+
   if (s.indexOf("hours") > -1) {
     const h = parseInt(s, 10);
-    return moment().subtract(h, "hours").fromNow();
+    const result = moment().subtract(h, "hours").fromNow();
+    return result;
   }
 
   if (s.split("-").length === 3) {
