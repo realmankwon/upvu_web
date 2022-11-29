@@ -1,4 +1,4 @@
-import { SMTAsset } from "@hiveio/dhive";
+import { SMTAsset } from "@upvu/dsteem";
 
 interface BaseTransaction {
   num: number;
