@@ -1197,7 +1197,7 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.16.7"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.1", "@babel/runtime@^7.13.8", "@babel/runtime@^7.13.9", "@babel/runtime@^7.14.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.1", "@babel/runtime@^7.13.8", "@babel/runtime@^7.14.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.14.8"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.8.tgz#7119a56f421018852694290b9f9148097391b446"
   integrity sha512-twj3L8Og5SaCRCErB4x4ajbvBIVV77CGeFglHpeg5WC5FF8TZzBWXtTJ4MqaD9QszLYTtr+IsaAL2rEUevb+eg==
@@ -2237,10 +2237,17 @@
   dependencies:
     "@types/node" "*"
 
+<<<<<<< HEAD
 "@upvu/dsteem@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.0.4.tgz#5e52d96de925f3b407da0ddb5e5606e3f93bb232"
   integrity sha512-lW5/IdI2WIpAbZ/wiWcj0SzEEKOLeKBM6G11QhDRIxyxF3GXHybHmtxpNlMWpvOntOVkYdu9tB1EN1R200feIw==
+=======
+"@upvu/dsteem@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.0.3.tgz#98362b90e15ce747d1388c99e588774bbecfa98c"
+  integrity sha512-+EIXhRPuxR1+QvNevPc2TTzg7YLTrpFdlLDPn9ZU7f+RZYbTNNtBuzEpcvfqOJCPKVBRgASlgwVi3bPAUFdp+g==
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
   dependencies:
     bs58 "^4.0.1"
     bytebuffer "^5.0.1"
@@ -4117,6 +4124,7 @@ cross-fetch@3.1.2:
   dependencies:
     node-fetch "2.6.1"
 
+<<<<<<< HEAD
 cross-fetch@^3.0.6:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
@@ -4124,6 +4132,8 @@ cross-fetch@^3.0.6:
   dependencies:
     node-fetch "2.6.7"
 
+=======
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
 cross-spawn@7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.1.tgz#0ab56286e0f7c24e153d04cc2aa027e43a9a5d14"
@@ -6173,25 +6183,6 @@ history@^4.7.2, history@^4.9.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
     value-equal "^1.0.1"
-
-hive-uri@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/hive-uri/-/hive-uri-0.2.3.tgz#a0d9bc69d44423e660c84dd57fdadb6994481b8d"
-  integrity sha512-q6zp2sh5fjs6cf4T2oHvXt4IFNMmGBTRT5uKuxK/y//5XXCSbOGY/B/DKfK+7hwT8arMhcnbtKdlKarZu2SsXA==
-
-hive-uri@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/hive-uri/-/hive-uri-0.2.4.tgz#6975cfa50790571084d31249e6e061ed3d4f7fde"
-  integrity sha512-c61F16oVARU+eLvGy20JN7M9YK+DUexHPFGBlG39VHI9Ahxos8YNCY6Btmw9AL7Jlq5b4HtY0LvsOIqHQoOWhw==
-
-hivesigner@^3.2.8:
-  version "3.2.8"
-  resolved "https://registry.yarnpkg.com/hivesigner/-/hivesigner-3.2.8.tgz#868dd77dcc96a6c25018f4ed6aa32dfae595a864"
-  integrity sha512-lSpN2123GLdpuaQLMOW0/Ux8+pbnaXTEvu3JpMNT2TcT8Ey9vG/pT+gnwqJ/sTAUTmge8OQtbZ0zIzaR9QS4Wg==
-  dependencies:
-    "@babel/runtime" "^7.13.9"
-    cross-fetch "^3.0.6"
-    hive-uri "^0.2.4"
 
 hmac-drbg@^1.0.1:
   version "1.0.1"
@@ -8432,7 +8423,11 @@ node-fetch@2.6.1:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
+<<<<<<< HEAD
 node-fetch@2.6.7, node-fetch@^2.3.0:
+=======
+node-fetch@^2.3.0:
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==

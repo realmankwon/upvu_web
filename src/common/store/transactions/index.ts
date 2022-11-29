@@ -61,6 +61,39 @@ export const fetchTransactions =
     dispatch(fetchAct(group));
 
     const name = username.replace("@", "");
+<<<<<<< HEAD
+=======
+
+    let filters: string;
+    let transfers_filters: string = "transfer,transfer_to_savings,cancel_transfer_from_savings";
+    let orders_filters: string =
+      "fill_convert_request,fill_order,limit_order_create2,limit_order_create,limit_order_cancel";
+    let interests_filters: string = "interest";
+    let stake_filters: string =
+      "return_vesting_delegation,withdraw_vesting,transfer_to_vesting,set_withdraw_vesting_route,update_proposal_votes,fill_vesting_withdraw,account_witness_proxy,delegate_vesting_shares";
+    let rewards_filters: string =
+      "author_reward,curation_reward,producer_reward,claim_reward_balance,comment_benefactor_reward,liquidity_reward";
+
+    switch (group) {
+      case "transfers":
+        filters = transfers_filters;
+        break;
+      case "market-orders":
+        filters = orders_filters;
+        break;
+      case "interests":
+        filters = interests_filters;
+        break;
+      case "stake-operations":
+        filters = stake_filters;
+        break;
+      case "rewards":
+        filters = rewards_filters;
+        break;
+      default:
+        filters = `${transfers_filters},${orders_filters},${interests_filters},${stake_filters},${rewards_filters}`; // all
+    }
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
 
     try {
       let num = start;
@@ -97,7 +130,6 @@ export const fetchTransactions =
             };
           });
 
-          // debugger;
           const transactions: Transaction[] = mapped.filter((x) => x !== null).sort((a: any, b: any) => b.num - a.num);
 
           dispatch(fetchedAct(transactions));

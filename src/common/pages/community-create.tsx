@@ -15,7 +15,7 @@ import { makeHsCode } from "../helper/hive-signer";
 import * as keychain from "../helper/keychain";
 import { User } from "../store/users/types";
 import { hsTokenRenew } from "../api/auth-api";
-import hs from "hivesigner";
+// import hs from "hivesigner";
 import Meta from "../components/meta";
 import Theme from "../components/theme";
 import NavBarElectron from "../../desktop/app/components/navbar";
@@ -346,7 +346,7 @@ class CommunityCreatePage extends BaseComponent<PageProps, CreateState> {
       const callback = `${window.location.origin}/communities/create-hs?code=${code}&title=${encodeURIComponent(
         title
       )}&about=${encodeURIComponent(about)}`;
-      hs.sendOperation(operation, { callback }, () => {});
+      // hs.sendOperation(operation, { callback }, () => {});
     }
   };
 

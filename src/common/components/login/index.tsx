@@ -406,18 +406,19 @@ export class Login extends BaseComponent<LoginProps, State> {
     // Whether using posting private key to login
     let withPostingKey = false;
 
-    if (!isPlainPassword && postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
+    // if (!isPlainPassword && postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
+    if (postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
       // Login with posting private key
       withPostingKey = true;
       thePrivateKey = PrivateKey.fromString(key);
     } else {
       // Login with master or active private key
       // Get active private key from user entered code
-      if (isPlainPassword) {
-        thePrivateKey = PrivateKey.fromLogin(account.name, key, "active");
-      } else {
-        thePrivateKey = PrivateKey.fromString(key);
-      }
+      // if (isPlainPassword) {
+      //   thePrivateKey = PrivateKey.fromLogin(account.name, key, "active");
+      // } else {
+      thePrivateKey = PrivateKey.fromString(key);
+      // }
 
       // Generate public key from the private key
       const activePublicInput = thePrivateKey.createPublic().toString();

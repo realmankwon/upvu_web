@@ -304,7 +304,11 @@ export const getAccountHistory = (username: string, start: number = -1, limit: n
   //   method: "GET",
   //   params: "",
   // });
+<<<<<<< HEAD
   return client.call("database_api", "get_account_history", [username, start, limit]);
+=======
+  return client.call("condenser_api", "get_account_history", [username, start, limit]);
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
   // return client.database.getAccountHistory(username, start, limit);
 
   // return filters
@@ -537,4 +541,4 @@ export interface BlogEntry {
 }
 
 export const getBlogEntries = (username: string, limit: number = dataLimit): Promise<BlogEntry[]> =>
-  client.call("condenser_api", "get_blog_entries", [username, 0, limit]);
+  client.call("condenser_api", "get_blog_entries", [username, -1, limit]);

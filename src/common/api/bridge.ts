@@ -10,7 +10,11 @@ export const bridgeServer = new Client(SERVERS, {
   failoverThreshold: 3,
   consoleOnFailover: true,
 });
+<<<<<<< HEAD
 export const dataLimit = typeof window !== "undefined" && window.screen.width < 540 ? 5 : 20 || 20;
+=======
+export const dataLimit = typeof window !== "undefined" && window.screen.width < 540 ? 5 : 10 || 10;
+>>>>>>> 88b2e57be (dsteem applied for postingkey)
 
 const bridgeApiCall = <T>(endpoint: string, params: {}): Promise<T> => bridgeServer.call("bridge", endpoint, params);
 
