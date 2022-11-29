@@ -1,38 +1,38 @@
-import {Entry} from "../store/entries/types";
+import { Entry } from "../store/entries/types";
 
-import apps from "@hiveio/hivescript/apps.json";
+// import apps from "@hiveio/hivescript/apps.json";
 
 import defaults from "../../common/constants/defaults.json";
 
 import appName from "./app-name";
 
 export default (entry: Entry, isAmp: boolean = false): string | null => {
-    if (isAmp) {
-        return `${defaults.base}${entry.url}`
-    }
+  if (isAmp) {
+    return `${defaults.base}${entry.url}`;
+  }
 
-    if (entry.json_metadata?.canonical_url) {
-        return entry.json_metadata?.canonical_url.replace("https://www.", "https://");
-    }
+  if (entry.json_metadata?.canonical_url) {
+    return entry.json_metadata?.canonical_url.replace("https://www.", "https://");
+  }
 
-    let scheme = `${defaults.base}/{category}/@{username}/{permlink}`;
+  let scheme = `${defaults.base}/{category}/@{username}/{permlink}`;
 
-    const app = appName(entry.json_metadata.app);
+  const app = appName(entry.json_metadata.app);
 
-    if (app) {
-        const identifier = app.split("/")[0];
+  if (app) {
+    const identifier = app.split("/")[0];
 
-        if (apps[identifier]) {
-            scheme = apps[identifier].url_scheme;
-        }
-    }
+    // if (apps[identifier]) {
+    //   scheme = apps[identifier].url_scheme;
+    // }
+  }
 
-    if (!scheme) {
-        return null;
-    }
+  if (!scheme) {
+    return null;
+  }
 
-    return scheme
-        .replace("{category}", entry.category)
-        .replace("{username}", entry.author)
-        .replace("{permlink}", entry.permlink);
+  return scheme
+    .replace("{category}", entry.category)
+    .replace("{username}", entry.author)
+    .replace("{permlink}", entry.permlink);
 };

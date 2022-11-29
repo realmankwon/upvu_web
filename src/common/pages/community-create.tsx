@@ -5,7 +5,7 @@ import { client, getAccount } from "../api/hive";
 import parseAsset from "../helper/parse-asset";
 import numeral from "numeral";
 import base58 from "bs58";
-import { AccountCreateOperation, Authority, cryptoUtils, PrivateKey } from "@hiveio/dhive";
+import { AccountCreateOperation, Authority, cryptoUtils, PrivateKey } from "@upvu/dsteem";
 import random from "../util/rnd";
 import { Button, Form, FormControl, InputGroup, Modal, OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import { _t } from "../i18n";
@@ -15,7 +15,7 @@ import { makeHsCode } from "../helper/hive-signer";
 import * as keychain from "../helper/keychain";
 import { User } from "../store/users/types";
 import { hsTokenRenew } from "../api/auth-api";
-import hs from "hivesigner";
+// import hs from "hivesigner";
 import Meta from "../components/meta";
 import Theme from "../components/theme";
 import NavBarElectron from "../../desktop/app/components/navbar";
@@ -346,7 +346,7 @@ class CommunityCreatePage extends BaseComponent<PageProps, CreateState> {
       const callback = `${window.location.origin}/communities/create-hs?code=${code}&title=${encodeURIComponent(
         title
       )}&about=${encodeURIComponent(about)}`;
-      hs.sendOperation(operation, { callback }, () => {});
+      // hs.sendOperation(operation, { callback }, () => {});
     }
   };
 

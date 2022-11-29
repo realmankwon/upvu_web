@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
-import { PrivateKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 
 import numeral from "numeral";
 
-import isEqual from "react-fast-compare";
+// import isEqual from "react-fast-compare";
 
 import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
-import badActors from "@hiveio/hivescript/bad-actors.json";
+// import badActors from "@hiveio/hivescript/bad-actors.json";
 
 import { Global } from "../../store/global/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
@@ -204,9 +204,9 @@ export class Transfer extends BaseComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<Props>) {
-    if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
-      this.checkAmount();
-    }
+    // if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
+    //   this.checkAmount();
+    // }
   }
 
   formatNumber = (num: number | string, precision: number) => {
@@ -243,8 +243,8 @@ export class Transfer extends BaseComponent<Props, State> {
 
   memoChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: memo } = e.target;
-    const mError = cryptoUtils.isWif(memo.trim());
-    if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
+    // const mError = cryptoUtils.isWif(memo.trim());
+    // if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
     this.stateSet({ memo });
   };
 
@@ -261,11 +261,11 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     this._timer = setTimeout(() => {
-      if (badActors.includes(to)) {
-        this.stateSet({ toWarning: _t("transfer.to-bad-actor") });
-      } else {
-        this.stateSet({ toWarning: "" });
-      }
+      // if (badActors.includes(to)) {
+      //   this.stateSet({ toWarning: _t("transfer.to-bad-actor") });
+      // } else {
+      this.stateSet({ toWarning: "" });
+      // }
 
       this.stateSet({ inProgress: true, toData: null });
       const {
