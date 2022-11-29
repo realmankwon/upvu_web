@@ -94,7 +94,7 @@ export const fetchTransactions =
 
     try {
       let num = start;
-      debugger;
+
       if (steemengine) {
         let r = await getSteemEngineAccountHistoryAsync(name, "", start, limit);
 
@@ -111,7 +111,7 @@ export const fetchTransactions =
           .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
         dispatch(fetchedAct(transactions));
       } else {
-        getAccountHistory(name, filters, start, limit).then((r) => {
+        getAccountHistory(name, start, limit).then((r) => {
           const mapped: Transaction[] = r.map((x: any): Transaction[] | null => {
             const { op } = x[1];
             const { timestamp, trx_id } = x[1];
