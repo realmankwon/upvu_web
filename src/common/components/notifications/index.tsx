@@ -168,7 +168,7 @@ export class NotificationListItem extends Component<{
             )}
 
             {/* Replies */}
-            {notification.type === "reply" && (
+            {(notification.type === "reply" || notification.type === "reply_comment") && (
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
