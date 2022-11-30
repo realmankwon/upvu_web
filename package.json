@@ -12,12 +12,9 @@
   "dependencies": {
     "@ecency/render-helper": "^2.2.21",
     "@ecency/render-helper-amp": "^1.1.0",
-<<<<<<< HEAD
-=======
     "@firebase/analytics": "^0.8.0",
     "@firebase/app": "^0.7.28",
     "@firebase/messaging": "^0.9.16",
->>>>>>> 6dcbe6aa9cfafd33cd34218cd71d0614b542786e
     "@hiveio/dhive": "^1.2.1",
     "@hiveio/hivescript": "^1.2.7",
     "@loadable/component": "^5.15.2",
@@ -41,11 +38,8 @@
     "currency-symbol-map": "^4.0.4",
     "debounce": "^1.2.1",
     "diff-match-patch": "^1.0.5",
-<<<<<<< HEAD
-=======
     "electron": "^21.3.1",
     "electron-updater": "^5.3.0",
->>>>>>> 6dcbe6aa9cfafd33cd34218cd71d0614b542786e
     "express": "^4.17.1",
     "history": "^4.7.2",
     "hive-uri": "^0.2.3",
@@ -101,10 +95,7 @@
     "@types/js-cookie": "^2.2.6",
     "@types/loadable__component": "^5.13.4",
     "@types/loadable__server": "^5.12.6",
-<<<<<<< HEAD
     "@types/node": "^12.6.6",
-=======
->>>>>>> 6dcbe6aa9cfafd33cd34218cd71d0614b542786e
     "@types/path-to-regexp": "^1.7.0",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^16.8.23",
