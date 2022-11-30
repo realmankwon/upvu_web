@@ -7,10 +7,9 @@
     "start": "razzle start",
     "build": "razzle build --noninteractive",
     "test": "TZ=UTC razzle test --env=jsdom",
-    "start:prod": "NODE_ENV=production node build/server.js"
+    "start:prod": "cross-env NODE_ENV=production node -r \"babel-polyfill\" -r \"babel-register\" ./build/server.js"
   },
   "dependencies": {
-    "@upvu/dsteem": "^1.0.3",
     "@ecency/render-helper": "^2.2.18",
     "@ecency/render-helper-amp": "^1.1.0",
     "@hiveio/dhive": "^1.2.1",
@@ -25,8 +24,11 @@
     "@types/sortablejs": "^1.10.6",
     "@types/speakingurl": "^13.0.2",
     "@types/webscopeio__react-textarea-autocomplete": "^4.7.2",
+    "@upvu/dsteem": "^1.0.3",
     "@webscopeio/react-textarea-autocomplete": "^4.8.1",
     "axios": "^0.21.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
     "bs58": "^4.0.1",
     "connected-react-router": "^6.8.0",
     "cookie-parser": "^1.4.5",
