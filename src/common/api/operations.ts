@@ -796,17 +796,8 @@ export const delegateVestingSharesHot = (delegator: string, delegatee: string, v
   return hs.sendOperation(op, params, () => {});
 };
 
-export const delegateVestingSharesKc = (delegator: string, delegatee: string, vestingShares: string) => {
-  const op: Operation = [
-    "delegate_vesting_shares",
-    {
-      delegator,
-      delegatee,
-      vesting_shares: vestingShares,
-    },
-  ];
-
-  return keychain.broadcast(delegator, [op], "Active");
+export const delegateVestingSharesKc = (delegator: string, delegatee: string, amount: string) => {
+  return keychain.requestDelegation(delegator, delegatee, amount, "SP", true);
 };
 
 export const withdrawVesting = (
