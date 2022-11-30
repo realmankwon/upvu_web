@@ -198,7 +198,7 @@ export const getUnreadNotificationCount = (username: string): Promise<number> =>
       method: "bridge.unread_notifications",
       params: { account: username },
     })
-    .then((resp) => resp.data.result.unread);
+    .then((resp) => resp.data.result);
 };
 
 export const markNotifications = (username: string, id: string | null = null) => {

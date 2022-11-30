@@ -19,7 +19,7 @@ import {
 
 jest.mock("../../constants/defaults.json", () => ({
   imageServer: "https://images.ecency.com",
-  base: "https://ecency.com",
+  base: "https://upvu.org",
 }));
 
 // Mock for manabar calculation

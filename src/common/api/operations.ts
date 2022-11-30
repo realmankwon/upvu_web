@@ -313,7 +313,7 @@ export const transferHot = (from: string, to: string, amount: string, memo: stri
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -405,7 +405,7 @@ export const transferToSavingsHot = (from: string, to: string, amount: string, m
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -490,7 +490,7 @@ export const limitOrderCreateHot = (
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/market` };
+  const params: Parameters = { callback: `https://upvu.org/market` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -503,7 +503,7 @@ export const limitOrderCancelHot = (owner: string, orderid: number) => {
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/market` };
+  const params: Parameters = { callback: `https://upvu.org/market` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -571,7 +571,7 @@ export const convertHot = (owner: string, amount: string) => {
   ];
 
   const params: Parameters = {
-    callback: `https://ecency.com/@${owner}/wallet`,
+    callback: `https://upvu.org/@${owner}/wallet`,
   };
   return hs.sendOperation(op, params, () => {});
 };
@@ -622,7 +622,7 @@ export const transferFromSavingsHot = (from: string, to: string, amount: string,
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -690,7 +690,7 @@ export const claimInterestHot = (from: string, to: string, amount: string, memo:
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperations([op, cop], params, () => {});
 };
 
@@ -745,7 +745,7 @@ export const transferToVestingHot = (from: string, to: string, amount: string) =
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperation(op, params, () => {});
 };
 
@@ -791,7 +791,7 @@ export const delegateVestingSharesHot = (delegator: string, delegatee: string, v
   ];
 
   const params: Parameters = {
-    callback: `https://ecency.com/@${delegator}/wallet`,
+    callback: `https://upvu.org/@${delegator}/wallet`,
   };
   return hs.sendOperation(op, params, () => {});
 };
@@ -826,7 +826,7 @@ export const withdrawVestingHot = (account: string, vestingShares: string) => {
   ];
 
   const params: Parameters = {
-    callback: `https://ecency.com/@${account}/wallet`,
+    callback: `https://upvu.org/@${account}/wallet`,
   };
   return hs.sendOperation(op, params, () => {});
 };
@@ -874,7 +874,7 @@ export const setWithdrawVestingRouteHot = (from: string, to: string, percent: nu
     },
   ];
 
-  const params: Parameters = { callback: `https://ecency.com/@${from}/wallet` };
+  const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
   return hs.sendOperation(op, params, () => {});
 };
 

@@ -157,8 +157,8 @@ export const fetchNotifications =
 export const fetchUnreadNotificationCount = () => (dispatch: Dispatch, getState: () => AppState) => {
   const { activeUser } = getState();
 
-  getUnreadNotificationCount(activeUser?.username!).then((count) => {
-    dispatch(setUnreadCountAct(count));
+  getUnreadNotificationCount(activeUser?.username!).then((result: any) => {
+    dispatch(setUnreadCountAct(result.unread, result.lastread));
   });
 };
 
