@@ -1,4 +1,5 @@
-import { Client, RCAPI, utils } from "@upvu/dsteem";
+// import { Client, RCAPI, utils } from "@upvu/dsteem";
+import { Client, RCAPI, utils } from "@hiveio/dhive";
 
 import { RCAccount } from "@upvu/dsteem/lib/steem/rc";
 
