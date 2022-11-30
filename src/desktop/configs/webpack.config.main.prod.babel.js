@@ -21,7 +21,15 @@ export default merge(baseConfig, {
 
   target: "electron-main",
 
-  entry: ["babel-polyfill", "./app/main.dev.ts"],
+  // entry: ["babel-polyfill", "./app/main.dev.ts"],
+  entry: [
+    "core-js",
+    "regenerator-runtime/runtime",
+    ...(process.env.PLAIN_HMR ? [] : ["react-hot-loader/patch"]),
+    `webpack-dev-server/client?${prod_url}:${port}/`,
+    "webpack/hot/only-dev-server",
+    require.resolve("../app/index.tsx"),
+  ],
 
   output: {
     path: path.join(__dirname, ".."),
