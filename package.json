@@ -56,6 +56,7 @@
     "qs": "^6.9.4",
     "query-string": "^6.13.1",
     "react": "^16.8.6",
+    "react-app-polyfill": "^3.0.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.0.1",
     "react-datetime": "^3.0.4",
