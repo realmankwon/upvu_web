@@ -314,7 +314,7 @@ export const transferHot = (from: string, to: string, amount: string, memo: stri
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const transferKc = (from: string, to: string, amount: string, memo: string) => {
@@ -406,7 +406,7 @@ export const transferToSavingsHot = (from: string, to: string, amount: string, m
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const transferToSavingsKc = (from: string, to: string, amount: string, memo: string) => {
@@ -491,7 +491,7 @@ export const limitOrderCreateHot = (
   ];
 
   const params: Parameters = { callback: `https://upvu.org/market` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const limitOrderCancelHot = (owner: string, orderid: number) => {
@@ -504,7 +504,7 @@ export const limitOrderCancelHot = (owner: string, orderid: number) => {
   ];
 
   const params: Parameters = { callback: `https://upvu.org/market` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const limitOrderCreateKc = (
@@ -623,7 +623,7 @@ export const transferFromSavingsHot = (from: string, to: string, amount: string,
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const transferFromSavingsKc = (from: string, to: string, amount: string, memo: string) => {
@@ -691,7 +691,7 @@ export const claimInterestHot = (from: string, to: string, amount: string, memo:
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperations([op, cop], params, () => {});
+  return null;
 };
 
 export const claimInterestKc = (from: string, to: string, amount: string, memo: string) => {
@@ -746,7 +746,7 @@ export const transferToVestingHot = (from: string, to: string, amount: string) =
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const transferToVestingKc = (from: string, to: string, amount: string) => {
@@ -884,7 +884,7 @@ export const setWithdrawVestingRouteHot = (from: string, to: string, percent: nu
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-  return hs.sendOperation(op, params, () => {});
+  return null;
 };
 
 export const setWithdrawVestingRouteKc = (from: string, to: string, percent: number, autoVest: boolean) => {
