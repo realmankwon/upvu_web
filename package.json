@@ -10,6 +10,7 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
+    "@upvu/dsteem": "^1.0.3",
     "@ecency/render-helper": "^2.2.18",
     "@ecency/render-helper-amp": "^1.1.0",
     "@hiveio/dhive": "^1.2.1",
