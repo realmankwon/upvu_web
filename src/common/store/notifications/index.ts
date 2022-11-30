@@ -31,6 +31,7 @@ export const initialState: Notifications = {
   loading: false,
   hasMore: true,
   unreadFetchFlag: true,
+  lastread: "",
 };
 
 export default (state: Notifications = initialState, action: Actions): Notifications => {
@@ -140,7 +141,7 @@ export const fetchNotifications =
 
     const { filter } = notifications;
 
-    getNotifications(activeUser?.username!, filter, since)
+    getNotifications(activeUser?.username!, filter, since, notifications.lastread)
       .then((r) => {
         if (since) {
           dispatch(fetchedAct(r, NFetchMode.APPEND));

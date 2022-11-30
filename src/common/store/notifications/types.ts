@@ -226,6 +226,7 @@ export interface Notifications {
   loading: boolean;
   hasMore: boolean;
   unreadFetchFlag: boolean;
+  lastread: string;
 }
 
 export enum ActionTypes {
