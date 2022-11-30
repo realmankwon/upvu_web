@@ -6,7 +6,7 @@ import {
   TransactionConfirmation,
   AccountUpdateOperation,
   CustomJsonOperation,
-} from "@hiveio/dhive";
+} from "@upvu/dsteem";
 
 import { Parameters } from "hive-uri";
 

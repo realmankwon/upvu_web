@@ -4,7 +4,7 @@ import { Modal, Form, Button, FormControl, Spinner } from "react-bootstrap";
 
 import isEqual from "react-fast-compare";
 
-import { PrivateKey, PublicKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, PublicKey, cryptoUtils } from "@upvu/dsteem";
 
 import { History, Location } from "history";
 import * as ls from "../../util/local-storage";
@@ -399,7 +399,7 @@ export class Login extends BaseComponent<LoginProps, State> {
     // Posting public key of the account
     const postingPublic = account?.posting!.key_auths.map((x) => x[0]);
 
-    const isPlainPassword = !cryptoUtils.isWif(key);
+    const isPlainPassword = false;
 
     let thePrivateKey: PrivateKey;
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { PrivateKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 
 import numeral from "numeral";
 
@@ -243,7 +243,8 @@ export class Transfer extends BaseComponent<Props, State> {
 
   memoChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: memo } = e.target;
-    const mError = cryptoUtils.isWif(memo.trim());
+    // const mError = cryptoUtils.isWif(memo.trim());
+    const mError = false;
     if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
     this.stateSet({ memo });
   };

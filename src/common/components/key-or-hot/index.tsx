@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 
-import { cryptoUtils, PrivateKey } from "@hiveio/dhive";
+import { cryptoUtils, PrivateKey } from "@upvu/dsteem";
 
 import { ActiveUser } from "../../store/active-user/types";
 import { Global } from "../../store/global/types";
@@ -34,9 +34,7 @@ export class KeyOrHot extends Component<Props, State> {
     key: this.props.signingKey || "",
   };
 
-  keyChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ): void => {
+  keyChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: key } = e.target;
     this.setState({ key });
   };
@@ -47,18 +45,20 @@ export class KeyOrHot extends Component<Props, State> {
 
     let pKey: PrivateKey;
 
-    if (cryptoUtils.isWif(key)) {
-      // wif
-      try {
-        pKey = PrivateKey.fromString(key);
-      } catch (e) {
-        error("Invalid active private key!");
-        return;
-      }
-    } else {
-      // master key
-      pKey = PrivateKey.fromLogin(activeUser.username, key, "active");
+    // if (cryptoUtils.isWif(key)) {
+    // if (true) {
+    // wif
+    try {
+      pKey = PrivateKey.fromString(key);
+    } catch (e) {
+      error("Invalid active private key!");
+      return;
     }
+    // }
+    // else {
+    //   // master key
+    //   pKey = PrivateKey.fromLogin(activeUser.username, key, "active");
+    // }
 
     const { onKey, setSigningKey } = this.props;
 
@@ -84,12 +84,8 @@ export class KeyOrHot extends Component<Props, State> {
   render() {
     const { inProgress, global } = this.props;
     const { key } = this.state;
-    const hsLogo = global.isElectron
-      ? "./img/hive-signer.svg"
-      : require("../../img/hive-signer.svg");
-    const keyChainLogo = global.isElectron
-      ? "./img/keychain.png"
-      : require("../../img/keychain.png");
+    const hsLogo = global.isElectron ? "./img/hive-signer.svg" : require("../../img/hive-signer.svg");
+    const keyChainLogo = global.isElectron ? "./img/keychain.png" : require("../../img/keychain.png");
 
     return (
       <>
@@ -128,8 +124,7 @@ export class KeyOrHot extends Component<Props, State> {
           {global.hasKeyChain && (
             <div className="kc-sign">
               <Button variant="outline-primary" onClick={this.kcClicked}>
-                <img src={keyChainLogo} className="kc-logo" alt="keychain" />{" "}
-                {_t("key-or-hot.with-keychain")}
+                <img src={keyChainLogo} className="kc-logo" alt="keychain" /> {_t("key-or-hot.with-keychain")}
               </Button>
             </div>
           )}
