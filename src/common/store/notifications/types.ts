@@ -36,7 +36,7 @@ export interface WsFollowNotification extends BaseWsNotification {
 }
 
 export interface WsReplyNotification extends BaseWsNotification {
-  type: "reply";
+  type: "reply" | "reply_comment";
   extra: {
     title: string;
     body: string;
@@ -147,7 +147,7 @@ export interface ApiReblogNotification extends BaseAPiNotification {
 }
 
 export interface ApiReplyNotification extends BaseAPiNotification {
-  type: "reply";
+  type: "reply" | "reply_comment";
   author: string;
   permlink: string;
   title: string;

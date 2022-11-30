@@ -946,7 +946,15 @@ export const witnessProxyHot = (account: string, proxy: string) => {
 };
 
 export const witnessProxyKc = (account: string, witness: string) => {
-  return keychain.witnessProxy(account, witness);
+  const op: Operation = [
+    "account_witness_proxy",
+    {
+      account,
+      proxy,
+    },
+  ];
+
+  return keychain.broadcast(account, [op], "Active");
 };
 
 export const proposalVote = (

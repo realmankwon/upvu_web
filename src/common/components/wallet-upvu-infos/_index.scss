@@ -78,6 +78,11 @@
             color: white;
             background-color: $dark-sky-blue;
           }
+
+          .claim-btn:disabled {
+            color: white;
+            background-color: $warm-grey;
+          }
         }
 
         .tooltip-format {
