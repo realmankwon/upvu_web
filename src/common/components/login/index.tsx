@@ -88,6 +88,7 @@ export class LoginKc extends BaseComponent<LoginKcProps, LoginKcState> {
     this.stateSet({ inProgress: true });
 
     try {
+      debugger;
       account = await getAccount(username);
     } catch (err) {
       error(_t("login.error-user-fetch"));
@@ -383,6 +384,7 @@ export class Login extends BaseComponent<LoginProps, State> {
     this.stateSet({ inProgress: true });
 
     try {
+      debugger;
       account = await getAccount(username);
     } catch (err) {
       error(_t("login.error-user-fetch"));
