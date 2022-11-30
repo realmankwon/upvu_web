@@ -468,10 +468,6 @@ export class TransactionRow extends Component<RowProps> {
     if (tr.type === "effective_comment_vote") {
       flag = true;
 
-<<<<<<< HEAD
-      // debugger;
-=======
->>>>>>> 88b2e57be (dsteem applied for postingkey)
       const payout = parseAsset(tr.pending_payout);
 
       numbers = (

@@ -46,10 +46,6 @@ export class KeyOrHot extends Component<Props, State> {
     let pKey: PrivateKey;
 
     // if (cryptoUtils.isWif(key)) {
-<<<<<<< HEAD
-    // if (true) {
-=======
->>>>>>> 88b2e57be (dsteem applied for postingkey)
     // wif
     try {
       pKey = PrivateKey.fromString(key);
@@ -57,12 +53,7 @@ export class KeyOrHot extends Component<Props, State> {
       error("Invalid active private key!");
       return;
     }
-<<<<<<< HEAD
-    // }
-    // else {
-=======
     // } else {
->>>>>>> 88b2e57be (dsteem applied for postingkey)
     //   // master key
     //   pKey = PrivateKey.fromLogin(activeUser.username, key, "active");
     // }

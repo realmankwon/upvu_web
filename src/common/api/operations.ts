@@ -5,11 +5,6 @@ import {
   AccountUpdateOperation,
   CustomJsonOperation,
 } from "@upvu/dsteem";
-<<<<<<< HEAD
-
-import { Parameters } from "hive-uri";
-=======
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 
 import { client as hiveClient } from "./hive";
 
@@ -344,11 +339,8 @@ export const transferHot = (from: string, to: string, amount: string, memo: stri
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const transferKc = (from: string, to: string, amount: string, memo: string) => {
@@ -440,11 +432,8 @@ export const transferToSavingsHot = (from: string, to: string, amount: string, m
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const transferToSavingsKc = (from: string, to: string, amount: string, memo: string) => {
@@ -529,11 +518,8 @@ export const limitOrderCreateHot = (
   ];
 
   const params: Parameters = { callback: `https://upvu.org/market` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const limitOrderCancelHot = (owner: string, orderid: number) => {
@@ -546,11 +532,8 @@ export const limitOrderCancelHot = (owner: string, orderid: number) => {
   ];
 
   const params: Parameters = { callback: `https://upvu.org/market` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const limitOrderCreateKc = (
@@ -669,11 +652,8 @@ export const transferFromSavingsHot = (from: string, to: string, amount: string,
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const transferFromSavingsKc = (from: string, to: string, amount: string, memo: string) => {
@@ -741,11 +721,8 @@ export const claimInterestHot = (from: string, to: string, amount: string, memo:
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperations([op, cop], params, () => {});
-=======
+  // return hs.sendOperations([op, cop], params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const claimInterestKc = (from: string, to: string, amount: string, memo: string) => {
@@ -800,11 +777,8 @@ export const transferToVestingHot = (from: string, to: string, amount: string) =
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const transferToVestingKc = (from: string, to: string, amount: string) => {
@@ -942,11 +916,8 @@ export const setWithdrawVestingRouteHot = (from: string, to: string, percent: nu
   ];
 
   const params: Parameters = { callback: `https://upvu.org/@${from}/wallet` };
-<<<<<<< HEAD
-  return hs.sendOperation(op, params, () => {});
-=======
+  // return hs.sendOperation(op, params, () => {});
   return null;
->>>>>>> 88b2e57be (dsteem applied for postingkey)
 };
 
 export const setWithdrawVestingRouteKc = (from: string, to: string, percent: number, autoVest: boolean) => {

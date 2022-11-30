@@ -33,7 +33,6 @@
     "currency-symbol-map": "^4.0.4",
     "debounce": "^1.2.1",
     "diff-match-patch": "^1.0.5",
-    "@upvu/dsteem": "^1.0.3",
     "express": "^4.17.1",
     "history": "^4.7.2",
     "html-react-parser": "^1.2.1",

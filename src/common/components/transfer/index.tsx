@@ -244,12 +244,8 @@ export class Transfer extends BaseComponent<Props, State> {
   memoChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: memo } = e.target;
     // const mError = cryptoUtils.isWif(memo.trim());
-<<<<<<< HEAD
     const mError = false;
     if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
-=======
-    // if (mError) this.setState({ memoError: _t("transfer.memo-error").toUpperCase() });
->>>>>>> 88b2e57be (dsteem applied for postingkey)
     this.stateSet({ memo });
   };
 
