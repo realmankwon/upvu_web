@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { utils } from "@hiveio/dhive";
+import { utils } from "@upvu/dsteem";
 
 import {
   OperationGroup,
@@ -15,49 +15,6 @@ import {
 
 import { getAccountHistory } from "../../api/hive";
 import { getSteemEngineAccountHistoryAsync } from "../../api/hive-engine";
-
-const ops = utils.operationOrders;
-
-export const ACCOUNT_OPERATION_GROUPS: Record<OperationGroup, number[]> = {
-  transfers: [
-    ops.transfer,
-    ops.transfer_to_savings,
-    ops.cancel_transfer_from_savings,
-    ops.recurrent_transfer,
-    ops.fill_recurrent_transfer,
-    ops.proposal_pay,
-  ],
-  "market-orders": [
-    ops.fill_convert_request,
-    ops.fill_order,
-    ops.fill_collateralized_convert_request,
-    ops.limit_order_create2,
-    ops.limit_order_create,
-    ops.limit_order_cancel,
-  ],
-  interests: [ops.interest],
-  "stake-operations": [
-    ops.return_vesting_delegation,
-    ops.withdraw_vesting,
-    ops.transfer_to_vesting,
-    ops.set_withdraw_vesting_route,
-    ops.update_proposal_votes,
-    ops.fill_vesting_withdraw,
-    ops.account_witness_proxy,
-    ops.delegate_vesting_shares,
-  ],
-  rewards: [
-    ops.author_reward,
-    ops.curation_reward,
-    ops.producer_reward,
-    ops.claim_reward_balance,
-    ops.comment_benefactor_reward,
-    ops.liquidity_reward,
-    ops.comment_reward,
-  ],
-};
-
-const ALL_ACCOUNT_OPERATIONS = [...Object.values(ACCOUNT_OPERATION_GROUPS)].reduce((acc, val) => acc.concat(val), []);
 
 export const initialState: Transactions = {
   list: [],
@@ -105,6 +62,36 @@ export const fetchTransactions =
 
     const name = username.replace("@", "");
 
+    let filters: string;
+    let transfers_filters: string = "transfer,transfer_to_savings,cancel_transfer_from_savings";
+    let orders_filters: string =
+      "fill_convert_request,fill_order,limit_order_create2,limit_order_create,limit_order_cancel";
+    let interests_filters: string = "interest";
+    let stake_filters: string =
+      "return_vesting_delegation,withdraw_vesting,transfer_to_vesting,set_withdraw_vesting_route,update_proposal_votes,fill_vesting_withdraw,account_witness_proxy,delegate_vesting_shares";
+    let rewards_filters: string =
+      "author_reward,curation_reward,producer_reward,claim_reward_balance,comment_benefactor_reward,liquidity_reward";
+
+    switch (group) {
+      case "transfers":
+        filters = transfers_filters;
+        break;
+      case "market-orders":
+        filters = orders_filters;
+        break;
+      case "interests":
+        filters = interests_filters;
+        break;
+      case "stake-operations":
+        filters = stake_filters;
+        break;
+      case "rewards":
+        filters = rewards_filters;
+        break;
+      default:
+        filters = `${transfers_filters},${orders_filters},${interests_filters},${stake_filters},${rewards_filters}`; // all
+    }
+
     try {
       let num = start;
 
@@ -124,7 +111,7 @@ export const fetchTransactions =
           .sort((a: any, b: any) => +new Date(b.timestamp) - +new Date(a.timestamp));
         dispatch(fetchedAct(transactions));
       } else {
-        getAccountHistory(name, start, limit).then((r) => {
+        getAccountHistory(name, filters, start, limit).then((r) => {
           const mapped: Transaction[] = r.map((x: any): Transaction[] | null => {
             const { op } = x[1];
             const { timestamp, trx_id } = x[1];

@@ -2,7 +2,7 @@ import React from "react";
 
 import { History } from "history";
 
-import { AssetSymbol } from "@hiveio/dhive";
+import { AssetSymbol } from "@upvu/dsteem";
 
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";

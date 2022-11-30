@@ -29,7 +29,7 @@ import KeyOrHot from "../key-or-hot";
 import { AnyAction, bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
-import { PrivateKey } from "@hiveio/dhive";
+import { PrivateKey } from "@upvu/dsteem";
 
 export enum TransactionType {
   None = 0,
@@ -67,25 +67,26 @@ export class BuySellHive extends BaseComponent<any, State> {
   }
 
   updateAll = (a: any) => {
-    const { addAccount, updateActiveUser, onTransactionSuccess } =
-      this.props;
+    const { addAccount, updateActiveUser, onTransactionSuccess } = this.props;
     // refresh
     addAccount(a);
     // update active
     updateActiveUser(a);
-    this.setState({ inProgress: false,step: 3 });
+    this.setState({ inProgress: false, step: 3 });
     onTransactionSuccess();
   };
 
   promiseCheck = (p: any) => {
-    const { onHide, } = this.props;
-    p && p.then(() => getAccountFull(this.props.activeUser!.username))
-      .then((a: any) => this.updateAll(a))
-      .catch((err: any) => {
-        error(formatError(err));
-        this.setState({ inProgress: false });
-        onHide();
-      });
+    const { onHide } = this.props;
+    p &&
+      p
+        .then(() => getAccountFull(this.props.activeUser!.username))
+        .then((a: any) => this.updateAll(a))
+        .catch((err: any) => {
+          error(formatError(err));
+          this.setState({ inProgress: false });
+          onHide();
+        });
   };
 
   sign = (key: PrivateKey) => {
@@ -97,9 +98,7 @@ export class BuySellHive extends BaseComponent<any, State> {
       const {
         values: { total, amount },
       } = this.props;
-      this.promiseCheck(
-        limitOrderCreate(activeUser!.username, key, total, amount, Ttype)
-      );
+      this.promiseCheck(limitOrderCreate(activeUser!.username, key, total, amount, Ttype));
     }
   };
 
@@ -112,9 +111,7 @@ export class BuySellHive extends BaseComponent<any, State> {
       const {
         values: { total, amount },
       } = this.props;
-      this.promiseCheck(
-        limitOrderCreateHot(activeUser!.username, total, amount, Ttype)
-      );
+      this.promiseCheck(limitOrderCreateHot(activeUser!.username, total, amount, Ttype));
     }
   };
 
@@ -127,9 +124,7 @@ export class BuySellHive extends BaseComponent<any, State> {
       const {
         values: { total, amount },
       } = this.props;
-      this.promiseCheck(
-        limitOrderCreateKc(activeUser!.username, total, amount, Ttype)
-      );
+      this.promiseCheck(limitOrderCreateKc(activeUser!.username, total, amount, Ttype));
     }
   };
 
@@ -137,7 +132,7 @@ export class BuySellHive extends BaseComponent<any, State> {
     const { onHide, onTransactionSuccess } = this.props;
     onTransactionSuccess();
     onHide();
-  }
+  };
 
   render() {
     const { step, inProgress } = this.state;
@@ -154,7 +149,7 @@ export class BuySellHive extends BaseComponent<any, State> {
       signingKey,
       setSigningKey,
       Ttype,
-      orderid
+      orderid,
     } = this.props;
 
     const formHeader1 = (
@@ -174,14 +169,18 @@ export class BuySellHive extends BaseComponent<any, State> {
           <div className="d-flex justify-content-center">
             {Ttype === TransactionType.Cancel ? (
               <div className="mt-5 w-75 text-center sub-title text-wrap">
-                {_t("market.confirm-cancel", {orderid:orderid})}
+                {_t("market.confirm-cancel", { orderid: orderid })}
               </div>
             ) : (
               <div className="mt-5 w-75 text-center sub-title text-wrap">
                 {available < (Ttype === TransactionType.Buy ? total : amount)
                   ? _t("market.transaction-low")
-                  : _t("market.confirm-buy", {amount, price, total, balance: parseFloat(available - total as any).toFixed(3)})
-                }
+                  : _t("market.confirm-buy", {
+                      amount,
+                      price,
+                      total,
+                      balance: parseFloat((available - total) as any).toFixed(3),
+                    })}
               </div>
             )}
           </div>
@@ -195,9 +194,7 @@ export class BuySellHive extends BaseComponent<any, State> {
                 </Button>
                 <Button
                   onClick={() => this.setState({ step: 2 })}
-                  variant={
-                    Ttype === TransactionType.Cancel ? "danger" : "primary"
-                  }
+                  variant={Ttype === TransactionType.Cancel ? "danger" : "primary"}
                 >
                   {_t("g.continue")}
                 </Button>
@@ -241,33 +238,26 @@ export class BuySellHive extends BaseComponent<any, State> {
     }
 
     if (step === 3) {
-
-      const formHeader4 = <div className="transaction-form-header">
+      const formHeader4 = (
+        <div className="transaction-form-header">
           <div className="step-no">{step}</div>
           <div className="box-titles">
-              <div className="main-title">
-                  {_t('trx-common.success-title')}
-              </div>
-              <div className="sub-title">
-                  {_t('trx-common.success-sub-title')}
-              </div>
+            <div className="main-title">{_t("trx-common.success-title")}</div>
+            <div className="sub-title">{_t("trx-common.success-sub-title")}</div>
           </div>
-      </div>;
+        </div>
+      );
       return (
         <div className="transaction-form">
-        {formHeader4}
-        <div className="transaction-form-body d-flex flex-column align-items-center">
-            <div className="my-5 w-75 text-center sub-title text-wrap">
-              {_t("market.transaction-succeeded")}
-            </div>
+          {formHeader4}
+          <div className="transaction-form-body d-flex flex-column align-items-center">
+            <div className="my-5 w-75 text-center sub-title text-wrap">{_t("market.transaction-succeeded")}</div>
             <div className="d-flex justify-content-center">
-                <span className="hr-6px-btn-spacer"/>
-                <Button onClick={this.finish}>
-                    {_t("g.finish")}
-                </Button>
+              <span className="hr-6px-btn-spacer" />
+              <Button onClick={this.finish}>{_t("g.finish")}</Button>
             </div>
+          </div>
         </div>
-    </div>
       );
     }
 

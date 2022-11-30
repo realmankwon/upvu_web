@@ -1,4 +1,4 @@
-import { SMTAsset } from "@hiveio/dhive";
+import { SMTAsset } from "@upvu/dsteem";
 
 export enum Symbol {
   STEEM = "STEEM",

@@ -1,6 +1,6 @@
-import { Client, RCAPI, utils } from "@hiveio/dhive";
+import { Client, RCAPI, utils } from "@upvu/dsteem";
 
-import { RCAccount } from "@hiveio/dhive/lib/chain/rc";
+import { RCAccount } from "@upvu/dsteem/lib/steem/rc";
 
 import { TrendingTag } from "../store/trending-tags/types";
 import { DynamicProps } from "../store/dynamic-props/types";
@@ -298,14 +298,19 @@ export const getDynamicGlobalProperties = (): Promise<DynamicGlobalProperties> =
     };
   });
 
-export const getAccountHistory = (username: string, start: number = -1, limit: number = 100): Promise<any> => {
+export const getAccountHistory = (
+  username: string,
+  filters: string,
+  start: number = -1,
+  limit: number = 100
+): Promise<any> => {
   // return axios({
   //   url: `https://sds.steemworld.org/account_history_api/getHistoryByOpTypesTime/${username}/${filters}/1420070400-32503680000/${limit}/${start}`,
   //   method: "GET",
   //   params: "",
   // });
-  // return client.call("database_api", "get_account_history", [username, start, limit]);
-  return client.database.getAccountHistory(username, start, limit);
+  return client.call("condenser_api", "get_account_history", [username, start, limit]);
+  // return client.database.getAccountHistory(username, start, limit);
 
   // return filters
   // ? client.call("condenser_api", "get_account_history", [username, start, limit, ...filters])
@@ -537,4 +542,4 @@ export interface BlogEntry {
 }
 
 export const getBlogEntries = (username: string, limit: number = dataLimit): Promise<BlogEntry[]> =>
-  client.call("condenser_api", "get_blog_entries", [username, 0, limit]);
+  client.call("condenser_api", "get_blog_entries", [username, -1, limit]);

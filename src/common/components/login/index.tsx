@@ -4,7 +4,7 @@ import { Modal, Form, Button, FormControl, Spinner } from "react-bootstrap";
 
 import isEqual from "react-fast-compare";
 
-import { PrivateKey, PublicKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, PublicKey, cryptoUtils } from "@upvu/dsteem";
 
 import { History, Location } from "history";
 import * as ls from "../../util/local-storage";
@@ -399,25 +399,26 @@ export class Login extends BaseComponent<LoginProps, State> {
     // Posting public key of the account
     const postingPublic = account?.posting!.key_auths.map((x) => x[0]);
 
-    const isPlainPassword = !cryptoUtils.isWif(key);
+    // const isPlainPassword = !cryptoUtils.isWif(key);
 
     let thePrivateKey: PrivateKey;
 
     // Whether using posting private key to login
     let withPostingKey = false;
 
-    if (!isPlainPassword && postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
+    // if (!isPlainPassword && postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
+    if (postingPublic.includes(PrivateKey.fromString(key).createPublic().toString())) {
       // Login with posting private key
       withPostingKey = true;
       thePrivateKey = PrivateKey.fromString(key);
     } else {
       // Login with master or active private key
       // Get active private key from user entered code
-      if (isPlainPassword) {
-        thePrivateKey = PrivateKey.fromLogin(account.name, key, "active");
-      } else {
-        thePrivateKey = PrivateKey.fromString(key);
-      }
+      // if (isPlainPassword) {
+      //   thePrivateKey = PrivateKey.fromLogin(account.name, key, "active");
+      // } else {
+      thePrivateKey = PrivateKey.fromString(key);
+      // }
 
       // Generate public key from the private key
       const activePublicInput = thePrivateKey.createPublic().toString();
