@@ -89,6 +89,7 @@ export default (state: Notifications = initialState, action: Actions): Notificat
       return {
         ...state,
         unread: action.count,
+        lastread: action.lastread,
         unreadFetchFlag: false,
       };
     }
@@ -203,10 +204,11 @@ export const setFilterAct = (filter: NotificationFilter | null): SetFilterAction
   };
 };
 
-export const setUnreadCountAct = (count: number): SetUnreadCountAction => {
+export const setUnreadCountAct = (count: number, lastread: string): SetUnreadCountAction => {
   return {
     type: ActionTypes.SET_UNREAD_COUNT,
     count,
+    lastread,
   };
 };
 

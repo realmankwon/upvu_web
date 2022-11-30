@@ -256,6 +256,7 @@ export interface SetFilterAction {
 export interface SetUnreadCountAction {
   type: ActionTypes.SET_UNREAD_COUNT;
   count: number;
+  lastread: string;
 }
 
 export interface MarkAction {
