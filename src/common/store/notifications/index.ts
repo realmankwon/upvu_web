@@ -177,7 +177,7 @@ export const markNotifications = (id: string | null) => (dispatch: Dispatch, get
       return getUnreadNotificationCount(activeUser?.username!);
     })
     .then((count) => {
-      dispatch(setUnreadCountAct(count));
+      dispatch(setUnreadCountAct(count, ""));
     });
 };
 
