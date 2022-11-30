@@ -5,18 +5,18 @@ import { entryInstance1 } from "../helper/test-helper";
 it("(1) No app definition in json", () => {
   const entry = { ...entryInstance1, ...{ json_metadata: {} } };
   const result = entryCanonical(entry);
-  expect(result).toBe("https://upvu.org/hive/@good-karma/awesome-hive");
+  expect(result).toBe("https://ecency.com/hive/@good-karma/awesome-hive");
 });
 
 it("(2) Not valid/registered app", () => {
   const entry = { ...entryInstance1, ...{ json_metadata: { app: "ecency/0.1" } } };
   const result = entryCanonical(entry);
-  expect(result).toBe("https://upvu.org/hive/@good-karma/awesome-hive");
+  expect(result).toBe("https://ecency.com/hive/@good-karma/awesome-hive");
 });
 
 it("(3) Esteem", () => {
   const result = entryCanonical(entryInstance1);
-  expect(result).toBe("https://upvu.org/hive/@good-karma/awesome-hive");
+  expect(result).toBe("https://ecency.com/hive/@good-karma/awesome-hive");
 });
 
 it("(4) Hive", () => {

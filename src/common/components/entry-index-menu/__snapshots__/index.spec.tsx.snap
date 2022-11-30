@@ -451,7 +451,7 @@ exports[`(3) Active user. Trending filter 1`] = `
                   <img
                     className="media-intro"
                     id="media"
-                    src="https://upvu.org/assets/our-vision.png"
+                    src="https://ecency.com/assets/our-vision.png"
                     width="100%"
                   />
                 </div>
@@ -625,7 +625,7 @@ exports[`(3) Active user. Trending filter 1`] = `
                     <img
                       className="media-intro"
                       id="media"
-                      src="https://upvu.org/assets/our-vision.png"
+                      src="https://ecency.com/assets/our-vision.png"
                       width="100%"
                     />
                   </div>

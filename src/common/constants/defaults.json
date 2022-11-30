@@ -8,8 +8,8 @@
     "symbol": "$"
   },
   "locale": "en-US",
-  "upvubase": "https://upvuweb-api.upvu.org/",
-  "base": "https://upvu.org",
+  "upvubase": "https://upvu.org",
+  "base": "https://ecency.com",
   "imageServer": "https://images.ecency.com",
   "nwsServer": "wss://enotify.esteem.app",
   "name": "Upvu",

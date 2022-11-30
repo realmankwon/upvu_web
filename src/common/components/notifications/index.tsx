@@ -38,28 +38,16 @@ export const date2key = (s: string): string => {
     return moment().subtract(1, "days").fromNow();
   }
 
-  if (s.indexOf("minutes") > -1) {
-    const h = parseInt(s, 10);
-    const result = moment().subtract(h, "minutes").fromNow();
-    return result;
-  }
-
-  if (s.indexOf("an hour") > -1) {
-    const result = moment().subtract(1, "hour").fromNow();
-    return result;
-  }
-
   if (s.indexOf("hours") > -1) {
     const h = parseInt(s, 10);
-    const result = moment().subtract(h, "hours").fromNow();
-    return result;
+    return moment().subtract(h, "hours").fromNow();
   }
 
   if (s.split("-").length === 3) {
     return moment.utc(s).fromNow();
   }
 
-  const gt = _t(`notifications.group-title-recent`);
+  const gt = _t(`notifications.group-title-${s.toLowerCase()}`);
   if (gt) {
     return gt;
   }
@@ -168,7 +156,7 @@ export class NotificationListItem extends Component<{
             )}
 
             {/* Replies */}
-            {(notification.type === "reply" || notification.type === "reply_comment") && (
+            {notification.type === "reply" && (
               <div className="item-content">
                 <div className="first-line">
                   {sourceLink}
@@ -280,7 +268,7 @@ export class NotificationListItem extends Component<{
                 {notification.memo && (
                   <div className="second-line">
                     <div className="transfer-memo">
-                      {notification.memo.substring(0, 120).replace("https://peakd.com/", "https://upvu.org/")}
+                      {notification.memo.substring(0, 120).replace("https://peakd.com/", "https://ecency.com/")}
                     </div>
                   </div>
                 )}

@@ -7,11 +7,14 @@
     @include themify(day) {
       z-index: 1;
       background: rgb(255, 255, 255);
-      background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(124, 190, 241, 1) 100%);
+      background: -o-linear-gradient(
+        top,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(124, 190, 241, 1) 100%
+      );
       background: -webkit-gradient(
         linear,
-        left top,
-        left bottom,
+        left top, left bottom,
         from(rgba(255, 255, 255, 0)),
         to(rgba(124, 190, 241, 1))
       );
@@ -21,9 +24,22 @@
     @include themify(night) {
       z-index: 0;
       background: rgb(166, 172, 175);
-      background: -o-linear-gradient(top, rgba(166, 172, 175, 1) 0%, #131a29 100%);
-      background: -webkit-gradient(linear, left top, left bottom, from(rgba(166, 172, 175, 1)), to(#131a29));
-      background: linear-gradient(180deg, rgba(166, 172, 175, 1) 0%, #131a29 100%);
+      background: -o-linear-gradient(
+        top,
+        rgba(166, 172, 175, 1) 0%,
+        #131a29 100%
+      );
+      background: -webkit-gradient(
+        linear,
+        left top, left bottom,
+        from(rgba(166, 172, 175, 1)),
+        to(#131a29)
+      );
+      background: linear-gradient(
+        180deg,
+        rgba(166, 172, 175, 1) 0%,
+        #131a29 100%
+      );
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a6acaf",endColorstr="#17283d",GradientType=1);
     }
     position: absolute;
@@ -83,10 +99,10 @@
   .tob-bg-algae {
     display: none;
     @include themify(night) {
-      background-image: url("https://upvu.org/assets/hero-algae-dark.svg");
+      background-image: url("https://ecency.com/assets/hero-algae-dark.svg");
     }
     @include themify(day) {
-      background-image: url("https://upvu.org/assets/hero-algae-light.svg");
+      background-image: url("https://ecency.com/assets/hero-algae-light.svg");
     }
     background-position: 100% 100%;
     background-size: contain;
@@ -105,10 +121,10 @@
     display: none;
     z-index: 1;
     @include themify(night) {
-      background-image: url("https://upvu.org/assets/hero-fishes-dark.png");
+      background-image: url("https://ecency.com/assets/hero-fishes-dark.png");
     }
     @include themify(day) {
-      background-image: url("https://upvu.org/assets/hero-fishes.svg");
+      background-image: url("https://ecency.com/assets/hero-fishes.svg");
     }
     background-position: 100% 100%;
     background-size: contain;
@@ -213,10 +229,10 @@
     background-position: top;
     @include themify(day) {
       color: $dark-sky-blue;
-      background-image: url("https://upvu.org/assets/illustration-hero-day.webp");
+      background-image: url('https://ecency.com/assets/illustration-hero-day.webp');
     }
     @include themify(night) {
-      background-image: url("https://upvu.org/assets/illustration-hero.webp");
+      background-image: url('https://ecency.com/assets/illustration-hero.webp');
       color: $pinkish-grey;
     }
     @media (max-width: $lg-break) {
@@ -272,7 +288,7 @@
       -webkit-animation: bounce 0.7s infinite alternate;
       left: 48%;
       @media (max-width: $sm-break) {
-        left: 44%;
+        left: 44%
       }
     }
   }
@@ -526,12 +542,12 @@
         }
         @media (min-width: $sm-break) {
           p {
-            width: 75%;
+            width: 75%
           }
         }
         @media (min-width: $md-break) {
           p {
-            width: 100%;
+            width: 100%
           }
         }
         @media (max-width: $md-break) {
@@ -573,15 +589,15 @@
       .inner {
         height: auto;
         -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-        justify-content: space-evenly;
+            -ms-flex-pack: space-evenly;
+                justify-content: space-evenly;
         .text-group {
           width: 45%;
           margin-top: 4rem;
           margin-bottom: 4rem;
           -webkit-box-pack: center !important;
-          -ms-flex-pack: center !important;
-          justify-content: center !important;
+              -ms-flex-pack: center !important;
+                  justify-content: center !important;
         }
         .image-wrapper {
           width: 50%;
@@ -673,8 +689,8 @@
             padding: 0 1rem;
             max-height: 220px;
             -webkit-box-pack: start !important;
-            -ms-flex-pack: start !important;
-            justify-content: flex-start !important;
+                -ms-flex-pack: start !important;
+                    justify-content: flex-start !important;
           }
           .image-wrapper {
             height: 400px;
@@ -729,26 +745,26 @@
         width: 52%;
         margin: 0 1rem !important;
         -webkit-box-align: start;
-        -ms-flex-align: start;
-        align-items: flex-start;
+            -ms-flex-align: start;
+                align-items: flex-start;
         -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
         text-align: start;
       }
       @media (max-width: 766px) {
         height: auto;
         .inner {
           -webkit-box-pack: start;
-          -ms-flex-pack: start;
-          justify-content: flex-start;
+              -ms-flex-pack: start;
+                  justify-content: flex-start;
           -webkit-box-align: center;
-          -ms-flex-align: center;
-          align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
           -webkit-box-orient: vertical;
           -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-          flex-direction: column;
+              -ms-flex-direction: column;
+                  flex-direction: column;
           width: 100%;
           margin: 0;
           padding: 0;
@@ -766,13 +782,13 @@
           .text-group {
             height: 450px;
             width: 100%;
-            margin: 0 !important;
+            margin: 0!important;
             padding: 4rem 1rem;
             max-height: unset;
             text-align: center;
             -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
           }
         }
       }
@@ -810,8 +826,8 @@
           margin-top: 0px;
         }
         -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
         .text-group {
           max-width: 45%;
           padding: 1rem;
@@ -819,8 +835,8 @@
           min-width: unset;
           height: auto;
           -webkit-box-align: start;
-          -ms-flex-align: start;
-          align-items: flex-start;
+              -ms-flex-align: start;
+                  align-items: flex-start;
           text-align: start;
         }
         .img-wrapper {
@@ -868,8 +884,8 @@
             height: fit-content;
             max-width: unset;
             -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
             text-align: center;
             p {
               width: -webkit-fill-available;
@@ -922,7 +938,7 @@
     .part-top {
       height: 940px;
       @include themify(night) {
-        background-color: #161d26;
+        background-color: #161D26;
       }
       .inner {
         display: -webkit-box;
@@ -1021,7 +1037,10 @@
           left: 0;
           right: 0;
           height: 940px;
-          background: -o-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+          background: -o-linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          );
           background: -o-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
           background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5)));
           background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -1105,10 +1124,11 @@
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#161d26",endColorstr="#4d5356",GradientType=1);
       }
       @include themify(day) {
-        background: rgb(196, 219, 235);
-        background: -o-linear-gradient(273deg, rgba(196, 219, 235, 1) 0%, rgba(113, 180, 255, 1) 100%);
-        background: linear-gradient(177deg, rgba(196, 219, 235, 1) 0%, rgba(113, 180, 255, 1) 100%);
+        background: rgb(196,219,235);
+        background: -o-linear-gradient(273deg, rgba(196,219,235,1) 0%, rgba(113,180,255,1) 100%);
+        background: linear-gradient(177deg, rgba(196,219,235,1) 0%, rgba(113,180,255,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c4dbeb",endColorstr="#71b4ff",GradientType=1);
+
       }
       position: relative;
 
@@ -1122,19 +1142,19 @@
             left: -22%;
             top: 9%;
             -webkit-transform: scale(0.5);
-            -ms-transform: scale(0.5);
-            transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                    transform: scale(0.5);
           }
         }
         &.right-big {
           -webkit-transform: rotate(-23deg);
-          -ms-transform: rotate(-23deg);
-          transform: rotate(-23deg);
+              -ms-transform: rotate(-23deg);
+                  transform: rotate(-23deg);
           bottom: 0;
           @media (max-width: $lg-break) {
             -webkit-transform: rotate(-23deg) scale(0.5);
-            -ms-transform: rotate(-23deg) scale(0.5);
-            transform: rotate(-23deg) scale(0.5);
+                -ms-transform: rotate(-23deg) scale(0.5);
+                    transform: rotate(-23deg) scale(0.5);
           }
         }
         &.right-small {
@@ -1142,8 +1162,8 @@
           right: 110px;
           @media (max-width: $lg-break) {
             -webkit-transform: scale(0.5);
-            -ms-transform: scale(0.5);
-            transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                    transform: scale(0.5);
             bottom: 103px;
             right: 59px;
           }
@@ -1152,18 +1172,17 @@
           display: none;
           bottom: 5%;
           -webkit-transform: scale(1.5);
-          -ms-transform: scale(1.5);
-          transform: scale(1.5);
+              -ms-transform: scale(1.5);
+                  transform: scale(1.5);
           @media (max-width: $lg-break) {
             -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-            transform: scale(1);
+                -ms-transform: scale(1);
+                    transform: scale(1);
             right: 5%;
           }
         }
         @include themify(night) {
-          &.right-small,
-          &.right-big {
+          &.right-small, &.right-big {
             display: none;
           }
           &.right-dark-fishes {
@@ -1180,9 +1199,9 @@
         height: 740px;
         width: 375px;
         display: none;
-        left: 100px;
-        top: auto;
-        bottom: auto;
+        left:100px;
+        top:auto;
+        bottom:auto;
         z-index: 1;
         @include themify(day) {
           @media (min-width: $lg-break) {
@@ -1218,6 +1237,7 @@
         @media (max-width: 766px) {
           display: none !important;
         }
+        
       }
 
       .bubble-bg {
@@ -1253,27 +1273,25 @@
 
       @media (max-width: 766px) {
         height: 500px;
-        .phone-bg,
-        .bubble-bg,
-        .download-fishes {
+        .phone-bg, .bubble-bg, .download-fishes {
           display: none;
         }
         @include themify(night) {
-          background: rgb(23, 30, 38);
-          background: -o-linear-gradient(273deg, rgba(23, 30, 38, 1) 0%, rgba(71, 77, 84, 1) 100%);
-          background: linear-gradient(177deg, rgba(23, 30, 38, 1) 0%, rgba(71, 77, 84, 1) 100%);
-          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#171e26",endColorstr="#474d54",GradientType=1);
-
+          background: rgb(23,30,38);
+          background: -o-linear-gradient(273deg, rgba(23,30,38,1) 0%, rgba(71,77,84,1) 100%);
+          background: linear-gradient(177deg, rgba(23,30,38,1) 0%, rgba(71,77,84,1) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#171e26",endColorstr="#474d54",GradientType=1); 
+          
           @media (max-width: $sm-break) {
-            background: -o-linear-gradient(180deg, #a6acaf 0%, #17283d 100%);
-            background: linear-gradient(180deg, #a6acaf 0%, #17283d 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#A6ACAF",endColorstr="#17283D",GradientType=1);
-          }
+            background: -o-linear-gradient(180deg, #A6ACAF 0%, #17283D 100%);
+            background: linear-gradient(180deg, #A6ACAF 0%, #17283D 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#A6ACAF",endColorstr="#17283D",GradientType=1);  
+            }       
         }
         @include themify(day) {
-          background: rgb(196, 219, 235);
-          background: -o-linear-gradient(273deg, rgba(196, 219, 235, 1) 0%, rgba(113, 180, 255, 1) 100%);
-          background: linear-gradient(177deg, rgba(196, 219, 235, 1) 0%, rgba(113, 180, 255, 1) 100%);
+          background: rgb(196,219,235);
+          background: -o-linear-gradient(273deg, rgba(196,219,235,1) 0%, rgba(113,180,255,1) 100%);
+          background: linear-gradient(177deg, rgba(196,219,235,1) 0%, rgba(113,180,255,1) 100%);
           filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c4dbeb",endColorstr="#71b4ff",GradientType=1);
         }
         .inner > span {
@@ -1287,14 +1305,14 @@
           right: 0;
           height: 154px;
           @include themify(night) {
-            background-image: url("https://upvu.org/assets/download-algae-dark.png");
+            background-image: url("https://ecency.com/assets/download-algae-dark.png");
             background-position-y: bottom;
             background-repeat: no-repeat;
             background-position-x: center;
             background-size: cover;
           }
           @include themify(day) {
-            background-image: url("https://upvu.org/assets/download-algae.png");
+            background-image: url("https://ecency.com/assets/download-algae.png");
             background-position-y: bottom;
             background-repeat: no-repeat;
             background-position-x: center;
@@ -1320,6 +1338,7 @@
         height: 719px;
         z-index: 2;
         .text-group {
+
           @media (min-width: 992px) and (max-width: 1186px) {
             position: relative;
             left: 94px;
@@ -1384,11 +1403,12 @@
             }
           }
           @media (max-width: $lg-break) {
-            -webkit-box-pack: center !important;
-            -ms-flex-pack: center !important;
-            justify-content: center !important;
+            -webkit-box-pack: center!important;
+                -ms-flex-pack: center!important;
+                    justify-content: center!important;
             padding: 0 50px;
             width: 43%;
+
           }
           @media (max-width: 766px) {
             margin: 1rem;
@@ -1410,12 +1430,13 @@
             a {
               margin-top: 1rem;
             }
+           
           }
         }
         @media (max-width: $lg-break) {
           -webkit-box-pack: end;
-          -ms-flex-pack: end;
-          justify-content: flex-end;
+              -ms-flex-pack: end;
+                  justify-content: flex-end;
           height: 100%;
           padding-left: 2rem;
 
@@ -1429,11 +1450,10 @@
             justify-content: flex-start;
             text-align: start;
             -webkit-box-align: start;
-            -ms-flex-align: start;
-            align-items: flex-start;
+                -ms-flex-align: start;
+                    align-items: flex-start;
             width: 60%;
-            p,
-            a {
+            p, a {
               font-weight: 300;
               font-size: 15px;
               line-height: 140%;
@@ -1449,23 +1469,22 @@
         }
         @media (max-width: 766px) {
           -webkit-box-pack: center;
-          -ms-flex-pack: center;
-          justify-content: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
           padding-left: unset;
           .text-group {
             width: 100%;
-
+           
             -webkit-box-pack: center;
-
-            -ms-flex-pack: center;
-
-            justify-content: center;
+           
+                -ms-flex-pack: center;
+           
+                    justify-content: center;
             text-align: center;
             -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            p,
-            a {
+                -ms-flex-align: center;
+                    align-items: center;
+            p, a {
               font-weight: unset;
               line-height: 25px;
               font-size: 15px;
@@ -1486,7 +1505,7 @@
   }
 
   .fifth-section {
-    @include themify(day) {
+    @include themify(day){
       margin-top: 9rem;
     }
     .part-top {
@@ -1504,8 +1523,8 @@
         height: 100%;
         max-height: unset;
         -webkit-box-align: start;
-        -ms-flex-align: start;
-        align-items: flex-start;
+            -ms-flex-align: start;
+                align-items: flex-start;
         text-align: start;
         max-width: 600px;
       }
@@ -1529,8 +1548,8 @@
           justify-content: space-evenly;
         }
         -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
         h2 {
           @include themify(night) {
             color: $pinkish-grey;
@@ -1547,7 +1566,7 @@
         .our-vision {
           width: 368px;
           height: 425px;
-          margin: 1rem;
+          margin: 1rem ;
           padding-left: 1rem;
           margin-top: -52px;
 
@@ -1563,8 +1582,8 @@
           width: 55%;
           max-height: unset;
           -webkit-box-align: start;
-          -ms-flex-align: start;
-          align-items: flex-start;
+              -ms-flex-align: start;
+                  align-items: flex-start;
           text-align: start;
           height: 100%;
           margin-right: 2rem;
@@ -1592,7 +1611,7 @@
           flex-direction: column-reverse;
           -ms-flex-pack: distribute;
           justify-content: space-around;
-          @media (max-width: $md-break) {
+          @media (max-width: $md-break)  {
             height: auto;
           }
 
@@ -1606,12 +1625,13 @@
             height: auto;
             max-height: unset;
             -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
             text-align: center;
             @media (max-width: $sm-break) {
               margin: 2rem 1rem 22rem;
             }
+            
           }
           .our-history {
             width: 250px;
@@ -1620,7 +1640,7 @@
             @media (max-width: $sm-break) {
               width: 100%;
             }
-            @media (max-width: $md-break) and (min-width: $sm-break) {
+            @media (max-width: $md-break) and (min-width: $sm-break){
               width: 70%;
               margin-top: 2rem;
             }
@@ -1649,9 +1669,9 @@
             margin: -10rem 0;
             padding: 0 1rem;
             -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            text-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            text-align: center;            
           }
 
           @media (max-width: $md-break) and (min-width: $sm-break) {
@@ -1662,7 +1682,7 @@
             }
             .text-group {
               margin: 0;
-              margin-top: 2rem;
+              margin-top: 2rem;     
             }
           }
         }
@@ -1689,14 +1709,14 @@
         @media (max-width: 375px) {
           width: 50% !important;
         }
-        @media (max-width: 420px) and (min-width: 375px) {
+        @media (max-width: 420px) and (min-width:375px) {
           width: 35%;
         }
       }
       .part-bottom {
         height: 500px;
         @media (max-width: $sm-break) {
-          margin-top: 10rem;
+          margin-top: 10rem;;
         }
       }
     }
@@ -1709,7 +1729,7 @@
       background-color: #171e26;
     }
     @include themify(day) {
-      background-color: $white;
+      background-color: $white
     }
     .part-top {
       height: 750px;
@@ -1848,7 +1868,7 @@
         position: absolute;
         top: 90px;
         left: 50px;
-        background-image: url("https://upvu.org/assets/left-fishes.png");
+        background-image: url("https://ecency.com/assets/left-fishes.png");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
@@ -1950,7 +1970,7 @@
             -webkit-box-direction: normal;
             -ms-flex-direction: column;
             flex-direction: column;
-            p {
+            p{
               @include themify(night) {
                 color: $pinkish-grey;
               }
@@ -2092,8 +2112,16 @@
     @media (max-width: $xxl-break) {
       .part-bottom {
         background: rgb(89, 163, 254);
-        background: -o-linear-gradient(89deg, rgba(89, 163, 254, 1) 0%, rgba(201, 234, 251, 1) 100%);
-        background: linear-gradient(1deg, rgba(89, 163, 254, 1) 0%, rgba(201, 234, 251, 1) 100%);
+        background: -o-linear-gradient(
+          89deg,
+          rgba(89, 163, 254, 1) 0%,
+          rgba(201, 234, 251, 1) 100%
+        );
+        background: linear-gradient(
+          1deg,
+          rgba(89, 163, 254, 1) 0%,
+          rgba(201, 234, 251, 1) 100%
+        );
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#59a3fe",endColorstr="#c9eafb",GradientType=1);
 
         height: 1000px !important;
@@ -2152,14 +2180,15 @@
     }
     @media (max-width: $xl-break) {
       .part-bottom > .inner > .links-and-form > .links {
-        .first-column,
-        .second-column {
-          height: auto;
-          li {
-            margin-top: 1rem;
+          .first-column,
+          .second-column {
+            height: auto;
+            li {
+              margin-top: 1rem;
+            }
           }
-        }
-        height: auto;
+          height: auto;
+        
       }
     }
 

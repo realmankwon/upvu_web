@@ -54,7 +54,7 @@ export default class MenuBuilder {
         {
           label: "About Ecency",
           click: () => {
-            shell.openExternal("https://upvu.org");
+            shell.openExternal("https://ecency.com");
           },
         },
         { type: "separator" },

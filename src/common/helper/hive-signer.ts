@@ -60,7 +60,7 @@ export const buildHotSignUrl = (
 ): any => {
   const _params = {
     ...params,
-    redirect_uri: `https://upvu.org/${redirect}`,
+    redirect_uri: `https://ecency.com/${redirect}`,
   };
 
   const queryString = new URLSearchParams(_params).toString();
