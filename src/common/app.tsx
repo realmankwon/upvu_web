@@ -15,6 +15,7 @@ import {
   TosPage,
   FaqPage,
   ContributorsPage,
+  GettingStartedWithUpvuPage,
 } from "./pages/static";
 import routes from "./routes";
 import * as ls from "./util/local-storage";
@@ -110,6 +111,7 @@ const App = ({ setLang }: any) => {
         <Route exact={true} strict={true} path={routes.GUESTS} component={GuestPostPage} />
         <Route exact={true} strict={true} path={routes.CONTRIBUTE} component={ContributePage} />
         <Route exact={true} strict={true} path={routes.PRIVACY} component={PrivacyPage} />
+        <Route exact={true} strict={true} path={routes.START_UPVU} component={GettingStartedWithUpvuPage} />
         <Route exact={true} strict={true} path={routes.WHITE_PAPER} component={WhitePaperPage} />
         <Route exact={true} strict={true} path={routes.TOS} component={TosPage} />
         <Route exact={true} strict={true} path={routes.FAQ} component={FaqPage} />

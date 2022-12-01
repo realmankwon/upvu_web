@@ -126,9 +126,9 @@ export default class MarketData extends Component<MarketDataProps, MarketDataSta
                 <Link className="menu-item" to="/terms-of-service">
                   {_t("entry-index.tos")}
                 </Link>
-                {/* <Link className="menu-item" to="/privacy-policy">
-                  {_t("entry-index.pp")}
-                </Link> */}
+                <Link className="menu-item" to="/getting-started-with-upvu">
+                  {_t("entry-index.getting-started-with-upvu")}
+                </Link>
               </div>
             </div>
           </SSRSuspense>
@@ -140,9 +140,9 @@ export default class MarketData extends Component<MarketDataProps, MarketDataSta
             <div className="my-3">
               <Link to="/terms-of-service">Terms of service</Link>
             </div>
-            {/* <div>
-              <Link to="/privacy-policy">Privacy Policy</Link>
-            </div> */}
+            <div>
+              <Link to="/getting-started-with-upvu">{_t("entry-index.getting-started-with-upvu")}</Link>
+            </div>
             <div className="mt-3">
               <Link to="/market">Market</Link>
             </div>
