@@ -1,6 +1,6 @@
 import { Client, RCAPI, utils } from "@upvu/dsteem";
 
-import { RCAccount } from "@upvu/dsteem/lib/steem/rc";
+import { RCAccount } from "@upvu/dsteem/lib/chain/rc";
 
 import { TrendingTag } from "../store/trending-tags/types";
 import { DynamicProps } from "../store/dynamic-props/types";

@@ -4,7 +4,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import moment from "moment";
 
-import { RCAccount } from "@upvu/dsteem/lib/steem/rc";
+import { RCAccount } from "@upvu/dsteem/lib/chain/rc";
 
 import { Account, FullAccount } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";

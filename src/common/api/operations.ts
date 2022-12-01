@@ -20,6 +20,9 @@ import { hotSign } from "../helper/hive-signer";
 import { _t } from "../i18n";
 import { TransactionType } from "../components/buy-sell-hive";
 
+/**
+ * Protocol parameters.
+ */
 export interface Parameters {
   /** Requested signer. */
   signer?: string;
