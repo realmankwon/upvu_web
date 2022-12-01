@@ -180,7 +180,7 @@ export class EntryIndexMenu extends Component<Props, States> {
       showInitialIntroductionJourney = true;
       ls.set(`${activeUser.username}HadTutorial`, "true");
       this.setState({
-        introduction: showInitialIntroductionJourney ? IntroductionType.FRIENDS : IntroductionType.NONE,
+        introduction: IntroductionType.NONE,
       });
     }
     if (
@@ -373,9 +373,9 @@ export class EntryIndexMenu extends Component<Props, States> {
         {_t("entry-filter.filter-global-part1")}
         <span className="text-capitalize">{_t(`${this.getPopupTitle()}`)}</span>
         {introduction === IntroductionType.FRIENDS && _t("entry-filter.filter-global-part4")}
-        {introduction === IntroductionType.FRIENDS && (
+        {/* {introduction === IntroductionType.FRIENDS && (
           <Link to="/discover"> {_t("entry-filter.filter-global-discover")}</Link>
-        )}
+        )} */}
         {isGlobal && introduction !== IntroductionType.FRIENDS && _t("entry-filter.filter-global-part2")}
         {!isGlobal && introduction !== IntroductionType.FRIENDS && _t("entry-filter.filter-global-part3")}
         {!isGlobal && introduction !== IntroductionType.FRIENDS && (

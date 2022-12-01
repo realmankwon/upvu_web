@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavBar } from "../components/navbar";
 import NavBarElectron from "../../desktop/app/components/navbar";
 import { connect } from "react-redux";
-import {
-  pageMapDispatchToProps,
-  pageMapStateToProps,
-  PageProps,
-} from "./common";
+import { pageMapDispatchToProps, pageMapStateToProps, PageProps } from "./common";
 import { ChartStats } from "../components/chart-stats";
 import { HiveBarter } from "../components/hive-barter";
 import {
@@ -103,8 +99,8 @@ const MarketPage = (props: PageProps) => {
     <NavBar {...props} />
   );
   const metaProps = {
-      title: _t("market.title"),
-      description: _t("market.description")
+    title: _t("market.title"),
+    description: _t("market.description"),
   };
 
   return mounted ? (
@@ -122,23 +118,13 @@ const MarketPage = (props: PageProps) => {
           </div>
           <div className="d-flex justify-content-md-between flex-column">
             <div className="mb-5">
-              <h4 className="mb-3">
-                {loading ? (
-                  <Skeleton className="skeleton-loading" />
-                ) : (
-                  _t("market.stock-info")
-                )}
-              </h4>
+              <h4 className="mb-3">{loading ? <Skeleton className="skeleton-loading" /> : _t("market.stock-info")}</h4>
               <ChartStats data={data} loading={loading} />
             </div>
 
             {data && tablesData ? (
               <SSRSuspense fallback={<div>{_t("g.loading-chunk")}...</div>}>
-                <MarketChart
-                  bids={tablesData!.bids || []}
-                  asks={tablesData!.asks || []}
-                  theme={global.theme}
-                />
+                <MarketChart bids={tablesData!.bids || []} asks={tablesData!.asks || []} theme={global.theme} />
               </SSRSuspense>
             ) : (
               _t("g.loading") + "..."
@@ -152,11 +138,7 @@ const MarketPage = (props: PageProps) => {
                     <div className="col-12 col-sm-5 p-0">
                       <HiveBarter
                         type={1}
-                        available={
-                          (activeUser &&
-                            (activeUser.data as FullAccount).sbd_balance) ||
-                          ""
-                        }
+                        available={(activeUser && (activeUser.data as FullAccount).sbd_balance) || ""}
                         peakValue={parseFloat(bidValues.lowest)}
                         basePeakValue={data ? parseFloat(data!.lowest_ask) : 0}
                         loading={loading}
@@ -164,9 +146,7 @@ const MarketPage = (props: PageProps) => {
                         activeUser={activeUser}
                         global={global}
                         onTransactionSuccess={updateOpenData}
-                        onClickPeakValue={(value: any) =>
-                          setBidValues({ ...bidValues, lowest: value })
-                        }
+                        onClickPeakValue={(value: any) => setBidValues({ ...bidValues, lowest: value })}
                       />
                     </div>
                     <div className="col-12 col-sm-5 p-0">
@@ -174,19 +154,13 @@ const MarketPage = (props: PageProps) => {
                         type={2}
                         activeUser={activeUser}
                         global={global}
-                        available={
-                          (activeUser &&
-                            (activeUser.data as FullAccount).balance) ||
-                          ""
-                        }
+                        available={(activeUser && (activeUser.data as FullAccount).balance) || ""}
                         peakValue={parseFloat(bidValues.highest)}
                         basePeakValue={data ? parseFloat(data!.highest_bid) : 0}
                         loading={loading}
                         username={activeUser!.username}
                         onTransactionSuccess={updateOpenData}
-                        onClickPeakValue={(value: any) =>
-                          setBidValues({ ...bidValues, highest: value })
-                        }
+                        onClickPeakValue={(value: any) => setBidValues({ ...bidValues, highest: value })}
                       />
                     </div>
                   </div>
@@ -227,11 +201,7 @@ const MarketPage = (props: PageProps) => {
                         activeUser={activeUser}
                         global={global}
                         type={1}
-                        available={
-                          (activeUser &&
-                            (activeUser.data as FullAccount).sbd_balance) ||
-                          ""
-                        }
+                        available={(activeUser && (activeUser.data as FullAccount).sbd_balance) || ""}
                         peakValue={parseFloat(bidValues.lowest)}
                         basePeakValue={data ? parseFloat(data!.lowest_ask) : 0}
                         loading={loading}
@@ -249,11 +219,7 @@ const MarketPage = (props: PageProps) => {
                         activeUser={activeUser}
                         global={global}
                         type={2}
-                        available={
-                          (activeUser &&
-                            (activeUser.data as FullAccount).balance) ||
-                          ""
-                        }
+                        available={(activeUser && (activeUser.data as FullAccount).balance) || ""}
                         peakValue={parseFloat(bidValues.highest)}
                         basePeakValue={data ? parseFloat(data!.highest_bid) : 0}
                         loading={loading}
@@ -284,9 +250,7 @@ const MarketPage = (props: PageProps) => {
                   )}
                   <div className="col-12 col-xl-5 px-0">
                     <Orders
-                      onPriceClick={(value) =>
-                        setBidValues({ highest: value, lowest: value })
-                      }
+                      onPriceClick={(value) => setBidValues({ highest: value, lowest: value })}
                       type={1}
                       loading={loadingTablesData}
                       data={tablesData ? tablesData!.bids : []}
@@ -294,20 +258,14 @@ const MarketPage = (props: PageProps) => {
                   </div>
                   <div className="col-12 col-xl-5 px-0 px-sm-auto mt-5 mt-lg-0">
                     <Orders
-                      onPriceClick={(value) =>
-                        setBidValues({ lowest: value, highest: value })
-                      }
+                      onPriceClick={(value) => setBidValues({ lowest: value, highest: value })}
                       type={2}
                       loading={loadingTablesData}
                       data={tablesData ? tablesData!.asks : []}
                     />
                   </div>
                   <div className="col-12 px-0 px-sm-auto mt-5">
-                    <Orders
-                      type={3}
-                      loading={loadingTablesData}
-                      data={tablesData ? tablesData!.trading : []}
-                    />
+                    <Orders type={3} loading={loadingTablesData} data={tablesData ? tablesData!.trading : []} />
                   </div>
                 </div>
               </div>
@@ -321,7 +279,4 @@ const MarketPage = (props: PageProps) => {
   );
 };
 
-export default connect(
-  pageMapStateToProps,
-  pageMapDispatchToProps
-)(MarketPage as any);
+export default connect(pageMapStateToProps, pageMapDispatchToProps)(MarketPage as any);

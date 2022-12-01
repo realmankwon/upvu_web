@@ -382,9 +382,24 @@
       margin-top: 1rem;
     }
 
+    h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin-top: 1rem;
+    }
+
     p {
       line-height: 1.7rem;
       font-size: 1.2rem;
+      @media (max-width: $md-break) {
+        line-height: 2.1rem;
+      }
+    }
+
+    li {
+      line-height: 1.7rem;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
       @media (max-width: $md-break) {
         line-height: 2.1rem;
       }

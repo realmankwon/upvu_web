@@ -13,6 +13,7 @@ export default {
   WHITE_PAPER: `/whitepaper`,
   MARKET: `/market`,
   PRIVACY: `/privacy-policy`,
+  START_UPVU: `/getting-started-with-upvu`,
   TOS: `/terms-of-service`,
   CONTRIBUTORS: `/contributors`,
   AUTH: `/auth`,
