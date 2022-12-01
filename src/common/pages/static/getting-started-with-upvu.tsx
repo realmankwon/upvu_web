@@ -31,7 +31,6 @@ class GettingStartedWithUPVU extends Component<PageProps> {
         <div className={"app-content static-page privacy-page" + containerClasses}>
           <div className="static-content">
             <h1 className="page-title">Getting Started with UPVU</h1>
-            <p className="static-last-updated"></p>
 
             <h2>What is UPVU?</h2>
             <p>
