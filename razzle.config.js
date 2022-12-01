@@ -1,12 +1,12 @@
-'use strict';
-const LoadableWebpackPlugin = require('@loadable/webpack-plugin');
-const { loadableTransformer } = require('loadable-ts-transformer');
-const path = require('path');
+"use strict";
+const LoadableWebpackPlugin = require("@loadable/webpack-plugin");
+const { loadableTransformer } = require("loadable-ts-transformer");
+const path = require("path");
 
 module.exports = {
-  plugins: ['typescript', 'scss'],
+  plugins: ["typescript", "scss"],
   options: {
-    buildType: 'iso'
+    buildType: "iso",
   },
   modifyWebpackConfig({
     env: {
@@ -28,19 +28,21 @@ module.exports = {
       // saving stats file to build folder
       // without this, stats files will go into
       // build/public folder
-      webpackConfig.plugins.push(
-        new LoadableWebpackPlugin({
-          outputAsset: true,
-          writeToDisk: { filename },
-        })
-      );
+      // webpackConfig.plugins.push(
+      //   new LoadableWebpackPlugin({
+      //     outputAsset: true,
+      //     writeToDisk: { filename },
+      //   })
+      // );
     }
 
     // Enable SSR lazy-loading
-    const tsLoader = webpackConfig.module.rules.find(rule => !(rule.test instanceof Array) && rule.test && rule.test.test('.tsx'));
+    const tsLoader = webpackConfig.module.rules.find(
+      (rule) => !(rule.test instanceof Array) && rule.test && rule.test.test(".tsx")
+    );
     tsLoader.use[0].options.getCustomTransformers = () => ({ before: [loadableTransformer] });
 
-    webpackConfig.devtool = dev ? 'source-map' : false;
+    webpackConfig.devtool = dev ? "source-map" : false;
     return webpackConfig;
-  }
+  },
 };
