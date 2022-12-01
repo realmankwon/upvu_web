@@ -28,12 +28,12 @@ module.exports = {
       // saving stats file to build folder
       // without this, stats files will go into
       // build/public folder
-      // webpackConfig.plugins.push(
-      //   new LoadableWebpackPlugin({
-      //     outputAsset: true,
-      //     writeToDisk: { filename },
-      //   })
-      // );
+      webpackConfig.plugins.push(
+        new LoadableWebpackPlugin({
+          outputAsset: true,
+          writeToDisk: { filename },
+        })
+      );
     }
 
     // Enable SSR lazy-loading
