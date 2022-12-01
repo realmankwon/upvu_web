@@ -6,15 +6,14 @@ import {
   TransactionConfirmation,
   AccountUpdateOperation,
   CustomJsonOperation,
-} from "@hiveio/dhive";
-
-import { Parameters } from "hive-uri";
+} from "@upvu/dsteem";
 
 import { client as hiveClient } from "./hive";
 
 import { Account } from "../store/accounts/types";
 
 import * as keychain from "../helper/keychain";
+import { getAccessToken, getPostingKey } from "../helper/user-token";
 
 import parseAsset from "../helper/parse-asset";
 
@@ -22,6 +21,18 @@ import { hotSign } from "../helper/hive-signer";
 
 import { _t } from "../i18n";
 import { TransactionType } from "../components/buy-sell-hive";
+
+/**
+ * Protocol parameters.
+ */
+export interface Parameters {
+  /** Requested signer. */
+  signer?: string;
+  /** Redurect uri. */
+  callback?: string;
+  /** Whether to just sign the transaction. */
+  no_broadcast?: boolean;
+}
 
 export interface MetaData {
   links?: string[];
@@ -100,23 +111,42 @@ export const formatError = (err: any): string => {
 };
 
 export const broadcastPostingJSON = (username: string, id: string, json: {}): Promise<TransactionConfirmation> => {
-  const operations = [
-    [
-      "custom_json",
-      {
-        required_auths: [],
-        required_posting_auths: [username],
-        id: id,
-        json: JSON.stringify(json),
-      },
-    ],
-  ];
+  const postingKey = getPostingKey(username);
+  if (postingKey) {
+    const privateKey = PrivateKey.fromString(postingKey);
 
-  return callSteemKeychain(username, operations);
+    const operation: CustomJsonOperation[1] = {
+      id,
+      required_auths: [],
+      required_posting_auths: [username],
+      json: JSON.stringify(json),
+    };
+
+    return hiveClient.broadcast.json(operation, privateKey);
+  } else {
+    const operations = [
+      [
+        "custom_json",
+        {
+          required_auths: [],
+          required_posting_auths: [username],
+          id: id,
+          json: JSON.stringify(json),
+        },
+      ],
+    ];
+
+    return callSteemKeychain(username, operations);
+  }
 };
 
 const broadcastPostingOperations = (username: string, operations: Operation[]): Promise<TransactionConfirmation> => {
-  return callSteemKeychain(username, operations);
+  const postingKey = getPostingKey(username);
+  if (postingKey) {
+    const privateKey = PrivateKey.fromString(postingKey);
+
+    return hiveClient.broadcast.sendOperations(operations, privateKey);
+  } else return callSteemKeychain(username, operations);
 };
 
 async function callSteemKeychain(username: any, opArray: any) {

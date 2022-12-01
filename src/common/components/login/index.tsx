@@ -4,7 +4,7 @@ import { Modal, Form, Button, FormControl, Spinner } from "react-bootstrap";
 
 import isEqual from "react-fast-compare";
 
-import { PrivateKey, PublicKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, PublicKey, cryptoUtils } from "@upvu/dsteem";
 
 import { History, Location } from "history";
 import * as ls from "../../util/local-storage";

@@ -3,28 +3,21 @@ import { Community } from "../store/communities/types";
 import { Subscription } from "../store/subscriptions/types";
 import SERVERS from "../constants/servers.json";
 
-import { Client } from "@hiveio/dhive";
+import { Client } from "@upvu/dsteem";
 
 export const bridgeServer = new Client(SERVERS, {
   timeout: 3000,
   failoverThreshold: 3,
   consoleOnFailover: true,
 });
-export const dataLimit =
-  typeof window !== "undefined" && window.screen.width < 540 ? 5 : 20 || 20;
+export const dataLimit = typeof window !== "undefined" && window.screen.width < 540 ? 5 : 20 || 20;
 
-const bridgeApiCall = <T>(endpoint: string, params: {}): Promise<T> =>
-  bridgeServer.call("bridge", endpoint, params);
+const bridgeApiCall = <T>(endpoint: string, params: {}): Promise<T> => bridgeServer.call("bridge", endpoint, params);
 
 const resolvePost = (post: Entry, observer: string): Promise<Entry> => {
   const { json_metadata: json } = post;
 
-  if (
-    json.original_author &&
-    json.original_permlink &&
-    json.tags &&
-    json.tags[0] === "cross-post"
-  ) {
+  if (json.original_author && json.original_permlink && json.tags && json.tags[0] === "cross-post") {
     return getPost(json.original_author, json.original_permlink, observer)
       .then((resp) => {
         if (resp) {
@@ -100,11 +93,7 @@ export const getAccountPosts = (
   });
 };
 
-export const getPost = (
-  author: string = "",
-  permlink: string = "",
-  observer: string = ""
-): Promise<Entry | null> => {
+export const getPost = (author: string = "", permlink: string = "", observer: string = ""): Promise<Entry | null> => {
   return bridgeApiCall<Entry | null>("get_post", {
     author,
     permlink,
@@ -141,25 +130,16 @@ export const getAccountNotifications = (
     params.last_id = lastId;
   }
 
-  return bridgeApiCall<AccountNotification[] | null>(
-    "account_notifications",
-    params
-  );
+  return bridgeApiCall<AccountNotification[] | null>("account_notifications", params);
 };
 
-export const getDiscussion = (
-  author: string,
-  permlink: string
-): Promise<Record<string, Entry> | null> =>
+export const getDiscussion = (author: string, permlink: string): Promise<Record<string, Entry> | null> =>
   bridgeApiCall<Record<string, Entry> | null>("get_discussion", {
     author,
     permlink,
   });
 
-export const getCommunity = (
-  name: string,
-  observer: string | undefined = ""
-): Promise<Community | null> =>
+export const getCommunity = (name: string, observer: string | undefined = ""): Promise<Community | null> =>
   bridgeApiCall<Community | null>("get_community", { name, observer });
 
 export const getCommunities = (
@@ -182,16 +162,12 @@ export const normalizePost = (post: any): Promise<Entry | null> =>
     post,
   });
 
-export const getSubscriptions = (
-  account: string
-): Promise<Subscription[] | null> =>
+export const getSubscriptions = (account: string): Promise<Subscription[] | null> =>
   bridgeApiCall<Subscription[] | null>("list_all_subscriptions", {
     account,
   });
 
-export const getSubscribers = (
-  community: string
-): Promise<Subscription[] | null> =>
+export const getSubscribers = (community: string): Promise<Subscription[] | null> =>
   bridgeApiCall<Subscription[] | null>("list_subscribers", {
     community,
   });
@@ -207,7 +183,4 @@ export const getRelationshipBetweenAccounts = (
   follower: string,
   following: string
 ): Promise<AccountRelationship | null> =>
-  bridgeApiCall<AccountRelationship | null>(
-    "get_relationship_between_accounts",
-    [follower, following]
-  );
+  bridgeApiCall<AccountRelationship | null>("get_relationship_between_accounts", [follower, following]);

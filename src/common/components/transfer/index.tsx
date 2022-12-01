@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { PrivateKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 
 import numeral from "numeral";
 

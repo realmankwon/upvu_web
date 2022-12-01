@@ -5,7 +5,7 @@ import { client, getAccount } from "../api/hive";
 import parseAsset from "../helper/parse-asset";
 import numeral from "numeral";
 import base58 from "bs58";
-import { AccountCreateOperation, Authority, cryptoUtils, PrivateKey } from "@hiveio/dhive";
+import { AccountCreateOperation, Authority, cryptoUtils, PrivateKey } from "@upvu/dsteem";
 import random from "../util/rnd";
 import { Button, Form, FormControl, InputGroup, Modal, OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import { _t } from "../i18n";
