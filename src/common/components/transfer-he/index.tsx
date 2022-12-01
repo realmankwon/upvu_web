@@ -1,31 +1,20 @@
 import React, { Component } from "react";
 
-import { PrivateKey, cryptoUtils } from "@hiveio/dhive";
+import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 
 import numeral from "numeral";
 
 import isEqual from "react-fast-compare";
 
-import {
-  Modal,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
-import badActors from "@hiveio/hivescript/bad-actors.json";
+// import badActors from "@hiveio/hivescript/bad-actors.json";
 
 import { Global } from "../../store/global/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 import { Account } from "../../store/accounts/types";
 import { ActiveUser } from "../../store/active-user/types";
-import {
-  DelegateVestingShares,
-  Transactions,
-} from "../../store/transactions/types";
+import { DelegateVestingShares, Transactions } from "../../store/transactions/types";
 
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
@@ -67,12 +56,7 @@ import { arrowRightSvg } from "../../img/svg";
 import formattedNumber from "../../util/formatted-number";
 import { dateToFullRelative } from "../../helper/parse-date";
 
-export type TransferMode =
-  | "transfer"
-  | "delegate"
-  | "undelegate"
-  | "stake"
-  | "unstake";
+export type TransferMode = "transfer" | "delegate" | "undelegate" | "stake" | "unstake";
 
 class FormText extends Component<{
   msg: string;
@@ -82,9 +66,7 @@ class FormText extends Component<{
     return (
       <Row>
         <Col md={{ span: 10, offset: 2 }}>
-          <Form.Text className={`text-${this.props.type} tr-form-text`}>
-            {this.props.msg}
-          </Form.Text>
+          <Form.Text className={`text-${this.props.type} tr-form-text`}>{this.props.msg}</Form.Text>
         </Col>
       </Row>
     );
@@ -168,9 +150,9 @@ export class Transfer extends BaseComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<Props>) {
-    if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
-      this.checkAmount();
-    }
+    // if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
+    //   this.checkAmount();
+    // }
   }
 
   formatNumber = (num: number | string, precision: number) => {
@@ -194,20 +176,17 @@ export class Transfer extends BaseComponent<Props, State> {
     this.stateSet({ to }, this.handleTo);
   };
 
-  amountChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ): void => {
+  amountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: amount } = e.target;
     this.stateSet({ amount }, () => {
       this.checkAmount();
     });
   };
 
-  memoChanged = (
-    e: React.ChangeEvent<typeof FormControl & HTMLInputElement>
-  ): void => {
+  memoChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>): void => {
     const { value: memo } = e.target;
-    const mError = cryptoUtils.isWif(memo);
+    // const mError = cryptoUtils.isWif(memo);
+    const mError = false;
     if (mError) this.setState({ memoError: _t("transfer.memo-error") });
     this.stateSet({ memo });
   };
@@ -225,11 +204,11 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     this._timer = setTimeout(() => {
-      if (badActors.includes(to)) {
-        this.stateSet({ toWarning: _t("transfer.to-bad-actor") });
-      } else {
-        this.stateSet({ toWarning: "" });
-      }
+      // if (badActors.includes(to)) {
+      //   this.stateSet({ toWarning: _t("transfer.to-bad-actor") });
+      // } else {
+      this.stateSet({ toWarning: "" });
+      // }
 
       this.stateSet({ inProgress: true, toData: null });
       const {
@@ -302,16 +281,8 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   canSubmit = () => {
-    const { toData, toError, amountError, memoError, inProgress, amount } =
-      this.state;
-    return (
-      toData &&
-      !toError &&
-      !amountError &&
-      !memoError &&
-      !inProgress &&
-      parseFloat(amount) > 0
-    );
+    const { toData, toError, amountError, memoError, inProgress, amount } = this.state;
+    return toData && !toError && !amountError && !memoError && !inProgress && parseFloat(amount) > 0;
   };
 
   next = () => {
@@ -344,14 +315,7 @@ export class Transfer extends BaseComponent<Props, State> {
     switch (mode) {
       case "transfer": {
         // Perform HE operation
-        promise = transferHiveEngineKey(
-          username,
-          key,
-          asset,
-          to,
-          fullAmount,
-          memo
-        );
+        promise = transferHiveEngineKey(username, key, asset, to, fullAmount, memo);
         break;
       }
       case "delegate": {
@@ -482,15 +446,7 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   finish = () => {
-    const {
-      onHide,
-      mode,
-      asset,
-      account,
-      activeUser,
-      fetchPoints,
-      updateWalletValues,
-    } = this.props;
+    const { onHide, mode, asset, account, activeUser, fetchPoints, updateWalletValues } = this.props;
     if (account && activeUser && account.name !== activeUser.username) {
       updateWalletValues();
     }
@@ -527,16 +483,9 @@ export class Transfer extends BaseComponent<Props, State> {
           .filter(
             (x) =>
               (x.type === "transfer" && x.from === activeUser.username) ||
-              (x.type === "delegate_vesting_shares" &&
-                x.delegator === activeUser.username)
+              (x.type === "delegate_vesting_shares" && x.delegator === activeUser.username)
           )
-          .map((x) =>
-            x.type === "transfer"
-              ? x.to
-              : x.type === "delegate_vesting_shares"
-              ? x.delegatee
-              : ""
-          )
+          .map((x) => (x.type === "transfer" ? x.to : x.type === "delegate_vesting_shares" ? x.delegatee : ""))
           .filter((x) => {
             if (to.trim() === "") {
               return true;
@@ -554,17 +503,14 @@ export class Transfer extends BaseComponent<Props, State> {
       renderer: (i: string) => {
         return (
           <>
-            {UserAvatar({ ...this.props, username: i, size: "medium" })}{" "}
-            <span style={{ marginLeft: "4px" }}>{i}</span>
+            {UserAvatar({ ...this.props, username: i, size: "medium" })} <span style={{ marginLeft: "4px" }}>{i}</span>
           </>
         );
       },
       onSelect: this.toSelected,
     };
 
-    const showTo = ["transfer", "delegate", "undelegate", "stake"].includes(
-      mode
-    );
+    const showTo = ["transfer", "delegate", "undelegate", "stake"].includes(mode);
     const showMemo = ["transfer"].includes(mode);
 
     const delegateAccount =
@@ -576,14 +522,7 @@ export class Transfer extends BaseComponent<Props, State> {
           (item as DelegateVestingShares).delegator === activeUser.username
       );
     const previousAmount = delegateAccount
-      ? Number(
-          formattedNumber(
-            vestsToHp(
-              Number(parseAsset(delegateAccount!.vesting_shares).amount),
-              steemPerMVests
-            )
-          )
-        )
+      ? Number(formattedNumber(vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)))
       : "";
 
     let balance: string | number = this.props.assetBalance;
@@ -592,12 +531,8 @@ export class Transfer extends BaseComponent<Props, State> {
       balance = Number(balance).toFixed(precision);
     }
 
-    const titleLngKey =
-      mode === "transfer" ? `${mode}-title` : `${mode}-hive-engine-title`;
-    const subTitleLngKey =
-      mode === "transfer"
-        ? `${mode}-sub-title`
-        : `${mode}-hive-engine-sub-title`;
+    const titleLngKey = mode === "transfer" ? `${mode}-title` : `${mode}-hive-engine-title`;
+    const subTitleLngKey = mode === "transfer" ? `${mode}-sub-title` : `${mode}-hive-engine-sub-title`;
     const summaryLngKey = `${mode}-summary`;
 
     const formHeader1 = (
@@ -653,13 +588,8 @@ export class Transfer extends BaseComponent<Props, State> {
                 <p>
                   {" "}
                   {_t("wallet.next-power-down", {
-                    time: dateToFullRelative(
-                      w.nextVestingWithdrawalDate.toString()
-                    ),
-                    amount: `${this.formatNumber(
-                      w.nextVestingSharesWithdrawalHive,
-                      precision
-                    )} ${asset}`,
+                    time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
+                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, precision)} ${asset}`,
                   })}
                 </p>
                 <p>
@@ -677,9 +607,7 @@ export class Transfer extends BaseComponent<Props, State> {
     return (
       <div className="transfer-dialog-content">
         {step === 1 && (
-          <div
-            className={`transaction-form ${inProgress ? "in-progress" : ""}`}
-          >
+          <div className={`transaction-form ${inProgress ? "in-progress" : ""}`}>
             {formHeader1}
             {inProgress && <LinearProgress />}
             <Form className="transaction-form-body">
@@ -693,10 +621,7 @@ export class Transfer extends BaseComponent<Props, State> {
                       <InputGroup.Prepend>
                         <InputGroup.Text>@</InputGroup.Text>
                       </InputGroup.Prepend>
-                      <Form.Control
-                        value={activeUser.username}
-                        readOnly={true}
-                      />
+                      <Form.Control value={activeUser.username} readOnly={true} />
                     </InputGroup>
                   </Col>
                 </Form.Group>
@@ -706,9 +631,7 @@ export class Transfer extends BaseComponent<Props, State> {
                 <>
                   <Form.Group as={Row}>
                     <Form.Label column={true} sm="2">
-                      {mode === "undelegate"
-                        ? _t("transfer.from")
-                        : _t("transfer.to")}
+                      {mode === "undelegate" ? _t("transfer.from") : _t("transfer.to")}
                     </Form.Label>
                     <Col sm="10">
                       <SuggestionList items={recent} {...suggestionProps}>
@@ -747,21 +670,15 @@ export class Transfer extends BaseComponent<Props, State> {
                       placeholder={_t("transfer.amount-placeholder")}
                       value={amount}
                       onChange={this.amountChanged}
-                      className={
-                        amount > balance && amountError ? "is-invalid" : ""
-                      }
+                      className={amount > balance && amountError ? "is-invalid" : ""}
                       autoFocus={mode !== "transfer"}
                     />
-                    <span className="balance-num align-self-center ml-1">
-                      {asset}
-                    </span>
+                    <span className="balance-num align-self-center ml-1">{asset}</span>
                   </InputGroup>
                 </Col>
               </Form.Group>
 
-              {amountError && amount > balance && (
-                <FormText msg={amountError} type="danger" />
-              )}
+              {amountError && amount > balance && <FormText msg={amountError} type="danger" />}
 
               <Row>
                 <Col lg={{ span: 10, offset: 2 }}>
@@ -773,41 +690,30 @@ export class Transfer extends BaseComponent<Props, State> {
                     <span className="balance-num" onClick={this.copyBalance}>
                       {this.props.assetBalance} {asset}
                     </span>
-                    {asset === "SP" && (
-                      <div className="balance-hp-hint">
-                        {_t("transfer.available-hp-hint")}
-                      </div>
-                    )}
+                    {asset === "SP" && <div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>}
                   </div>
-                  {to.length > 0 &&
-                    Number(amount) > 0 &&
-                    toData?.__loaded &&
-                    mode === "delegate" && (
-                      <div className="text-muted mt-1 override-warning">
-                        {_t("transfer.override-warning-1")}
-                        {delegateAccount && (
-                          <>
-                            <br />
-                            {_t("transfer.override-warning-2", {
-                              account: to,
-                              previousAmount: previousAmount,
-                            })}
-                          </>
-                        )}
-                      </div>
-                    )}
+                  {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" && (
+                    <div className="text-muted mt-1 override-warning">
+                      {_t("transfer.override-warning-1")}
+                      {delegateAccount && (
+                        <>
+                          <br />
+                          {_t("transfer.override-warning-2", {
+                            account: to,
+                            previousAmount: previousAmount,
+                          })}
+                        </>
+                      )}
+                    </div>
+                  )}
                   {(() => {
                     if (mode === "unstake") {
-                      const hive =
-                        Math.round((Number(amount) / 13) * 1000) / 1000;
+                      const hive = Math.round((Number(amount) / 13) * 1000) / 1000;
                       if (!isNaN(hive) && hive > 0) {
                         return (
                           <div className="power-down-estimation">
                             {_t("transfer.power-down-estimated", {
-                              n: `${this.formatNumber(
-                                hive,
-                                precision
-                              )} ${asset}`,
+                              n: `${this.formatNumber(hive, precision)} ${asset}`,
                             })}
                           </div>
                         );
@@ -840,10 +746,7 @@ export class Transfer extends BaseComponent<Props, State> {
               <Form.Group as={Row}>
                 <Col sm={{ span: 10, offset: 2 }}>
                   {/* Changed && to || since it just allows the form to submit anyway initially */}
-                  <Button
-                    onClick={this.next}
-                    disabled={!this.canSubmit() || amount > balance}
-                  >
+                  <Button onClick={this.next} disabled={!this.canSubmit() || amount > balance}>
                     {_t("g.next")}
                   </Button>
                 </Col>
@@ -857,9 +760,7 @@ export class Transfer extends BaseComponent<Props, State> {
             {formHeader2}
             <div className="transaction-form-body">
               <div className="confirmation">
-                <div className="confirm-title">
-                  {_t(`transfer.${titleLngKey}`)}
-                </div>
+                <div className="confirm-title">{_t(`transfer.${titleLngKey}`)}</div>
                 <div className="users">
                   <div className="from-user">
                     {UserAvatar({
@@ -887,11 +788,7 @@ export class Transfer extends BaseComponent<Props, State> {
                 {memo && <div className="memo">{memo}</div>}
               </div>
               <div className="d-flex justify-content-center">
-                <Button
-                  variant="outline-secondary"
-                  disabled={inProgress}
-                  onClick={this.back}
-                >
+                <Button variant="outline-secondary" disabled={inProgress} onClick={this.back}>
                   {_t("g.back")}
                 </Button>
                 <span className="hr-6px-btn-spacer" />

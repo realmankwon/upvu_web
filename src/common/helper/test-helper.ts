@@ -28,7 +28,7 @@ import {
 import { ActiveUser } from "../store/active-user/types";
 import { FullAccount } from "../store/accounts/types";
 import { SearchResponse, AccountSearchResult } from "../api/search-api";
-import { AssetSymbol } from "@hiveio/dhive";
+import { AssetSymbol } from "@upvu/dsteem";
 import ConversionRequests from "../components/converts";
 
 export const allOver = () => new Promise((resolve) => setImmediate(resolve));

@@ -89,8 +89,8 @@ export default (state: Notifications = initialState, action: Actions): Notificat
       return {
         ...state,
         unread: action.count,
-        unreadFetchFlag: false,
         lastread: action.lastread,
+        unreadFetchFlag: false,
       };
     }
     case ActionTypes.MARK: {
@@ -176,8 +176,8 @@ export const markNotifications = (id: string | null) => (dispatch: Dispatch, get
     .then(() => {
       return getUnreadNotificationCount(activeUser?.username!);
     })
-    .then((result: any) => {
-      dispatch(setUnreadCountAct(result.count, result.lastread));
+    .then((count) => {
+      dispatch(setUnreadCountAct(count, ""));
     });
 };
 

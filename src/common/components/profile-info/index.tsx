@@ -4,21 +4,14 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import moment from "moment";
 
-import { RCAccount } from "@hiveio/dhive/lib/chain/rc";
+import { RCAccount } from "@upvu/dsteem/lib/chain/rc";
 
 import { Account, FullAccount } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 
 import BaseComponent from "../base";
 
-import {
-  findRcAccounts,
-  votingPower,
-  downVotingPower,
-  votingValue,
-  powerRechargeTime,
-  rcPower,
-} from "../../api/hive";
+import { findRcAccounts, votingPower, downVotingPower, votingValue, powerRechargeTime, rcPower } from "../../api/hive";
 
 import { _t } from "../../i18n";
 
@@ -74,11 +67,7 @@ export class InfoContent extends BaseComponent<ContentProps> {
         <p>
           {_t("profile-info.vote-value", { n: vValue })}
           {steemSvg}
-          {vValue !== vValueFull && (
-            <small>
-              {_t("profile-info.vote-value-max", { n: vValueFull })}
-            </small>
-          )}
+          {vValue !== vValueFull && <small>{_t("profile-info.vote-value-max", { n: vValueFull })}</small>}
         </p>
         <p>
           {_t("profile-info.vote-power", { n: vPowerFixed })}
@@ -134,11 +123,7 @@ export class ProfileInfo extends BaseComponent<Props, State> {
     if (account.__loaded && rcAccount) {
       const tooltip = (
         <Tooltip id="profile-tooltip" style={{ zIndex: 10 }}>
-          <InfoContent
-            {...this.props}
-            account={account}
-            rcAccount={rcAccount}
-          />
+          <InfoContent {...this.props} account={account} rcAccount={rcAccount} />
         </Tooltip>
       );
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import HiveEngineToken from "../helper/hive-engine-wallet";
-import { TransactionConfirmation } from "@hiveio/dhive";
+import { TransactionConfirmation } from "@upvu/dsteem";
 import { broadcastPostingJSON } from "./operations";
 
 interface TokenBalance {

@@ -89,7 +89,7 @@ export const getNotifications = (
       id: 3,
       jsonrpc: "2.0",
       method: "bridge.account_notifications",
-      params: { account: username, last_id: since, limit: 50 },
+      params: { account: username },
     })
     .then((resp) => {
       let notifications = resp.data.result.filter((data: any) => {

@@ -210,8 +210,8 @@ export enum NotificationFilter {
   FOLLOWS = "follows",
   REPLIES = "replies",
   REBLOGS = "reblogs",
-  // TRANSFERS = "transfers",
-  // DELEGATIONS = "delegations",
+  TRANSFERS = "transfers",
+  DELEGATIONS = "delegations",
 }
 
 export enum NFetchMode {
