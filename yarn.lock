@@ -2237,14 +2237,15 @@
   dependencies:
     "@types/node" "*"
 
-"@upvu/dsteem@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.0.5.tgz#e3eb637a00c3519a3ad2a7e4cc9227ffa737075c"
-  integrity sha512-8ZgoauRIq8x1ORaDIzZpqLiG0UBoZ8vE3rofkaUrIhD42yhIgawh+dJhy0QEbappyVP7VjjbaiwwzkWil/vrgw==
+"@upvu/dsteem@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.0.9.tgz#79917f0b27c36ea7da10fe6f2bf65e03b283b720"
+  integrity sha512-DDS6lBfRuHejxfGs4ahwuLVYSvIatZ6eRNmKjNipzAyy5N/JeiQg9kRxU39Q8rJPw/3d7IqpWXBywAEhGSsYDQ==
   dependencies:
     bs58 "^4.0.1"
     bytebuffer "^5.0.1"
     core-js "^2.5.0"
+    cross-fetch "^3.1.5"
     node-fetch "^2.3.0"
     secp256k1 "^3.5.2"
     verror "^1.10.0"
@@ -4116,6 +4117,13 @@ cross-fetch@3.1.2:
   integrity sha512-+JhD65rDNqLbGmB3Gzs3HrEKC0aQnD+XA3SY6RjgkF88jV2q5cTc5+CwxlS3sdmLk98gpPt5CF9XRnPdlxZe6w==
   dependencies:
     node-fetch "2.6.1"
+
+cross-fetch@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
+  integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
+  dependencies:
+    node-fetch "2.6.7"
 
 cross-spawn@7.0.1:
   version "7.0.1"
@@ -8406,7 +8414,7 @@ node-fetch@2.6.1:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
-node-fetch@^2.3.0:
+node-fetch@2.6.7, node-fetch@^2.3.0:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
