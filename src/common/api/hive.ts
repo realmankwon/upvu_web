@@ -95,7 +95,7 @@ export interface OpenOrdersData {
 
 export interface OrdersDataItem {
   created: string;
-  hbd: number;
+  sbd: number;
   hive: number;
   order_price: {
     base: string;

@@ -7,18 +7,9 @@ import { useState } from "react";
 import moment from "moment";
 import { _t } from "../../i18n";
 
-const buyColumns = [
-  `${_t("market.price")}`,
-  `STEEM`,
-  `${_t("market.total")} SBD ($)`,
-];
+const buyColumns = [`${_t("market.price")}`, `STEEM`, `${_t("market.total")} SBD ($)`];
 
-const tradeColumns = [
-  `${_t("market.date")}`,
-  `${_t("market.price")}`,
-  `STEEM`,
-  `SBD ($)`,
-];
+const tradeColumns = [`${_t("market.date")}`, `${_t("market.price")}`, `STEEM`, `SBD ($)`];
 
 export interface MappedData {
   key1: string | number;
@@ -44,7 +35,7 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
     case 1:
       mappedData = (data as OrdersDataItem[]).map((item: OrdersDataItem) => {
         return {
-          key3: (item as OrdersDataItem).hbd / 1000,
+          key3: (item as OrdersDataItem).sbd / 1000,
           key2: (item as OrdersDataItem).order_price.quote.replace("STEEM", ""),
           key1: parseFloat((item as OrdersDataItem).real_price).toFixed(6),
         };
@@ -55,7 +46,7 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
       title = `${_t("market.sell")} ${_t("market.orders")}`;
       mappedData = (data as OrdersDataItem[]).map((item: OrdersDataItem) => {
         return {
-          key3: (item as OrdersDataItem).hbd / 1000,
+          key3: (item as OrdersDataItem).sbd / 1000,
           key2: (item as OrdersDataItem).order_price.quote.replace("SBD", ""),
           key1: parseFloat((item as OrdersDataItem).real_price).toFixed(6),
         };
@@ -71,11 +62,17 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
           let price = hbd / hive;
           let type = item.current_pays.indexOf("SBD") !== -1 ? "bid" : "ask";
           let stringPrice = price.toFixed(6);
-          
+
           return {
             key5: type,
-            key4: type === "bid" ? (item as TradeDataItem).current_pays.replace(" SBD","") : (item as TradeDataItem).open_pays.replace(" SBD",""),
-            key3: type === "ask" ? (item as TradeDataItem).current_pays.replace(" STEEM","") : (item as TradeDataItem).open_pays.replace(" STEEM",""),
+            key4:
+              type === "bid"
+                ? (item as TradeDataItem).current_pays.replace(" SBD", "")
+                : (item as TradeDataItem).open_pays.replace(" SBD", ""),
+            key3:
+              type === "ask"
+                ? (item as TradeDataItem).current_pays.replace(" STEEM", "")
+                : (item as TradeDataItem).open_pays.replace(" STEEM", ""),
             key2: stringPrice,
             key1: moment
               .utc((item as TradeDataItem).date)
@@ -113,17 +110,7 @@ export const Orders = ({ type, loading, data, onPriceClick }: Props) => {
               onClick={() => (onPriceClick ? onPriceClick(item.key1) : {})}
             >
               <td>{item.key1}</td>
-              <td
-                className={
-                  type === 3
-                    ? item.key5 === "bid"
-                      ? "text-success"
-                      : "text-danger"
-                    : ""
-                }
-              >
-                {item.key2}
-              </td>
+              <td className={type === 3 ? (item.key5 === "bid" ? "text-success" : "text-danger") : ""}>{item.key2}</td>
               <td>{item.key3}</td>
               {item.key4 && <td>{item.key4}</td>}
             </tr>
