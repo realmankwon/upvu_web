@@ -53,7 +53,7 @@ class FaqPage extends Component<PageProps, FAQPageState> {
   }
 
   copyToClipboard = (text: string) => {
-    success(_t("static.faq.search-link-copied"));
+    success(_t("static.faq-upvu.search-link-copied"));
     clipboard(text);
   };
 
@@ -61,7 +61,7 @@ class FaqPage extends Component<PageProps, FAQPageState> {
     const { search } = this.state;
     //  Meta config
     const metaProps = {
-      title: _t("static.faq.page-title"),
+      title: _t("static.faq-upvu.page-title"),
     };
 
     const { global } = this.props;
@@ -71,7 +71,7 @@ class FaqPage extends Component<PageProps, FAQPageState> {
     let searchResult: string[] = [];
     if (search && search.length > 0) {
       faqKeys.map((x) => {
-        let isSearchValid = _t(`static.faq.${x}-body`).toLocaleLowerCase().includes(search.toLocaleLowerCase());
+        let isSearchValid = _t(`static.faq-upvu.${x}-body`).toLocaleLowerCase().includes(search.toLocaleLowerCase());
         if (isSearchValid) {
           searchResult.push(x);
         }
@@ -97,13 +97,18 @@ class FaqPage extends Component<PageProps, FAQPageState> {
           itemType="https://schema.org/FAQPage"
         >
           <div className="static-content">
-            <div className="position-relative rounded">
-              <img src={imgs} className="rounded" />
+            <div
+              className="position-relative rounded"
+              style={{
+                height: "300px",
+              }}
+            >
+              {/* <img src={imgs} className="rounded" /> */}
               <div className="position-absolute search-container d-flex justify-content-center align-items-center flex-column rounded p-3">
-                <h1 className="text-white faq-title text-center mb-3">{_t("static.faq.page-title")}</h1>
+                <h1 className="text-white faq-title text-center mb-3">{_t("static.faq-upvu.page-title")}</h1>
                 <InputGroup className="mb-3 w-75">
                   <Form.Control
-                    placeholder={`${_t("static.faq.search-placeholder")}`}
+                    placeholder={`${_t("static.faq-upvu.search-placeholder")}`}
                     className="w-75"
                     onChange={(e) => {
                       this.setState({ search: e.target.value });
@@ -128,10 +133,10 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                 {search.length > 0 && (
                   <Form.Text className="text-white mt-2 mt-sm-3 w-75 text-center helper-text">
                     {searchResult.length > 0 ? (
-                      _t("static.faq.search", { search: `"${search}"` })
+                      _t("static.faq-upvu.search", { search: `"${search}"` })
                     ) : (
                       <div className="text-not-found">
-                        {_t("static.faq.search-not-found")}
+                        {_t("static.faq-upvu.search-not-found")}
                         <Link to="https://discord.me/ecency" target="_blank">
                           Discord
                         </Link>
@@ -142,12 +147,12 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                 )}
               </div>
             </div>
-            <h3>{_t("static.faq.page-sub-title")}</h3>
+            <h3>{_t("static.faq-upvu.page-sub-title")}</h3>
             <ul className="table-contents">
               {dataToShow.map((x) => {
                 return (
                   <li key={x}>
-                    <a href={`#${x}`}>{_t(`static.faq.${x}-header`)}</a>
+                    <a href={`#${x}`}>{_t(`static.faq-upvu.${x}-header`)}</a>
                   </li>
                 );
               })}
@@ -164,10 +169,10 @@ class FaqPage extends Component<PageProps, FAQPageState> {
                   >
                     <span className="anchor" id={x} />
                     <h4 className="faq-item-header" itemProp="name">
-                      {_t(`static.faq.${x}-header`)}
+                      {_t(`static.faq-upvu.${x}-header`)}
                     </h4>
                     <div itemScope={true} itemProp="acceptedAnswer" itemType="https://schema.org/Answer" id="content">
-                      <Tsx k={`static.faq.${x}-body`}>
+                      <Tsx k={`static.faq-upvu.${x}-body`}>
                         <div className="faq-item-body" itemProp="text" />
                       </Tsx>
                     </div>

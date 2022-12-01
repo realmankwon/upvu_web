@@ -5,13 +5,7 @@ import moment from "moment";
 import { _t } from "../../i18n";
 
 import { Tsx } from "../../i18n/helper";
-import {
-  appleSvg,
-  desktopSvg,
-  eyeBoldSvg,
-  eyeSvg,
-  googleSvg,
-} from "../../img/svg";
+import { appleSvg, desktopSvg, eyeBoldSvg, eyeSvg, googleSvg } from "../../img/svg";
 import { Link } from "react-router-dom";
 import DownloadTrigger from "../download-trigger";
 import SSRSuspense from "../ssr-suspense";
@@ -26,10 +20,7 @@ interface MarketDataState {
   visible: boolean;
 }
 
-export default class MarketData extends Component<
-  MarketDataProps,
-  MarketDataState
-> {
+export default class MarketData extends Component<MarketDataProps, MarketDataState> {
   constructor(props: MarketDataProps) {
     super(props);
     this.state = {
@@ -50,10 +41,7 @@ export default class MarketData extends Component<
         <div className="market-data-header">
           <span className="title d-flex align-items-center">
             {_t("market-data.title")}
-            <div
-              className="pointer ml-2"
-              onClick={() => this.setState({ visible: !visible })}
-            >
+            <div className="pointer ml-2" onClick={() => this.setState({ visible: !visible })}>
               {visible ? eyeSvg : eyeBoldSvg}
             </div>
           </span>
@@ -71,16 +59,16 @@ export default class MarketData extends Component<
               vsCurrency="usd"
               fromTs={fromTs}
               toTs={toTs}
-              formatter="0.000$"
+              formatter="$0.000"
               theme={theme}
             />
             <Market
               label="SBD"
-              coin="steem_dollar"
+              coin="steem-dollars"
               vsCurrency="usd"
               fromTs={fromTs}
               toTs={toTs}
-              formatter="0.000$"
+              formatter="$0.000"
               theme={theme}
             />
             <Market
@@ -89,7 +77,7 @@ export default class MarketData extends Component<
               vsCurrency="usd"
               fromTs={fromTs}
               toTs={toTs}
-              formatter=",$"
+              formatter="$0,0"
               theme={theme}
             />
             <Market
@@ -98,11 +86,29 @@ export default class MarketData extends Component<
               vsCurrency="usd"
               fromTs={fromTs}
               toTs={toTs}
-              formatter="0.000$"
+              formatter="$0,0"
+              theme={theme}
+            />
+            <Market
+              label="TRX"
+              coin="tron"
+              vsCurrency="usd"
+              fromTs={fromTs}
+              toTs={toTs}
+              formatter="$0.000"
+              theme={theme}
+            />
+            <Market
+              label="BNB"
+              coin="binancecoin"
+              vsCurrency="usd"
+              fromTs={fromTs}
+              toTs={toTs}
+              formatter="$0.000"
               theme={theme}
             />
             <div className="menu-nav">
-              <DownloadTrigger>
+              {/* <DownloadTrigger>
                 <div className="downloads">
                   <span className="label">{_t("g.downloads")}</span>
                   <span className="icons">
@@ -111,7 +117,7 @@ export default class MarketData extends Component<
                     <span className="img-desktop">{desktopSvg}</span>
                   </span>
                 </div>
-              </DownloadTrigger>
+              </DownloadTrigger> */}
 
               <div className="text-menu">
                 <Link className="menu-item" to="/faq">
@@ -120,23 +126,23 @@ export default class MarketData extends Component<
                 <Link className="menu-item" to="/terms-of-service">
                   {_t("entry-index.tos")}
                 </Link>
-                <Link className="menu-item" to="/privacy-policy">
+                {/* <Link className="menu-item" to="/privacy-policy">
                   {_t("entry-index.pp")}
-                </Link>
+                </Link> */}
               </div>
             </div>
           </SSRSuspense>
         ) : (
           <div className="p-3 border-left">
             <div>
-              <Link to="/faq">FAQ</Link>
+              <Link to="/faq">UPVU FAQ</Link>
             </div>
             <div className="my-3">
               <Link to="/terms-of-service">Terms of service</Link>
             </div>
-            <div>
+            {/* <div>
               <Link to="/privacy-policy">Privacy Policy</Link>
-            </div>
+            </div> */}
             <div className="mt-3">
               <Link to="/market">Market</Link>
             </div>
