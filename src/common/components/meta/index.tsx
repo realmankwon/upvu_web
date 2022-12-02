@@ -20,7 +20,7 @@ interface Props {
 
 const capitalize = (s: string) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
-}
+};
 
 const title_ = (s: string): string => `${s} | ${capitalize(defaults.name)}`;
 
@@ -30,7 +30,7 @@ export default class Meta extends Component<Props> {
     let { image } = this.props;
 
     if (!image) {
-      image = `${defaults.base}/og.jpg`;
+      image = `${defaults.base}/og.png`;
     }
 
     return (
@@ -78,7 +78,12 @@ export default class Meta extends Component<Props> {
         {url && (
           <Helmet>
             <meta property="og:url" content={`${defaults.base}${url}`} />
-            <meta itemProp="mainEntityOfPage" itemScope={true} itemType="http://schema.org/WebPage" itemID={`${defaults.base}${url}`}/>
+            <meta
+              itemProp="mainEntityOfPage"
+              itemScope={true}
+              itemType="http://schema.org/WebPage"
+              itemID={`${defaults.base}${url}`}
+            />
           </Helmet>
         )}
 
