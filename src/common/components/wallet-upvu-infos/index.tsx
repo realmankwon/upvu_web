@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { Form, Col, FormControl } from "react-bootstrap";
+import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
 
 import { History } from "history";
 
@@ -498,6 +498,8 @@ const MyUpvuPower = ({ summary }: UpvuInfoProps) => {
 
 const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatusProps) => {
   const [proxy, setProxy] = useState(user.proxy);
+  const [inProgress, setInProgress] = useState(false);
+  const spinner = <Spinner animation="grow" variant="light" size="sm" style={{ marginRight: "6px" }} />;
 
   const onClickSetProxy = () => {
     if (proxy === "Y") {
@@ -505,15 +507,19 @@ const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatu
       return;
     }
 
+    setInProgress(true);
+
     witnessProxyKc(user.account, "upvu.proxy")
       .then((r) => {
         console.log(r);
         setProxy("Y");
         success("Set proxy successfully!");
+        setInProgress(false);
       })
       .catch((err) => {
         console.log(err);
         error("Fail to set proxy");
+        setInProgress(false);
       });
   };
 
@@ -559,13 +565,10 @@ const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatu
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control
-                    className="claim-btn"
-                    type="button"
-                    value="Set Proxy"
-                    onClick={onClickSetProxy}
-                    disabled={proxy === "Y"}
-                  />
+                  <Button disabled={proxy === "Y" || inProgress} block={true} onClick={onClickSetProxy}>
+                    {inProgress && spinner}
+                    Set Proxy
+                  </Button>
                 </Form.Group>
               </Col>
             </Form.Row>

@@ -615,9 +615,9 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
       }
       case "delegate": {
-        // const vests = this.hpToVests(Number(amount));
+        const vests = this.hpToVests(Number(amount));
         // console.log("delegation.....", amount);
-        promise = delegateVestingSharesKc(username, to, amount);
+        promise = delegateVestingSharesKc(username, to, vests);
         break;
       }
       default:

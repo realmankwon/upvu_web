@@ -1,5 +1,6 @@
 import React from "react";
 import { History } from "history";
+import htmlParse from "html-react-parser";
 
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
@@ -100,7 +101,7 @@ export class WalletUPVU extends BaseComponent<Props, State> {
             <div className="balance-row alternative">
               <div className="balance-info">
                 <div className="title">{_t("wallet-upvu.title")}</div>
-                <div className="description">{_t("wallet-upvu.description")}</div>
+                <div className="description">{htmlParse(_t("wallet-upvu.description"))}</div>
               </div>
             </div>
 

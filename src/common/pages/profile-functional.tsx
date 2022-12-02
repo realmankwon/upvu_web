@@ -428,7 +428,7 @@ export const Profile = (props: Props) => {
 
           {[...Object.keys(ProfileFilter), "communities"].includes(section) && ProfileCover({ ...props, account })}
 
-          {data &&
+          {/* {data &&
             data.entries.length > 0 &&
             (props.global.filter === "posts" || props.global.filter === "comments") &&
             section === props.global.filter && (
@@ -443,7 +443,7 @@ export const Profile = (props: Props) => {
                   filter={props.global.filter}
                 />
               </div>
-            )}
+            )} */}
 
           {typing ? (
             <div className="mt-3">

@@ -74,7 +74,9 @@ class GettingStartedWithUPVU extends Component<PageProps> {
             </ul>
 
             <h2>How to get started with UPVU?</h2>
-            <p>Just delegate your Steem Power to @upvu. That’s it!</p>
+            <p>
+              Just delegate your Steem Power to @upvu. <a href="/getting-started-with-upvu">Learn more..</a>{" "}
+            </p>
             <p>
               For a more comfortable user experience, we have built a separate UPVU dashboard page. You can quickly and
               easily delegate SP on the UPVU dashboard by clicking the wallet icon in the upper right corner.

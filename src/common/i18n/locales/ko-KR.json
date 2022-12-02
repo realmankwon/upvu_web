@@ -639,7 +639,7 @@
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-upvu": {
     "title": "UPVU Dashboard",
-    "description": "Earn more rewards with UPVU. Just delegate your SP to @upvu or hold UPVU tokens and enjoy Steemit. That’s it! "
+    "description": "<div>Earn more rewards with UPVU. Just delegate your SP to @upvu or hold UPVU tokens and enjoy Steemit. <a href='/getting-started-with-upvu'>Learn more..</a> </div> "
   },
   "wallet-engine": {
     "title": "Steem Engine 토큰",
