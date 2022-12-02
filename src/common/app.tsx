@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import ReactGA from "react-ga";
 import EntryIndexContainer from "./pages/index";
 import EntryContainer from "./pages/entry";
 import { SearchPageContainer, SearchMorePageContainer } from "./pages/search";
@@ -23,6 +24,26 @@ import i18n from "i18next";
 import { pageMapDispatchToProps, pageMapStateToProps } from "./pages/common";
 import { connect } from "react-redux";
 import loadable from "@loadable/component";
+import { useLocation } from "react-router";
+
+const RouteChangeTracker = () => {
+  const location = useLocation();
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!window.location.href.includes("localhost")) {
+      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "");
+    }
+
+    setInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (initialized) {
+      ReactGA.pageview(location.pathname + location.search);
+    }
+  }, [initialized, location]);
+};
 
 // Define lazy pages
 const ProfileContainer = loadable(() => import("./pages/profile-functional"));
@@ -78,6 +99,8 @@ const App = ({ setLang }: any) => {
       }
     }
   }, []);
+
+  RouteChangeTracker();
 
   return (
     <>
