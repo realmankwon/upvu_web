@@ -149,7 +149,7 @@
     "title": "Tere tulemast tagasi!",
     "with-user-pass": "Logi sisse kasutajanime ja privaatse võtmega.",
     "username-placeholder": "kasutajanimi",
-    "key-placeholder": "password / private key",
+    "key-placeholder": "posting key",
     "login-info-1": "Me ei hoiusta sinu privaatseid võtmeid.",
     "login-info-2": "Lisateave",
     "error-fields-required": "Palun sisesta kasutajanimi ja privaatvõti",
