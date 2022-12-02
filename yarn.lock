@@ -2237,10 +2237,10 @@
   dependencies:
     "@types/node" "*"
 
-"@upvu/dsteem@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.1.0.tgz#79b6c4cc00302210a129e8d9065e9b48b1920cbb"
-  integrity sha512-xkRgZAkovNitwNN3AC6HAzbJTYxsYz/I+4Dhggg4DZJjv5zit9e02RFcaS/TTyOyk0VVHELPPEwDa7a0bWdcQQ==
+"@upvu/dsteem@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@upvu/dsteem/-/dsteem-1.1.2.tgz#56b5b0ab19026a1a4caab6209c0bfd39a59c1883"
+  integrity sha512-o8s6VMBWClAMICsbxmalFfqWScdA6tOvvgMvtgy7iOVwf6Cvmsh2ti3W4VzdFZnFvrFBnGfdN+m3D+6RYgMKrg==
   dependencies:
     bs58 "^4.0.1"
     bytebuffer "^5.0.1"
