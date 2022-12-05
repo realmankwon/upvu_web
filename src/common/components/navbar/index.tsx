@@ -258,9 +258,9 @@ export class NavBar extends Component<Props, State> {
         <Link className="menu-item mt-0" to="/communities">
           {_t("navbar.communities")}
         </Link>
-        {/* <Link className="menu-item mt-0" to="/ecosystem">
+        <Link className="menu-item mt-0" to="/ecosystem">
           {_t("navbar.ecosystem")}
-        </Link> */}
+        </Link>
       </div>
     );
 
@@ -271,7 +271,13 @@ export class NavBar extends Component<Props, State> {
           {smVisible ? closeSvg : menuSvg}
         </div>
 
-        <div className={`nav-bar-sm ${"sticky"} ${step === 1 ? "transparent" : ""}`}>
+        {activeUser && (
+          <div className="nav-bar-user">
+            <UserNav {...this.props} activeUser={activeUser} />
+          </div>
+        )}
+
+        <div className={`nav-bar-sm ${"sticky"} ${step === 1 ? "" : ""}`}>
           <div className="brand">
             {activeUser !== null ? (
               <Link to={logoHref}>
@@ -282,7 +288,7 @@ export class NavBar extends Component<Props, State> {
             )}
           </div>
 
-          {textMenu}
+          {/* {textMenu} */}
         </div>
 
         {!smVisible && (

@@ -69,6 +69,7 @@
   .notifications {
     cursor: pointer;
     position: relative;
+    display: none;
 
     svg {
       height: 19px;
@@ -93,6 +94,10 @@
       justify-content: center;
       overflow: hidden;
     }
+
+    @media (min-width: $sm-break) {
+      display: flex;
+    }
   }
 
   .drop-down-menu-power {
@@ -112,7 +117,6 @@
     }
 
     .label {
-
     }
 
     .power {
@@ -123,10 +127,10 @@
         margin-right: 2px;
       }
 
-      .voting, .downVoting {
+      .voting,
+      .downVoting {
         display: flex;
         align-items: center;
-
       }
 
       .voting {
@@ -146,7 +150,6 @@
 
   // custom dropdown override
   .custom-dropdown {
-
     .menu-inner {
       width: 220px;
 

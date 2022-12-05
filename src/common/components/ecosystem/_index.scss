@@ -44,7 +44,7 @@
             justify-content: start;
             align-items: center;
             font-size: 1.5rem;
-            color: white;
+            color: $dusk-blue;
 
             .img {
               max-width: 100%;
@@ -55,6 +55,10 @@
 
             .site-name {
               margin-left: 10px;
+
+              @include themify(night) {
+                color: $dark-grey;
+              }
             }
           }
 

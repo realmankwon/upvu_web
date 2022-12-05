@@ -1,19 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
-import BaseComponent from "../base";
-
 import { getEcosystem } from "../../api/private-api";
-
-import {
-  informationVariantSvg,
-  plusCircle,
-  transferOutlineSvg,
-  lockOutlineSvg,
-  unlockOutlineSvg,
-  delegateOutlineSvg,
-  undelegateOutlineSvg,
-} from "../../img/svg";
 
 import { _t } from "../../i18n";
 import LinearProgress from "../linear-progress";
@@ -78,12 +66,12 @@ export class Ecosystem extends Component<Props> {
                       ...this.props,
                       username: site.owner,
                       size: "medium",
-                      src: `https://steemitimages.com/u/${site.owner}/avatar`,
+                      src: site.image_url ? site.image_url : `https://steemitimages.com/u/${site.owner}/avatar`,
                     })}
                     <div className="site-name">{site.name}</div>
                   </div>
                   <div className="site-content-owner">
-                    <div>@{site.owner}</div>
+                    <div>{site.owner ? `@${site.owner}` : ""}</div>
                   </div>
                   <div className="site-content-description">
                     <div>{site.description}</div>

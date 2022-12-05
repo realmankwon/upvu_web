@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import ReactGA from "react-ga";
 import EntryIndexContainer from "./pages/index";
 import EntryContainer from "./pages/entry";
@@ -26,15 +26,15 @@ import { connect } from "react-redux";
 import loadable from "@loadable/component";
 import { useLocation } from "react-router";
 
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "G-4CPQRCJT7B";
+
+ReactGA.initialize(TRACKING_ID);
+
 const RouteChangeTracker = () => {
   const location = useLocation();
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!window.location.href.includes("localhost")) {
-      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "");
-    }
-
     setInitialized(true);
   }, []);
 
@@ -89,6 +89,13 @@ const EntryPage = (props: any) => {
 };
 
 const App = ({ setLang }: any) => {
+  const location = useLocation();
+
+  // Fired on every route change
+  useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
+
   useEffect(() => {
     let pathname = window.location.pathname;
     if (pathname !== "/faq") {
