@@ -55,10 +55,16 @@ export const search = (
   if (scroll_id) data.scroll_id = scroll_id;
   if (votes) data.votes = votes;
 
-  return axios
-    .post(apiBase(`/search-api/search`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   response = axios.post(apiBase(`/search-api/search`), data).then((resp) => resp.data);
+  let response: Promise<SearchResponse> = new Promise((resolve) => {
+    resolve({
+      hits: 0,
+      results: [],
+      took: 0,
+    });
+  });
+
+  return response;
 };
 
 export interface FriendSearchResult {
@@ -70,19 +76,30 @@ export interface FriendSearchResult {
 export const searchFollower = (following: string, q: string): Promise<FriendSearchResult[]> => {
   const data = { following, q };
 
-  return axios
-    .post(apiBase(`/search-api/search-follower`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   return axios
+  //     .post(apiBase(`/search-api/search-follower`), data)
+  //     .then((resp) => resp.data)
+  //     .catch((e) => null);
+
+  let response: Promise<FriendSearchResult[]> = new Promise((resolve) => {
+    resolve([]);
+  });
+
+  return response;
 };
 
 export const searchFollowing = (follower: string, q: string): Promise<FriendSearchResult[]> => {
   const data = { follower, q };
 
-  return axios
-    .post(apiBase(`/search-api/search-following`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   return axios
+  //     .post(apiBase(`/search-api/search-following`), data)
+  //     .then((resp) => resp.data)
+  //     .catch((e) => null);
+  let response: Promise<FriendSearchResult[]> = new Promise((resolve) => {
+    resolve([]);
+  });
+
+  return response;
 };
 
 export interface AccountSearchResult {
@@ -99,10 +116,15 @@ export const searchAccount = (
 ): Promise<AccountSearchResult[]> => {
   const data = { q, limit, random };
 
-  return axios
-    .post(apiBase(`/search-api/search-account`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   return axios
+  //     .post(apiBase(`/search-api/search-account`), data)
+  //     .then((resp) => resp.data)
+  //     .catch((e) => null);
+  let response: Promise<AccountSearchResult[]> = new Promise((resolve) => {
+    resolve([]);
+  });
+
+  return response;
 };
 
 export interface TagSearchResult {
@@ -117,16 +139,28 @@ export const searchTag = (
 ): Promise<TagSearchResult[]> => {
   const data = { q, limit, random };
 
-  return axios
-    .post(apiBase(`/search-api/search-tag`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   return axios
+  //     .post(apiBase(`/search-api/search-tag`), data)
+  //     .then((resp) => resp.data)
+  //     .catch((e) => null);
+
+  let response: Promise<TagSearchResult[]> = new Promise((resolve) => {
+    resolve([]);
+  });
+
+  return response;
 };
 
 export const searchPath = (username: string, q: string): Promise<string[]> => {
   const data = { q };
-  return axios
-    .post(apiBase(`/search-api/search-path`), data)
-    .then((resp) => resp.data)
-    .catch((e) => null);
+  //   return axios
+  //     .post(apiBase(`/search-api/search-path`), data)
+  //     .then((resp) => resp.data)
+  //     .catch((e) => null);
+
+  let response: Promise<string[]> = new Promise((resolve) => {
+    resolve([]);
+  });
+
+  return response;
 };
