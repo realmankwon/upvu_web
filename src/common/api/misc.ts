@@ -6,7 +6,6 @@ import { apiBase } from "./helper";
 import { cryptoUtils, PrivateKey } from "@upvu/dsteem";
 import { getPostingKey } from "../helper/user-token";
 import crypto from "crypto";
-import fs from "fs";
 
 export const getEmojiData = () => fetch(apiBase("/emoji.json")).then((response) => response.json());
 

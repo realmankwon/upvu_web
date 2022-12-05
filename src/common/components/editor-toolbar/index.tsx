@@ -397,58 +397,17 @@ export class EditorToolbar extends Component<Props> {
           </Tooltip>
 
           {(() => {
-            global.isMobile = true;
-            if (activeUser && global.isMobile) {
-              return (
-                <Tooltip content={_t("editor-toolbar.image")}>
-                  <div
-                    className="editor-tool"
-                    onClick={(e: React.MouseEvent<HTMLElement>) => {
-                      e.stopPropagation();
-                      const el = this.fileInput.current;
-                      if (el) el.click();
-                    }}
-                  >
-                    {imageSvg}
-
-                    {
-                      <div className="sub-tool-menu">
-                        <div
-                          className="sub-tool-menu-item"
-                          onClick={(e: React.MouseEvent<HTMLElement>) => {
-                            e.stopPropagation();
-                            const el = this.fileInput.current;
-                            if (el) el.click();
-                          }}
-                        >
-                          {_t("editor-toolbar.upload")}
-                        </div>
-                      </div>
-                    }
-                  </div>
-                </Tooltip>
-              );
-            }
-
             return (
               <Tooltip content={_t("editor-toolbar.image")}>
-                <div className="editor-tool" onClick={this.toggleImage}>
+                <div
+                  className="editor-tool"
+                  onClick={(e: React.MouseEvent<HTMLElement>) => {
+                    e.stopPropagation();
+                    const el = this.fileInput.current;
+                    if (activeUser && el) el.click();
+                  }}
+                >
                   {imageSvg}
-
-                  {activeUser && (
-                    <div className="sub-tool-menu">
-                      <div
-                        className="sub-tool-menu-item"
-                        onClick={(e: React.MouseEvent<HTMLElement>) => {
-                          e.stopPropagation();
-                          const el = this.fileInput.current;
-                          if (el) el.click();
-                        }}
-                      >
-                        {_t("editor-toolbar.upload")}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </Tooltip>
             );
