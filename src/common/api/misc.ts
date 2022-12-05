@@ -3,6 +3,9 @@ import axios from "axios";
 import defaults from "../constants/defaults.json";
 
 import { apiBase } from "./helper";
+import { PrivateKey } from "@upvu/dsteem";
+import { getPostingKey } from "../helper/user-token";
+import crypto from "crypto";
 
 export const getEmojiData = () => fetch(apiBase("/emoji.json")).then((response) => response.json());
 
@@ -25,8 +28,6 @@ export const uploadImage = async (
   //   })
   //   .then((r) => r.data);
 
-  const keychainLogin = true;
-
   let data: any, dataBs64;
 
   if (file) {
@@ -46,23 +47,23 @@ export const uploadImage = async (
     // data = new Buffer(dataBs64, 'base64');
   }
 
-  const prefix = new Buffer("ImageSigningChallenge");
-  const buf = Buffer.concat([prefix, data]);
-  // const bufSha = hash.sha256(buf);
-
-  const formData = new FormData();
-  if (file) {
-    formData.append("file", file);
-  } else {
-    // formData.append('file', file, filename) <- Failed to add filename=xxx to Content-Disposition
-    // Can't easily make this look like a file so this relies on the server supporting: filename and filebinary
-    // formData.append('filename', filename);
-    // formData.append('filebase64', dataBs64);
-  }
-
   let sig;
-  // if (keychainLogin) {
-  if (true) {
+  const formData = new FormData();
+
+  const postingKey = getPostingKey(username);
+
+  if (postingKey) {
+    // const data = fs.readFileSync(file);
+    const key = PrivateKey.fromString(postingKey);
+    const imageHash = crypto.createHash("sha256").update("ImageSigningChallenge").update(data).digest();
+    sig = key.sign(imageHash).toString();
+  } else {
+    const prefix = new Buffer("ImageSigningChallenge");
+    const buf = Buffer.concat([prefix, data]);
+
+    if (file) {
+      formData.append("file", file);
+    }
     const response: any = await new Promise((resolve) => {
       window.steem_keychain.requestSignBuffer(username, JSON.stringify(buf), "Posting", (response: any) => {
         resolve(response);
@@ -75,8 +76,6 @@ export const uploadImage = async (
       // progress({ error: response.message });
       return { url: "" };
     }
-  } else {
-    // sig = Signature.signBufferSha256(bufSha, d).toHex();
   }
 
   const uploadImageUrl = "https://steemitimages.com";
