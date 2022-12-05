@@ -26,24 +26,7 @@ import { connect } from "react-redux";
 import loadable from "@loadable/component";
 import { useLocation } from "react-router";
 
-const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "G-4CPQRCJT7B";
-
-ReactGA.initialize(TRACKING_ID);
-
-const RouteChangeTracker = () => {
-  const location = useLocation();
-  const [initialized, setInitialized] = useState(false);
-
-  useEffect(() => {
-    setInitialized(true);
-  }, []);
-
-  useEffect(() => {
-    if (initialized) {
-      ReactGA.pageview(location.pathname + location.search);
-    }
-  }, [initialized, location]);
-};
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "UA-250883873-1";
 
 // Define lazy pages
 const ProfileContainer = loadable(() => import("./pages/profile-functional"));
@@ -88,6 +71,24 @@ const EntryPage = (props: any) => {
   return isAmp ? <EntryAMPContainer {...props} /> : <EntryContainer {...props} />;
 };
 
+ReactGA.initialize(TRACKING_ID);
+
+const RouteChangeTracker = () => {
+  const location = useLocation();
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    ReactGA.initialize(TRACKING_ID);
+    setInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (initialized) {
+      ReactGA.pageview(location.pathname + location.search);
+    }
+  }, [initialized, location]);
+};
+
 const App = ({ setLang }: any) => {
   const location = useLocation();
 
@@ -97,6 +98,8 @@ const App = ({ setLang }: any) => {
   }, [location]);
 
   useEffect(() => {
+    ReactGA.initialize(TRACKING_ID);
+
     let pathname = window.location.pathname;
     if (pathname !== "/faq") {
       const currentLang = ls.get("current-language");

@@ -1,7 +1,7 @@
 import express from "express";
 import ReactGA from "react-ga";
 
-const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "G-4CPQRCJT7B";
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "UA-250883873-1";
 
 let app = require("./server").default;
 console.log("ReactGA.initialize(TRACKING_ID)", TRACKING_ID);
