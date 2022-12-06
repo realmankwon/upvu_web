@@ -15,23 +15,10 @@ export const uploadImage = async (
 ): Promise<{
   url: string;
 }> => {
-  // const fData = new FormData();
-  // fData.append("file", file);
-
-  // // const postUrl = `${defaults.imageServer}/hs/${token}`;
-  // const postUrl = `${defaults.imageServer}/`;
-  // return axios
-  //   .post(postUrl, fData, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //   })
-  //   .then((r) => r.data);
-
-  let data: any, dataBs64;
+  let data: any;
+  const formData = new FormData();
 
   if (file) {
-    // drag and drop
     const reader: any = new FileReader();
     data = await new Promise((resolve) => {
       reader.addEventListener("load", () => {
@@ -40,30 +27,23 @@ export const uploadImage = async (
       });
       reader.readAsBinaryString(file);
     });
-  } else {
-    // recover from preview
-    // const commaIdx = dataUrl.indexOf(',');
-    // dataBs64 = dataUrl.substring(commaIdx + 1);
-    // data = new Buffer(dataBs64, 'base64');
-  }
 
-  const prefix = new Buffer("ImageSigningChallenge");
-  const buf = Buffer.concat([prefix, data]);
-
-  const formData = new FormData();
-  if (file) {
     formData.append("file", file);
+  } else {
+    return { url: "" };
   }
 
   let sig;
   const postingKey = getPostingKey(username);
 
   if (postingKey) {
-    // const data = fs.readFileSync(file);
     const key = PrivateKey.fromString(postingKey);
     const imageHash = crypto.createHash("sha256").update("ImageSigningChallenge").update(data).digest();
     sig = key.sign(imageHash).toString();
   } else {
+    const prefix = new Buffer("ImageSigningChallenge");
+    const buf = Buffer.concat([prefix, data]);
+
     const response: any = await new Promise((resolve) => {
       window.steem_keychain.requestSignBuffer(username, JSON.stringify(buf), "Posting", (response: any) => {
         resolve(response);
@@ -72,8 +52,6 @@ export const uploadImage = async (
     if (response.success) {
       sig = response.result;
     } else {
-      console.log("progress", response);
-      // progress({ error: response.message });
       return { url: "" };
     }
   }
