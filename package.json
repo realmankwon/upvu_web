@@ -24,7 +24,7 @@
     "@types/sortablejs": "^1.10.6",
     "@types/speakingurl": "^13.0.2",
     "@types/webscopeio__react-textarea-autocomplete": "^4.7.2",
-    "@upvu/dsteem": "^1.1.2",
+    "@upvu/dsteem": "^1.1.5",
     "@webscopeio/react-textarea-autocomplete": "^4.8.1",
     "axios": "^0.21.2",
     "bs58": "^4.0.1",
