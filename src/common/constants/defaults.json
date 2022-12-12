@@ -10,7 +10,7 @@
   "locale": "en-US",
   "upvubase": "https://upvuweb-api.upvu.org",
   "base": "https://upvu.org",
-  "imageServer": "https://images.ecency.com",
+  "imageServer": "https://steemitimages.com",
   "nwsServer": "wss://enotify.esteem.app",
   "name": "Upvu",
   "title": "Upvu - smart, decentralized, rewarding social network without limits",

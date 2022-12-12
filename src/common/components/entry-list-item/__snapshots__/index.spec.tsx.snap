@@ -28,7 +28,7 @@ exports[`(1) Default render 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                 }
               }
             />
@@ -110,12 +110,12 @@ exports[`(1) Default render 1`] = `
         <picture>
           <source
             media="(min-width: 576px)"
-            srcSet="https://images.ecency.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=260&height=200"
+            srcSet="https://steemitimages.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=260&height=200"
           />
           <img
             alt="Awesome Hive"
             onError={[Function]}
-            srcSet="https://images.ecency.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
+            srcSet="https://steemitimages.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
           />
         </picture>
       </a>
@@ -281,7 +281,7 @@ exports[`(2) Grid view 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                 }
               }
             />
@@ -363,7 +363,7 @@ exports[`(2) Grid view 1`] = `
         <img
           alt="Awesome Hive"
           onError={[Function]}
-          src="https://images.ecency.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
+          src="https://steemitimages.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
           style={
             Object {
               "width": "auto",
@@ -558,7 +558,7 @@ exports[`(3) Nsfw 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                 }
               }
             />
@@ -842,7 +842,7 @@ exports[`(4) Nsfw with active user 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                 }
               }
             />
@@ -1125,7 +1125,7 @@ exports[`(5) Nsfw but allowed 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                 }
               }
             />
@@ -1207,12 +1207,12 @@ exports[`(5) Nsfw but allowed 1`] = `
         <picture>
           <source
             media="(min-width: 576px)"
-            srcSet="https://images.ecency.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=260&height=200"
+            srcSet="https://steemitimages.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=260&height=200"
           />
           <img
             alt="Awesome Hive"
             onError={[Function]}
-            srcSet="https://images.ecency.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
+            srcSet="https://steemitimages.com/p/HNWT6DgoBc1692QWn5trsGLxi44TrGuNZJMEdibBBbUKuho3EaW43JV4QzaQ258PEGNV2u43KAhU8r3Vjno4cBP8JeTFkbS2SCMjZZPprKzfMSdteRxSZxuPku4.png?format=match&mode=fit&width=600&height=500"
           />
         </picture>
       </a>
@@ -1435,7 +1435,7 @@ exports[`(6) Cross post. Bottom menu 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/regenerette/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/regenerette/avatar/small)",
                 }
               }
             />
@@ -1517,12 +1517,12 @@ exports[`(6) Cross post. Bottom menu 1`] = `
         <picture>
           <source
             media="(min-width: 576px)"
-            srcSet="https://images.ecency.com/p/9vWp6aU4y8kx949aDJ3YMzVLdPdgysaSmkB2s8acZPD2wLP9kmCfwvS7WXuviKVy7E4FQ9wVh4WA5pjURA85T8j9DcDS9aEKz33L2pEvgMVY6NyQE6wbedsZUqtk4KWeEB65eM5jx2qshJNei.png?format=match&mode=fit&width=260&height=200"
+            srcSet="https://steemitimages.com/p/9vWp6aU4y8kx949aDJ3YMzVLdPdgysaSmkB2s8acZPD2wLP9kmCfwvS7WXuviKVy7E4FQ9wVh4WA5pjURA85T8j9DcDS9aEKz33L2pEvgMVY6NyQE6wbedsZUqtk4KWeEB65eM5jx2qshJNei.png?format=match&mode=fit&width=260&height=200"
           />
           <img
             alt="WE NEED EACH ONE OF YOU - SOS Financial Advice For Hive Newcomers "
             onError={[Function]}
-            srcSet="https://images.ecency.com/p/9vWp6aU4y8kx949aDJ3YMzVLdPdgysaSmkB2s8acZPD2wLP9kmCfwvS7WXuviKVy7E4FQ9wVh4WA5pjURA85T8j9DcDS9aEKz33L2pEvgMVY6NyQE6wbedsZUqtk4KWeEB65eM5jx2qshJNei.png?format=match&mode=fit&width=600&height=500"
+            srcSet="https://steemitimages.com/p/9vWp6aU4y8kx949aDJ3YMzVLdPdgysaSmkB2s8acZPD2wLP9kmCfwvS7WXuviKVy7E4FQ9wVh4WA5pjURA85T8j9DcDS9aEKz33L2pEvgMVY6NyQE6wbedsZUqtk4KWeEB65eM5jx2qshJNei.png?format=match&mode=fit&width=600&height=500"
           />
         </picture>
       </a>

@@ -4,14 +4,10 @@ import EntryVotes, { EntryVotesDetail } from "./index";
 import renderer from "react-test-renderer";
 import { createBrowserHistory } from "history";
 
-import {
-  globalInstance,
-  entryInstance1,
-  votesInstance1,
-} from "../../helper/test-helper";
+import { globalInstance, entryInstance1, votesInstance1 } from "../../helper/test-helper";
 
 jest.mock("../../constants/defaults.json", () => ({
-  imageServer: "https://images.ecency.com",
+  imageServer: "https://steemitimages.com",
 }));
 
 jest.mock("moment", () => () => ({

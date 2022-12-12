@@ -24,7 +24,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bluemist/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bluemist/avatar/small)",
                 }
               }
             />
@@ -61,7 +61,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
                 }
               }
             />
@@ -98,7 +98,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/small)",
                 }
               }
             />
@@ -135,7 +135,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/baz/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/baz/avatar/small)",
                 }
               }
             />
@@ -172,7 +172,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/lorem/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/lorem/avatar/small)",
                 }
               }
             />
@@ -209,7 +209,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/ipsum/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/ipsum/avatar/small)",
                 }
               }
             />
@@ -246,7 +246,7 @@ exports[`(1) Default render. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/dolor/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/dolor/avatar/small)",
                 }
               }
             />
@@ -298,7 +298,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bluemist/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bluemist/avatar/small)",
                 }
               }
             />
@@ -340,7 +340,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
                 }
               }
             />
@@ -396,7 +396,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/small)",
                 }
               }
             />
@@ -452,7 +452,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/baz/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/baz/avatar/small)",
                 }
               }
             />
@@ -508,7 +508,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/lorem/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/lorem/avatar/small)",
                 }
               }
             />
@@ -564,7 +564,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/ipsum/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/ipsum/avatar/small)",
                 }
               }
             />
@@ -620,7 +620,7 @@ exports[`(2) Active user. 1`] = `
               className="user-avatar small"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/dolor/avatar/small)",
+                  "backgroundImage": "url(https://steemitimages.com/u/dolor/avatar/small)",
                 }
               }
             />

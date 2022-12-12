@@ -6,7 +6,7 @@ import TestRenderer from "react-test-renderer";
 import { globalInstance } from "../../helper/test-helper";
 
 jest.mock("../../constants/defaults.json", () => ({
-  imageServer: "https://images.ecency.com",
+  imageServer: "https://steemitimages.com",
 }));
 
 describe("UserAvatar", () => {

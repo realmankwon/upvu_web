@@ -47,7 +47,7 @@ exports[`(1) Default render 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/hive-148441/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/hive-148441/avatar/medium)",
                 }
               }
             />
@@ -77,7 +77,7 @@ exports[`(1) Default render 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bluemist/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bluemist/avatar/medium)",
                 }
               }
             />
@@ -148,7 +148,7 @@ exports[`(2) Should not show add user button 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/hive-148441/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/hive-148441/avatar/medium)",
                 }
               }
             />
@@ -178,7 +178,7 @@ exports[`(2) Should not show add user button 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bluemist/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bluemist/avatar/medium)",
                 }
               }
             />
@@ -249,7 +249,7 @@ exports[`(3) Should show add user button 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/hive-148441/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/hive-148441/avatar/medium)",
                 }
               }
             />
@@ -279,7 +279,7 @@ exports[`(3) Should show add user button 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bluemist/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bluemist/avatar/medium)",
                 }
               }
             />

@@ -992,7 +992,7 @@ exports[`(4) With active user 1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
             }
           }
         />
@@ -1239,7 +1239,7 @@ exports[`(5) With active user && usePrivate = false 1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
             }
           }
         />

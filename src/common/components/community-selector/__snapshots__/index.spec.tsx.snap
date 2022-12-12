@@ -33,7 +33,7 @@ exports[`(2) Tags with no community 1`] = `
     className="user-avatar small"
     style={
       Object {
-        "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+        "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
       }
     }
   />
@@ -64,7 +64,7 @@ exports[`(3) Tags with community. but in the end 1`] = `
     className="user-avatar small"
     style={
       Object {
-        "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+        "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
       }
     }
   />
@@ -95,7 +95,7 @@ exports[`(4) Tags with community. 1`] = `
     className="user-avatar small"
     style={
       Object {
-        "backgroundImage": "url(https://images.ecency.com/u/hive-125125/avatar/small)",
+        "backgroundImage": "url(https://steemitimages.com/u/hive-125125/avatar/small)",
       }
     }
   />
@@ -126,7 +126,7 @@ exports[`(5) Tags with community. But not valid 1`] = `
     className="user-avatar small"
     style={
       Object {
-        "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+        "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
       }
     }
   />
@@ -182,7 +182,7 @@ exports[`(6) Browser 1`] = `
             className="user-avatar small"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/small)",
+                "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/small)",
               }
             }
           />
@@ -209,7 +209,7 @@ exports[`(6) Browser 1`] = `
             className="user-avatar small"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/hive-125125/avatar/small)",
+                "backgroundImage": "url(https://steemitimages.com/u/hive-125125/avatar/small)",
               }
             }
           />
@@ -236,7 +236,7 @@ exports[`(6) Browser 1`] = `
             className="user-avatar small"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/hive-131131/avatar/small)",
+                "backgroundImage": "url(https://steemitimages.com/u/hive-131131/avatar/small)",
               }
             }
           />
@@ -263,7 +263,7 @@ exports[`(6) Browser 1`] = `
             className="user-avatar small"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/hive-145145/avatar/small)",
+                "backgroundImage": "url(https://steemitimages.com/u/hive-145145/avatar/small)",
               }
             }
           />

@@ -16,7 +16,7 @@ import {
 } from "../../helper/test-helper";
 
 jest.mock("../../constants/defaults.json", () => ({
-  imageServer: "https://images.ecency.com",
+  imageServer: "https://steemitimages.com",
 }));
 
 jest.mock("../../api/hive", () => ({

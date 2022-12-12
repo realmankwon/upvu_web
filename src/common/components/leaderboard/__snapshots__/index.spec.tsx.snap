@@ -100,7 +100,7 @@ exports[`(1) Render with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
               }
             }
           />
@@ -146,7 +146,7 @@ exports[`(1) Render with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
               }
             }
           />
@@ -192,7 +192,7 @@ exports[`(1) Render with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/baz/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/baz/avatar/medium)",
               }
             }
           />
@@ -238,7 +238,7 @@ exports[`(1) Render with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/zoo/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/zoo/avatar/medium)",
               }
             }
           />

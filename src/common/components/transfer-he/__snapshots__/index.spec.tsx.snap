@@ -288,7 +288,7 @@ exports[`(1) Steem Engine - Transfer (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -312,7 +312,7 @@ exports[`(1) Steem Engine - Transfer (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -800,7 +800,7 @@ exports[`(2) Steem Engine - Delegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -824,7 +824,7 @@ exports[`(2) Steem Engine - Delegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -1164,7 +1164,7 @@ exports[`(3) Steem Engine - Undelegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -1188,7 +1188,7 @@ exports[`(3) Steem Engine - Undelegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -1555,7 +1555,7 @@ exports[`(4) Steem Engine - Stake (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -1579,7 +1579,7 @@ exports[`(4) Steem Engine - Stake (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -1905,7 +1905,7 @@ exports[`(5) Steem Engine - Unstake (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />

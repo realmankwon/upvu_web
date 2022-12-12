@@ -293,7 +293,7 @@ exports[`(1) Transfer STEEM (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -317,7 +317,7 @@ exports[`(1) Transfer STEEM (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -843,7 +843,7 @@ exports[`(2) Transfer SBD (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -867,7 +867,7 @@ exports[`(2) Transfer SBD (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -1276,7 +1276,7 @@ exports[`(3) Transfer POINT (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -1300,7 +1300,7 @@ exports[`(3) Transfer POINT (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -1699,7 +1699,7 @@ exports[`(4) Transfer to Savings - SBD (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -1723,7 +1723,7 @@ exports[`(4) Transfer to Savings - SBD (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -2122,7 +2122,7 @@ exports[`(5) Withdraw Savings - STEEM (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -2146,7 +2146,7 @@ exports[`(5) Withdraw Savings - STEEM (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -2455,7 +2455,7 @@ exports[`(6) Convert (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -2805,7 +2805,7 @@ exports[`(7) Power up (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -2829,7 +2829,7 @@ exports[`(7) Power up (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -3184,7 +3184,7 @@ exports[`(8) Delegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />
@@ -3208,7 +3208,7 @@ exports[`(8) Delegate (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/bar/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/bar/avatar/medium)",
                 }
               }
             />
@@ -3532,7 +3532,7 @@ exports[`(9) Power down (2) Step 2 1`] = `
               className="user-avatar medium"
               style={
                 Object {
-                  "backgroundImage": "url(https://images.ecency.com/u/foo/avatar/medium)",
+                  "backgroundImage": "url(https://steemitimages.com/u/foo/avatar/medium)",
                 }
               }
             />

@@ -29,7 +29,7 @@ exports[`(1) NotificationListItem (1) Vote  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/fooo10/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/fooo10/avatar/medium)",
             }
           }
         />
@@ -100,7 +100,7 @@ exports[`(1) NotificationListItem (2) Mention  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/ecency.stats/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/ecency.stats/avatar/medium)",
             }
           }
         />
@@ -171,7 +171,7 @@ exports[`(1) NotificationListItem (3) Follow  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/fooo10/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/fooo10/avatar/medium)",
             }
           }
         />
@@ -229,7 +229,7 @@ exports[`(1) NotificationListItem (4) Unfollow  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/fooo102/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/fooo102/avatar/medium)",
             }
           }
         />
@@ -287,7 +287,7 @@ exports[`(1) NotificationListItem (5) Reply  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/dunsky/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/dunsky/avatar/medium)",
             }
           }
         />
@@ -368,7 +368,7 @@ exports[`(1) NotificationListItem (6) Reblog  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/foo220/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/foo220/avatar/medium)",
             }
           }
         />
@@ -433,7 +433,7 @@ exports[`(1) NotificationListItem (7) Transfer  1`] = `
           className="user-avatar medium"
           style={
             Object {
-              "backgroundImage": "url(https://images.ecency.com/u/bar212/avatar/medium)",
+              "backgroundImage": "url(https://steemitimages.com/u/bar212/avatar/medium)",
             }
           }
         />

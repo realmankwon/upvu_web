@@ -52,7 +52,7 @@ exports[`(2) Test with data. 1`] = `
                   className="user-avatar medium"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/talhasch/avatar/medium)",
+                      "backgroundImage": "url(https://steemitimages.com/u/talhasch/avatar/medium)",
                     }
                   }
                 />
@@ -184,7 +184,7 @@ exports[`(2) Test with data. 1`] = `
                   className="user-avatar medium"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/talhasch/avatar/medium)",
+                      "backgroundImage": "url(https://steemitimages.com/u/talhasch/avatar/medium)",
                     }
                   }
                 />
@@ -316,7 +316,7 @@ exports[`(2) Test with data. 1`] = `
                   className="user-avatar medium"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/talhasch/avatar/medium)",
+                      "backgroundImage": "url(https://steemitimages.com/u/talhasch/avatar/medium)",
                     }
                   }
                 />

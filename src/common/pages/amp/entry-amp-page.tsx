@@ -632,7 +632,7 @@ class EntryPage extends BaseComponent<Props, State> {
                 <span itemProp="logo" itemScope={true} itemType="https://schema.org/ImageObject">
                   <meta
                     itemProp="url"
-                    content={`https://images.ecency.com/${global.canUseWebp ? "webp/" : ""}u/${
+                    content={`https://steemitimages.com/${global.canUseWebp ? "webp/" : ""}u/${
                       entry.community ? entry.community : "hive-125125"
                     }/avatar/medium`}
                   />

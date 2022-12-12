@@ -170,7 +170,7 @@ exports[`(2) Render with some hive engine tokens 1`] = `
                 alt="PIZZA"
                 className="item-image"
                 onError={[Function]}
-                src="https://images.ecency.com/p/3W72119s5BjVs3HydwUQEFR8AX8qeAgo5bzGeBm1Z97PoTy3MZXBcU4dHbscesjnrTfYqRnK5SzfhSYmuC72yxZ4h1S8WRzei3xyiS6WMKQuEqhbYBH45L.png?format=match&mode=fit"
+                src="https://steemitimages.com/p/3W72119s5BjVs3HydwUQEFR8AX8qeAgo5bzGeBm1Z97PoTy3MZXBcU4dHbscesjnrTfYqRnK5SzfhSYmuC72yxZ4h1S8WRzei3xyiS6WMKQuEqhbYBH45L.png?format=match&mode=fit"
               />
               PIZZA
             </div>
@@ -316,7 +316,7 @@ exports[`(2) Render with some hive engine tokens 1`] = `
                 alt="POB"
                 className="item-image"
                 onError={[Function]}
-                src="https://images.ecency.com/p/PB8ro82ZpZP35bVGjGoE93K3E4U5KX8KtMBJ2ri7FNATqDaPEut9xHWgvGv6BTaMCo6hfe1xpWWm8boHg2sF5xFppQLrBqWLJGnp3idmz4VWXr2A.png?format=match&mode=fit"
+                src="https://steemitimages.com/p/PB8ro82ZpZP35bVGjGoE93K3E4U5KX8KtMBJ2ri7FNATqDaPEut9xHWgvGv6BTaMCo6hfe1xpWWm8boHg2sF5xFppQLrBqWLJGnp3idmz4VWXr2A.png?format=match&mode=fit"
               />
               POB
             </div>
@@ -605,7 +605,7 @@ exports[`(3) Render with an unclaimed rewards 1`] = `
                 alt="PIZZA"
                 className="item-image"
                 onError={[Function]}
-                src="https://images.ecency.com/p/3W72119s5BjVs3HydwUQEFR8AX8qeAgo5bzGeBm1Z97PoTy3MZXBcU4dHbscesjnrTfYqRnK5SzfhSYmuC72yxZ4h1S8WRzei3xyiS6WMKQuEqhbYBH45L.png?format=match&mode=fit"
+                src="https://steemitimages.com/p/3W72119s5BjVs3HydwUQEFR8AX8qeAgo5bzGeBm1Z97PoTy3MZXBcU4dHbscesjnrTfYqRnK5SzfhSYmuC72yxZ4h1S8WRzei3xyiS6WMKQuEqhbYBH45L.png?format=match&mode=fit"
               />
               PIZZA
             </div>
@@ -751,7 +751,7 @@ exports[`(3) Render with an unclaimed rewards 1`] = `
                 alt="POB"
                 className="item-image"
                 onError={[Function]}
-                src="https://images.ecency.com/p/PB8ro82ZpZP35bVGjGoE93K3E4U5KX8KtMBJ2ri7FNATqDaPEut9xHWgvGv6BTaMCo6hfe1xpWWm8boHg2sF5xFppQLrBqWLJGnp3idmz4VWXr2A.png?format=match&mode=fit"
+                src="https://steemitimages.com/p/PB8ro82ZpZP35bVGjGoE93K3E4U5KX8KtMBJ2ri7FNATqDaPEut9xHWgvGv6BTaMCo6hfe1xpWWm8boHg2sF5xFppQLrBqWLJGnp3idmz4VWXr2A.png?format=match&mode=fit"
               />
               POB
             </div>

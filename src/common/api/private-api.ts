@@ -498,7 +498,7 @@ export const getPromotedEntries = (): Promise<Entry[]> => {
 export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, format = "match"): string => {
   // const imageSrc = proxifyImageSrc(url, width, height, "match");
   if (!url) url = "";
-  return url.replace("images.ecency.com", "steemitimages.com").replace("/webp", "");
+  return url.replace("steemitimages.com", "steemitimages.com").replace("/webp", "");
 };
 
 export const getEcosystem = async (): Promise<any> => {

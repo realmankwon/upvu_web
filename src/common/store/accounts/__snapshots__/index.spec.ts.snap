@@ -99,13 +99,13 @@ Array [
       ],
       "weight_threshold": 1,
     },
-    "posting_json_metadata": "{\\"profile\\":{\\"name\\":\\"Talha B.\\",\\"about\\":\\"Founder @runkod, Software Developer @ecency, Lifelong Learner\\",\\"cover_image\\":\\"https://images.ecency.com/DQmTsFJJV7gXpsHNatEWz1vgzykaM4WByxAgLMzWshmXNrj/cover.jpg\\",\\"profile_image\\":\\"https://images.ecency.com/DQmV2J1oAUoKxjyJQTu3TcZfGxDr5fzajMGhHEd1e1GALca/ben.jpg\\",\\"website\\":\\"https://github.com/talhasch\\",\\"location\\":\\"Istanbul\\",\\"version\\":2}}",
+    "posting_json_metadata": "{\\"profile\\":{\\"name\\":\\"Talha B.\\",\\"about\\":\\"Founder @runkod, Software Developer @ecency, Lifelong Learner\\",\\"cover_image\\":\\"https://steemitimages.com/DQmTsFJJV7gXpsHNatEWz1vgzykaM4WByxAgLMzWshmXNrj/cover.jpg\\",\\"profile_image\\":\\"https://steemitimages.com/DQmV2J1oAUoKxjyJQTu3TcZfGxDr5fzajMGhHEd1e1GALca/ben.jpg\\",\\"website\\":\\"https://github.com/talhasch\\",\\"location\\":\\"Istanbul\\",\\"version\\":2}}",
     "profile": Object {
       "about": "Founder @runkod, Software Developer @ecency, Lifelong Learner",
-      "cover_image": "https://images.ecency.com/DQmTsFJJV7gXpsHNatEWz1vgzykaM4WByxAgLMzWshmXNrj/cover.jpg",
+      "cover_image": "https://steemitimages.com/DQmTsFJJV7gXpsHNatEWz1vgzykaM4WByxAgLMzWshmXNrj/cover.jpg",
       "location": "Istanbul",
       "name": "Talha B.",
-      "profile_image": "https://images.ecency.com/DQmV2J1oAUoKxjyJQTu3TcZfGxDr5fzajMGhHEd1e1GALca/ben.jpg",
+      "profile_image": "https://steemitimages.com/DQmV2J1oAUoKxjyJQTu3TcZfGxDr5fzajMGhHEd1e1GALca/ben.jpg",
       "website": "https://github.com/talhasch",
     },
     "proxied_vsf_votes": Array [

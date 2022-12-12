@@ -51,7 +51,7 @@ exports[`(1) Default render 1`] = `
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -99,7 +99,7 @@ exports[`(1) Default render 1`] = `
                 alt="Imagehoster + Hivesigner and Condenser bounty"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -195,7 +195,7 @@ Integration examples to get started: Esteem/
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -243,7 +243,7 @@ Integration examples to get started: Esteem/
                 alt="Ecency Vision - No beneficiaries, Drafts, Gallery, Bookmarks"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -346,7 +346,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -394,7 +394,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="From Esteem Search to Hivesearcher"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -487,7 +487,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -535,7 +535,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="Ecency development update 17/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -633,7 +633,7 @@ We are 5 days away from official release of
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -681,7 +681,7 @@ We are 5 days away from official release of
                 alt="Open Search Engine development and maintenance "
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -779,7 +779,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -827,7 +827,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency development update 10/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -923,7 +923,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -971,7 +971,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Announcing Ecency Vision"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1068,7 +1068,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -1116,7 +1116,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency Mobile - Rebrand, better onboarding, communities and more"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1255,7 +1255,7 @@ exports[`(2) With limit 1`] = `
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -1303,7 +1303,7 @@ exports[`(2) With limit 1`] = `
                 alt="Imagehoster + Hivesigner and Condenser bounty"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1399,7 +1399,7 @@ Integration examples to get started: Esteem/
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -1447,7 +1447,7 @@ Integration examples to get started: Esteem/
                 alt="Ecency Vision - No beneficiaries, Drafts, Gallery, Bookmarks"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1550,7 +1550,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -1598,7 +1598,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="From Esteem Search to Hivesearcher"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1691,7 +1691,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -1739,7 +1739,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="Ecency development update 17/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1837,7 +1837,7 @@ We are 5 days away from official release of
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -1885,7 +1885,7 @@ We are 5 days away from official release of
                 alt="Open Search Engine development and maintenance "
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -1983,7 +1983,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -2031,7 +2031,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency development update 10/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2127,7 +2127,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -2175,7 +2175,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Announcing Ecency Vision"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2272,7 +2272,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -2320,7 +2320,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency Mobile - Rebrand, better onboarding, communities and more"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2469,7 +2469,7 @@ exports[`(3) Hide show more button 1`] = `
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -2517,7 +2517,7 @@ exports[`(3) Hide show more button 1`] = `
                 alt="Imagehoster + Hivesigner and Condenser bounty"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/Y2iXpRRkNSnseh3NuL6KUBitJTXrc5K2vbTzBseGEENcE.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2613,7 +2613,7 @@ Integration examples to get started: Esteem/
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -2661,7 +2661,7 @@ Integration examples to get started: Esteem/
                 alt="Ecency Vision - No beneficiaries, Drafts, Gallery, Bookmarks"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/qjrE4yyfw5pJD9LKQ1BG3BAmr5TYaANmrJEBZ9YMFm1JzaDyFrs2gybkt9EkQpcw34nTWFHD2XRVqvYde75Xjcbva4CmKgJf229A1udyqYXoE3PChHh5GC6a.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2764,7 +2764,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -2812,7 +2812,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="From Esteem Search to Hivesearcher"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYMje8p1iesaAcNjSh7JWYRiPQRX52L6rNRZipeiaBkx9daTxCyJyVvcKo3QMC9tjfRvNzgHxYuYyj6AFmCrd98w27oav6Nh8m4.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -2905,7 +2905,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -2953,7 +2953,7 @@ No beneficiaries, that's right, we are removing 1% beneficiary reward.
                 alt="Ecency development update 17/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -3051,7 +3051,7 @@ We are 5 days away from official release of
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/good-karma/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/good-karma/avatar/small)",
                     }
                   }
                 />
@@ -3099,7 +3099,7 @@ We are 5 days away from official release of
                 alt="Open Search Engine development and maintenance "
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/C3TZR1g81UNbFzApDTmvFYJczLb7FJz3TaMfBugjBSKbWRti4bCnoGvAYac1x1gNxNHvLdVpQxWxM4jTvWaSxAv72gbW4XfJW9HDmK1b4HFsUK6WddX4BH8.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -3197,7 +3197,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -3245,7 +3245,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency development update 10/07/2020"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9rQnKaQoHUMnKUdGQ9Fq2FrAUEA8hzoBW1zBu3tFQLeuANV9LKg7Dxks9YHZfGSBaYBPs8fdV3Z8y1U2warWG6FSAmBdcz.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -3341,7 +3341,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -3389,7 +3389,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Announcing Ecency Vision"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/3jpR3paJ37V8XPrHkfZdMt57jY6pRt6zEt5iRJV9r9PyK8zZ9LzVRP2RRWMATFpxzUx4nUPZTfVova11WNC7MYAvZhQNuyFuPPUGABSi8bq7Qvx9optt1BgEsSMu995sZLSMc.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>
@@ -3486,7 +3486,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                   className="user-avatar small"
                   style={
                     Object {
-                      "backgroundImage": "url(https://images.ecency.com/u/ecency/avatar/small)",
+                      "backgroundImage": "url(https://steemitimages.com/u/ecency/avatar/small)",
                     }
                   }
                 />
@@ -3534,7 +3534,7 @@ Right now, Search engine is used by all major frontends, Hive.blog, Peakd.com an
                 alt="Ecency Mobile - Rebrand, better onboarding, communities and more"
                 className=""
                 onError={[Function]}
-                src="https://images.ecency.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
+                src="https://steemitimages.com/p/6VvuHGsoU2QCK6yq1XKF2xrUpxynFs9SFNnn3DQjsWXdke4oKq6Z917WSxGYCCstHswFgkrJaybaif2asDJQk1RNunLFyHnEwWUsWvZPBgFwexY9iSs6XrH1RgMgZU.png?format=match&mode=fit&width=600&height=500"
               />
             </a>
           </div>

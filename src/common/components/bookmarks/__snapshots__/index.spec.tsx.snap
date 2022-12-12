@@ -32,7 +32,7 @@ exports[`(2) Bookmarks - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/kommienezuspadt/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/kommienezuspadt/avatar/medium)",
               }
             }
           />
@@ -62,7 +62,7 @@ exports[`(2) Bookmarks - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/johnvibes/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/johnvibes/avatar/medium)",
               }
             }
           />
@@ -92,7 +92,7 @@ exports[`(2) Bookmarks - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/acidyo/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/acidyo/avatar/medium)",
               }
             }
           />
@@ -122,7 +122,7 @@ exports[`(2) Bookmarks - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/bluemoon/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/bluemoon/avatar/medium)",
               }
             }
           />
@@ -152,7 +152,7 @@ exports[`(2) Bookmarks - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/tarazkp/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/tarazkp/avatar/medium)",
               }
             }
           />
@@ -209,7 +209,7 @@ exports[`(4) Favorites - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/purepinay/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/purepinay/avatar/medium)",
               }
             }
           />
@@ -234,7 +234,7 @@ exports[`(4) Favorites - Test with data. 1`] = `
             className="user-avatar medium"
             style={
               Object {
-                "backgroundImage": "url(https://images.ecency.com/u/kommienezuspadt/avatar/medium)",
+                "backgroundImage": "url(https://steemitimages.com/u/kommienezuspadt/avatar/medium)",
               }
             }
           />
