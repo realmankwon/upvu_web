@@ -1,0 +1,12 @@
+.trending-tags-card {
+  @include side-tag-list;
+
+  .link-card {
+    width: 100%;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+  pointer-events: auto !important;
+}
