@@ -3,6 +3,13 @@
 
   .link-card {
     width: 100%;
+    margin-bottom: 4px;
+  }
+
+  .link-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
