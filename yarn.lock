@@ -1308,23 +1308,6 @@
     xmldom "^0.5.0"
     xss "^1.0.8"
 
-"@ecency/render-helper@^2.2.18":
-  version "2.2.18"
-  resolved "https://registry.yarnpkg.com/@ecency/render-helper/-/render-helper-2.2.18.tgz#bc6b207139849c105e6c27a508bd0a0629c4b6a3"
-  integrity sha512-ZGk26vD8cbcWTi37aapSegbEDX+JONK0KhU2AZu3wwLm7q1m9jI3gss73a8OAoUM36Y3hixaFTjd3LeMSc0aDQ==
-  dependencies:
-    he "^1.2.0"
-    lolight "^1.4.0"
-    lru-cache "^6.0.0"
-    multihashes "0.4.13"
-    path "^0.12.7"
-    querystring "^0.2.0"
-    react-native-crypto-js "^1.0.0"
-    remarkable "^2.0.1"
-    url "^0.11.0"
-    xmldom "^0.5.0"
-    xss "^1.0.9"
-
 "@electron/get@^1.14.1":
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.14.1.tgz#16ba75f02dffb74c23965e72d617adc721d27f40"
@@ -2253,6 +2236,23 @@
     secp256k1 "^3.8.0"
     verror "^1.10.0"
     whatwg-fetch "^3.0.0"
+
+"@upvu/render-helper@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@upvu/render-helper/-/render-helper-1.0.4.tgz#6337ba26977126487bc8dd02abeb31a643a346a5"
+  integrity sha512-o0EYkh/Dtu/qBDSCtKYHX1J38J4cRzzV/6yR/vmFI4eUEOKTO1Dtv4AwMvNxEiUVIkBy5gdLuY0yNY01nvhvWA==
+  dependencies:
+    he "^1.2.0"
+    lolight "^1.4.0"
+    lru-cache "^6.0.0"
+    multihashes "0.4.13"
+    path "^0.12.7"
+    querystring "^0.2.0"
+    react-native-crypto-js "^1.0.0"
+    remarkable "^2.0.1"
+    url "^0.11.0"
+    xmldom "^0.5.0"
+    xss "^1.0.9"
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
