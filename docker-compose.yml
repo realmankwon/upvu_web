@@ -1,8 +1,8 @@
-version: '3.7'
+version: "3.7"
 
 services:
   app:
-    image: ecency/vision:development
+    image: realmankwon/upvu_web:development
     environment:
       - USE_PRIVATE
       - REDIS_URL
