@@ -28,7 +28,7 @@ export class LeftSideArea extends Component<Props> {
         <img className="link-card" src={feedback} />
         <div className="link-text">
           <p>
-            <a href="https://9au559zzo9w.typeform.com/to/HU37OEka" target={"_blank"}>
+            <a href="https://forms.gle/hEdX2qN8eJGGFiZHA" target={"_blank"}>
               Feedback
             </a>
           </p>
@@ -37,7 +37,7 @@ export class LeftSideArea extends Component<Props> {
         <img className="link-card" src={bugreport} />
         <div className="link-text">
           <p>
-            <a href="https://9au559zzo9w.typeform.com/to/maOGwIiq" target={"_blank"}>
+            <a href="https://forms.gle/hEdX2qN8eJGGFiZHA" target={"_blank"}>
               Bug Report
             </a>
           </p>
