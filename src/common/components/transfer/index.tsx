@@ -969,7 +969,7 @@ export class Transfer extends BaseComponent<Props, State> {
                   )}
                   {(() => {
                     if (mode === "power-down") {
-                      const hive = Math.round((Number(amount) / 13) * 1000) / 1000;
+                      const hive = Math.round((Number(amount) / 4) * 1000) / 1000;
                       if (!isNaN(hive) && hive > 0) {
                         return (
                           <div className="power-down-estimation">
