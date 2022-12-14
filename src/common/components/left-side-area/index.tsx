@@ -28,7 +28,7 @@ export class LeftSideArea extends Component<Props> {
         <img className="link-card" src={feedback} />
         <div className="link-text">
           <p>
-            <a href="https://forms.gle/hEdX2qN8eJGGFiZHA" target={"_blank"}>
+            <a href="https://forms.gle/pc4DGVA91TdJBsfk9" target={"_blank"}>
               Feedback
             </a>
           </p>
