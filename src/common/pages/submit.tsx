@@ -14,7 +14,7 @@ import { Form, FormControl, Button, Spinner, Col, Row } from "react-bootstrap";
 
 import moment, { Moment } from "moment";
 
-import { renderPostBody, postBodySummary } from "@ecency/render-helper";
+import { renderPostBody, postBodySummary } from "@upvu/render-helper";
 import { proxifyImageSrcConvert } from "../api/private-api";
 
 import { Entry } from "../store/entries/types";

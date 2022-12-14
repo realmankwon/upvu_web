@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 import moment from "moment";
 
 import { History } from "history";
-import { postBodySummary } from "@ecency/render-helper";
+import { postBodySummary } from "@upvu/render-helper";
 
 import { hiveNotifySetLastRead } from "../../api/operations";
 

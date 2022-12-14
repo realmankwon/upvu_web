@@ -17,7 +17,7 @@ import FormattedCurrency from "../formatted-currency";
 
 import defaults from "../../constants/defaults.json";
 
-import { catchPostImage, postBodySummary, setProxyBase } from "@ecency/render-helper";
+import { catchPostImage, postBodySummary, setProxyBase } from "@upvu/render-helper";
 
 setProxyBase(defaults.imageServer);
 

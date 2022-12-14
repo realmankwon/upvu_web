@@ -1,4 +1,4 @@
-import { postBodySummary } from "@ecency/render-helper";
+import { postBodySummary } from "@upvu/render-helper";
 import { proxifyImageSrcConvert } from "../../api/private-api";
 import React, { Fragment } from "react";
 import { history } from "../../../common/store";

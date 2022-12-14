@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { match } from "react-router";
 import moment from "moment";
 
-import { renderPostBody, setProxyBase, catchPostImage, postBodySummary } from "@ecency/render-helper";
+import { renderPostBody, setProxyBase, catchPostImage, postBodySummary } from "@upvu/render-helper";
 
 import { Entry, EntryVote } from "../../store/entries/types";
 import { Community } from "../../store/communities/types";

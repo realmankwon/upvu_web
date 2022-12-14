@@ -26,7 +26,7 @@ import defaults from "../../constants/defaults.json";
 
 import { deleteForeverSvg, pencilOutlineSvg } from "../../img/svg";
 
-import { catchPostImage, postBodySummary, setProxyBase } from "@ecency/render-helper";
+import { catchPostImage, postBodySummary, setProxyBase } from "@upvu/render-helper";
 import { dateToFormatted, dateToFullRelative } from "../../helper/parse-date";
 
 setProxyBase(defaults.imageServer);

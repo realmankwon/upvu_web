@@ -4,7 +4,7 @@ import { History, Location } from "history";
 
 import isEqual from "react-fast-compare";
 
-import { catchPostImage, postBodySummary, setProxyBase } from "@ecency/render-helper";
+import { catchPostImage, postBodySummary, setProxyBase } from "@upvu/render-helper";
 
 import { Entry, EntryVote } from "../../store/entries/types";
 import { Global } from "../../store/global/types";
