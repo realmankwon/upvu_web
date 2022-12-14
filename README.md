@@ -1,6 +1,6 @@
 # [UPVU 2.0][upvu_vision] – Upvu Web/Desktop client
 
-![ecency](https://upvu.org/assets/github-cover.png)
+![upvu](https://upvu.org/assets/github-cover.png)
 
 Immutable, decentralized, uncensored, rewarding communities powered by Steem.
 
@@ -86,4 +86,5 @@ To report a non-critical issue, please file an issue on this GitHub project.
 We will evaluate the risk and make a patch available before filing the issue.
 
 [//]: # "LINKS"
+[upvu]: https://upvu.org
 [upvu_vision]: https://upvu.org
