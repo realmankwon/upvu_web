@@ -1,5 +1,5 @@
 import { shell, clipboard } from "electron";
-import remote from "@electron/remote";
+import * as remote from "@electron/remote";
 
 import { _t } from "../../common/i18n";
 

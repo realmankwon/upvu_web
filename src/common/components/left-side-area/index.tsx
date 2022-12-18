@@ -19,13 +19,13 @@ interface Props {
 
 export class LeftSideArea extends Component<Props> {
   render() {
-    // const { trendingTags, global } = this.props;
-    const feedback = require("../../img/feedback.png");
-    const bugreport = require("../../img/bug_report.png");
+    const { trendingTags, global } = this.props;
+    const feedbackImage = global.isElectron ? "./img/feedback.png" : require("../../img/feedback.png");
+    const bugreportImage = global.isElectron ? "./img/bug_report.png" : require("../../img/bug_report.png");
 
     return (
       <div className="trending-tags-card">
-        <img className="link-card" src={feedback} />
+        <img className="link-card" src={feedbackImage} />
         <div className="link-text">
           <p>
             <a href="https://forms.gle/pc4DGVA91TdJBsfk9" target={"_blank"}>
@@ -34,7 +34,7 @@ export class LeftSideArea extends Component<Props> {
           </p>
         </div>
 
-        <img className="link-card" src={bugreport} />
+        <img className="link-card" src={bugreportImage} />
         <div className="link-text">
           <p>
             <a href="https://forms.gle/hEdX2qN8eJGGFiZHA" target={"_blank"}>
