@@ -1,11 +1,11 @@
 {
   "name": "ecency-surfer",
-  "productName": "Ecency",
-  "description": "Ecency desktop application reimagined for Windows, Mac, Linux users, start earning cryptocurrency!",
+  "productName": "Upvu",
+  "description": "Upvu desktop application reimagined for Windows, Mac, Linux users, start earning cryptocurrency!",
   "private": false,
-  "author": "Ecency <hello@ecency.com>",
+  "author": "Upvu <hello@upvu.com>",
   "version": "3.0.24",
-  "copyright": "© 2020, Ecency",
+  "copyright": "© 2020, Upvu",
   "homepage": "https://upvu.org",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -21,8 +21,8 @@
     "publish-all": "yarn build && electron-builder build -wml --publish always"
   },
   "build": {
-    "productName": "Ecency",
-    "appId": "app.esteem.surfer",
+    "productName": "Upvu",
+    "appId": "app.upvu.surfer",
     "files": [
       "dist/",
       "img/",
@@ -61,7 +61,7 @@
       ]
     },
     "win": {
-      "publisherName": "Esteem",
+      "publisherName": "Upvu",
       "target": [
         {
           "target": "nsis",
@@ -86,8 +86,7 @@
         "role": "Viewer",
         "schemes": [
           "steem",
-          "ecency",
-          "esteem"
+          "upvu"
         ]
       }
     ],
@@ -98,8 +97,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "ecency",
-        "repo": "ecency-vision",
+        "owner": "realmankwon",
+        "repo": "upvu_web",
         "vPrefixedTagName": false,
         "private": false,
         "releaseType": "draft",
