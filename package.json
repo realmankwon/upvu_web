@@ -9,6 +9,9 @@
     "test": "TZ=UTC razzle test --env=jsdom",
     "start:prod": "NODE_ENV=production node build/server.js"
   },
+  "engines": {
+    "node": ">=16.0.0 <18.0.0"
+  },
   "dependencies": {
     "@upvu/render-helper": "^1.0.4",
     "@ecency/render-helper-amp": "^1.1.0",
