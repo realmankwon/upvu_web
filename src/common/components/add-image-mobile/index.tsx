@@ -8,7 +8,8 @@ import { ActiveUser } from "../../store/active-user/types";
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
 
-import { UserImage, proxifyImageSrcConvert } from "../../api/private-api";
+import { UserImage } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 import { error } from "../feedback";
 
@@ -96,7 +97,7 @@ export class AddImage extends BaseComponent<Props, State> {
               <div className="recent-list-title">{_t("add-image-mobile.recent-title")}</div>
               <div className="recent-list-body">
                 {items.map((item) => {
-                  const src = proxifyImageSrcConvert(item.url, 600, 500, global.canUseWebp ? "webp" : "match");
+                  const src = proxifyImageSrc(item.url, 600, 500, global.canUseWebp ? "webp" : "match");
                   return (
                     <div
                       className="recent-list-item"

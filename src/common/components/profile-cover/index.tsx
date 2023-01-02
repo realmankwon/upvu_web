@@ -7,7 +7,7 @@ import { Account } from "../../store/accounts/types";
 import { UI, ToggleType } from "../../store/ui/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 
-import { proxifyImageSrcConvert } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 import FollowControls from "../follow-controls";
 import FavoriteBtn from "../favorite-btn";
@@ -40,8 +40,7 @@ export class ProfileCover extends Component<Props> {
     if (account.__loaded) {
       bgImage = global.theme === "day" ? coverFallbackDay : coverFallbackNight;
       if (account.profile?.cover_image) {
-        // bgImage = proxifyImageSrcConvert(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
-        bgImage = `https://steemitimages.com/2048x512/${account.profile.cover_image}`;
+        bgImage = proxifyImageSrc(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
       }
     }
 

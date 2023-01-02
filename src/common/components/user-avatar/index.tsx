@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { Global } from "../../store/global/types";
 
-import { proxifyImageSrcConvert } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 interface Props {
   global: Global;
@@ -21,7 +21,7 @@ export class UserAvatar extends Component<Props> {
       // imageSrc = `https://steemitimages.com/u/${username}/avatar/${imgSize}`;
       imageSrc = `https://steemitimages.com/u/${username}/avatar`;
     }
-    imageSrc = proxifyImageSrcConvert(imageSrc, 0, 0, global?.canUseWebp ? "webp" : "match");
+    imageSrc = proxifyImageSrc(imageSrc, 0, 0, global?.canUseWebp ? "webp" : "match");
 
     return <span className={cls} style={{ backgroundImage: `url(${imageSrc})` }} />;
   }
