@@ -23,8 +23,8 @@ function callApi(
   username: string
 ): Promise<any> {
   return axios.post(apiUpvuBase(path), data).then((resp) => {
-    if (resp.data.hasOwnProperty("ok")) {
-      if (resp.data.ok) {
+    if (resp.data.hasOwnProperty("auth")) {
+      if (resp.data.auth) {
         const user: User = {
           username: resp.data.username,
           accessToken: resp.data.access_token,
