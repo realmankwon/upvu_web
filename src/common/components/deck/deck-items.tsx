@@ -1,5 +1,5 @@
 import { postBodySummary } from "@upvu/render-helper";
-import { proxifyImageSrcConvert } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 import React, { Fragment } from "react";
 import { history } from "../../../common/store";
 import { Link } from "react-router-dom";
@@ -222,7 +222,7 @@ export const SearchListItem = ({
                   <div
                     className="search-post-image d-flex align-self-center mt-3"
                     style={{
-                      backgroundImage: `url(${proxifyImageSrcConvert(
+                      backgroundImage: `url(${proxifyImageSrc(
                         json_metadata.image[0],
                         undefined,
                         undefined,

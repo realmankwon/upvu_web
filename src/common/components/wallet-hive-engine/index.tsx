@@ -17,7 +17,7 @@ import WalletMenu from "../wallet-menu";
 import Transfer, { TransferMode } from "../transfer-he";
 
 import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
-import { proxifyImageSrcConvert } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 import {
   informationVariantSvg,
@@ -269,7 +269,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
               ) : (
                 <div className="entry-list-body">
                   {tokens.map((b, i) => {
-                    const imageSrc = proxifyImageSrcConvert(b.icon, 0, 0, global?.canUseWebp ? "webp" : "match");
+                    const imageSrc = proxifyImageSrc(b.icon, 0, 0, global?.canUseWebp ? "webp" : "match");
                     const fallbackImage = require("../../img/noimage.png");
 
                     return (

@@ -18,8 +18,8 @@ Feel free to test it out and submit improvements and pull requests.
 
 ##### Requirements
 
-- node ^12.0.0
-- yarn
+- node ^16.0.0
+- yarn ^1.22.0
 
 ##### Clone
 

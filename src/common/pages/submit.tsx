@@ -15,7 +15,7 @@ import { Form, FormControl, Button, Spinner, Col, Row } from "react-bootstrap";
 import moment, { Moment } from "moment";
 
 import { renderPostBody, postBodySummary } from "@upvu/render-helper";
-import { proxifyImageSrcConvert } from "../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 import { Entry } from "../store/entries/types";
 import { Global } from "../store/global/types";
@@ -1081,7 +1081,7 @@ class SubmitPage extends BaseComponent<Props, State> {
                                     className={`selection-item shadow ${
                                       selectedItem === item ? "selected" : ""
                                     } mr-3 mb-2`}
-                                    style={{ backgroundImage: `url("${proxifyImageSrcConvert(item, 260, 200)}")` }}
+                                    style={{ backgroundImage: `url("${proxifyImageSrc(item, 260, 200)}")` }}
                                     onClick={() => {
                                       this.selectThumbnails(item);
                                       this.setState({ selectionTouched: true });

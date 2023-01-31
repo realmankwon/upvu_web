@@ -10,7 +10,7 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "@upvu/render-helper": "^1.0.4",
+    "@upvu/render-helper": "^1.0.5",
     "@ecency/render-helper-amp": "^1.1.0",
     "@hiveio/hivescript": "^1.2.7",
     "@loadable/component": "^5.15.2",

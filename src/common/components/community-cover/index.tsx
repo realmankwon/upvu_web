@@ -12,7 +12,7 @@ import { UI, ToggleType } from "../../store/ui/types";
 import { Community } from "../../store/communities/types";
 import { Subscription } from "../../store/subscriptions/types";
 
-import { proxifyImageSrcConvert } from "../../api/private-api";
+import { proxifyImageSrc } from "@upvu/render-helper";
 
 import BaseComponent from "../base";
 import SubscriptionBtn from "../subscription-btn";
@@ -162,7 +162,7 @@ export class CommunityCover extends Component<Props> {
     if (account.__loaded) {
       bgImage = global.theme === "day" ? coverFallbackDay : coverFallbackNight;
       if (account.profile?.cover_image) {
-        bgImage = proxifyImageSrcConvert(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
+        bgImage = proxifyImageSrc(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
       }
     }
 

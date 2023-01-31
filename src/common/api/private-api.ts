@@ -8,6 +8,7 @@ import { getAccessToken, getRefreshToken } from "../helper/user-token";
 
 import { apiBase, apiUpvuBase } from "./helper";
 import { AppWindow } from "../../client/window";
+
 import moment from "moment";
 
 import * as ls from "../util/local-storage";
@@ -564,12 +565,6 @@ export const getPromotedEntries = (): Promise<Entry[]> => {
   }
 
   return new Promise((resolve) => resolve([]));
-};
-
-export const proxifyImageSrcConvert = (url?: string, width = 0, height = 0, format = "match"): string => {
-  // const imageSrc = proxifyImageSrc(url, width, height, "match");
-  if (!url) url = "";
-  return url.replace("steemitimages.com", "steemitimages.com").replace("/webp", "");
 };
 
 export const getEcosystem = async (): Promise<any> => {
