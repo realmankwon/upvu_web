@@ -198,9 +198,10 @@ export class Drafts extends BaseComponent<Props, State> {
     this.stateSet({ loading: true });
     getDrafts(activeUser?.username!)
       .then((items) => {
+        debugger;
         this.stateSet({ list: this.sort(items) });
       })
-      .catch(() => {
+      .catch((e) => {
         error(_t("g.server-error"));
       })
       .finally(() => {

@@ -230,7 +230,7 @@ export class Schedules extends BaseComponent<Props, State> {
       .then((items) => {
         this.stateSet({ list: this.sort(items) });
       })
-      .catch(() => {
+      .catch((e) => {
         error(_t("g.server-error"));
       })
       .finally(() => {
