@@ -584,16 +584,19 @@ export const getUPVUInfos = async (account: string): Promise<any> => {
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
   };
 
-  const upvuInfos = await axios
-    .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
-    .then((r) => r.data)
-    .catch((err) => {
-      console.log(err);
-    });
-
+  // const upvuInfos = await axios
+  //   .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
+  //   .then((r) => r.data)
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  const upvuInfos = await callApi(`/upvuweb-api/upvuinfos`, data, account).catch((err) => {
+    console.log(err);
+  });
   console.log("upvuInfos", upvuInfos);
   return upvuInfos;
 };
@@ -602,13 +605,16 @@ export const requestClaimTronReward = async (account: string, address: string, a
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
     address,
     amount,
   };
 
-  const requesetClaimTron = await axios.post(apiUpvuBase(`/upvuweb-api/upvu-claim`), data).then((r) => r.data);
-
+  // const requesetClaimTron = await axios.post(apiUpvuBase(`/upvuweb-api/upvu-claim`), data).then((r) => r.data);
+  const requesetClaimTron = await callApi(`/upvuweb-api/upvu-claim`, data, account).catch((err) => {
+    console.log(err);
+  });
   console.log("requestClaimTronReward", requesetClaimTron);
   return requesetClaimTron;
 };
@@ -617,13 +623,17 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
     reward_type,
   };
 
-  const updateRewardTypeResult = await axios
-    .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
-    .then((r) => r.data);
+  const updateRewardTypeResult = await callApi(`/upvuweb-api/update-reward-type`, data, account).catch((err) => {
+    console.log(err);
+  });
+  // const updateRewardTypeResult = await axios
+  //   .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
+  //   .then((r) => r.data);
 
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
