@@ -25,6 +25,7 @@ import ProfileMenu from "../components/profile-menu";
 import ProfileCover from "../components/profile-cover";
 import ProfileCommunities from "../components/profile-communities";
 import ProfileSettings from "../components/profile-settings";
+import WalletEarn from "../components/wallet-earn";
 import WalletHive from "../components/wallet-hive";
 import WalletHiveEngine from "../components/wallet-hive-engine";
 import WalletUPVU from "../components/wallet-upvu";
@@ -491,6 +492,15 @@ export const Profile = (props: Props) => {
                     updateWalletValues: ensureAccount,
                   });
                 }
+
+                if (section === "earn") {
+                  return WalletEarn({
+                    ...props,
+                    account,
+                    updateWalletValues: ensureAccount,
+                  });
+                }
+
                 if (section === "points") {
                   return WalletEcency({
                     ...props,

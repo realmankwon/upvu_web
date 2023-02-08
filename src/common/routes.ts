@@ -24,7 +24,7 @@ export default {
   USER_FEED: `/:username(@[\\w\\.\\d-]+)/:section(feed)`,
   USER_SECTION: `/:username(@[\\w\\.\\d-]+)/:section(${profileFilters.join(
     "|"
-  )}|wallet|points|engine|dashboard|communities|settings|permissions)`,
+  )}|wallet|points|engine|dashboard|earn|communities|settings|permissions)`,
   COMMUNITIES: `/communities`,
   COMMUNITIES_CREATE: `/communities/create`,
   COMMUNITIES_CREATE_HS: `/communities/create-hs`,

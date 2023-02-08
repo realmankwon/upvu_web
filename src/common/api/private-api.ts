@@ -639,3 +639,53 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
 };
+
+export const earnUses = async (username: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+  };
+
+  const results = await callApi(`/upvuweb-api/earnUses`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return results;
+};
+
+export const earnHsts = async (username: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+    earn_account,
+  };
+
+  const results = await callApi(`/upvuweb-api/earnHsts`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return results;
+};
+
+export const earnSummary = async (username: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+    earn_account,
+  };
+
+  const results = await callApi(`/upvuweb-api/earnSummary`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return results;
+};

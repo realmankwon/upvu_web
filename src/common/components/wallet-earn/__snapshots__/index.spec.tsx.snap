@@ -1,0 +1,1290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(1) Default Render 1`] = `
+<div
+  className="wallet-hive"
+>
+  <div
+    className="wallet-main"
+  >
+    <div
+      className="wallet-info"
+    >
+      <div
+        className="unclaimed-rewards"
+      >
+        <div
+          className="title"
+        >
+          Unclaimed rewards
+        </div>
+        <div
+          className="rewards"
+        >
+          <span
+            className="reward-type"
+          >
+            10.207 SP
+          </span>
+        </div>
+      </div>
+      <div
+        className="balance-row hive"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM
+          </div>
+          <div
+            className="description"
+          >
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 STEEM
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-power alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM POWER
+          </div>
+          <div
+            className="description"
+          >
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 4 weeks.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for Steem Poweris 2.980%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            42,924.395 SP
+          </div>
+          <div
+            className="amount amount-passive received-shares"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Received Steem Power"
+            >
+              + 5.095 SP
+            </span>
+          </div>
+          <div
+            className="amount amount-passive next-power-down-amount"
+          >
+            <span
+              title="Next power down amount"
+            >
+              - 3,626.559 SP
+            </span>
+          </div>
+          <div
+            className="amount total-steem-power"
+          >
+            <span
+              title="Total Steem Power"
+            >
+              = 39,302.931 SP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-dollars"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM DOLLARS
+          </div>
+          <div
+            className="description"
+          >
+            Tokens worth about $1.00 of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              $ 447.514
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row savings alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            SAVINGS
+          </div>
+          <div
+            className="description"
+          >
+            Balance subject to 3 day withdraw waiting period.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for SBD($) is 10%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.001 STEEM
+            </span>
+          </div>
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 $
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row estimated alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            Estimated Wallet Value
+          </div>
+          <div
+            className="description"
+          >
+            The estimated value is based on a 7 day average value of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount amount-bold"
+          >
+            $ 11,264.462
+          </div>
+        </div>
+      </div>
+      <div
+        className="next-power-down"
+      >
+        The next power down is in 5 days, 3,626.559 STEEM
+      </div>
+      <div
+        className="transaction-list"
+      >
+        <div
+          className="transaction-list-header"
+        >
+          <h2>
+            History
+             
+          </h2>
+          <select
+            className="form-control"
+            onChange={[Function]}
+            value=""
+          >
+            <option
+              value=""
+            >
+              All History
+            </option>
+            <option
+              value="transfers"
+            >
+              Transfers
+            </option>
+            <option
+              value="market-orders"
+            >
+              Market Orders
+            </option>
+            <option
+              value="interests"
+            >
+              Interests
+            </option>
+            <option
+              value="stake-operations"
+            >
+              Stake operations
+            </option>
+            <option
+              value="rewards"
+            >
+              Rewards
+            </option>
+          </select>
+        </div>
+        <p
+          className="text-muted empty-list"
+        >
+          Nothing here
+        </p>
+      </div>
+    </div>
+    <div
+      className="wallet-menu"
+    >
+      <a
+        className="menu-item ecency"
+        href="/@user1/points"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Ecency
+        </span>
+        <span
+          className="sub-title"
+        >
+          Points
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <img
+            alt="ecency"
+            src="logo-small-transparent.png"
+          />
+        </span>
+      </a>
+      <a
+        className="menu-item hive active"
+        href="/@user1/wallet"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Hive
+        </span>
+        <span
+          className="sub-title"
+        >
+          Wallet
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M260.353,254.878,131.538,33.1a2.208,2.208,0,0,0-3.829.009L.3,254.887A2.234,2.234,0,0,0,.3,257.122L129.116,478.9a2.208,2.208,0,0,0,3.83-.009L260.358,257.113A2.239,2.239,0,0,0,260.353,254.878Zm39.078-25.713a2.19,2.19,0,0,0,1.9,1.111h66.509a2.226,2.226,0,0,0,1.9-3.341L259.115,33.111a2.187,2.187,0,0,0-1.9-1.111H190.707a2.226,2.226,0,0,0-1.9,3.341ZM511.7,254.886,384.9,33.112A2.2,2.2,0,0,0,382.99,32h-66.6a2.226,2.226,0,0,0-1.906,3.34L440.652,256,314.481,476.66a2.226,2.226,0,0,0,1.906,3.34h66.6a2.2,2.2,0,0,0,1.906-1.112L511.7,257.114A2.243,2.243,0,0,0,511.7,254.886ZM366.016,284.917H299.508a2.187,2.187,0,0,0-1.9,1.111l-108.8,190.631a2.226,2.226,0,0,0,1.9,3.341h66.509a2.187,2.187,0,0,0,1.9-1.111l108.8-190.631A2.226,2.226,0,0,0,366.016,284.917Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+      <a
+        className="menu-item hive-engine"
+        href="/@user1/engine"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Engine
+        </span>
+        <span
+          className="sub-title"
+        >
+          Tokens
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M 226.63385,494.21287 A 38.3444,37.175214 0 0 0 153.83361,475.22554 257.02086,249.18385 0 0 1 103.53493,447.0743 38.334092,37.165221 0 0 0 50.192923,395.44372 253.78942,246.05095 0 0 1 21.179508,346.66625 38.3444,37.175214 0 0 0 1.66458,276.06583 a 254.27646,246.52314 0 0 1 0,-56.32245 38.334092,37.165221 0 0 0 19.576775,-70.59294 256.99767,249.16137 0 0 1 29.034029,-48.77497 38.3444,37.175214 0 0 0 53.256966,-51.73051 254.23523,246.48315 0 0 1 50.30899,-28.111257 38.3444,37.175214 0 0 0 72.83374,-18.9198855 254.18884,246.43819 0 0 1 58.08353,0 38.334092,37.165221 0 0 0 72.78993,18.9873395 257.52851,249.67603 0 0 1 50.29867,28.143736 38.3444,37.175214 0 0 0 53.35748,51.630577 254.03681,246.29078 0 0 1 28.99538,48.79496 38.3444,37.175214 0 0 0 19.51235,70.59293 253.70438,245.9685 0 0 1 0,56.35244 38.334092,37.165221 0 0 0 -19.58451,70.57044 257.22186,249.37873 0 0 1 -29.0366,48.76749 38.3444,37.175214 0 0 0 -53.25697,51.7305 253.44927,245.72117 0 0 1 -50.3296,28.11126 38.3444,37.175214 0 0 0 -72.81055,18.91989 252.9545,245.24149 0 0 1 -58.07322,0 z M 63.98196,247.91459 A 191.72201,185.87607 0 1 0 255.70396,62.03853 191.72201,185.87607 0 0 0 63.98196,247.91459 Z M 192.92274,388.54083 353.40745,282.97622 256.9383,212.2159 328.06098,111.68043 A 158.05726,153.23783 0 0 1 192.92274,388.54083 Z M 112.80407,182.5157 A 158.05984,153.24032 0 0 1 319.96175,107.90295 L 159.19101,213.45507 256.30438,282.98621 185.06832,384.9932 A 158.05984,153.24032 0 0 1 112.80407,182.5157 Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`(2) Render with converting SBD 1`] = `
+<div
+  className="wallet-hive"
+>
+  <div
+    className="wallet-main"
+  >
+    <div
+      className="wallet-info"
+    >
+      <div
+        className="unclaimed-rewards"
+      >
+        <div
+          className="title"
+        >
+          Unclaimed rewards
+        </div>
+        <div
+          className="rewards"
+        >
+          <span
+            className="reward-type"
+          >
+            10.207 SP
+          </span>
+        </div>
+      </div>
+      <div
+        className="balance-row hive"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM
+          </div>
+          <div
+            className="description"
+          >
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 STEEM
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Reserved for Open order in Market"
+            >
+              +
+               
+              1.000 STEEM
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-power alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM POWER
+          </div>
+          <div
+            className="description"
+          >
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 4 weeks.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for Steem Poweris 2.980%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            42,924.395 SP
+          </div>
+          <div
+            className="amount amount-passive received-shares"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Received Steem Power"
+            >
+              + 5.095 SP
+            </span>
+          </div>
+          <div
+            className="amount amount-passive next-power-down-amount"
+          >
+            <span
+              title="Next power down amount"
+            >
+              - 3,626.559 SP
+            </span>
+          </div>
+          <div
+            className="amount total-steem-power"
+          >
+            <span
+              title="Total Steem Power"
+            >
+              = 39,302.931 SP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-dollars"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM DOLLARS
+          </div>
+          <div
+            className="description"
+          >
+            Tokens worth about $1.00 of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              $ 447.514
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Converting to STEEM"
+            >
+              +
+               
+              $ 1,200.000
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Withdrawing from Savings"
+            >
+              +
+               
+              $ 10,100.297
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row savings alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            SAVINGS
+          </div>
+          <div
+            className="description"
+          >
+            Balance subject to 3 day withdraw waiting period.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for SBD($) is 10%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.001 STEEM
+            </span>
+          </div>
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 $
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row estimated alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            Estimated Wallet Value
+          </div>
+          <div
+            className="description"
+          >
+            The estimated value is based on a 7 day average value of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount amount-bold"
+          >
+            $ 12,464.462
+          </div>
+        </div>
+      </div>
+      <div
+        className="next-power-down"
+      >
+        The next power down is in 5 days, 3,626.559 STEEM
+      </div>
+      <div
+        className="transaction-list"
+      >
+        <div
+          className="transaction-list-header"
+        >
+          <h2>
+            History
+             
+          </h2>
+          <select
+            className="form-control"
+            onChange={[Function]}
+            value=""
+          >
+            <option
+              value=""
+            >
+              All History
+            </option>
+            <option
+              value="transfers"
+            >
+              Transfers
+            </option>
+            <option
+              value="market-orders"
+            >
+              Market Orders
+            </option>
+            <option
+              value="interests"
+            >
+              Interests
+            </option>
+            <option
+              value="stake-operations"
+            >
+              Stake operations
+            </option>
+            <option
+              value="rewards"
+            >
+              Rewards
+            </option>
+          </select>
+        </div>
+        <p
+          className="text-muted empty-list"
+        >
+          Nothing here
+        </p>
+      </div>
+    </div>
+    <div
+      className="wallet-menu"
+    >
+      <a
+        className="menu-item ecency"
+        href="/@user1/points"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Ecency
+        </span>
+        <span
+          className="sub-title"
+        >
+          Points
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <img
+            alt="ecency"
+            src="logo-small-transparent.png"
+          />
+        </span>
+      </a>
+      <a
+        className="menu-item hive active"
+        href="/@user1/wallet"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Hive
+        </span>
+        <span
+          className="sub-title"
+        >
+          Wallet
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M260.353,254.878,131.538,33.1a2.208,2.208,0,0,0-3.829.009L.3,254.887A2.234,2.234,0,0,0,.3,257.122L129.116,478.9a2.208,2.208,0,0,0,3.83-.009L260.358,257.113A2.239,2.239,0,0,0,260.353,254.878Zm39.078-25.713a2.19,2.19,0,0,0,1.9,1.111h66.509a2.226,2.226,0,0,0,1.9-3.341L259.115,33.111a2.187,2.187,0,0,0-1.9-1.111H190.707a2.226,2.226,0,0,0-1.9,3.341ZM511.7,254.886,384.9,33.112A2.2,2.2,0,0,0,382.99,32h-66.6a2.226,2.226,0,0,0-1.906,3.34L440.652,256,314.481,476.66a2.226,2.226,0,0,0,1.906,3.34h66.6a2.2,2.2,0,0,0,1.906-1.112L511.7,257.114A2.243,2.243,0,0,0,511.7,254.886ZM366.016,284.917H299.508a2.187,2.187,0,0,0-1.9,1.111l-108.8,190.631a2.226,2.226,0,0,0,1.9,3.341h66.509a2.187,2.187,0,0,0,1.9-1.111l108.8-190.631A2.226,2.226,0,0,0,366.016,284.917Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+      <a
+        className="menu-item hive-engine"
+        href="/@user1/engine"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Engine
+        </span>
+        <span
+          className="sub-title"
+        >
+          Tokens
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M 226.63385,494.21287 A 38.3444,37.175214 0 0 0 153.83361,475.22554 257.02086,249.18385 0 0 1 103.53493,447.0743 38.334092,37.165221 0 0 0 50.192923,395.44372 253.78942,246.05095 0 0 1 21.179508,346.66625 38.3444,37.175214 0 0 0 1.66458,276.06583 a 254.27646,246.52314 0 0 1 0,-56.32245 38.334092,37.165221 0 0 0 19.576775,-70.59294 256.99767,249.16137 0 0 1 29.034029,-48.77497 38.3444,37.175214 0 0 0 53.256966,-51.73051 254.23523,246.48315 0 0 1 50.30899,-28.111257 38.3444,37.175214 0 0 0 72.83374,-18.9198855 254.18884,246.43819 0 0 1 58.08353,0 38.334092,37.165221 0 0 0 72.78993,18.9873395 257.52851,249.67603 0 0 1 50.29867,28.143736 38.3444,37.175214 0 0 0 53.35748,51.630577 254.03681,246.29078 0 0 1 28.99538,48.79496 38.3444,37.175214 0 0 0 19.51235,70.59293 253.70438,245.9685 0 0 1 0,56.35244 38.334092,37.165221 0 0 0 -19.58451,70.57044 257.22186,249.37873 0 0 1 -29.0366,48.76749 38.3444,37.175214 0 0 0 -53.25697,51.7305 253.44927,245.72117 0 0 1 -50.3296,28.11126 38.3444,37.175214 0 0 0 -72.81055,18.91989 252.9545,245.24149 0 0 1 -58.07322,0 z M 63.98196,247.91459 A 191.72201,185.87607 0 1 0 255.70396,62.03853 191.72201,185.87607 0 0 0 63.98196,247.91459 Z M 192.92274,388.54083 353.40745,282.97622 256.9383,212.2159 328.06098,111.68043 A 158.05726,153.23783 0 0 1 192.92274,388.54083 Z M 112.80407,182.5157 A 158.05984,153.24032 0 0 1 319.96175,107.90295 L 159.19101,213.45507 256.30438,282.98621 185.06832,384.9932 A 158.05984,153.24032 0 0 1 112.80407,182.5157 Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`(3) usePrivate = false 1`] = `
+<div
+  className="wallet-hive"
+>
+  <div
+    className="wallet-main"
+  >
+    <div
+      className="wallet-info"
+    >
+      <div
+        className="unclaimed-rewards"
+      >
+        <div
+          className="title"
+        >
+          Unclaimed rewards
+        </div>
+        <div
+          className="rewards"
+        >
+          <span
+            className="reward-type"
+          >
+            10.207 SP
+          </span>
+        </div>
+      </div>
+      <div
+        className="balance-row hive"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM
+          </div>
+          <div
+            className="description"
+          >
+            STEEM are tradeable tokens that may be transferred at anytime.STEEM can be converted to Steem Powerin a process called powering up.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 STEEM
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Reserved for Open order in Market"
+            >
+              +
+               
+              1.000 STEEM
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-power alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM POWER
+          </div>
+          <div
+            className="description"
+          >
+            Steem Powerare influence tokens that earn more power for holding long term and voting on content. The more Steem Powerone holds, the more one can influence other’s rewards and earn rewards for accurate voting. Steem Poweris staked STEEM token that can be unstaked in 4 weeks.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for Steem Poweris 2.980%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            42,924.395 SP
+          </div>
+          <div
+            className="amount amount-passive received-shares"
+          >
+            <span
+              className="amount"
+              title="Received Steem Power"
+            >
+              + 5.095 SP
+            </span>
+          </div>
+          <div
+            className="amount amount-passive next-power-down-amount"
+          >
+            <span
+              title="Next power down amount"
+            >
+              - 3,626.559 SP
+            </span>
+          </div>
+          <div
+            className="amount total-steem-power"
+          >
+            <span
+              title="Total Steem Power"
+            >
+              = 39,302.931 SP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row steem-dollars"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            STEEM DOLLARS
+          </div>
+          <div
+            className="description"
+          >
+            Tokens worth about $1.00 of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              $ 447.514
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Converting to STEEM"
+            >
+              +
+               
+              $ 1,200.000
+            </span>
+          </div>
+          <div
+            className="amount amount-passive converting-hbd"
+          >
+            <span
+              className="amount-btn"
+              onClick={[Function]}
+              title="Withdrawing from Savings"
+            >
+              +
+               
+              $ 10,100.297
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row savings alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            SAVINGS
+          </div>
+          <div
+            className="description"
+          >
+            Balance subject to 3 day withdraw waiting period.
+          </div>
+          <div
+            className="description font-weight-bold mt-2"
+          >
+            APR interest rate for SBD($) is 10%
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.001 STEEM
+            </span>
+          </div>
+          <div
+            className="amount"
+          >
+            <div
+              className="amount-actions"
+            >
+              <div
+                className="custom-dropdown float-right"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <span>
+              0.000 $
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="balance-row estimated alternative"
+      >
+        <div
+          className="balance-info"
+        >
+          <div
+            className="title"
+          >
+            Estimated Wallet Value
+          </div>
+          <div
+            className="description"
+          >
+            The estimated value is based on a 7 day average value of STEEM.
+          </div>
+        </div>
+        <div
+          className="balance-values"
+        >
+          <div
+            className="amount amount-bold"
+          >
+            $ 12,464.462
+          </div>
+        </div>
+      </div>
+      <div
+        className="next-power-down"
+      >
+        The next power down is in 5 days, 3,626.559 STEEM
+      </div>
+      <div
+        className="transaction-list"
+      >
+        <div
+          className="transaction-list-header"
+        >
+          <h2>
+            History
+             
+          </h2>
+          <select
+            className="form-control"
+            onChange={[Function]}
+            value=""
+          >
+            <option
+              value=""
+            >
+              All History
+            </option>
+            <option
+              value="transfers"
+            >
+              Transfers
+            </option>
+            <option
+              value="market-orders"
+            >
+              Market Orders
+            </option>
+            <option
+              value="interests"
+            >
+              Interests
+            </option>
+            <option
+              value="stake-operations"
+            >
+              Stake operations
+            </option>
+            <option
+              value="rewards"
+            >
+              Rewards
+            </option>
+          </select>
+        </div>
+        <p
+          className="text-muted empty-list"
+        >
+          Nothing here
+        </p>
+      </div>
+    </div>
+    <div
+      className="wallet-menu"
+    >
+      <a
+        className="menu-item hive active"
+        href="/@user1/wallet"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Hive
+        </span>
+        <span
+          className="sub-title"
+        >
+          Wallet
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M260.353,254.878,131.538,33.1a2.208,2.208,0,0,0-3.829.009L.3,254.887A2.234,2.234,0,0,0,.3,257.122L129.116,478.9a2.208,2.208,0,0,0,3.83-.009L260.358,257.113A2.239,2.239,0,0,0,260.353,254.878Zm39.078-25.713a2.19,2.19,0,0,0,1.9,1.111h66.509a2.226,2.226,0,0,0,1.9-3.341L259.115,33.111a2.187,2.187,0,0,0-1.9-1.111H190.707a2.226,2.226,0,0,0-1.9,3.341ZM511.7,254.886,384.9,33.112A2.2,2.2,0,0,0,382.99,32h-66.6a2.226,2.226,0,0,0-1.906,3.34L440.652,256,314.481,476.66a2.226,2.226,0,0,0,1.906,3.34h66.6a2.2,2.2,0,0,0,1.906-1.112L511.7,257.114A2.243,2.243,0,0,0,511.7,254.886ZM366.016,284.917H299.508a2.187,2.187,0,0,0-1.9,1.111l-108.8,190.631a2.226,2.226,0,0,0,1.9,3.341h66.509a2.187,2.187,0,0,0,1.9-1.111l108.8-190.631A2.226,2.226,0,0,0,366.016,284.917Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+      <a
+        className="menu-item hive-engine"
+        href="/@user1/engine"
+        onClick={[Function]}
+      >
+        <span
+          className="title"
+        >
+          Engine
+        </span>
+        <span
+          className="sub-title"
+        >
+          Tokens
+        </span>
+        <span
+          className="platform-logo"
+        >
+          <svg
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M 226.63385,494.21287 A 38.3444,37.175214 0 0 0 153.83361,475.22554 257.02086,249.18385 0 0 1 103.53493,447.0743 38.334092,37.165221 0 0 0 50.192923,395.44372 253.78942,246.05095 0 0 1 21.179508,346.66625 38.3444,37.175214 0 0 0 1.66458,276.06583 a 254.27646,246.52314 0 0 1 0,-56.32245 38.334092,37.165221 0 0 0 19.576775,-70.59294 256.99767,249.16137 0 0 1 29.034029,-48.77497 38.3444,37.175214 0 0 0 53.256966,-51.73051 254.23523,246.48315 0 0 1 50.30899,-28.111257 38.3444,37.175214 0 0 0 72.83374,-18.9198855 254.18884,246.43819 0 0 1 58.08353,0 38.334092,37.165221 0 0 0 72.78993,18.9873395 257.52851,249.67603 0 0 1 50.29867,28.143736 38.3444,37.175214 0 0 0 53.35748,51.630577 254.03681,246.29078 0 0 1 28.99538,48.79496 38.3444,37.175214 0 0 0 19.51235,70.59293 253.70438,245.9685 0 0 1 0,56.35244 38.334092,37.165221 0 0 0 -19.58451,70.57044 257.22186,249.37873 0 0 1 -29.0366,48.76749 38.3444,37.175214 0 0 0 -53.25697,51.7305 253.44927,245.72117 0 0 1 -50.3296,28.11126 38.3444,37.175214 0 0 0 -72.81055,18.91989 252.9545,245.24149 0 0 1 -58.07322,0 z M 63.98196,247.91459 A 191.72201,185.87607 0 1 0 255.70396,62.03853 191.72201,185.87607 0 0 0 63.98196,247.91459 Z M 192.92274,388.54083 353.40745,282.97622 256.9383,212.2159 328.06098,111.68043 A 158.05726,153.23783 0 0 1 192.92274,388.54083 Z M 112.80407,182.5157 A 158.05984,153.24032 0 0 1 319.96175,107.90295 L 159.19101,213.45507 256.30438,282.98621 185.06832,384.9932 A 158.05984,153.24032 0 0 1 112.80407,182.5157 Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
