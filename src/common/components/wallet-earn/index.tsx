@@ -11,7 +11,7 @@ import { OperationGroup, Transactions } from "../../store/transactions/types";
 import { ActiveUser } from "../../store/active-user/types";
 import LinearProgress from "../linear-progress";
 import BaseComponent from "../base";
-
+import formattedNumber from "../../util/formatted-number";
 import { _t } from "../../i18n";
 
 import { earnUses, earnHsts, earnSummary } from "../../api/private-api";
@@ -122,7 +122,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
   render() {
     const { global, dynamicProps, account, activeUser, history } = this.props;
     const { isSameAccount, loading, earnUsesInfo, isEarnUser, selectedHistory } = this.state;
-    debugger;
+
     if (!account.__loaded) {
       return null;
     }
@@ -172,6 +172,62 @@ export class WalletEarn extends BaseComponent<Props, State> {
     );
   }
 }
+
+const EarnHistory = async (username: string, earn_account: string) => {
+  const resultEarnHsts = await earnHsts(username, earn_account);
+
+  return (
+    <div>
+      <div
+        className="transaction-list-item col-header"
+        style={{
+          backgroundColor: "#96c0ff",
+          textAlign: "center",
+        }}
+      >
+        <div className="transaction-title date">
+          <div className="transaction-upper">Deposit Date</div>
+        </div>
+        <div className="transaction-title permlink">
+          <div className="transaction-upper">Deposit Steem</div>
+        </div>
+        <div className="transaction-title">
+          <div className="transaction-upper">Earn Steem</div>
+        </div>
+        <div className="transaction-title">
+          <div className="transaction-upper">Earn Amount</div>
+        </div>
+      </div>
+
+      {resultEarnHsts ? (
+        resultEarnHsts.map((earnHst: EarnHstsProps, idx: number) => (
+          <div className="transaction-list-item" key={idx}>
+            <div className="transaction-title date">
+              <div className="transaction-upper">{earnHst.delegate_dte}</div>
+            </div>
+            <div className="transaction-title permlink">
+              <div className="transaction-upper">
+                {formattedNumber(earnHst.deposit_steem_amount, { fractionDigits: 0 })} STEEM
+              </div>
+            </div>
+            <div className="transaction-title">
+              <div className="transaction-upper">
+                {formattedNumber(earnHst.earn_steem, { fractionDigits: 0 })} STEEM
+              </div>
+            </div>
+            <div className="transaction-title">
+              <div className="transaction-upper">
+                {formattedNumber(earnHst.earn_amount, { fractionDigits: 0 })} {earnHst.earn_symbol}
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <LinearProgress />
+      )}
+    </div>
+  );
+};
 
 export default (p: Props) => {
   const props = {

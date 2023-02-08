@@ -23,7 +23,6 @@ function callApi(
   username: string
 ): Promise<any> {
   return axios.post(apiUpvuBase(path), data).then((resp) => {
-    debugger;
     if (resp.data.hasOwnProperty("auth")) {
       if (resp.data.auth) {
         const user: User = {
