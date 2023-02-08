@@ -649,7 +649,7 @@ export const earnUses = async (username: string): Promise<any> => {
     username,
   };
 
-  const results = await callApi(`/upvuweb-api/earnUses`, data, username).catch((err) => {
+  const results = await callApi(`/upvuweb-api/earn-uses`, data, username).catch((err) => {
     console.log(err);
   });
 
@@ -666,7 +666,7 @@ export const earnHsts = async (username: string, earn_account: string): Promise<
     earn_account,
   };
 
-  const results = await callApi(`/upvuweb-api/earnHsts`, data, username).catch((err) => {
+  const results = await callApi(`/upvuweb-api/earn-hsts`, data, username).catch((err) => {
     console.log(err);
   });
 
@@ -683,7 +683,7 @@ export const earnSummary = async (username: string, earn_account: string): Promi
     earn_account,
   };
 
-  const results = await callApi(`/upvuweb-api/earnSummary`, data, username).catch((err) => {
+  const results = await callApi(`/upvuweb-api/earn-summary`, data, username).catch((err) => {
     console.log(err);
   });
 

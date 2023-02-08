@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
 import { History } from "history";
 
 import { AssetSymbol } from "@upvu/dsteem";
@@ -12,9 +12,7 @@ import { ActiveUser } from "../../store/active-user/types";
 import LinearProgress from "../linear-progress";
 import BaseComponent from "../base";
 
-
 import { _t } from "../../i18n";
-
 
 import { earnUses, earnHsts, earnSummary } from "../../api/private-api";
 
@@ -64,7 +62,10 @@ interface State {
   earnUsesInfo: EarnUsesProps[];
   earnHstsInfo: EarnHstsProps[];
   earnSummaryInfo: EarnSummaryProps[];
+  selectedHistory: string;
 }
+
+let earnUsesArray: string[] = [];
 
 export class WalletEarn extends BaseComponent<Props, State> {
   state: State = {
@@ -74,6 +75,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     earnUsesInfo: [],
     earnHstsInfo: [],
     earnSummaryInfo: [],
+    selectedHistory: "",
   };
 
   componentDidMount() {
@@ -88,12 +90,21 @@ export class WalletEarn extends BaseComponent<Props, State> {
     if (username && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${username}`) > -1) {
       this.setState({ isSameAccount: true });
 
+      earnUsesArray = [];
       const resultEarnUses = await earnUses(username);
 
-      if (resultEarnUses.success && resultEarnUses.results.lenght > 0) {
-        this.setState({ earnUsesInfo: resultEarnUses, isEarnUser: true,loading: false, });
+      if (resultEarnUses.success && resultEarnUses.results.length > 0) {
+        resultEarnUses.results.map((data: EarnUsesProps) =>
+          earnUsesArray.push(`${data.account}-${data.earn_type}-${data.earn_symbol}`)
+        );
+        this.setState({
+          earnUsesInfo: resultEarnUses,
+          isEarnUser: true,
+          loading: false,
+          selectedHistory: earnUsesArray[0],
+        });
       } else {
-        this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, });
+        this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, selectedHistory: "" });
       }
     } else {
       this.setState({ isSameAccount: false });
@@ -104,10 +115,14 @@ export class WalletEarn extends BaseComponent<Props, State> {
     this.setState({ isSameAccount: false });
   }
 
+  filterChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    this.setState({ selectedHistory: e.target.value });
+  };
+
   render() {
     const { global, dynamicProps, account, activeUser, history } = this.props;
-    const { isSameAccount, loading, earnUsesInfo } = this.state;
-
+    const { isSameAccount, loading, earnUsesInfo, isEarnUser, selectedHistory } = this.state;
+    debugger;
     if (!account.__loaded) {
       return null;
     }
@@ -117,10 +132,45 @@ export class WalletEarn extends BaseComponent<Props, State> {
         {isSameAccount ? (
           loading ? (
             <LinearProgress />
-          ) : ()
-          : earnUsesInfo ? () :()
+          ) : (
+            <div>
+              {isEarnUser && earnUsesInfo ? (
+                <div className="transaction-list-header">
+                  <h2>History</h2>
+                  <div className="select-history">
+                    <FormControl
+                      className="select-box"
+                      as="select"
+                      value={selectedHistory}
+                      onChange={this.filterChanged}
+                    >
+                      {earnUsesArray.map((kind) => (
+                        <option key={kind} value={kind}>
+                          {kind}
+                        </option>
+                      ))}
+                    </FormControl>
+                  </div>
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
+          )
+        ) : (
+          <div className="view-container warn-box">
+            <div className="header">WARNING</div>
+            <div className="content">
+              <div>
+                <p>The dashboard is only visible to the OWNER of the account.</p>
+                <p>If you are this account owner, please log in first.</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
-  </div>);
 }
 
 export default (p: Props) => {
