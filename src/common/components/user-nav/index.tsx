@@ -21,7 +21,7 @@ import Fragments from "../fragments";
 
 import { _t } from "../../i18n";
 
-import HiveWallet from "../../helper/hive-wallet";
+import SteemWallet from "../../helper/steem-wallet";
 
 import { creditCardSvg, gifCardSvg, bellSvg, bellOffSvg, chevronUpSvg } from "../../img/svg";
 
@@ -38,7 +38,7 @@ class WalletBadge extends Component<{
     const { data: account } = activeUser;
 
     if (account.__loaded) {
-      hasUnclaimedRewards = new HiveWallet(account, dynamicProps).hasUnclaimedRewards;
+      hasUnclaimedRewards = new SteemWallet(account, dynamicProps).hasUnclaimedRewards;
     }
 
     return (

@@ -637,6 +637,10 @@
     "reserved-amount": "Reservado em ordem aberta no Câmbio"
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
+  "wallet-earn": {
+    "title": "Earn Dashboard",
+    "description": "<div>Earn more rewards with UPVU. Just delegate your SP to @upvu or hold UPVU tokens and enjoy Steemit. <a href='/getting-started-with-upvu'>Learn more..</a> </div> "
+  },
   "wallet-upvu": {
     "title": "UPVU Dashboard",
     "description": "<div>Earn more rewards with UPVU. Just delegate your SP to @upvu or hold UPVU tokens and enjoy Steemit. <a href='/getting-started-with-upvu'>Learn more..</a> </div> "

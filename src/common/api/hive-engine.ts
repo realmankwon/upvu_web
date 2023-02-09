@@ -1,5 +1,5 @@
 import axios from "axios";
-import HiveEngineToken from "../helper/hive-engine-wallet";
+import SteemEngineToken from "../helper/steem-engine-wallet";
 import { TransactionConfirmation } from "@upvu/dsteem";
 import { broadcastPostingJSON } from "./operations";
 
@@ -92,9 +92,9 @@ const getTokens = (tokens: string[]): Promise<Token[]> => {
     });
 };
 
-export const getHiveEngineTokenBalances = async (account: string): Promise<HiveEngineToken[]> => {
-  // commented just to try removing the non-existing unknowing HiveEngineTokenBalance type
-  // ): Promise<HiveEngineTokenBalance[]> => {
+export const getSteemEngineTokenBalances = async (account: string): Promise<SteemEngineToken[]> => {
+  // commented just to try removing the non-existing unknowing SteemEngineTokenBalance type
+  // ): Promise<SteemEngineTokenBalance[]> => {
   const balances = await getTokenBalances(account);
   const tokens = await getTokens(balances.map((t) => t.symbol));
 
@@ -102,7 +102,7 @@ export const getHiveEngineTokenBalances = async (account: string): Promise<HiveE
     const token = tokens.find((t) => t.symbol == balance.symbol);
     const tokenMetadata = token && (JSON.parse(token!.metadata) as TokenMetadata);
 
-    return new HiveEngineToken({
+    return new SteemEngineToken({
       ...balance,
       ...token,
       ...tokenMetadata,

@@ -9,14 +9,14 @@ import { OperationGroup, Transactions } from "../../store/transactions/types";
 import { ActiveUser } from "../../store/active-user/types";
 
 import BaseComponent from "../base";
-import HiveEngineToken from "../../helper/hive-engine-wallet";
+import SteemEngineToken from "../../helper/steem-engine-wallet";
 import LinearProgress from "../linear-progress";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import WalletMenu from "../wallet-menu";
 
 import Transfer, { TransferMode } from "../transfer-he";
 
-import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
+import { claimRewards, getSteemEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
 
 import {
   informationVariantSvg,
@@ -50,7 +50,7 @@ interface Props {
 }
 
 interface State {
-  tokens: HiveEngineToken[];
+  tokens: SteemEngineToken[];
   rewards: TokenStatus[];
   loading: boolean;
   claiming: boolean;

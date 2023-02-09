@@ -13,7 +13,7 @@ interface Props {
   delegationsOut: string;
 }
 
-export default class HiveEngineToken {
+export default class SteemEngineToken {
   symbol: string;
   name?: string;
   icon?: string;

@@ -2,7 +2,7 @@
 
 exports[`(1) Default Render 1`] = `
 <div
-  className="wallet-hive"
+  className="wallet-steem"
 >
   <div
     className="wallet-main"
@@ -414,7 +414,7 @@ exports[`(1) Default Render 1`] = `
 
 exports[`(2) Render with converting SBD 1`] = `
 <div
-  className="wallet-hive"
+  className="wallet-steem"
 >
   <div
     className="wallet-main"
@@ -865,7 +865,7 @@ exports[`(2) Render with converting SBD 1`] = `
 
 exports[`(3) usePrivate = false 1`] = `
 <div
-  className="wallet-hive"
+  className="wallet-steem"
 >
   <div
     className="wallet-main"

@@ -26,8 +26,8 @@ import ProfileCover from "../components/profile-cover";
 import ProfileCommunities from "../components/profile-communities";
 import ProfileSettings from "../components/profile-settings";
 import WalletEarn from "../components/wallet-earn";
-import WalletHive from "../components/wallet-hive";
-import WalletHiveEngine from "../components/wallet-hive-engine";
+import WalletSteem from "../components/wallet-steem";
+import WalletSteemEngine from "../components/wallet-steem-engine";
 import WalletUPVU from "../components/wallet-upvu";
 import ShortCut from "../components/ecosystem";
 import WalletEcency from "../components/wallet-ecency";
@@ -472,14 +472,14 @@ export const Profile = (props: Props) => {
             <>
               {(() => {
                 if (section === "wallet") {
-                  return WalletHive({
+                  return WalletSteem({
                     ...props,
                     account,
                     updateWalletValues: ensureAccount,
                   });
                 }
                 if (section === "engine") {
-                  return WalletHiveEngine({
+                  return WalletSteemEngine({
                     ...props,
                     account,
                     updateWalletValues: ensureAccount,

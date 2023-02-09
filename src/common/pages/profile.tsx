@@ -27,8 +27,8 @@ import ProfileCover from "../components/profile-cover";
 import ProfileCommunities from "../components/profile-communities";
 import ProfileSettings from "../components/profile-settings";
 import WalletEarn from "../components/wallet-earn";
-import WalletHive from "../components/wallet-hive";
-import WalletHiveEngine from "../components/wallet-hive-engine";
+import WalletSteem from "../components/wallet-steem";
+import WalletSteemEngine from "../components/wallet-steem-engine";
 import WalletEcency from "../components/wallet-ecency";
 import ScrollToTop from "../components/scroll-to-top";
 import SearchListItem from "../components/search-list-item";
@@ -507,7 +507,7 @@ class ProfilePage extends BaseComponent<Props, State> {
               <>
                 {(() => {
                   if (section === "wallet") {
-                    return WalletHive({
+                    return WalletSteem({
                       ...this.props,
                       account,
                       updateWalletValues: this.ensureAccount,
@@ -515,7 +515,7 @@ class ProfilePage extends BaseComponent<Props, State> {
                   }
 
                   if (section === "engine") {
-                    return WalletHiveEngine({
+                    return WalletSteemEngine({
                       ...this.props,
                       account,
                       updateWalletValues: this.ensureAccount,

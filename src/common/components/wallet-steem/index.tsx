@@ -26,7 +26,7 @@ import { error, success } from "../feedback";
 import WalletMenu from "../wallet-menu";
 import WithdrawRoutes from "../withdraw-routes";
 
-import HiveWallet from "../../helper/hive-wallet";
+import SteemWallet from "../../helper/steem-wallet";
 
 import { vestsToHp } from "../../helper/vesting";
 
@@ -79,7 +79,7 @@ interface State {
   aprs: { hbd: string | number; hp: string | number };
 }
 
-export class WalletHive extends BaseComponent<Props, State> {
+export class WalletSteem extends BaseComponent<Props, State> {
   state: State = {
     delegatedList: false,
     receivedList: false,
@@ -294,7 +294,7 @@ export class WalletHive extends BaseComponent<Props, State> {
 
     const { steemPerMVests } = dynamicProps;
     const isMyPage = activeUser && activeUser.username === account.name;
-    const w = new HiveWallet(account, dynamicProps, converting);
+    const w = new SteemWallet(account, dynamicProps, converting);
 
     const lastIPaymentRelative =
       account.savings_sbd_last_interest_payment == "1970-01-01T00:00:00"
@@ -305,7 +305,7 @@ export class WalletHive extends BaseComponent<Props, State> {
         ? account.savings_sbd_seconds_last_update
         : account.savings_sbd_last_interest_payment
     );
-    const interestAmount = (Number(hbd) / 100) * (w.savingBalanceHbd / (12 * 30)) * lastIPaymentDiff;
+    const interestAmount = (Number(hbd) / 100) * (w.savingBalanceSbd / (12 * 30)) * lastIPaymentDiff;
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
@@ -318,16 +318,16 @@ export class WalletHive extends BaseComponent<Props, State> {
     });
 
     return (
-      <div className="wallet-hive">
+      <div className="wallet-steem">
         <div className="wallet-main">
           <div className="wallet-info">
             {w.hasUnclaimedRewards && !claimed && (
               <div className="unclaimed-rewards">
                 <div className="title">{_t("wallet.unclaimed-rewards")}</div>
                 <div className="rewards">
-                  {w.rewardHiveBalance > 0 && <span className="reward-type">{`${w.rewardHiveBalance} STEEM`}</span>}
-                  {w.rewardHbdBalance > 0 && <span className="reward-type">{`${w.rewardHbdBalance} SBD`}</span>}
-                  {w.rewardVestingHive > 0 && <span className="reward-type">{`${w.rewardVestingHive} SP`}</span>}
+                  {w.rewardSteemBalance > 0 && <span className="reward-type">{`${w.rewardSteemBalance} STEEM`}</span>}
+                  {w.rewardSbdBalance > 0 && <span className="reward-type">{`${w.rewardSbdBalance} SBD`}</span>}
+                  {w.rewardVestingSteem > 0 && <span className="reward-type">{`${w.rewardVestingSteem} SP`}</span>}
                   {isMyPage && (
                     <Tooltip content={_t("wallet.claim-reward-balance")}>
                       <a className={`claim-btn ${claiming ? "in-progress" : ""}`} onClick={this.claimRewardBalance}>
@@ -667,7 +667,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                 <div className="description font-weight-bold mt-2">
                   {_t("wallet.steem-dollars-apr-rate", { value: hbd })}
                 </div>
-                {w.savingBalanceHbd > 0 && (
+                {w.savingBalanceSbd > 0 && (
                   <div className="description font-weight-bold mt-2">
                     {_t("wallet.steem-dollars-apr-claim", {
                       value: lastIPaymentRelative,
@@ -675,7 +675,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     {estimatedInterest}
                   </div>
                 )}
-                {isMyPage && w.savingBalanceHbd > 0 && (
+                {isMyPage && w.savingBalanceSbd > 0 && (
                   <div className="unclaimed-rewards" style={{ marginBottom: "0" }}>
                     <div className="rewards" style={{ height: "40px" }}>
                       <a
@@ -769,7 +769,7 @@ export class WalletHive extends BaseComponent<Props, State> {
                     );
                   })()}
 
-                  <span>{formattedNumber(w.savingBalanceHbd, { suffix: "$" })}</span>
+                  <span>{formattedNumber(w.savingBalanceSbd, { suffix: "$" })}</span>
                 </div>
               </div>
             </div>
@@ -874,5 +874,5 @@ export default (p: Props) => {
     steemengine: false,
   };
 
-  return <WalletHive {...props} />;
+  return <WalletSteem {...props} />;
 };

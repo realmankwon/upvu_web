@@ -9,14 +9,14 @@ import { OperationGroup, Transactions } from "../../store/transactions/types";
 import { ActiveUser } from "../../store/active-user/types";
 
 import BaseComponent from "../base";
-import HiveEngineToken from "../../helper/hive-engine-wallet";
+import SteemEngineToken from "../../helper/steem-engine-wallet";
 import LinearProgress from "../linear-progress";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import WalletMenu from "../wallet-menu";
 
 import Transfer, { TransferMode } from "../transfer-he";
 
-import { claimRewards, getHiveEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
+import { claimRewards, getSteemEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
 import { proxifyImageSrc } from "@upvu/render-helper";
 
 import {
@@ -53,7 +53,7 @@ interface Props {
 }
 
 interface State {
-  tokens: HiveEngineToken[];
+  tokens: SteemEngineToken[];
   rewards: TokenStatus[];
   loading: boolean;
   claiming: boolean;
@@ -64,7 +64,7 @@ interface State {
   assetBalance: number;
 }
 
-export class WalletHiveEngine extends BaseComponent<Props, State> {
+export class WalletSteemEngine extends BaseComponent<Props, State> {
   state: State = {
     tokens: [],
     rewards: [],
@@ -107,7 +107,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
     this.setState({ loading: true });
     let items;
     try {
-      items = await getHiveEngineTokenBalances(account.name);
+      items = await getSteemEngineTokenBalances(account.name);
       items = items.filter((token) => token.balance !== 0 || token.stakedBalance !== 0);
       items = this.sort(items);
       this._isMounted && this.setState({ tokens: items });
@@ -118,8 +118,8 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
     this.setState({ loading: false });
   };
 
-  sort = (items: HiveEngineToken[]) =>
-    items.sort((a: HiveEngineToken, b: HiveEngineToken) => {
+  sort = (items: SteemEngineToken[]) =>
+    items.sort((a: SteemEngineToken, b: SteemEngineToken) => {
       if (a.balance !== b.balance) {
         return a.balance < b.balance ? 1 : -1;
       }
@@ -184,7 +184,7 @@ export class WalletHiveEngine extends BaseComponent<Props, State> {
     }
 
     return (
-      <div className="wallet-hive-engine">
+      <div className="wallet-steem-engine">
         <div className="wallet-main">
           <div className="wallet-info">
             {hasUnclaimedRewards && (
@@ -512,5 +512,5 @@ export default (p: Props) => {
     steemengine: true,
   };
 
-  return <WalletHiveEngine {...props} />;
+  return <WalletSteemEngine {...props} />;
 };

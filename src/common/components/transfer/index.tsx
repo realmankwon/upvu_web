@@ -23,7 +23,7 @@ import SuggestionList from "../suggestion-list";
 import KeyOrHot from "../key-or-hot";
 import { error } from "../feedback";
 
-import HiveWallet from "../../helper/hive-wallet";
+import SteemWallet from "../../helper/steem-wallet";
 import amountFormatCheck from "../../helper/amount-format-check";
 import parseAsset from "../../helper/parse-asset";
 import { vestsToHp, hpToVests } from "../../helper/vesting";
@@ -393,10 +393,10 @@ export class Transfer extends BaseComponent<Props, State> {
 
     const { data: account } = activeUser;
 
-    const w = new HiveWallet(account, dynamicProps);
+    const w = new SteemWallet(account, dynamicProps);
 
     if (mode === "withdraw-saving" || mode === "claim-interest") {
-      return asset === "STEEM" ? w.savingBalance : w.savingBalanceHbd;
+      return asset === "STEEM" ? w.savingBalance : w.savingBalanceSbd;
     }
 
     if (asset === "STEEM") {
@@ -840,7 +840,7 @@ export class Transfer extends BaseComponent<Props, State> {
 
     // Powering down
     if (step === 1 && mode === "power-down") {
-      const w = new HiveWallet(activeUser.data, dynamicProps);
+      const w = new SteemWallet(activeUser.data, dynamicProps);
       if (w.isPoweringDown) {
         return (
           <div className="transfer-dialog-content">

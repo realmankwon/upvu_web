@@ -22,6 +22,7 @@ export default class WalletMenu extends Component<Props> {
       ? "./img/logo-small-transparent.png"
       : require("../../img/logo-small-transparent.png");
     const upvuLogo = require("../../img/logo-circle.png");
+    const earnLogo = require("../../img/logo-circle.png");
 
     return (
       <div className="wallet-menu">
@@ -58,12 +59,12 @@ export default class WalletMenu extends Component<Props> {
             <img alt="ecency" src={upvuLogo} />
           </span>
         </Link>
-        <Link className={_c(`menu-item hive ${active === "earn" ? "active" : ""}`)} to={`/@${username}/earn`}>
+        <Link className={_c(`menu-item earn ${active === "earn" ? "active" : ""}`)} to={`/@${username}/earn`}>
           <span className="title">Earn</span>
           <span className="sub-title">Dashboard</span>
           <span className="platform-logo">
             {" "}
-            <img alt="ecency" src={upvuLogo} />
+            <img alt="ecency" src={earnLogo} />
           </span>
         </Link>
       </div>

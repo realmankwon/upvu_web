@@ -2,7 +2,7 @@
 
 exports[`(1) Render an empty list when no tokens found 1`] = `
 <div
-  className="wallet-hive-engine"
+  className="wallet-steem-engine"
 >
   <div
     className="wallet-main"
@@ -128,7 +128,7 @@ exports[`(1) Render an empty list when no tokens found 1`] = `
 
 exports[`(2) Render with some hive engine tokens 1`] = `
 <div
-  className="wallet-hive-engine"
+  className="wallet-steem-engine"
 >
   <div
     className="wallet-main"
@@ -545,7 +545,7 @@ exports[`(2) Render with some hive engine tokens 1`] = `
 
 exports[`(3) Render with an unclaimed rewards 1`] = `
 <div
-  className="wallet-hive-engine"
+  className="wallet-steem-engine"
 >
   <div
     className="wallet-main"
@@ -980,7 +980,7 @@ exports[`(3) Render with an unclaimed rewards 1`] = `
 
 exports[`(4) Render an empty list if tokens equals zero 1`] = `
 <div
-  className="wallet-hive-engine"
+  className="wallet-steem-engine"
 >
   <div
     className="wallet-main"
@@ -1106,7 +1106,7 @@ exports[`(4) Render an empty list if tokens equals zero 1`] = `
 
 exports[`(5) usePrivate = false 1`] = `
 <div
-  className="wallet-hive-engine"
+  className="wallet-steem-engine"
 >
   <div
     className="wallet-main"

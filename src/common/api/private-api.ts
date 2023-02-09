@@ -652,7 +652,11 @@ export const earnUses = async (username: string): Promise<any> => {
     console.log(err);
   });
 
-  return results;
+  if (results.success) {
+    return results.results;
+  } else {
+    return [];
+  }
 };
 
 export const earnHsts = async (username: string, earn_account: string): Promise<any> => {
@@ -669,7 +673,11 @@ export const earnHsts = async (username: string, earn_account: string): Promise<
     console.log(err);
   });
 
-  return results;
+  if (results.success) {
+    return results.results;
+  } else {
+    return [];
+  }
 };
 
 export const earnSummary = async (username: string, earn_account: string): Promise<any> => {
