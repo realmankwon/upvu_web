@@ -775,7 +775,7 @@
     "memo-placeholder": "在此输入您的备注",
     "memo-help": "此备忘录是公开的",
     "memo-error": "Never put private keys into a memo field, it is publicly visible to everyone.",
-    "available-hp-hint": "* 可用的STEEM Power",
+    "available-sp-hint": "* 可用的STEEM Power",
     "override-warning-1": "The new amount overrides the previous one.",
     "override-warning-2": "Account ({{account}}) has already been delegated with {{previousAmount}}.",
     "confirm-title": "确认您的交易",

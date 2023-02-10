@@ -24,7 +24,7 @@ import formattedNumber from "../../util/formatted-number";
 
 import { updateProfile } from "../../api/operations";
 import { error, success } from "../feedback";
-import { getAccount } from "../../api/hive";
+import { getAccount } from "../../api/steem";
 
 import { _t } from "../../i18n";
 

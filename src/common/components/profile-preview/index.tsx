@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getRelationshipBetweenAccounts } from "../../api/bridge";
-import { getAccount, getFollowCount } from "../../api/hive";
+import { getAccount, getFollowCount } from "../../api/steem";
 import accountReputation from "../../helper/account-reputation";
 import { dateToFullRelative } from "../../helper/parse-date";
 import { _t } from "../../i18n";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { OrdersDataItem, TradeDataItem } from "../../api/hive";
+import { OrdersDataItem, TradeDataItem } from "../../api/steem";
 import { Skeleton } from "../skeleton";
 import Pagination from "../pagination";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import { AppState } from "../index";
 import { Reblog, Reblogs, Actions, ActionTypes, FetchAction, FetchedAction, AddAction, DeleteAction } from "./types";
 import { ActionTypes as ActiveUserActionTypes } from "../active-user/types";
 
-import { getBlogEntries } from "../../api/hive";
+import { getBlogEntries } from "../../api/steem";
 
 export const initialState: Reblogs = {
   list: [],

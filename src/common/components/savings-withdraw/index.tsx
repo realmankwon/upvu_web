@@ -15,7 +15,7 @@ import { _t } from "../../i18n";
 
 import formattedNumber from "../../util/formatted-number";
 import MyPagination from "../pagination";
-import { getSavingsWithdrawFrom, SavingsWithdrawRequest } from "../../api/hive";
+import { getSavingsWithdrawFrom, SavingsWithdrawRequest } from "../../api/steem";
 import { dateToFormatted, dateToFullRelative } from "../../helper/parse-date";
 import { AssetSymbol } from "@upvu/dsteem";
 

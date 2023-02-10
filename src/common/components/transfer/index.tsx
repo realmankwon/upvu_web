@@ -26,9 +26,9 @@ import { error } from "../feedback";
 import SteemWallet from "../../helper/steem-wallet";
 import amountFormatCheck from "../../helper/amount-format-check";
 import parseAsset from "../../helper/parse-asset";
-import { vestsToHp, hpToVests } from "../../helper/vesting";
+import { vestsToSp, spToVests } from "../../helper/vesting";
 
-import { DelegatedVestingShare, getAccount, getAccountFull, getVestingDelegations } from "../../api/hive";
+import { DelegatedVestingShare, getAccount, getAccountFull, getVestingDelegations } from "../../api/steem";
 
 import {
   transfer,
@@ -292,7 +292,7 @@ export class Transfer extends BaseComponent<Props, State> {
                 const previousAmount = delegateAccount
                   ? Number(
                       formattedNumber(
-                        vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
+                        vestsToSp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
                       ).replace(/,/g, "")
                     )
                   : "";
@@ -334,7 +334,7 @@ export class Transfer extends BaseComponent<Props, State> {
     return delegateAccount
       ? Number(
           formattedNumber(
-            vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
+            vestsToSp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
           ).replace(/,/g, "")
         )
       : 0;
@@ -410,7 +410,7 @@ export class Transfer extends BaseComponent<Props, State> {
     if (asset === "SP") {
       const { steemPerMVests } = dynamicProps;
       const vestingShares = w.vestingSharesAvailable;
-      return vestsToHp(vestingShares, steemPerMVests);
+      return vestsToSp(vestingShares, steemPerMVests);
     }
 
     return 0;
@@ -420,10 +420,10 @@ export class Transfer extends BaseComponent<Props, State> {
     return this.formatNumber(balance, 3);
   };
 
-  hpToVests = (hp: number): string => {
+  spToVests = (sp: number): string => {
     const { dynamicProps } = this.props;
     const { steemPerMVests } = dynamicProps;
-    const vests = hpToVests(hp, steemPerMVests);
+    const vests = spToVests(sp, steemPerMVests);
 
     return `${this.formatNumber(vests, 6)} VESTS`;
   };
@@ -490,12 +490,12 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
       }
       case "power-down": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         promise = withdrawVesting(username, key, vests);
         break;
       }
       case "delegate": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         promise = delegateVestingShares(username, key, to, vests);
         break;
       }
@@ -557,12 +557,12 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
       }
       case "power-down": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         withdrawVestingHot(username, vests);
         break;
       }
       case "delegate": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         delegateVestingSharesHot(username, to, vests);
         break;
       }
@@ -610,12 +610,12 @@ export class Transfer extends BaseComponent<Props, State> {
         break;
       }
       case "power-down": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         promise = withdrawVestingKc(username, vests);
         break;
       }
       case "delegate": {
-        const vests = this.hpToVests(Number(amount));
+        const vests = this.spToVests(Number(amount));
         // console.log("delegation.....", amount);
         promise = delegateVestingSharesKc(username, to, vests);
         break;
@@ -783,7 +783,7 @@ export class Transfer extends BaseComponent<Props, State> {
     const previousAmount = delegateAccount
       ? Number(
           formattedNumber(
-            vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
+            vestsToSp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)
           ).replace(/,/g, "")
         )
       : "";
@@ -852,7 +852,7 @@ export class Transfer extends BaseComponent<Props, State> {
                   {" "}
                   {_t("wallet.next-power-down", {
                     time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
-                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, 3)} STEEM`,
+                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalSteem, 3)} STEEM`,
                   })}
                 </p>
                 <p>
@@ -951,7 +951,7 @@ export class Transfer extends BaseComponent<Props, State> {
                     <span className="balance-num" onClick={this.copyBalance}>
                       {balance} {asset}
                     </span>
-                    {asset === "SP" && <div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>}
+                    {asset === "SP" && <div className="balance-sp-hint">{_t("transfer.available-sp-hint")}</div>}
                   </div>
                   {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" && (
                     <div className="text-muted mt-1 override-warning">
@@ -1056,7 +1056,7 @@ export class Transfer extends BaseComponent<Props, State> {
                 <div className="amount">
                   {amount} {asset}
                 </div>
-                {asset === "SP" && <div className="amount-vests">{this.hpToVests(Number(amount))}</div>}
+                {asset === "SP" && <div className="amount-vests">{this.spToVests(Number(amount))}</div>}
                 {memo && <div className="memo">{memo}</div>}
               </div>
               <div className="d-flex justify-content-center">

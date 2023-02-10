@@ -12,7 +12,7 @@ import { ActiveUser } from "../../store/active-user/types";
 import BaseComponent from "../base";
 import { error } from "../feedback";
 
-import { getAccountFull } from "../../api/hive";
+import { getAccountFull } from "../../api/steem";
 
 import {
   formatError,

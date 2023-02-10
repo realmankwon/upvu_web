@@ -28,9 +28,9 @@ import WithdrawRoutes from "../withdraw-routes";
 
 import SteemWallet from "../../helper/steem-wallet";
 
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 
-import { getAccount, getConversionRequests, getSavingsWithdrawFrom, getOpenOrder } from "../../api/hive";
+import { getAccount, getConversionRequests, getSavingsWithdrawFrom, getOpenOrder } from "../../api/steem";
 
 import { claimRewardBalance, formatError } from "../../api/operations";
 
@@ -74,9 +74,9 @@ interface State {
   transferMode: null | TransferMode;
   transferAsset: null | TransferAsset;
   converting: number;
-  withdrawSavings: { hbd: string | number; hive: string | number };
-  openOrders: { hbd: string | number; hive: string | number };
-  aprs: { hbd: string | number; hp: string | number };
+  withdrawSavings: { sbd: string | number; steem: string | number };
+  openOrders: { sbd: string | number; steem: string | number };
+  aprs: { sbd: string | number; hp: string | number };
 }
 
 export class WalletSteem extends BaseComponent<Props, State> {
@@ -94,9 +94,9 @@ export class WalletSteem extends BaseComponent<Props, State> {
     transferMode: null,
     transferAsset: null,
     converting: 0,
-    withdrawSavings: { hbd: 0, hive: 0 },
-    openOrders: { hbd: 0, hive: 0 },
-    aprs: { hbd: 0, hp: 0 },
+    withdrawSavings: { sbd: 0, steem: 0 },
+    openOrders: { sbd: 0, steem: 0 },
+    aprs: { sbd: 0, hp: 0 },
   };
 
   componentDidMount() {
@@ -140,7 +140,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
     const { sbdInterestRate } = dynamicProps;
 
     let hp = this.getCurrentHpApr(dynamicProps).toFixed(3);
-    this.setState({ aprs: { ...aprs, hbd: sbdInterestRate / 100, hp } });
+    this.setState({ aprs: { ...aprs, sbd: sbdInterestRate / 100, hp } });
 
     const crd = await getConversionRequests(account.name);
     if (crd.length === 0) {
@@ -162,13 +162,13 @@ export class WalletSteem extends BaseComponent<Props, State> {
       return;
     }
 
-    let withdrawSavings = { hbd: 0, hive: 0 };
+    let withdrawSavings = { sbd: 0, steem: 0 };
     swf.forEach((x) => {
       const aa = x.amount;
       if (aa.includes("STEEM")) {
-        withdrawSavings.hive += parseAsset(x.amount).amount;
+        withdrawSavings.steem += parseAsset(x.amount).amount;
       } else {
-        withdrawSavings.hbd += parseAsset(x.amount).amount;
+        withdrawSavings.sbd += parseAsset(x.amount).amount;
       }
     });
 
@@ -183,13 +183,13 @@ export class WalletSteem extends BaseComponent<Props, State> {
       return;
     }
 
-    let openOrders = { hive: 0, hbd: 0 };
+    let openOrders = { steem: 0, sbd: 0 };
     oo.forEach((x) => {
       const bb = x.sell_price.base;
       if (bb.includes("STEEM")) {
-        openOrders.hive += parseAsset(bb).amount;
+        openOrders.steem += parseAsset(bb).amount;
       } else {
-        openOrders.hbd += parseAsset(bb).amount;
+        openOrders.sbd += parseAsset(bb).amount;
       }
     });
 
@@ -283,7 +283,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
       transferMode,
       converting,
       withdrawSavings,
-      aprs: { hbd, hp },
+      aprs: { sbd, hp },
       openOrders,
       tokenType,
     } = this.state;
@@ -305,14 +305,14 @@ export class WalletSteem extends BaseComponent<Props, State> {
         ? account.savings_sbd_seconds_last_update
         : account.savings_sbd_last_interest_payment
     );
-    const interestAmount = (Number(hbd) / 100) * (w.savingBalanceSbd / (12 * 30)) * lastIPaymentDiff;
+    const interestAmount = (Number(sbd) / 100) * (w.savingBalanceSbd / (12 * 30)) * lastIPaymentDiff;
     const estimatedInterest = formattedNumber(interestAmount, { suffix: "$" });
     const remainingDays = 30 - lastIPaymentDiff;
 
-    const totalSP = formattedNumber(vestsToHp(w.vestingShares, steemPerMVests), {
+    const totalSP = formattedNumber(vestsToSp(w.vestingShares, steemPerMVests), {
       suffix: "SP",
     });
-    const totalDelegated = formattedNumber(vestsToHp(w.vestingSharesDelegated, steemPerMVests), {
+    const totalDelegated = formattedNumber(vestsToSp(w.vestingSharesDelegated, steemPerMVests), {
       prefix: "-",
       suffix: "SP",
     });
@@ -339,7 +339,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
               </div>
             )}
 
-            <div className="balance-row hive">
+            <div className="balance-row steem">
               <div className="balance-info">
                 <div className="title">{_t("wallet.steem")}</div>
                 <div className="description">{_t("wallet.steem-description")}</div>
@@ -402,21 +402,21 @@ export class WalletSteem extends BaseComponent<Props, State> {
 
                   <span>{formattedNumber(w.balance, { suffix: "STEEM" })}</span>
                 </div>
-                {openOrders && openOrders.hive > 0 && (
-                  <div className="amount amount-passive converting-hbd">
+                {openOrders && openOrders.steem > 0 && (
+                  <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("STEEM")}>
-                        {"+"} {formattedNumber(openOrders.hive, { suffix: "STEEM" })}
+                        {"+"} {formattedNumber(openOrders.steem, { suffix: "STEEM" })}
                       </span>
                     </Tooltip>
                   </div>
                 )}
-                {withdrawSavings && withdrawSavings.hive > 0 && (
-                  <div className="amount amount-passive converting-hbd">
+                {withdrawSavings && withdrawSavings.steem > 0 && (
+                  <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("STEEM")}>
                         {"+"}{" "}
-                        {formattedNumber(withdrawSavings.hive, {
+                        {formattedNumber(withdrawSavings.steem, {
                           suffix: "STEEM",
                         })}
                       </span>
@@ -497,7 +497,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   <div className="amount amount-passive delegated-shares">
                     <Tooltip content={_t("wallet.steem-power-delegated")}>
                       <span className="amount-btn" onClick={this.toggleDelegatedList}>
-                        {formattedNumber(vestsToHp(w.vestingSharesDelegated, steemPerMVests), {
+                        {formattedNumber(vestsToSp(w.vestingSharesDelegated, steemPerMVests), {
                           prefix: "-",
                           suffix: "SP",
                         })}
@@ -511,7 +511,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                     return null;
                   }
 
-                  const strReceived = formattedNumber(vestsToHp(w.vestingSharesReceived, steemPerMVests), {
+                  const strReceived = formattedNumber(vestsToSp(w.vestingSharesReceived, steemPerMVests), {
                     prefix: "+",
                     suffix: "SP",
                   });
@@ -541,7 +541,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   <div className="amount amount-passive next-power-down-amount">
                     <Tooltip content={_t("wallet.next-power-down-amount")}>
                       <span>
-                        {formattedNumber(vestsToHp(w.nextVestingSharesWithdrawal, steemPerMVests), {
+                        {formattedNumber(vestsToSp(w.nextVestingSharesWithdrawal, steemPerMVests), {
                           prefix: "-",
                           suffix: "SP",
                         })}
@@ -554,7 +554,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   <div className="amount total-steem-power">
                     <Tooltip content={_t("wallet.steem-power-total")}>
                       <span>
-                        {formattedNumber(vestsToHp(w.vestingSharesTotal, steemPerMVests), {
+                        {formattedNumber(vestsToSp(w.vestingSharesTotal, steemPerMVests), {
                           prefix: "=",
                           suffix: "SP",
                         })}
@@ -629,8 +629,8 @@ export class WalletSteem extends BaseComponent<Props, State> {
                 </div>
 
                 {converting > 0 && (
-                  <div className="amount amount-passive converting-hbd">
-                    <Tooltip content={_t("wallet.converting-hbd-amount")}>
+                  <div className="amount amount-passive converting-sbd">
+                    <Tooltip content={_t("wallet.converting-sbd-amount")}>
                       <span className="amount-btn" onClick={this.toggleConvertList}>
                         {"+"} {formattedNumber(converting, { prefix: "$" })}
                       </span>
@@ -638,21 +638,21 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   </div>
                 )}
 
-                {withdrawSavings && withdrawSavings.hbd > 0 && (
-                  <div className="amount amount-passive converting-hbd">
+                {withdrawSavings && withdrawSavings.sbd > 0 && (
+                  <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("SBD")}>
-                        {"+"} {formattedNumber(withdrawSavings.hbd, { prefix: "$" })}
+                        {"+"} {formattedNumber(withdrawSavings.sbd, { prefix: "$" })}
                       </span>
                     </Tooltip>
                   </div>
                 )}
 
-                {openOrders && openOrders.hbd > 0 && (
-                  <div className="amount amount-passive converting-hbd">
+                {openOrders && openOrders.sbd > 0 && (
+                  <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("SBD")}>
-                        {"+"} {formattedNumber(openOrders.hbd, { prefix: "$" })}
+                        {"+"} {formattedNumber(openOrders.sbd, { prefix: "$" })}
                       </span>
                     </Tooltip>
                   </div>
@@ -665,7 +665,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                 <div className="title">{_t("wallet.savings")}</div>
                 <div className="description">{_t("wallet.savings-description")}</div>
                 <div className="description font-weight-bold mt-2">
-                  {_t("wallet.steem-dollars-apr-rate", { value: hbd })}
+                  {_t("wallet.steem-dollars-apr-rate", { value: sbd })}
                 </div>
                 {w.savingBalanceSbd > 0 && (
                   <div className="description font-weight-bold mt-2">
@@ -790,7 +790,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
               <div className="next-power-down">
                 {_t("wallet.next-power-down", {
                   time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
-                  amount: formattedNumber(w.nextVestingSharesWithdrawalHive, {
+                  amount: formattedNumber(w.nextVestingSharesWithdrawalSteem, {
                     suffix: "STEEM",
                   }),
                 })}

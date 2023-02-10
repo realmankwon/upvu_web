@@ -8,11 +8,7 @@ import { DynamicProps } from "../../store/dynamic-props/types";
 import UserAvatar from "../user-avatar";
 import ProfileLink from "../profile-link";
 
-import {
-  getCuration,
-  CurationDuration,
-  CurationItem,
-} from "../../api/private-api";
+import { getCuration, CurationDuration, CurationItem } from "../../api/private-api";
 
 import { informationVariantSvg } from "../../img/svg";
 import DropDown from "../dropdown";
@@ -22,9 +18,9 @@ import LinearProgress from "../linear-progress";
 import { _t } from "../../i18n";
 
 import _c from "../../util/fix-class-names";
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 import formattedNumber from "../../util/formatted-number";
-import { getAccounts } from "../../api/hive";
+import { getAccounts } from "../../api/steem";
 
 interface Props {
   global: Global;
@@ -98,8 +94,7 @@ export const Curation = (props: Props) => {
     <div className={_c(`leaderboard-list ${loading ? "loading" : ""}`)}>
       <div className="list-header">
         <div className="list-filter">
-          {_t("leaderboard.title-curators")}{" "}
-          {loading ? "" : <DropDown {...dropDownConfig} float="left" />}
+          {_t("leaderboard.title-curators")} {loading ? "" : <DropDown {...dropDownConfig} float="left" />}
         </div>
         <div className="list-title">{_t(`leaderboard.title-${period}`)}</div>
       </div>
@@ -112,11 +107,7 @@ export const Curation = (props: Props) => {
               delay={{ show: 0, hide: 500 }}
               key={"bottom"}
               placement={"bottom"}
-              overlay={
-                <Tooltip id={`tooltip-votes-${"bottom"}`}>
-                  {_t("leaderboard.header-votes-tip")}
-                </Tooltip>
-              }
+              overlay={<Tooltip id={`tooltip-votes-${"bottom"}`}>{_t("leaderboard.header-votes-tip")}</Tooltip>}
             >
               <div className="d-flex align-items-center">
                 <span className="info-icon mr-1">{informationVariantSvg}</span>
@@ -154,7 +145,7 @@ export const Curation = (props: Props) => {
                 </div>
                 <div className="score">{r.votes}</div>
                 <div className="points">
-                  {formattedNumber(vestsToHp(r.vests, steemPerMVests), {
+                  {formattedNumber(vestsToSp(r.vests, steemPerMVests), {
                     suffix: "SP",
                   })}
                 </div>

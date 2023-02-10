@@ -16,7 +16,7 @@ import WalletMenu from "../wallet-menu";
 
 import Transfer, { TransferMode } from "../transfer-he";
 
-import { claimRewards, getSteemEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/hive-engine";
+import { claimRewards, getSteemEngineTokenBalances, getUnclaimedRewards, TokenStatus } from "../../api/steem-engine";
 
 import {
   informationVariantSvg,

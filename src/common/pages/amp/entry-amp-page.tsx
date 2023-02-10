@@ -55,7 +55,7 @@ import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "../commo
 import defaults from "../../constants/defaults.json";
 import dmca from "../../constants/dmca.json";
 
-import { getFollowing } from "../../api/hive";
+import { getFollowing } from "../../api/steem";
 import { history } from "../../store";
 import { deleteForeverSvg, pencilOutlineSvg } from "../../img/svg";
 import entryDeleteBtn from "../../components/entry-delete-btn";

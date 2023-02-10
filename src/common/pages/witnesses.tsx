@@ -22,7 +22,7 @@ import WitnessesActiveProxy from "../components/witnesses-active-proxy";
 
 import routes from "../../common/routes";
 
-import { getAccount, getAccounts, getWitnessesByVote, Witness } from "../api/hive";
+import { getAccount, getAccounts, getWitnessesByVote, Witness } from "../api/steem";
 
 import { _t } from "../i18n";
 import { Tsx } from "../i18n/helper";

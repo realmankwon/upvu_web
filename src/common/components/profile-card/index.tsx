@@ -18,7 +18,7 @@ import formattedNumber from "../../util/formatted-number";
 
 import defaults from "../../constants/defaults.json";
 
-import { votingPower } from "../../api/hive";
+import { votingPower } from "../../api/steem";
 
 import { _t } from "../../i18n";
 

@@ -1,25 +1,141 @@
 .wallet-earn {
   @include wallet;
 
-  .next-power-down {
-    align-items: center;
-    box-sizing: content-box;
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-    text-align: center;
+  .wallet-main {
+    .wallet-info {
+      .unclaimed-rewards {
+        flex-direction: row;
+        flex-flow: wrap;
+        margin-bottom: 10px;
 
-    @media (min-width: $lg-break) {
-      justify-content: flex-start;
-      text-align: initial;
+        .rewards {
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+      }
     }
 
-    @include themify(day) {
-      color: $steel-grey;
+    .item-image {
+      margin-right: 10px;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background: $pinkish-grey;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
-    @include themify(night) {
-      color: $metallic-blue;
+    .view-container {
+      border-radius: 12px;
+      padding: 15px 10px;
+      font-weight: 500;
+      background: $light-powder-blue;
+      color: $dark-two;
+      margin-bottom: 20px;
+
+      &.warn-box {
+        color: $science-blue;
+
+        @include themify(night) {
+          color: $light-powder-blue;
+        }
+      }
+
+      .header {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: $dark-three;
+
+        @include themify(night) {
+          color: $light-powder-blue;
+        }
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        color: $dark-sky-blue;
+        padding: 0px;
+        flex-wrap: wrap;
+
+        @media (min-width: $sm-break) {
+          padding: 0px 20px;
+        }
+
+        .width-full {
+          width: 100%;
+
+          .max-btn {
+            color: white;
+            background-color: $green1;
+          }
+
+          .claim-btn {
+            color: white;
+            background-color: $dark-sky-blue;
+          }
+
+          .claim-btn:disabled {
+            color: white;
+            background-color: $warm-grey;
+          }
+        }
+
+        .tooltip-format {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+
+          &.min-width-100 {
+            min-width: 80px;
+
+            @media (min-width: $sm-break) {
+              min-width: 100px;
+            }
+          }
+
+          &.min-width-150 {
+            min-width: 100px;
+
+            @media (min-width: $sm-break) {
+              min-width: 150px;
+            }
+          }
+
+          &.max-width-200 {
+            max-width: 200px;
+
+            @media (min-width: $sm-break) {
+              max-width: 200px;
+            }
+          }
+
+          &.max-width-300 {
+            max-width: 300px;
+
+            @media (min-width: $sm-break) {
+              max-width: 300px;
+            }
+          }
+
+          @media (min-width: $sm-break) {
+            padding: 0px;
+          }
+        }
+
+        &.newline {
+          margin-top: 1rem;
+        }
+      }
+
+      @include themify(night) {
+        background: #283241;
+        color: $pinkish-grey;
+      }
     }
   }
 }

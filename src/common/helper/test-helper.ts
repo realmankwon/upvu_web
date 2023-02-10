@@ -13,7 +13,7 @@ import {
   SavingsWithdrawRequest,
   ConversionRequest,
   OpenOrdersData,
-} from "../api/hive";
+} from "../api/steem";
 import { ReceivedVestingShare } from "../api/private-api";
 import {
   ApiFollowNotification,

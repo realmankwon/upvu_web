@@ -60,7 +60,7 @@ import {
   gifCardSvg,
 } from "../../img/svg";
 import userAvatar from "../user-avatar";
-import { downVotingPower, votingPower } from "../../api/hive";
+import { downVotingPower, votingPower } from "../../api/steem";
 import isCommunity from "../../helper/is-community";
 //const logo = require('../../img/logo-circle.svg');
 

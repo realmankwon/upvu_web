@@ -51,7 +51,7 @@ import _c from "../../util/fix-class-names";
 import { commentSvg, pencilOutlineSvg, deleteForeverSvg, menuDownSvg, dotsHorizontal } from "../../img/svg";
 
 import { version } from "../../../../package.json";
-import { getFollowing } from "../../api/hive";
+import { getFollowing } from "../../api/steem";
 
 import { Tsx } from "../../i18n/helper";
 import MyDropDown from "../dropdown";

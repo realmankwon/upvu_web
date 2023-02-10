@@ -10,7 +10,7 @@ import { makePreloadedState } from "../state";
 import { render } from "../template";
 import dmca from "../../common/constants/dmca.json";
 import { getAsAMP } from "../ecosystem";
-import { getPost } from "../../common/api/hive";
+import { getPost } from "../../common/api/steem";
 import { parse } from "node-html-parser";
 import moment from "moment";
 

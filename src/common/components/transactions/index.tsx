@@ -13,7 +13,7 @@ import EntryLink from "../entry-link";
 
 import parseAsset from "../../helper/parse-asset";
 import { dateToFullRelative } from "../../helper/parse-date";
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 
 import formattedNumber from "../../util/formatted-number";
 
@@ -61,7 +61,7 @@ export class TransactionRow extends Component<RowProps> {
       flag = true;
       icon = cashCoinSvg;
 
-      numbers = <>{formattedNumber(vestsToHp(parseAsset(tr.reward).amount, steemPerMVests), { suffix: "SP" })}</>;
+      numbers = <>{formattedNumber(vestsToSp(parseAsset(tr.reward).amount, steemPerMVests), { suffix: "SP" })}</>;
       details = EntryLink({
         ...this.props,
         entry: {
@@ -95,7 +95,7 @@ export class TransactionRow extends Component<RowProps> {
           )}
           {vesting_payout.amount > 0 && (
             <span className="number">
-              {formattedNumber(vestsToHp(vesting_payout.amount, steemPerMVests), { suffix: "SP" })}{" "}
+              {formattedNumber(vestsToSp(vesting_payout.amount, steemPerMVests), { suffix: "SP" })}{" "}
             </span>
           )}
         </>
@@ -134,7 +134,7 @@ export class TransactionRow extends Component<RowProps> {
           )}
           {reward_vests.amount > 0 && (
             <span className="number">
-              {formattedNumber(vestsToHp(reward_vests.amount, steemPerMVests), {
+              {formattedNumber(vestsToSp(reward_vests.amount, steemPerMVests), {
                 suffix: "SP",
               })}
             </span>
@@ -244,7 +244,7 @@ export class TransactionRow extends Component<RowProps> {
       const vesting_shares = parseAsset(tr.vesting_shares);
       numbers = (
         <span className="number">
-          {formattedNumber(vestsToHp(vesting_shares.amount, steemPerMVests), {
+          {formattedNumber(vestsToSp(vesting_shares.amount, steemPerMVests), {
             suffix: "SP",
           })}
         </span>
@@ -264,7 +264,7 @@ export class TransactionRow extends Component<RowProps> {
       const vesting_shares = parseAsset(tr.vesting_shares);
       numbers = (
         <span className="number">
-          {formattedNumber(vestsToHp(vesting_shares.amount, steemPerMVests), {
+          {formattedNumber(vestsToSp(vesting_shares.amount, steemPerMVests), {
             suffix: "SP",
           })}
         </span>
@@ -333,7 +333,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = pickAxeSvg;
 
       numbers = (
-        <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
+        <>{formattedNumber(vestsToSp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
       );
     }
 
@@ -379,7 +379,7 @@ export class TransactionRow extends Component<RowProps> {
       icon = powerUpSvg;
 
       numbers = (
-        <>{formattedNumber(vestsToHp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
+        <>{formattedNumber(vestsToSp(parseAsset(tr.vesting_shares).amount, steemPerMVests), { suffix: "SP" })}</>
       );
     }
 

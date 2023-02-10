@@ -639,6 +639,25 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   return updateRewardTypeResult;
 };
 
+export const earnAccounts = async (username: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+  };
+
+  const results = await callApi(`/upvuweb-api/earn-accounts`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (results.success) {
+    return results.results;
+  } else {
+    return [];
+  }
+};
+
 export const earnUses = async (username: string): Promise<any> => {
   if (!username) return [];
 

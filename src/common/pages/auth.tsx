@@ -13,7 +13,7 @@ import { User } from "../store/users/types";
 import { addUser } from "../store/users";
 import { setActiveUser, updateActiveUser } from "../store/active-user";
 
-import { getAccount } from "../api/hive";
+import { getAccount } from "../api/steem";
 import { hsTokenRenew } from "../api/auth-api";
 
 interface Props {

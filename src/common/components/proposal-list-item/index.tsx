@@ -12,7 +12,7 @@ import _ from "lodash";
 
 import numeral from "numeral";
 
-import { Proposal, getProposalVotes } from "../../api/hive";
+import { Proposal, getProposalVotes } from "../../api/steem";
 import { Global } from "../../store/global/types";
 import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
@@ -73,22 +73,12 @@ export class ProposalListItem extends Component<Props, State> {
     this.loadProposalByVoter();
   }
 
-  shouldComponentUpdate(
-    nextProps: Readonly<Props>,
-    nextState: Readonly<{}>,
-    nextContext: any
-  ): boolean {
+  shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<{}>, nextContext: any): boolean {
     return (
       !isEqual(this.state, nextState) ||
-      !isEqual(
-        this.props.activeUser?.username,
-        nextProps.activeUser?.username
-      ) ||
+      !isEqual(this.props.activeUser?.username, nextProps.activeUser?.username) ||
       !isEqual(this.props.location, nextProps.location) ||
-      !isEqual(
-        this.props.dynamicProps.steemPerMVests,
-        nextProps.dynamicProps.steemPerMVests
-      )
+      !isEqual(this.props.dynamicProps.steemPerMVests, nextProps.dynamicProps.steemPerMVests)
     );
   }
 
@@ -102,12 +92,8 @@ export class ProposalListItem extends Component<Props, State> {
   loadProposalByVoter = () => {
     const { proposal, location } = this.props;
 
-    const params = isElectron()
-      ? location.search.replace("?voter=", "")
-      : new URLSearchParams(location.search);
-    const voterParams = isElectron()
-      ? params || ""
-      : (params as URLSearchParams).get("voter");
+    const params = isElectron() ? location.search.replace("?voter=", "") : new URLSearchParams(location.search);
+    const voterParams = isElectron() ? params || "" : (params as URLSearchParams).get("voter");
 
     if (!!voterParams) {
       getProposalVotes(proposal.id, voterParams as string, 1)
@@ -127,15 +113,13 @@ export class ProposalListItem extends Component<Props, State> {
   render() {
     const { votes, votedByVoter, loadingSearchResult } = this.state;
 
-    const { dynamicProps, proposal, isReturnProposalId, thresholdProposalId } =
-      this.props;
+    const { dynamicProps, proposal, isReturnProposalId, thresholdProposalId } = this.props;
 
     const startDate = moment(new Date(proposal.start_date));
     const endDate = moment(new Date(proposal.end_date));
     const duration = endDate.diff(startDate, "days");
 
-    const votesSP =
-      (Number(proposal.total_votes) / 1e12) * dynamicProps.steemPerMVests;
+    const votesSP = (Number(proposal.total_votes) / 1e12) * dynamicProps.steemPerMVests;
     const strVotes = numeral(votesSP).format("0.00,") + " SP";
 
     const dailyPayment = Number(proposal.daily_pay.amount) / 1e3;
@@ -149,11 +133,7 @@ export class ProposalListItem extends Component<Props, State> {
     return loadingSearchResult ? (
       <Skeleton className="w-100 loadingSearch mb-3 shadow" />
     ) : (
-      <div
-        className={_c(
-          `proposal-list-item ${!!votedByVoter ? "voted-by-voter" : ""}`
-        )}
-      >
+      <div className={_c(`proposal-list-item ${!!votedByVoter ? "voted-by-voter" : ""}`)}>
         <div className="item-content">
           <div className="left-side">
             <div className="proposal-users-card">
@@ -184,17 +164,13 @@ export class ProposalListItem extends Component<Props, State> {
             </div>
             <div className="proposal-title">
               <Link to={`/proposals/${proposal.id}`}>
-                {proposal.subject}{" "}
-                <span className="proposal-id">#{proposal.id}</span>
+                {proposal.subject} <span className="proposal-id">#{proposal.id}</span>
               </Link>
             </div>
             <div className="status-duration-payment">
-              <div className={`proposal-status ${proposal.status}`}>
-                {_t(`proposals.status-${proposal.status}`)}
-              </div>
+              <div className={`proposal-status ${proposal.status}`}>{_t(`proposals.status-${proposal.status}`)}</div>
               <div className="proposal-duration">
-                {startDate.format("ll")} {"-"} {endDate.format("ll")} (
-                {_t("proposals.duration-days", { n: duration })})
+                {startDate.format("ll")} {"-"} {endDate.format("ll")} ({_t("proposals.duration-days", { n: duration })})
               </div>
               <div className="proposal-payment">
                 <span className="all-pay">{`${strAllPayment} SBD`}</span>
@@ -238,21 +214,14 @@ export class ProposalListItem extends Component<Props, State> {
             <div className="voting">
               <ProposalVoteBtn {...this.props} proposal={proposal.id} />
             </div>
-            <div className="remaining-days">
-              {_t("proposals.remaining-days", { n: remaining })}
-            </div>
+            <div className="remaining-days">{_t("proposals.remaining-days", { n: remaining })}</div>
           </div>
         </div>
-        {proposal.id !== isReturnProposalId &&
-          thresholdProposalId === proposal.id && (
-            <div className="return-proposal">
-              {_t("proposals.threshold-description")}
-            </div>
-          )}
+        {proposal.id !== isReturnProposalId && thresholdProposalId === proposal.id && (
+          <div className="return-proposal">{_t("proposals.threshold-description")}</div>
+        )}
         {proposal.id === isReturnProposalId && (
-          <div className="return-proposal">
-            {_t("proposals.return-description")}
-          </div>
+          <div className="return-proposal">{_t("proposals.return-description")}</div>
         )}
         {votes && <ProposalVotes {...this.props} onHide={this.toggleVotes} />}
       </div>

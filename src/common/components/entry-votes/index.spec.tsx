@@ -15,7 +15,7 @@ jest.mock("moment", () => () => ({
   format: (f: string, s: string) => "2020-01-01 23:12:00",
 }));
 
-jest.mock("../../api/hive", () => ({
+jest.mock("../../api/steem", () => ({
   getActiveVotes: () =>
     new Promise((resolve) => {
       resolve(votesInstance1);

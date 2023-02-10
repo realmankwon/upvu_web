@@ -14,7 +14,7 @@ import { error } from "../feedback";
 
 import { _t } from "../../i18n";
 
-import { getWithdrawRoutes, WithdrawRoute } from "../../api/hive";
+import { getWithdrawRoutes, WithdrawRoute } from "../../api/steem";
 
 import {
   formatError,

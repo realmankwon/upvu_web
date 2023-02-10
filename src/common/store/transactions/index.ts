@@ -13,8 +13,8 @@ import {
   ResetAction,
 } from "./types";
 
-import { getAccountHistory } from "../../api/hive";
-import { getSteemEngineAccountHistoryAsync } from "../../api/hive-engine";
+import { getAccountHistory } from "../../api/steem";
+import { getSteemEngineAccountHistoryAsync } from "../../api/steem-engine";
 
 export const initialState: Transactions = {
   list: [],

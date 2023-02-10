@@ -19,7 +19,7 @@ jest.mock("../../constants/defaults.json", () => ({
   imageServer: "https://steemitimages.com",
 }));
 
-jest.mock("../../api/hive", () => ({
+jest.mock("../../api/steem", () => ({
   getFollowing: () =>
     new Promise((resolve) => {
       resolve([]);

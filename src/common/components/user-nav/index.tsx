@@ -25,7 +25,7 @@ import SteemWallet from "../../helper/steem-wallet";
 
 import { creditCardSvg, gifCardSvg, bellSvg, bellOffSvg, chevronUpSvg } from "../../img/svg";
 
-import { votingPower, downVotingPower } from "../../api/hive";
+import { votingPower, downVotingPower } from "../../api/steem";
 
 class WalletBadge extends Component<{
   activeUser: ActiveUser;

@@ -11,7 +11,7 @@ import BaseComponent from "../base";
 import LoginRequired from "../login-required";
 import { error } from "../feedback";
 
-import { getFollowing } from "../../api/hive";
+import { getFollowing } from "../../api/steem";
 // import { getRelationshipBetweenAccounts } from "../../api/bridge";
 import { follow, unFollow, ignore, formatError } from "../../api/operations";
 

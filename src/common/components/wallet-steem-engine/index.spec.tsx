@@ -20,7 +20,7 @@ import { FullAccount } from "../../store/accounts/types";
 
 let MOCK_MODE = 1;
 
-jest.mock("../../api/hive-engine", () => ({
+jest.mock("../../api/steem-engine", () => ({
   getSteemEngineTokenBalances: () =>
     new Promise((resolve) => {
       if (MOCK_MODE === 1) {

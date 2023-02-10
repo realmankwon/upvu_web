@@ -4,7 +4,7 @@ import NavBarElectron from "../../desktop/app/components/navbar";
 import { connect } from "react-redux";
 import { pageMapDispatchToProps, pageMapStateToProps, PageProps } from "./common";
 import { ChartStats } from "../components/chart-stats";
-import { HiveBarter } from "../components/hive-barter";
+import { HiveBarter } from "../components/steem-barter";
 import {
   getMarketStatistics,
   getOpenOrder,
@@ -13,7 +13,7 @@ import {
   MarketStatistics,
   OpenOrdersData,
   OrdersData,
-} from "../api/hive";
+} from "../api/steem";
 import { FullAccount } from "../store/accounts/types";
 import { Orders } from "../components/orders";
 import { OpenOrders } from "../components/open-orders";

@@ -50,7 +50,7 @@ import isCommunity from "../helper/is-community";
 import { RewardType, comment, reblog, formatError, BeneficiaryRoute } from "../api/operations";
 
 import * as bridgeApi from "../api/bridge";
-import * as hiveApi from "../api/hive";
+import * as hiveApi from "../api/steem";
 
 import { _t } from "../i18n";
 

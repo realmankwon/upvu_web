@@ -19,7 +19,7 @@ jest.mock("../../constants/defaults.json", () => ({
 
 let MOCK_MODE = 1;
 
-jest.mock("../../api/hive", () => ({
+jest.mock("../../api/steem", () => ({
   getVestingDelegations: () =>
     new Promise((resolve) => {
       if (MOCK_MODE === 1) {

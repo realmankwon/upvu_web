@@ -1,18 +1,18 @@
-import { vestsToHp, hpToVests, vestsToRshares } from "./vesting";
+import { vestsToSp, spToVests, vestsToRshares } from "./vesting";
 
 describe("Vesting", () => {
-  it("(1) vestsToHp", () => {
+  it("(1) vestsToSp", () => {
     const vests = 350;
     const steemPerMVests = 495.05469644322403;
 
-    expect(vestsToHp(vests, steemPerMVests)).toMatchSnapshot();
+    expect(vestsToSp(vests, steemPerMVests)).toMatchSnapshot();
   });
 
-  it("(2) hpToVests", () => {
+  it("(2) spToVests", () => {
     const sp = 0.17326914375512842;
     const steemPerMVests = 495.05469644322403;
 
-    expect(hpToVests(sp, steemPerMVests)).toMatchSnapshot();
+    expect(spToVests(sp, steemPerMVests)).toMatchSnapshot();
   });
 
   it("(3) vestsToRshares", () => {

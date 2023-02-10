@@ -775,7 +775,7 @@
     "memo-placeholder": "введите сюда свои заметки",
     "memo-help": "Эта заметка видна всем",
     "memo-error": "Никогда не помещайте закрытые ключи в поле сообщений, оно открыто для всех.",
-    "available-hp-hint": "* доступная Hive Сила",
+    "available-sp-hint": "* доступная Hive Сила",
     "override-warning-1": "Новая сумма отменяет предыдущую.",
     "override-warning-2": "Аккаунту ({{account}}) уже было делегировано {{previousAmount}}.",
     "confirm-title": "Подтвердите транзакцию",

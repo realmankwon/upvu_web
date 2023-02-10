@@ -461,7 +461,7 @@
     "memo": "Memo",
     "memo-placeholder": "enter your notes here",
     "memo-help": "This memo is public",
-    "available-hp-hint": "* available steem power",
+    "available-sp-hint": "* available steem power",
     "confirm-title": "Confirm your transaction",
     "confirm-sub-title": "Please, check if everything is correct",
     "confirm": "Confirm",

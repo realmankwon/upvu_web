@@ -6,7 +6,7 @@ import {
   CustomJsonOperation,
 } from "@upvu/dsteem";
 
-import { client as hiveClient } from "./hive";
+import { client as steemClient } from "./steem";
 
 import { Account } from "../store/accounts/types";
 
@@ -18,7 +18,7 @@ import parseAsset from "../helper/parse-asset";
 import { hotSign } from "../helper/hive-signer";
 
 import { _t } from "../i18n";
-import { TransactionType } from "../components/buy-sell-hive";
+import { TransactionType } from "../components/buy-sell-steem";
 
 /**
  * Protocol parameters.
@@ -120,7 +120,7 @@ export const broadcastPostingJSON = (username: string, id: string, json: {}): Pr
       json: JSON.stringify(json),
     };
 
-    return hiveClient.broadcast.json(operation, privateKey);
+    return steemClient.broadcast.json(operation, privateKey);
   } else {
     const operations = [
       [
@@ -143,7 +143,7 @@ const broadcastPostingOperations = (username: string, operations: Operation[]): 
   if (postingKey) {
     const privateKey = PrivateKey.fromString(postingKey);
 
-    return hiveClient.broadcast.sendOperations(operations, privateKey);
+    return steemClient.broadcast.sendOperations(operations, privateKey);
   } else return callSteemKeychain(username, operations);
 };
 
@@ -327,7 +327,7 @@ export const transfer = (
     memo,
   };
 
-  return hiveClient.broadcast.transfer(args, key);
+  return steemClient.broadcast.transfer(args, key);
 };
 
 export const transferHot = (from: string, to: string, amount: string, memo: string) => {
@@ -372,7 +372,7 @@ export const transferPoint = (
     required_posting_auths: [],
   };
 
-  return hiveClient.broadcast.json(op, key);
+  return steemClient.broadcast.json(op, key);
 };
 
 export const transferPointHot = (from: string, to: string, amount: string, memo: string) => {
@@ -420,7 +420,7 @@ export const transferToSavings = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const transferToSavingsHot = (from: string, to: string, amount: string, memo: string) => {
@@ -480,7 +480,7 @@ export const limitOrderCreate = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const limitOrderCancel = (owner: string, key: PrivateKey, orderid: number): Promise<TransactionConfirmation> => {
@@ -492,7 +492,7 @@ export const limitOrderCancel = (owner: string, key: PrivateKey, orderid: number
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const limitOrderCreateHot = (
@@ -589,7 +589,7 @@ export const convert = (owner: string, key: PrivateKey, amount: string): Promise
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const convertHot = (owner: string, amount: string) => {
@@ -639,7 +639,7 @@ export const transferFromSavings = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const transferFromSavingsHot = (from: string, to: string, amount: string, memo: string) => {
@@ -700,7 +700,7 @@ export const claimInterest = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op, cop], key);
+  return steemClient.broadcast.sendOperations([op, cop], key);
 };
 
 export const claimInterestHot = (from: string, to: string, amount: string, memo: string) => {
@@ -766,7 +766,7 @@ export const transferToVesting = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const transferToVestingHot = (from: string, to: string, amount: string) => {
@@ -812,7 +812,7 @@ export const delegateVestingShares = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const delegateVestingSharesHot = (delegator: string, delegatee: string, vestingShares: string) => {
@@ -857,7 +857,7 @@ export const withdrawVesting = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const withdrawVestingHot = (account: string, vestingShares: string) => {
@@ -904,7 +904,7 @@ export const setWithdrawVestingRoute = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const setWithdrawVestingRouteHot = (from: string, to: string, percent: number, autoVest: boolean) => {
@@ -952,7 +952,7 @@ export const witnessVote = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const witnessVoteHot = (account: string, witness: string, approve: boolean) => {
@@ -978,7 +978,7 @@ export const witnessProxy = (account: string, key: PrivateKey, proxy: string): P
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const witnessProxyHot = (account: string, proxy: string) => {
@@ -1018,7 +1018,7 @@ export const proposalVote = (
     },
   ];
 
-  return hiveClient.broadcast.sendOperations([op], key);
+  return steemClient.broadcast.sendOperations([op], key);
 };
 
 export const proposalVoteHot = (account: string, proposal: number, approve: boolean) => {
@@ -1078,7 +1078,7 @@ export const promote = (
     required_posting_auths: [],
   };
 
-  return hiveClient.broadcast.json(op, key);
+  return steemClient.broadcast.json(op, key);
 };
 
 export const promoteHot = (user: string, author: string, permlink: string, duration: number) => {
@@ -1130,7 +1130,7 @@ export const boost = (
     required_posting_auths: [],
   };
 
-  return hiveClient.broadcast.json(op, key);
+  return steemClient.broadcast.json(op, key);
 };
 
 export const boostHot = (user: string, author: string, permlink: string, amount: string) => {
@@ -1173,7 +1173,7 @@ export const communityRewardsRegister = (key: PrivateKey, name: string): Promise
     required_posting_auths: [],
   };
 
-  return hiveClient.broadcast.json(op, key);
+  return steemClient.broadcast.json(op, key);
 };
 
 export const communityRewardsRegisterHot = (name: string) => {
@@ -1240,7 +1240,7 @@ export const grantPostingPermission = (key: PrivateKey, account: Account, pAccou
   // important!
   newPosting.account_auths.sort((a, b) => (a[0] > b[0] ? 1 : -1));
 
-  return hiveClient.broadcast.updateAccount(
+  return steemClient.broadcast.updateAccount(
     {
       account: account.name,
       posting: newPosting,
@@ -1265,7 +1265,7 @@ export const revokePostingPermission = (key: PrivateKey, account: Account, pAcco
     }
   );
 
-  return hiveClient.broadcast.updateAccount(
+  return steemClient.broadcast.updateAccount(
     {
       account: account.name,
       posting: newPosting,
@@ -1348,7 +1348,7 @@ export const hiveNotifySetLastRead = (username: string): Promise<TransactionConf
 export const updatePassword = (
   update: AccountUpdateOperation[1],
   ownerKey: PrivateKey
-): Promise<TransactionConfirmation> => hiveClient.broadcast.updateAccount(update, ownerKey);
+): Promise<TransactionConfirmation> => steemClient.broadcast.updateAccount(update, ownerKey);
 
 // HE Operations
 export const transferHiveEngineKc = (from: string, to: string, symbol: string, amount: string, memo: string) => {
@@ -1547,7 +1547,7 @@ export const transferHiveEngineKey = async (
     required_posting_auths: [],
   };
 
-  const result = await hiveClient.broadcast.json(op, key);
+  const result = await steemClient.broadcast.json(op, key);
 
   return result;
 };
@@ -1576,7 +1576,7 @@ export const delegateHiveEngineKey = async (
     required_posting_auths: [],
   };
 
-  const result = await hiveClient.broadcast.json(op, key);
+  const result = await steemClient.broadcast.json(op, key);
   return result;
 };
 
@@ -1604,7 +1604,7 @@ export const undelegateHiveEngineKey = async (
     required_posting_auths: [],
   };
 
-  const result = await hiveClient.broadcast.json(op, key);
+  const result = await steemClient.broadcast.json(op, key);
   return result;
 };
 
@@ -1632,7 +1632,7 @@ export const stakeHiveEngineKey = async (
     required_posting_auths: [],
   };
 
-  const result = await hiveClient.broadcast.json(op, key);
+  const result = await steemClient.broadcast.json(op, key);
   return result;
 };
 
@@ -1660,6 +1660,6 @@ export const unstakeHiveEngineKey = async (
     required_posting_auths: [],
   };
 
-  const result = await hiveClient.broadcast.json(op, key);
+  const result = await steemClient.broadcast.json(op, key);
   return result;
 };

@@ -2,7 +2,7 @@ import { Account } from "../store/accounts/types";
 import { DynamicProps } from "../store/dynamic-props/types";
 
 import parseAsset from "./parse-asset";
-import { vestsToHp } from "./vesting";
+import { vestsToSp } from "./vesting";
 import isEmptyDate from "./is-empty-date";
 import parseDate from "./parse-date";
 
@@ -21,7 +21,7 @@ export default class SteemWallet {
   public isPoweringDown: boolean = false;
   public nextVestingWithdrawalDate: Date = new Date();
   public nextVestingSharesWithdrawal: number = 0;
-  public nextVestingSharesWithdrawalHive: number = 0;
+  public nextVestingSharesWithdrawalSteem: number = 0;
 
   public vestingShares: number = 0;
   public vestingSharesDelegated: number = 0;
@@ -64,8 +64,8 @@ export default class SteemWallet {
           (Number(account.to_withdraw) - Number(account.withdrawn)) / 1e6
         )
       : 0;
-    this.nextVestingSharesWithdrawalHive = this.isPoweringDown
-      ? vestsToHp(this.nextVestingSharesWithdrawal, steemPerMVests)
+    this.nextVestingSharesWithdrawalSteem = this.isPoweringDown
+      ? vestsToSp(this.nextVestingSharesWithdrawal, steemPerMVests)
       : 0;
 
     this.vestingShares = parseAsset(account.vesting_shares).amount;
@@ -79,8 +79,8 @@ export default class SteemWallet {
         this.vestingSharesDelegated
       : this.vestingShares - this.vestingSharesDelegated;
 
-    this.totalSteem = vestsToHp(this.vestingShares, steemPerMVests) + this.balance + this.savingBalance;
-    this.totalSp = vestsToHp(this.vestingShares, steemPerMVests);
+    this.totalSteem = vestsToSp(this.vestingShares, steemPerMVests) + this.balance + this.savingBalance;
+    this.totalSp = vestsToSp(this.vestingShares, steemPerMVests);
     this.totalSbd = this.sbdBalance + this.savingBalanceSbd + convertingSBD;
 
     this.estimatedValue = this.totalSteem * pricePerSteem + this.totalSbd;

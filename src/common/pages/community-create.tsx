@@ -1,7 +1,7 @@
 import BaseComponent from "../components/base";
 import { pageMapDispatchToProps, pageMapStateToProps, PageProps } from "./common";
 import React from "react";
-import { client, getAccount } from "../api/hive";
+import { client, getAccount } from "../api/steem";
 import parseAsset from "../helper/parse-asset";
 import numeral from "numeral";
 import base58 from "bs58";

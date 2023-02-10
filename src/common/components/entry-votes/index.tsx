@@ -17,7 +17,7 @@ import ProfileLink from "../profile-link/index";
 import Tooltip from "../tooltip";
 import Pagination from "../pagination";
 
-import { Vote, getActiveVotes } from "../../api/hive";
+import { Vote, getActiveVotes } from "../../api/steem";
 
 import parseAsset from "../../helper/parse-asset";
 import parseDate, { dateToFormatted, dateToFullRelative } from "../../helper/parse-date";

@@ -17,7 +17,7 @@ import Tooltip from "../tooltip";
 import KeyOrHotDialog from "../key-or-hot-dialog";
 import { error } from "../feedback";
 
-import { DelegatedVestingShare, getVestingDelegations } from "../../api/hive";
+import { DelegatedVestingShare, getVestingDelegations } from "../../api/steem";
 
 import {
   delegateVestingShares,
@@ -28,7 +28,7 @@ import {
 
 import { _t } from "../../i18n";
 
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 
 import parseAsset from "../../helper/parse-asset";
 
@@ -93,7 +93,7 @@ export class List extends BaseComponent<Props, State> {
 
           const totalDelegatedValue = sorted.reduce((n, item) => {
             let parsedValue: any = parseAsset(item.vesting_shares).amount;
-            parsedValue = vestsToHp(parsedValue, steemPerMVests);
+            parsedValue = vestsToSp(parsedValue, steemPerMVests);
             parsedValue = formattedNumber(parsedValue);
             parsedValue = parsedValue.replace(/,/g, "");
             parsedValue = parseFloat(parsedValue);
@@ -212,7 +212,7 @@ export class List extends BaseComponent<Props, State> {
                   </div>
                   <div className="item-extra">
                     <Tooltip content={x.vesting_shares}>
-                      <span>{formattedNumber(vestsToHp(vestingShares, steemPerMVests), { suffix: "SP" })}</span>
+                      <span>{formattedNumber(vestsToSp(vestingShares, steemPerMVests), { suffix: "SP" })}</span>
                     </Tooltip>
                     {deleteBtn}
                   </div>

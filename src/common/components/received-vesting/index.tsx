@@ -14,14 +14,11 @@ import UserAvatar from "../user-avatar";
 import Tooltip from "../tooltip";
 import LinearProgress from "../linear-progress";
 
-import {
-  ReceivedVestingShare,
-  getReceivedVestingShares,
-} from "../../api/private-api";
+import { ReceivedVestingShare, getReceivedVestingShares } from "../../api/private-api";
 
 import { _t } from "../../i18n";
 
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 
 import parseAsset from "../../helper/parse-asset";
 
@@ -58,15 +55,9 @@ export class List extends BaseComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.searchText !== this.props.searchText &&
-      this.props.searchText &&
-      this.props.searchText.length > 0
-    ) {
+    if (prevProps.searchText !== this.props.searchText && this.props.searchText && this.props.searchText.length > 0) {
       let filteredItems = this.state.data.filter((item) =>
-        item.delegator
-          .toLocaleLowerCase()
-          .includes(this.props.searchText!.toLocaleLowerCase())
+        item.delegator.toLocaleLowerCase().includes(this.props.searchText!.toLocaleLowerCase())
       );
       this.setState({ searchData: filteredItems, page: 1 });
     }
@@ -79,10 +70,7 @@ export class List extends BaseComponent<Props, State> {
     return getReceivedVestingShares(account.name)
       .then((r) => {
         const sorted = r.sort((a, b) => {
-          return (
-            parseAsset(b.vesting_shares).amount -
-            parseAsset(a.vesting_shares).amount
-          );
+          return parseAsset(b.vesting_shares).amount - parseAsset(a.vesting_shares).amount;
         });
 
         this.stateSet({ data: sorted });
@@ -115,9 +103,7 @@ export class List extends BaseComponent<Props, State> {
       <div className="received-vesting-content">
         <div className="user-list">
           <div className="list-body">
-            {sliced.length === 0 && (
-              <div className="empty-list">{_t("g.empty-list")}</div>
-            )}
+            {sliced.length === 0 && <div className="empty-list">{_t("g.empty-list")}</div>}
             {sliced.map((x) => {
               const vestingShares = parseAsset(x.vesting_shares).amount;
               const { delegator: username } = x;
@@ -142,20 +128,13 @@ export class List extends BaseComponent<Props, State> {
                       {ProfileLink({
                         ...this.props,
                         username,
-                        children: (
-                          <a className="item-name notransalte">{username}</a>
-                        ),
+                        children: <a className="item-name notransalte">{username}</a>,
                       })}
                     </div>
                   </div>
                   <div className="item-extra">
                     <Tooltip content={x.vesting_shares}>
-                      <span>
-                        {formattedNumber(
-                          vestsToHp(vestingShares, steemPerMVests),
-                          { suffix: "SP" }
-                        )}
-                      </span>
+                      <span>{formattedNumber(vestsToSp(vestingShares, steemPerMVests), { suffix: "SP" })}</span>
                     </Tooltip>
                   </div>
                 </div>
@@ -184,10 +163,7 @@ interface ReceivedVestingState {
   searchTextDisabled: boolean;
 }
 
-export default class ReceivedVesting extends Component<
-  Props,
-  ReceivedVestingState
-> {
+export default class ReceivedVesting extends Component<Props, ReceivedVestingState> {
   constructor(props: Props) {
     super(props);
     this.state = {

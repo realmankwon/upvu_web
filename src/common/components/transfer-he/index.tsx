@@ -26,9 +26,9 @@ import { error } from "../feedback";
 import SteemWallet from "../../helper/steem-wallet";
 import amountFormatCheck from "../../helper/amount-format-check";
 import parseAsset from "../../helper/parse-asset";
-import { vestsToHp, hpToVests } from "../../helper/vesting";
+import { vestsToSp, spToVests } from "../../helper/vesting";
 
-import { getAccount, getAccountFull } from "../../api/hive";
+import { getAccount, getAccountFull } from "../../api/steem";
 
 import {
   transferHiveEngineKc,
@@ -522,7 +522,7 @@ export class Transfer extends BaseComponent<Props, State> {
           (item as DelegateVestingShares).delegator === activeUser.username
       );
     const previousAmount = delegateAccount
-      ? Number(formattedNumber(vestsToHp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)))
+      ? Number(formattedNumber(vestsToSp(Number(parseAsset(delegateAccount!.vesting_shares).amount), steemPerMVests)))
       : "";
 
     let balance: string | number = this.props.assetBalance;
@@ -589,7 +589,7 @@ export class Transfer extends BaseComponent<Props, State> {
                   {" "}
                   {_t("wallet.next-power-down", {
                     time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
-                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalHive, precision)} ${asset}`,
+                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalSteem, precision)} ${asset}`,
                   })}
                 </p>
                 <p>
@@ -690,7 +690,7 @@ export class Transfer extends BaseComponent<Props, State> {
                     <span className="balance-num" onClick={this.copyBalance}>
                       {this.props.assetBalance} {asset}
                     </span>
-                    {asset === "SP" && <div className="balance-hp-hint">{_t("transfer.available-hp-hint")}</div>}
+                    {asset === "SP" && <div className="balance-hp-hint">{_t("transfer.available-sp-hint")}</div>}
                   </div>
                   {to.length > 0 && Number(amount) > 0 && toData?.__loaded && mode === "delegate" && (
                     <div className="text-muted mt-1 override-warning">

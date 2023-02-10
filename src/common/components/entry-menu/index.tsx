@@ -32,7 +32,7 @@ import { _t } from "../../i18n";
 import clipboard from "../../util/clipboard";
 
 import { deleteComment, formatError, pinPost, updateProfile } from "../../api/operations";
-import { getAccount } from "../../api/hive";
+import { getAccount } from "../../api/steem";
 
 import * as bridgeApi from "../../api/bridge";
 

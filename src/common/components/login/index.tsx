@@ -28,7 +28,7 @@ import { error } from "../feedback";
 import { getAuthUrl, makeHsCode } from "../../helper/hive-signer";
 import { hsLogin } from "../../../desktop/app/helper/hive-signer";
 
-import { getAccount } from "../../api/hive";
+import { getAccount } from "../../api/steem";
 import { hsTokenRenew } from "../../api/auth-api";
 import { formatError, grantPostingPermission, revokePostingPermission } from "../../api/operations";
 

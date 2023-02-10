@@ -5,9 +5,7 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import { _t } from "../../i18n";
 import { ActiveUser } from "../../store/active-user/types";
 import { Global } from "../../store/global/types";
-import BuySellHiveDialog, {
-  TransactionType,
-} from "../buy-sell-hive";
+import BuySellHiveDialog, { TransactionType } from "../buy-sell-steem";
 import { error } from "../feedback";
 import { Skeleton } from "../skeleton";
 
@@ -39,9 +37,9 @@ export const HiveBarter = ({
   const [price, setPrice] = useState(peakValue.toFixed(6));
   const [amount, setAmount] = useState<any>(0.0);
   const [total, setTotal] = useState<any>(0.0);
-  const [transaction, setTransaction] = useState<
-    TransactionType.Sell | TransactionType.Buy | TransactionType.None
-  >(TransactionType.None);
+  const [transaction, setTransaction] = useState<TransactionType.Sell | TransactionType.Buy | TransactionType.None>(
+    TransactionType.None
+  );
 
   useEffect(() => {
     if (peakValue) {
@@ -54,7 +52,7 @@ export const HiveBarter = ({
     let valueAfterPoints = splittedValue[1];
     if (valueAfterPoints && valueAfterPoints.length > decimals) {
       valueAfterPoints = valueAfterPoints.substring(0, decimals);
-      error(_t("market.decimal-error",{decimals}));
+      error(_t("market.decimal-error", { decimals }));
       return `${splittedValue[0] + "." + valueAfterPoints}`;
     }
     return value;
@@ -67,23 +65,15 @@ export const HiveBarter = ({
   ) : (
     <div className="border p-3 rounded">
       <div className="d-flex justify-content-between align-items-center">
-        <h3 className="mb-0">
-          {type === 1 ? _t("market.buy") : _t("market.sell")}{" "}
-          STEEM
-        </h3>
+        <h3 className="mb-0">{type === 1 ? _t("market.buy") : _t("market.sell")} STEEM</h3>
         <div>
           <small className="d-flex">
             <div className="mr-1 text-primary">{_t("market.available")}:</div>
             <div>{available}</div>
           </small>
           <small className="d-flex">
-            <div className="mr-1 text-primary">
-              {type === 1 ? _t("market.lowest-ask") : _t("market.highest-bid")}:
-            </div>
-            <div
-              onClick={() => onClickPeakValue(basePeakValue.toFixed(3))}
-              className="pointer"
-            >
+            <div className="mr-1 text-primary">{type === 1 ? _t("market.lowest-ask") : _t("market.highest-bid")}:</div>
+            <div onClick={() => onClickPeakValue(basePeakValue.toFixed(3))} className="pointer">
               {basePeakValue.toFixed(3)}
             </div>
           </small>
@@ -93,9 +83,7 @@ export const HiveBarter = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          setTransaction(
-            type === 1 ? TransactionType.Buy : TransactionType.Sell
-          );
+          setTransaction(type === 1 ? TransactionType.Buy : TransactionType.Sell);
         }}
       >
         <Form.Group>
@@ -107,15 +95,11 @@ export const HiveBarter = ({
               onChange={({ target: { value } }) => {
                 setPrice(value.includes(".") ? fixDecimals(value, 6) : value);
                 let refinedAmount = amount ? parseFloat(amount) : 0;
-                let total = parseFloat(
-                  `${(parseFloat(value) * refinedAmount) as any}`
-                ).toFixed(3);
+                let total = parseFloat(`${(parseFloat(value) * refinedAmount) as any}`).toFixed(3);
                 setTotal(total);
               }}
             />
-            <InputGroup.Text className="rounded-left">
-              SBD/STEEM
-            </InputGroup.Text>
+            <InputGroup.Text className="rounded-left">SBD/STEEM</InputGroup.Text>
           </InputGroup>
         </Form.Group>
 
@@ -128,15 +112,11 @@ export const HiveBarter = ({
               onChange={({ target: { value } }) => {
                 setAmount(value.includes(".") ? fixDecimals(value, 3) : value);
                 let refinedAmount = value ? parseFloat(value) : 0;
-                let total = parseFloat(
-                  `${(parseFloat(price) * refinedAmount) as any}`
-                ).toFixed(3);
+                let total = parseFloat(`${(parseFloat(price) * refinedAmount) as any}`).toFixed(3);
                 setTotal(total);
               }}
             />
-            <InputGroup.Text className="rounded-left">
-              STEEM
-            </InputGroup.Text>
+            <InputGroup.Text className="rounded-left">STEEM</InputGroup.Text>
           </InputGroup>
         </Form.Group>
 
@@ -147,25 +127,15 @@ export const HiveBarter = ({
               placeholder="0.0"
               value={isNaN(total) ? 0 : total}
               onChange={({ target: { value } }) => {
-                setTotal(
-                  isNaN(value as any)
-                    ? 0
-                    : value.includes(".")
-                    ? fixDecimals(value, 3)
-                    : value
-                );
+                setTotal(isNaN(value as any) ? 0 : value.includes(".") ? fixDecimals(value, 3) : value);
                 setAmount(
                   isNaN(`${parseFloat(value) / parseFloat(price)}` as any)
                     ? 0
-                    : parseFloat(
-                        `${parseFloat(value) / parseFloat(price)}`
-                      ).toFixed(3)
+                    : parseFloat(`${parseFloat(value) / parseFloat(price)}`).toFixed(3)
                 );
               }}
             />
-            <InputGroup.Text className="rounded-left">
-              SBD($)
-            </InputGroup.Text>
+            <InputGroup.Text className="rounded-left">SBD($)</InputGroup.Text>
           </InputGroup>
         </Form.Group>
         <Button block={true} type="submit" disabled={disabled}>
@@ -188,5 +158,5 @@ export const HiveBarter = ({
         />
       )}
     </div>
-  )
+  );
 };

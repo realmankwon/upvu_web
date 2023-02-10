@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { DeckState, IdentifiableDeckModel } from "../types";
 import { _t } from "../../../i18n";
 import { getNotifications } from "../../../api/private-api";
-import { getAllTrendingTags } from "../../../api/hive";
+import { getAllTrendingTags } from "../../../api/steem";
 import { getAccountPosts, getPostsRanked } from "../../../api/bridge";
 import { setDataAct, setReloadingAct } from "../acts";
 import { fetchTransactions } from "../../transactions";

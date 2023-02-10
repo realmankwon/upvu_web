@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { match } from "react-router";
-import { getAccountFull } from "../../api/hive";
+import { getAccountFull } from "../../api/steem";
 import accountReputation from "../../helper/account-reputation";
 import { PageProps } from "../../pages/common";
 import { Entry } from "../../store/entries/types";

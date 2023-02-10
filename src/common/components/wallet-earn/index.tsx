@@ -18,9 +18,10 @@ import { _t } from "../../i18n";
 import { ValueDescView } from "../value-desc-view";
 import { OverlayTrigger, Tooltip, Modal } from "react-bootstrap";
 import SteemWallet from "../../helper/steem-wallet";
+import { informationVariantSvg } from "../../img/svg";
 
 import WalletMenu from "../wallet-menu";
-import { earnUses, earnHsts, earnSummary } from "../../api/private-api";
+import { earnAccounts, earnUses, earnHsts, earnSummary } from "../../api/private-api";
 
 interface Props {
   history: History;
@@ -80,6 +81,18 @@ interface ValueDescWithTooltipProps {
   existIcon?: boolean;
 }
 
+interface DelegateInfoProps {
+  delegatee: string;
+  sp: number;
+}
+
+interface SteemWalletProps {
+  userSp: number;
+  userSteem: number;
+  liquidEarnAccounts: EarnUsesProps[];
+  delegateEarnAccounts: EarnUsesProps[];
+}
+
 let earnUsesArray: string[] = [];
 
 interface State {
@@ -93,7 +106,10 @@ interface State {
   showTransferDialog: boolean;
   transferMode: null | TransferMode;
   transferAsset: null | TransferAsset;
-  converting: number;
+  liquidEarnAccounts: EarnUsesProps[];
+  delegateEarnAccounts: EarnUsesProps[];
+  selectedDelegateEarnAccount: string;
+  selectedLiquidEarnAccount: string;
 }
 
 export class WalletEarn extends BaseComponent<Props, State> {
@@ -108,7 +124,10 @@ export class WalletEarn extends BaseComponent<Props, State> {
     showTransferDialog: false,
     transferMode: null,
     transferAsset: null,
-    converting: 0,
+    liquidEarnAccounts: [],
+    delegateEarnAccounts: [],
+    selectedDelegateEarnAccount: "",
+    selectedLiquidEarnAccount: "",
   };
 
   componentDidMount() {
@@ -124,7 +143,17 @@ export class WalletEarn extends BaseComponent<Props, State> {
       this.setState({ isSameAccount: true });
 
       earnUsesArray = [];
-      const resultEarnUses = await earnUses(username);
+      const [resultEarnUses, resultEarnAccounts] = await Promise.all([earnUses(username), earnAccounts(username)]);
+      const liquidEarnAccounts: EarnUsesProps[] = [];
+      const delegateEarnAccounts: EarnUsesProps[] = [];
+
+      resultEarnAccounts.map((data: EarnUsesProps) => {
+        if (data.earn_type === "L") {
+          liquidEarnAccounts.push(data);
+        } else {
+          delegateEarnAccounts.push(data);
+        }
+      });
 
       if (resultEarnUses.length > 0) {
         resultEarnUses.map((data: EarnUsesProps) =>
@@ -139,6 +168,8 @@ export class WalletEarn extends BaseComponent<Props, State> {
           isEarnUser: true,
           loading: false,
           selectedHistory: earnUsesArray[0],
+          liquidEarnAccounts,
+          delegateEarnAccounts,
         });
       } else {
         this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, selectedHistory: "" });
@@ -157,6 +188,14 @@ export class WalletEarn extends BaseComponent<Props, State> {
     earnHsts(account.name, e.target.value.split("-")[0]).then((result) => {
       this.setState({ earnHstsInfo: result });
     });
+  };
+
+  delegateEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    this.setState({ selectedDelegateEarnAccount: e.target.value, selectedLiquidEarnAccount: "" });
+  };
+
+  liquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    this.setState({ selectedDelegateEarnAccount: "", selectedLiquidEarnAccount: e.target.value });
   };
 
   openTransferDialog = (mode: TransferMode, asset: TransferAsset) => {
@@ -179,13 +218,18 @@ export class WalletEarn extends BaseComponent<Props, State> {
       showTransferDialog,
       transferMode,
       transferAsset,
+      liquidEarnAccounts,
+      delegateEarnAccounts,
+      selectedDelegateEarnAccount,
+      selectedLiquidEarnAccount,
     } = this.state;
 
     if (!account.__loaded) {
       return null;
     }
 
-    const w = new SteemWallet(account, dynamicProps, 0);
+    const w = new SteemWallet(account, dynamicProps);
+    const selectedEarnAccount = selectedDelegateEarnAccount ? selectedDelegateEarnAccount : selectedLiquidEarnAccount;
 
     return (
       <div className="wallet-earn">
@@ -201,7 +245,21 @@ export class WalletEarn extends BaseComponent<Props, State> {
               loading ? (
                 <LinearProgress />
               ) : (
-                <div>
+                <>
+                  <DelegationSP
+                    userSp={w.totalSp}
+                    delegateEarnAccounts={delegateEarnAccounts}
+                    selectedDelegateEarnAccount={selectedDelegateEarnAccount}
+                    openTransferDialog={this.openTransferDialog}
+                    delegateEarnAccountChanged={this.delegateEarnAccountChanged}
+                  />
+                  <TransferSteem
+                    userSteem={w.balance}
+                    liquidEarnAccounts={liquidEarnAccounts}
+                    selectedLiquidEarnAccount={selectedLiquidEarnAccount}
+                    openTransferDialog={this.openTransferDialog}
+                    liquidEarnAccountChanged={this.liquidEarnAccountChanged}
+                  />
                   {isEarnUser && earnUsesInfo ? (
                     <div>
                       <div className="transaction-list-header">
@@ -226,7 +284,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
                   ) : (
                     <div />
                   )}
-                </div>
+                </>
               )
             ) : (
               <div className="view-container warn-box">
@@ -247,7 +305,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
           <Transfer
             {...this.props}
             activeUser={activeUser!}
-            to={isSameAccount ? "upvu" : account.name}
+            to={isSameAccount ? selectedEarnAccount : account.name}
             mode={transferMode!}
             asset={transferAsset!}
             onHide={this.closeTransferDialog}
@@ -284,23 +342,46 @@ const ValueDescWithTooltip = ({ val, desc, children, existIcon = true }: ValueDe
   );
 };
 
-const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransferDialog }: UpvuInfoProps | any) => {
+const DelegationSP = ({
+  userSp,
+  delegateEarnAccounts,
+  selectedDelegateEarnAccount,
+  openTransferDialog,
+  delegateEarnAccountChanged,
+}: SteemWalletProps | any) => {
   const onClickDelegation = () => {
     openTransferDialog("delegate", "SP");
   };
 
-  const onClickTransfer = () => {
-    openTransferDialog("transfer", "STEEM");
+  const ondelegateEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    delegateEarnAccountChanged(e);
   };
 
   return (
     <>
       <div className="view-container">
-        <div className="header">Delegate Steem Power</div>
+        <div className="header">Deposit Steem Power</div>
 
         <div className="content">
+          <div className="select-delegate-earn-account">
+            <FormControl
+              className="select-box"
+              as="select"
+              value={selectedDelegateEarnAccount}
+              onChange={ondelegateEarnAccountChanged}
+            >
+              <option key="empty" value="">
+                -
+              </option>
+              {delegateEarnAccounts.map((data: EarnUsesProps) => (
+                <option key={data.account} value={data.account}>
+                  {data.earn_symbol}
+                </option>
+              ))}
+            </FormControl>
+          </div>
           <ValueDescWithTooltip
-            val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
+            val={`${formattedNumber(userSp, {
               fractionDigits: 0,
             })}`}
             desc={"Available Amount"}
@@ -320,8 +401,52 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
               </Col>
             </Form.Row>
           </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const TransferSteem = ({
+  userSteem,
+  liquidEarnAccounts,
+  selectedLiquidEarnAccount,
+  openTransferDialog,
+  liquidEarnAccountChanged,
+}: SteemWalletProps | any) => {
+  const onClickTransfer = () => {
+    openTransferDialog("transfer", "STEEM");
+  };
+
+  const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    liquidEarnAccountChanged(e);
+  };
+
+  return (
+    <>
+      <div className="view-container">
+        <div className="header">Deposit Steem</div>
+
+        <div className="content">
+          <div className="select-delegate-earn-account">
+            <FormControl
+              className="select-box"
+              as="select"
+              value={selectedLiquidEarnAccount}
+              onChange={onLiquidEarnAccountChanged}
+            >
+              <option key="empty" value="">
+                -
+              </option>
+              {liquidEarnAccounts.map((data: EarnUsesProps) => (
+                <option key={data.account} value={data.account}>
+                  {data.earn_symbol}
+                </option>
+              ))}
+            </FormControl>
+          </div>
           <ValueDescWithTooltip
-            val={`${formattedNumber(user_steem, {
+            val={`${formattedNumber(userSteem, {
               fractionDigits: 3,
             })}`}
             desc={"Steem Balance"}

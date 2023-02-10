@@ -28,7 +28,7 @@ import Tooltip from "../tooltip";
 import { _t } from "../../i18n";
 
 import _c from "../../util/fix-class-names";
-import { vestsToHp } from "../../helper/vesting";
+import { vestsToSp } from "../../helper/vesting";
 import formattedNumber from "../../util/formatted-number";
 
 import { syncSvg, checkSvg, bellOffSvg, bellCheckSvg } from "../../img/svg";
@@ -295,7 +295,7 @@ export class NotificationListItem extends Component<{
                   <span className="item-action">
                     {_t("notifications.delegations-str")}{" "}
                     <span className="transfer-amount">
-                      {formattedNumber(vestsToHp(parseFloat(notification.amount), steemPerMVests), { suffix: "SP" })}
+                      {formattedNumber(vestsToSp(parseFloat(notification.amount), steemPerMVests), { suffix: "SP" })}
                     </span>
                   </span>
                 </div>

@@ -11,7 +11,7 @@ import { DynamicProps } from "../../store/dynamic-props/types";
 
 import BaseComponent from "../base";
 
-import { findRcAccounts, votingPower, downVotingPower, votingValue, powerRechargeTime, rcPower } from "../../api/hive";
+import { findRcAccounts, votingPower, downVotingPower, votingValue, powerRechargeTime, rcPower } from "../../api/steem";
 
 import { _t } from "../../i18n";
 

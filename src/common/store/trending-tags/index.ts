@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import { getTrendingTags } from "../../api/hive";
+import { getTrendingTags } from "../../api/steem";
 
 import { AppState } from "../index";
 

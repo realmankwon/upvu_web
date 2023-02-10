@@ -14,7 +14,7 @@ import ProfileLink from "../profile-link";
 import UserAvatar from "../user-avatar";
 import LinearProgress from "../linear-progress";
 
-import { Proposal, getProposalVotes, getAccounts } from "../../api/hive";
+import { Proposal, getProposalVotes, getAccounts } from "../../api/steem";
 
 import parseAsset from "../../helper/parse-asset";
 import accountReputation from "../../helper/account-reputation";
@@ -66,14 +66,10 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
       .then((resp) => {
         const voters: Voter[] = resp
           .map((account) => {
-            const hp =
-              (parseAsset(account.vesting_shares).amount * steemPerMVests) /
-              1e6;
+            const hp = (parseAsset(account.vesting_shares).amount * steemPerMVests) / 1e6;
 
             let vsfVotes = 0;
-            account.proxied_vsf_votes.forEach(
-              (x: string | number) => (vsfVotes += Number(x))
-            );
+            account.proxied_vsf_votes.forEach((x: string | number) => (vsfVotes += Number(x)));
 
             const proxyHp = (vsfVotes * steemPerMVests) / 1e12;
             const totalHp = hp + proxyHp;
@@ -127,13 +123,9 @@ export class ProposalVotesDetail extends BaseComponent<Props, State> {
                     {ProfileLink({
                       ...this.props,
                       username: x.name,
-                      children: (
-                        <a className="item-name notransalte">{x.name}</a>
-                      ),
+                      children: <a className="item-name notransalte">{x.name}</a>,
                     })}
-                    <span className="item-reputation">
-                      {accountReputation(x.reputation)}
-                    </span>
+                    <span className="item-reputation">{accountReputation(x.reputation)}</span>
                   </div>
                 </div>
                 <div className="item-extra">
@@ -162,18 +154,9 @@ export class ProposalVotes extends Component<Props> {
     const { proposal, onHide } = this.props;
 
     return (
-      <Modal
-        onHide={onHide}
-        show={true}
-        centered={true}
-        size="lg"
-        animation={false}
-        className="proposal-votes-dialog"
-      >
+      <Modal onHide={onHide} show={true} centered={true} size="lg" animation={false} className="proposal-votes-dialog">
         <Modal.Header closeButton={true}>
-          <Modal.Title>
-            {_t("proposals.votes-dialog-title", { n: proposal.id })}
-          </Modal.Title>
+          <Modal.Title>{_t("proposals.votes-dialog-title", { n: proposal.id })}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ProposalVotesDetail {...this.props} />

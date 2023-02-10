@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { MarketStatistics } from "../../api/hive";
+import { MarketStatistics } from "../../api/steem";
 import { _t } from "../../i18n";
 import { isMobile } from "../../util/is-mobile";
 import { Skeleton } from "../skeleton";

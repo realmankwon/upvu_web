@@ -34,7 +34,7 @@ import SearchBox from "../components/search-box";
 import { _t } from "../i18n";
 import { Tsx } from "../i18n/helper";
 
-import { getProposals, Proposal, getPost, getAccount } from "../api/hive";
+import { getProposals, Proposal, getPost, getAccount } from "../api/steem";
 
 import { PageProps, pageMapDispatchToProps, pageMapStateToProps } from "./common";
 
