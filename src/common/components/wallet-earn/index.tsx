@@ -2,7 +2,8 @@ import React from "react";
 import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
 import { History } from "history";
 import htmlParse from "html-react-parser";
-
+import { vestsToSp } from "../../helper/vesting";
+import parseAsset from "../../helper/parse-asset";
 import { AssetSymbol } from "@upvu/dsteem";
 
 import { Global } from "../../store/global/types";
@@ -21,7 +22,8 @@ import SteemWallet from "../../helper/steem-wallet";
 import { informationVariantSvg } from "../../img/svg";
 
 import WalletMenu from "../wallet-menu";
-import { earnAccounts, earnUses, earnHsts, earnSummary } from "../../api/private-api";
+import { earnAccounts, earnUses, earnHsts, earnSummary, earnDepositSteem } from "../../api/private-api";
+import { getVestingDelegations } from "../../api/steem";
 
 interface Props {
   history: History;
@@ -64,10 +66,18 @@ interface EarnHstsProps {
 }
 
 interface EarnSummaryProps {
-  steem_amount: string;
+  earn_symbol: string;
+  earn_account: string;
+  earn_steem: number;
   earn_amount: number;
   fee: number;
-  earn_symbol: string;
+  claimed_amount: number;
+  claimable_amount: number;
+  last_claimed_dte: Date;
+}
+
+interface EarnSummaryArrayProps {
+  earnSummary: EarnSummaryProps[];
 }
 
 interface EarnHstsArrayProps {
@@ -81,9 +91,9 @@ interface ValueDescWithTooltipProps {
   existIcon?: boolean;
 }
 
-interface DelegateInfoProps {
-  delegatee: string;
-  sp: number;
+interface DepositInfoProps {
+  earnAccount: string;
+  amount: number;
 }
 
 interface SteemWalletProps {
@@ -107,9 +117,12 @@ interface State {
   transferMode: null | TransferMode;
   transferAsset: null | TransferAsset;
   liquidEarnAccounts: EarnUsesProps[];
+  previousEarnSteemAmount: DepositInfoProps;
   delegateEarnAccounts: EarnUsesProps[];
+  previousEarnDelegateAmount: DepositInfoProps;
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
+  earnSummary: EarnSummaryProps[];
 }
 
 export class WalletEarn extends BaseComponent<Props, State> {
@@ -125,9 +138,12 @@ export class WalletEarn extends BaseComponent<Props, State> {
     transferMode: null,
     transferAsset: null,
     liquidEarnAccounts: [],
+    previousEarnSteemAmount: { earnAccount: "", amount: 0 },
     delegateEarnAccounts: [],
+    previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
+    earnSummary: [],
   };
 
   componentDidMount() {
@@ -143,7 +159,11 @@ export class WalletEarn extends BaseComponent<Props, State> {
       this.setState({ isSameAccount: true });
 
       earnUsesArray = [];
-      const [resultEarnUses, resultEarnAccounts] = await Promise.all([earnUses(username), earnAccounts(username)]);
+      const [resultEarnUses, resultEarnAccounts, resultEarnSummary] = await Promise.all([
+        earnUses(username),
+        earnAccounts(username),
+        earnSummary(username),
+      ]);
       const liquidEarnAccounts: EarnUsesProps[] = [];
       const delegateEarnAccounts: EarnUsesProps[] = [];
 
@@ -170,6 +190,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
           selectedHistory: earnUsesArray[0],
           liquidEarnAccounts,
           delegateEarnAccounts,
+          earnSummary: resultEarnSummary,
         });
       } else {
         this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, selectedHistory: "" });
@@ -191,11 +212,76 @@ export class WalletEarn extends BaseComponent<Props, State> {
   };
 
   delegateEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
-    this.setState({ selectedDelegateEarnAccount: e.target.value, selectedLiquidEarnAccount: "" });
+    const { account, dynamicProps } = this.props;
+    const { steemPerMVests } = dynamicProps;
+    const earnAccount = e.target.value;
+
+    getVestingDelegations(account.name, earnAccount, 1).then((res) => {
+      const delegateAccount =
+        res &&
+        res.length > 0 &&
+        res!.find((item) => (item as any).delegatee === earnAccount && (item as any).delegator === account.name);
+
+      if (delegateAccount) {
+        this.setState({
+          selectedDelegateEarnAccount: earnAccount,
+          selectedLiquidEarnAccount: "",
+          previousEarnDelegateAmount: {
+            earnAccount,
+            amount: vestsToSp(+parseAsset(delegateAccount!.vesting_shares).amount, steemPerMVests),
+          },
+          previousEarnSteemAmount: {
+            earnAccount: "",
+            amount: 0,
+          },
+        });
+      } else {
+        this.setState({
+          selectedDelegateEarnAccount: earnAccount,
+          selectedLiquidEarnAccount: "",
+          previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
+          previousEarnSteemAmount: {
+            earnAccount: "",
+            amount: 0,
+          },
+        });
+      }
+    });
   };
 
   liquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
-    this.setState({ selectedDelegateEarnAccount: "", selectedLiquidEarnAccount: e.target.value });
+    const { account } = this.props;
+
+    const earnAccount = e.target.value;
+    earnDepositSteem(account.name, earnAccount).then((result) => {
+      if (result) {
+        this.setState({
+          selectedDelegateEarnAccount: "",
+          selectedLiquidEarnAccount: earnAccount,
+          previousEarnDelegateAmount: {
+            earnAccount: "",
+            amount: 0,
+          },
+          previousEarnSteemAmount: {
+            earnAccount,
+            amount: +result.total_amount,
+          },
+        });
+      } else {
+        this.setState({
+          selectedDelegateEarnAccount: "",
+          selectedLiquidEarnAccount: earnAccount,
+          previousEarnDelegateAmount: {
+            earnAccount: "",
+            amount: 0,
+          },
+          previousEarnSteemAmount: {
+            earnAccount: "",
+            amount: 0,
+          },
+        });
+      }
+    });
   };
 
   openTransferDialog = (mode: TransferMode, asset: TransferAsset) => {
@@ -219,9 +305,12 @@ export class WalletEarn extends BaseComponent<Props, State> {
       transferMode,
       transferAsset,
       liquidEarnAccounts,
+      previousEarnSteemAmount,
       delegateEarnAccounts,
+      previousEarnDelegateAmount,
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
+      earnSummary,
     } = this.state;
 
     if (!account.__loaded) {
@@ -247,19 +336,22 @@ export class WalletEarn extends BaseComponent<Props, State> {
               ) : (
                 <>
                   <DelegationSP
-                    userSp={w.totalSp}
+                    previousSp={previousEarnDelegateAmount.amount}
+                    availableSp={w.availableForDelegateSp}
                     delegateEarnAccounts={delegateEarnAccounts}
                     selectedDelegateEarnAccount={selectedDelegateEarnAccount}
                     openTransferDialog={this.openTransferDialog}
                     delegateEarnAccountChanged={this.delegateEarnAccountChanged}
                   />
                   <TransferSteem
+                    previousSteem={previousEarnSteemAmount.amount}
                     userSteem={w.balance}
                     liquidEarnAccounts={liquidEarnAccounts}
                     selectedLiquidEarnAccount={selectedLiquidEarnAccount}
                     openTransferDialog={this.openTransferDialog}
                     liquidEarnAccountChanged={this.liquidEarnAccountChanged}
                   />
+                  <MyEarns earnSummary={earnSummary} />
                   {isEarnUser && earnUsesInfo ? (
                     <div>
                       <div className="transaction-list-header">
@@ -343,7 +435,8 @@ const ValueDescWithTooltip = ({ val, desc, children, existIcon = true }: ValueDe
 };
 
 const DelegationSP = ({
-  userSp,
+  previousSp,
+  availableSp,
   delegateEarnAccounts,
   selectedDelegateEarnAccount,
   openTransferDialog,
@@ -381,8 +474,20 @@ const DelegationSP = ({
             </FormControl>
           </div>
           <ValueDescWithTooltip
-            val={`${formattedNumber(userSp, {
-              fractionDigits: 0,
+            val={`${formattedNumber(previousSp, {
+              fractionDigits: 3,
+            })}`}
+            desc={"Previous Amount"}
+          >
+            <>
+              <p>Maximum Delegation Possible Amount.</p>
+              <p>You must leave a minimum amount for the activity.</p>
+              <p>Depending on the % of the current voting power, the available amount may vary.</p>
+            </>
+          </ValueDescWithTooltip>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(availableSp, {
+              fractionDigits: 3,
             })}`}
             desc={"Available Amount"}
           >
@@ -408,6 +513,7 @@ const DelegationSP = ({
 };
 
 const TransferSteem = ({
+  previousSteem,
   userSteem,
   liquidEarnAccounts,
   selectedLiquidEarnAccount,
@@ -446,6 +552,17 @@ const TransferSteem = ({
             </FormControl>
           </div>
           <ValueDescWithTooltip
+            val={`${formattedNumber(previousSteem, {
+              fractionDigits: 3,
+            })}`}
+            desc={"Previous Steem"}
+          >
+            <>
+              <p>Current STEEM Amount</p>
+            </>
+          </ValueDescWithTooltip>
+
+          <ValueDescWithTooltip
             val={`${formattedNumber(userSteem, {
               fractionDigits: 3,
             })}`}
@@ -465,6 +582,61 @@ const TransferSteem = ({
               </Col>
             </Form.Row>
           </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
+  return (
+    <>
+      <div className="view-container">
+        <div className="header">My Earns</div>
+        <div className="content">
+          {earnSummary.map((summary) => (
+            <>
+              <ValueDescWithTooltip
+                val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
+                desc="Earn Steem"
+              >
+                <>
+                  <p>Earn Steem</p>
+                </>
+              </ValueDescWithTooltip>
+              <ValueDescWithTooltip
+                val={`${formattedNumber(summary.earn_amount, { fractionDigits: 8 })} ${summary.earn_symbol}`}
+                desc={"Earn Amount"}
+              >
+                <>
+                  <p>Earn Amount</p>
+                </>
+              </ValueDescWithTooltip>
+              {/* <ValueDescWithTooltip
+                val={`${formattedNumber(summary.fee, {
+                  fractionDigits: 8,
+                })} ${summary.earn_symbol}`}
+                desc={"Fee"}
+              >
+                <>
+                  <p>Fee</p>
+                </>
+              </ValueDescWithTooltip> */}
+              <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Claimed Amount"}>
+                <>
+                  <p>Claimed Amount</p>
+                </>
+              </ValueDescWithTooltip>
+              <ValueDescWithTooltip
+                val={`${summary.claimable_amount} ${summary.earn_symbol}`}
+                desc={"Claimable Amount"}
+              >
+                <>
+                  <p>Claimable Amount</p>
+                </>
+              </ValueDescWithTooltip>
+            </>
+          ))}
         </div>
       </div>
     </>

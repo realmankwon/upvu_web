@@ -699,7 +699,27 @@ export const earnHsts = async (username: string, earn_account: string): Promise<
   }
 };
 
-export const earnSummary = async (username: string, earn_account: string): Promise<any> => {
+export const earnSummary = async (username: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+  };
+
+  const results = await callApi(`/upvuweb-api/earn-summary`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (results.success) {
+    return results.results;
+  } else {
+    return [];
+  }
+};
+
+export const earnDepositSteem = async (username: string, earn_account: string): Promise<any> => {
   if (!username) return [];
 
   const data = {
@@ -709,9 +729,13 @@ export const earnSummary = async (username: string, earn_account: string): Promi
     earn_account,
   };
 
-  const results = await callApi(`/upvuweb-api/earn-summary`, data, username).catch((err) => {
+  const result = await callApi(`/upvuweb-api/earn-deposit-steem`, data, username).catch((err) => {
     console.log(err);
   });
 
-  return results;
+  if (result.success) {
+    return result.result;
+  } else {
+    return [];
+  }
 };

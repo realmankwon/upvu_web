@@ -32,6 +32,7 @@ export default class SteemWallet {
   public totalSteem: number = 0;
   public totalSbd: number = 0;
   public totalSp: number = 0;
+  public availableForDelegateSp: number = 0;
 
   public estimatedValue: number = 0;
 
@@ -80,7 +81,11 @@ export default class SteemWallet {
       : this.vestingShares - this.vestingSharesDelegated;
 
     this.totalSteem = vestsToSp(this.vestingShares, steemPerMVests) + this.balance + this.savingBalance;
-    this.totalSp = vestsToSp(this.vestingShares, steemPerMVests);
+    this.totalSp = vestsToSp(this.vestingSharesTotal, steemPerMVests);
+    this.availableForDelegateSp = vestsToSp(
+      this.vestingShares - this.vestingSharesDelegated - this.nextVestingSharesWithdrawal,
+      steemPerMVests
+    );
     this.totalSbd = this.sbdBalance + this.savingBalanceSbd + convertingSBD;
 
     this.estimatedValue = this.totalSteem * pricePerSteem + this.totalSbd;
