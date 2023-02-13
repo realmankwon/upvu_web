@@ -25,6 +25,25 @@ import WalletMenu from "../wallet-menu";
 import { earnAccounts, earnUses, earnHsts, earnSummary, earnDepositSteem } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 
+import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
+import { NetworkConnector } from "@web3-react/network-connector";
+import {
+  InjectedConnector,
+  NoEthereumProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorInjected,
+} from "@web3-react/injected-connector";
+
+export const injected = new InjectedConnector({
+  supportedChainIds: [42161],
+});
+
+const networkConnector = new NetworkConnector({
+  urls: {
+    1: "https://arbitrum-mainnet.infura.io",
+  },
+  defaultChainId: 42161,
+});
+
 interface Props {
   history: History;
   global: Global;
@@ -206,8 +225,9 @@ export class WalletEarn extends BaseComponent<Props, State> {
 
   filterChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { account } = this.props;
-    earnHsts(account.name, e.target.value.split("-")[0]).then((result) => {
-      this.setState({ earnHstsInfo: result });
+    const selectedHistory = e.target.value;
+    earnHsts(account.name, selectedHistory.split("-")[0]).then((result) => {
+      this.setState({ earnHstsInfo: result, selectedHistory });
     });
   };
 
@@ -335,6 +355,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
                 <LinearProgress />
               ) : (
                 <>
+                  <WalletMetamask />
                   <DelegationSP
                     previousSp={previousEarnDelegateAmount.amount}
                     availableSp={w.availableForDelegateSp}
@@ -351,7 +372,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
                     openTransferDialog={this.openTransferDialog}
                     liquidEarnAccountChanged={this.liquidEarnAccountChanged}
                   />
-                  <MyEarns earnSummary={earnSummary} />
                   {isEarnUser && earnUsesInfo ? (
                     <div>
                       <div className="transaction-list-header">
@@ -365,12 +385,13 @@ export class WalletEarn extends BaseComponent<Props, State> {
                           >
                             {earnUsesArray.map((kind) => (
                               <option key={kind} value={kind}>
-                                {kind}
+                                {`${kind.split("-")[1] === "D" ? "Delegate SP" : "Liquid Steem"}-${kind.split("-")[2]}`}
                               </option>
                             ))}
                           </FormControl>
                         </div>
                       </div>
+                      <MyEarns earnSummary={earnSummary} />
                       <EarnHistory earnHstsInfo={earnHstsInfo} />
                     </div>
                   ) : (
@@ -699,6 +720,42 @@ const EarnHistory = ({ earnHstsInfo }: EarnHstsArrayProps) => {
       ) : (
         <LinearProgress />
       )}
+    </div>
+  );
+};
+
+const WalletMetamask = function () {
+  const { chainId, account, active, activate, deactivate } = useWeb3React();
+  const handleConnect = () => {
+    if (active) {
+      deactivate();
+      return;
+    }
+    let provider;
+
+    activate(injected, async (error) => {
+      if (error instanceof UnsupportedChainIdError) {
+        alert(`You're conncted to an unsupported network.`);
+      } else if (error instanceof NoEthereumProviderError) {
+        window.open("https://metamask.io/download.html");
+      } else if (error instanceof UserRejectedRequestErrorInjected) {
+        alert(`Please authorize this website to access your account.`);
+      } else {
+        return `An unknow error occured. Check your status.`;
+      }
+    });
+  };
+  return (
+    <div>
+      <div>
+        <p>Account: {account}</p>
+        <p>ChainId: {chainId}</p>
+      </div>
+      <div>
+        <button type="button" onClick={handleConnect}>
+          {active ? "disconnect" : "connect"}
+        </button>
+      </div>
     </div>
   );
 };

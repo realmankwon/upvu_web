@@ -12,6 +12,9 @@ import "../style/theme-day.scss";
 import "../style/theme-night.scss";
 import "./base-handlers";
 import { loadableReady } from "@loadable/component";
+import { Web3ReactProvider, createWeb3ReactRoot } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+const getLibrary = (provider: any) => new Web3Provider(provider);
 
 declare var window: AppWindow;
 
@@ -39,9 +42,11 @@ if (process.env.NODE_ENV === "production") {
 loadableReady().then(() => {
   hydrate(
     <Provider store={store}>
-      <ConnectedRouter history={history!}>
-        <App />
-      </ConnectedRouter>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <ConnectedRouter history={history!}>
+          <App />
+        </ConnectedRouter>
+      </Web3ReactProvider>
     </Provider>,
     document.getElementById("root")
   );
@@ -65,7 +70,9 @@ if (module.hot) {
     hydrate(
       <Provider store={store}>
         <ConnectedRouter history={history!}>
-          <App />
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <App />
+          </Web3ReactProvider>
         </ConnectedRouter>
       </Provider>,
       document.getElementById("root")
