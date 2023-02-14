@@ -1,17 +1,54 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import { PointTransaction } from "../store/points/types";
 import { ApiNotification, ApiNotificationSetting, NotificationFilter } from "../store/notifications/types";
 import { Entry } from "../store/entries/types";
 
-import { getAccessToken } from "../helper/user-token";
+import { getAccessToken, getRefreshToken } from "../helper/user-token";
 
 import { apiBase, apiUpvuBase } from "./helper";
 import { AppWindow } from "../../client/window";
 
 import moment from "moment";
 
+import * as ls from "../util/local-storage";
+import { encodeObj, decodeObj } from "../util/encoder";
+import { User } from "../store/users/types";
+
 declare var window: AppWindow;
+
+function callApi(
+  path: string,
+  data: { access_token: string | undefined; refresh_token: string | undefined },
+  username: string
+): Promise<any> {
+  return axios.post(apiUpvuBase(path), data).then((resp) => {
+    debugger;
+    if (resp.data.hasOwnProperty("auth")) {
+      if (resp.data.auth) {
+        const user: User = {
+          username: resp.data.username,
+          accessToken: resp.data.access_token,
+          refreshToken: resp.data.refresh_token,
+          expiresIn: 60000,
+          postingKey: "",
+        };
+
+        ls.set(`user_${user.username}`, encodeObj(user));
+
+        const accessToken = getAccessToken(username);
+        const refreshToken = getRefreshToken(username);
+
+        data.access_token = accessToken ? accessToken : "";
+        data.refresh_token = refreshToken ? refreshToken : "";
+
+        return axios.post(apiUpvuBase(path), data).then((res) => res.data);
+      }
+    } else {
+      return resp.data;
+    }
+  });
+}
 
 export interface ReceivedVestingShare {
   delegatee: string;
@@ -229,13 +266,25 @@ export interface Draft {
 }
 
 export const getDrafts = (username: string): Promise<Draft[]> => {
-  const data = { code: getAccessToken(username) };
-  return axios.post(apiUpvuBase(`/upvuweb-api/drafts`), data).then((resp) => resp.data);
+  let data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+  };
+
+  return callApi(`/upvuweb-api/drafts`, data, username);
 };
 
 export const addDraft = (username: string, title: string, body: string, tags: string): Promise<Draft[]> => {
-  const data = { code: getAccessToken(username), title, body, tags };
-  return axios.post(apiUpvuBase(`/upvuweb-api/drafts-add`), data).then((resp) => resp.data);
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    title,
+    body,
+    tags,
+  };
+
+  return callApi(`/upvuweb-api/drafts-add`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/drafts-add`), data).then((resp) => resp.data);
 };
 
 export const updateDraft = (
@@ -246,18 +295,23 @@ export const updateDraft = (
   tags: string
 ): Promise<any> => {
   const data = {
-    code: getAccessToken(username),
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
     permlink: draftId,
     title,
     body,
     tags,
   };
-  return axios.post(apiUpvuBase(`/upvuweb-api/drafts-update`), data).then((resp) => resp.data);
+
+  return callApi(`/upvuweb-api/drafts-update`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/drafts-update`), data).then((resp) => resp.data);
 };
 
 export const deleteDraft = (username: string, draftId: string): Promise<any> => {
-  const data = { code: getAccessToken(username), permlink: draftId };
-  return axios.post(apiUpvuBase(`/upvuweb-api/drafts-delete`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), permlink: draftId };
+
+  return callApi(`/upvuweb-api/drafts-delete`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/drafts-delete`), data).then((resp) => resp.data);
 };
 
 export interface Schedule {
@@ -276,8 +330,10 @@ export interface Schedule {
 }
 
 export const getSchedules = (username: string): Promise<Schedule[]> => {
-  const data = { code: getAccessToken(username) };
-  return axios.post(apiUpvuBase(`/upvuweb-api/schedules`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username) };
+
+  return callApi(`/upvuweb-api/schedules`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/schedules`), data).then((resp) => resp.data);
 };
 
 export const addSchedule = (
@@ -291,7 +347,8 @@ export const addSchedule = (
   reblog: boolean
 ): Promise<any> => {
   const data = {
-    code: getAccessToken(username),
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
     permlink,
     title,
     body,
@@ -300,18 +357,20 @@ export const addSchedule = (
     scheduledAt,
     reblog,
   };
-
-  return axios.post(apiUpvuBase(`/upvuweb-api/schedules-add`), data).then((resp) => resp.data);
+  return callApi(`/upvuweb-api/schedules-add`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/schedules-add`), data).then((resp) => resp.data);
 };
 
 export const deleteSchedule = (username: string, permlink: string): Promise<any> => {
-  const data = { code: getAccessToken(username), permlink };
-  return axios.post(apiUpvuBase(`/upvuweb-api/schedules-delete`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), permlink };
+  return callApi(`/upvuweb-api/schedules-delete`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/schedules-delete`), data).then((resp) => resp.data);
 };
 
 export const moveSchedule = (username: string, permlink: string): Promise<any> => {
-  const data = { code: getAccessToken(username), permlink };
-  return axios.post(apiUpvuBase(`/upvuweb-api/schedules-move`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), permlink };
+  return callApi(`/upvuweb-api/schedules-move`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/schedules-move`), data).then((resp) => resp.data);
 };
 
 export interface Bookmark {
@@ -323,18 +382,21 @@ export interface Bookmark {
 }
 
 export const getBookmarks = (username: string): Promise<Bookmark[]> => {
-  const data = { code: getAccessToken(username) };
-  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username) };
+  return callApi(`/upvuweb-api/bookmarks`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks`), data).then((resp) => resp.data);
 };
 
 export const addBookmark = (username: string, author: string, permlink: string): Promise<{ bookmarks: Bookmark[] }> => {
-  const data = { code: getAccessToken(username), author, permlink };
-  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-add`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), author, permlink };
+  return callApi(`/upvuweb-api/bookmarks-add`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-add`), data).then((resp) => resp.data);
 };
 
 export const deleteBookmark = (username: string, bookmarkId: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id: bookmarkId };
-  return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-delete`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), id: bookmarkId };
+  return callApi(`/upvuweb-api/bookmarks-delete`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/bookmarks-delete`), data).then((resp) => resp.data);
 };
 
 export interface Favorite {
@@ -344,23 +406,27 @@ export interface Favorite {
 }
 
 export const getFavorites = (username: string): Promise<Favorite[]> => {
-  const data = { code: getAccessToken(username) };
-  return axios.post(apiUpvuBase(`/upvuweb-api/favorites`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username) };
+  return callApi(`/upvuweb-api/favorites`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/favorites`), data).then((resp) => resp.data);
 };
 
 export const checkFavorite = (username: string, account: string): Promise<boolean> => {
-  const data = { code: getAccessToken(username), account };
-  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-check`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), account };
+  return callApi(`/upvuweb-api/favorites-check`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/favorites-check`), data).then((resp) => resp.data);
 };
 
 export const addFavorite = (username: string, account: string): Promise<{ favorites: Favorite[] }> => {
-  const data = { code: getAccessToken(username), account };
-  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-add`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), account };
+  return callApi(`/upvuweb-api/favorites-add`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/favorites-add`), data).then((resp) => resp.data);
 };
 
 export const deleteFavorite = (username: string, account: string): Promise<any> => {
-  const data = { code: getAccessToken(username), account };
-  return axios.post(apiUpvuBase(`/upvuweb-api/favorites-delete`), data).then((resp) => resp.data);
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), account };
+  return callApi(`/upvuweb-api/favorites-delete`, data, username);
+  // return axios.post(apiUpvuBase(`/upvuweb-api/favorites-delete`), data).then((resp) => resp.data);
 };
 
 export interface Fragment {
@@ -372,22 +438,28 @@ export interface Fragment {
 }
 
 export const getFragments = (username: string): Promise<Fragment[]> => {
-  const data = { code: getAccessToken(username) };
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username) };
   return axios.post(apiBase(`/private-api/fragments`), data).then((resp) => resp.data);
 };
 
 export const addFragment = (username: string, title: string, body: string): Promise<{ fragments: Fragment[] }> => {
-  const data = { code: getAccessToken(username), title, body };
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), title, body };
   return axios.post(apiBase(`/private-api/fragments-add`), data).then((resp) => resp.data);
 };
 
 export const updateFragment = (username: string, fragmentId: string, title: string, body: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id: fragmentId, title, body };
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    id: fragmentId,
+    title,
+    body,
+  };
   return axios.post(apiBase(`/private-api/fragments-update`), data).then((resp) => resp.data);
 };
 
 export const deleteFragment = (username: string, fragmentId: string): Promise<any> => {
-  const data = { code: getAccessToken(username), id: fragmentId };
+  const data = { access_token: getAccessToken(username), refresh_token: getRefreshToken(username), id: fragmentId };
   return axios.post(apiBase(`/private-api/fragments-delete`), data).then((resp) => resp.data);
 };
 
@@ -513,16 +585,19 @@ export const getUPVUInfos = async (account: string): Promise<any> => {
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
   };
 
-  const upvuInfos = await axios
-    .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
-    .then((r) => r.data)
-    .catch((err) => {
-      console.log(err);
-    });
-
+  // const upvuInfos = await axios
+  //   .post(apiUpvuBase(`/upvuweb-api/upvuinfos`), data)
+  //   .then((r) => r.data)
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  const upvuInfos = await callApi(`/upvuweb-api/upvuinfos`, data, account).catch((err) => {
+    console.log(err);
+  });
   console.log("upvuInfos", upvuInfos);
   return upvuInfos;
 };
@@ -531,13 +606,16 @@ export const requestClaimTronReward = async (account: string, address: string, a
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
     address,
     amount,
   };
 
-  const requesetClaimTron = await axios.post(apiUpvuBase(`/upvuweb-api/upvu-claim`), data).then((r) => r.data);
-
+  // const requesetClaimTron = await axios.post(apiUpvuBase(`/upvuweb-api/upvu-claim`), data).then((r) => r.data);
+  const requesetClaimTron = await callApi(`/upvuweb-api/upvu-claim`, data, account).catch((err) => {
+    console.log(err);
+  });
   console.log("requestClaimTronReward", requesetClaimTron);
   return requesetClaimTron;
 };
@@ -546,13 +624,17 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   if (!account) return [];
 
   const data = {
-    code: getAccessToken(account),
+    access_token: getAccessToken(account),
+    refresh_token: getRefreshToken(account),
     reward_type,
   };
 
-  const updateRewardTypeResult = await axios
-    .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
-    .then((r) => r.data);
+  const updateRewardTypeResult = await callApi(`/upvuweb-api/update-reward-type`, data, account).catch((err) => {
+    console.log(err);
+  });
+  // const updateRewardTypeResult = await axios
+  //   .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
+  //   .then((r) => r.data);
 
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
