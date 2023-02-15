@@ -60,8 +60,8 @@ export default class WalletMenu extends Component<Props> {
           </span>
         </Link>
         <Link className={_c(`menu-item earn ${active === "earn" ? "active" : ""}`)} to={`/@${username}/earn`}>
-          <span className="title">Earn</span>
-          <span className="sub-title">Dashboard</span>
+          <span className="title">EARN</span>
+          <span className="sub-title">My Portfolio</span>
           <span className="platform-logo">
             {" "}
             <img alt="ecency" src={earnLogo} />

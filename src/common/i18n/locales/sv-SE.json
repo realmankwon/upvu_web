@@ -639,8 +639,8 @@
   },
   "shortcut": { "title": "Steem Services", "description": "Shortcuts" },
   "wallet-earn": {
-    "title": "Earn Dashboard",
-    "description": "<div>Earn more rewards with UPVU. Just delegate your SP to @upvu or hold UPVU tokens and enjoy Steemit. <a href='/getting-started-with-upvu'>Learn more..</a> </div> "
+    "title": "My Portfolio Status",
+    "description": "<div>1. Use Metamask to connect your wallet address to receive tokens.</br>2. Delegate SP or deposit STEEM.</br>3. Token accumulation begins 7 days later.</br>4. You can claim tokens on a weekly basis.</div>"
   },
   "wallet-upvu": {
     "title": "UPVU Dashboard",

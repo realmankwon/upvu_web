@@ -474,7 +474,7 @@ const DelegationSP = ({
   return (
     <>
       <div className="view-container">
-        <div className="header">Deposit Steem Power</div>
+        <div className="header">Deposit SP</div>
 
         <div className="content">
           <div className="select-delegate-earn-account">
@@ -613,24 +613,24 @@ const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
   return (
     <>
       <div className="view-container">
-        <div className="header">My Earns</div>
+        <div className="header">My Portfolio</div>
         <div className="content">
           {earnSummary.map((summary) => (
             <>
               <ValueDescWithTooltip
                 val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
-                desc="Earn Steem"
+                desc="Earned Steem"
               >
                 <>
-                  <p>Earn Steem</p>
+                  <p>Earned Steem</p>
                 </>
               </ValueDescWithTooltip>
               <ValueDescWithTooltip
                 val={`${formattedNumber(summary.earn_amount, { fractionDigits: 8 })} ${summary.earn_symbol}`}
-                desc={"Earn Amount"}
+                desc={"Total Earned"}
               >
                 <>
-                  <p>Earn Amount</p>
+                  <p>Total Earned</p>
                 </>
               </ValueDescWithTooltip>
               {/* <ValueDescWithTooltip
@@ -643,17 +643,14 @@ const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
                   <p>Fee</p>
                 </>
               </ValueDescWithTooltip> */}
-              <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Claimed Amount"}>
+              <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Already Claimed"}>
                 <>
-                  <p>Claimed Amount</p>
+                  <p>Already Claimed</p>
                 </>
               </ValueDescWithTooltip>
-              <ValueDescWithTooltip
-                val={`${summary.claimable_amount} ${summary.earn_symbol}`}
-                desc={"Claimable Amount"}
-              >
+              <ValueDescWithTooltip val={`${summary.claimable_amount} ${summary.earn_symbol}`} desc={"Claimable"}>
                 <>
-                  <p>Claimable Amount</p>
+                  <p>Claimable</p>
                 </>
               </ValueDescWithTooltip>
             </>
