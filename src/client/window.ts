@@ -6,6 +6,7 @@ export interface AppWindow extends Window {
   nws?: WebSocket;
   comTag?: {};
   steem_keychain?: KeyChainImpl;
+  ethereum: any;
   twttr?: {
     widgets?: {
       load: () => void;

@@ -69,17 +69,17 @@
         .width-full {
           width: 100%;
 
-          .max-btn {
+          .green-btn {
             color: white;
             background-color: $green1;
           }
 
-          .claim-btn {
+          .blue-btn {
             color: white;
             background-color: $dark-sky-blue;
           }
 
-          .claim-btn:disabled {
+          .blue-btn:disabled {
             color: white;
             background-color: $warm-grey;
           }

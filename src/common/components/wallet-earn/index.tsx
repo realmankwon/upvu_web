@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ProviderProps, useCallback, useEffect, useState } from "react";
 import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
 import { History } from "history";
 import htmlParse from "html-react-parser";
@@ -22,27 +22,16 @@ import SteemWallet from "../../helper/steem-wallet";
 import { informationVariantSvg } from "../../img/svg";
 
 import WalletMenu from "../wallet-menu";
-import { earnAccounts, earnUses, earnHsts, earnSummary, earnDepositSteem } from "../../api/private-api";
-import { getVestingDelegations } from "../../api/steem";
-
-import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
-import { NetworkConnector } from "@web3-react/network-connector";
 import {
-  InjectedConnector,
-  NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected,
-} from "@web3-react/injected-connector";
-
-export const injected = new InjectedConnector({
-  supportedChainIds: [42161],
-});
-
-const networkConnector = new NetworkConnector({
-  urls: {
-    1: "https://arbitrum-mainnet.infura.io",
-  },
-  defaultChainId: 42161,
-});
+  earnAccounts,
+  earnUses,
+  earnHsts,
+  earnSummary,
+  earnDepositSteem,
+  earnUserInfo,
+  earnSaveWalletAddress,
+} from "../../api/private-api";
+import { getVestingDelegations } from "../../api/steem";
 
 interface Props {
   history: History;
@@ -59,6 +48,11 @@ interface Props {
   fetchPoints: (username: string, type?: number) => void;
   updateWalletValues: () => void;
   steemengine: boolean;
+}
+
+interface EarnUserProps {
+  username: string;
+  wallet_address: string;
 }
 
 interface EarnUsesProps {
@@ -142,6 +136,7 @@ interface State {
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
   earnSummary: EarnSummaryProps[];
+  earnUserInfo: EarnUserProps;
 }
 
 export class WalletEarn extends BaseComponent<Props, State> {
@@ -163,6 +158,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
     earnSummary: [],
+    earnUserInfo: { username: "", wallet_address: "" },
   };
 
   componentDidMount() {
@@ -178,10 +174,11 @@ export class WalletEarn extends BaseComponent<Props, State> {
       this.setState({ isSameAccount: true });
 
       earnUsesArray = [];
-      const [resultEarnUses, resultEarnAccounts, resultEarnSummary] = await Promise.all([
+      const [resultEarnUses, resultEarnAccounts, resultEarnSummary, resultEarnUser] = await Promise.all([
         earnUses(username),
         earnAccounts(username),
         earnSummary(username),
+        earnUserInfo(username),
       ]);
       const liquidEarnAccounts: EarnUsesProps[] = [];
       const delegateEarnAccounts: EarnUsesProps[] = [];
@@ -210,6 +207,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
           liquidEarnAccounts,
           delegateEarnAccounts,
           earnSummary: resultEarnSummary,
+          earnUserInfo: resultEarnUser,
         });
       } else {
         this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, selectedHistory: "" });
@@ -331,6 +329,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
       earnSummary,
+      earnUserInfo,
     } = this.state;
 
     if (!account.__loaded) {
@@ -355,7 +354,8 @@ export class WalletEarn extends BaseComponent<Props, State> {
                 <LinearProgress />
               ) : (
                 <>
-                  <WalletMetamask />
+                  {/* <WalletMetamask /> */}
+                  <WalletMetamask {...earnUserInfo} />
                   <DelegationSP
                     previousSp={previousEarnDelegateAmount.amount}
                     availableSp={w.availableForDelegateSp}
@@ -522,7 +522,7 @@ const DelegationSP = ({
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
+                  <Form.Control className="blue-btn" type="button" value="Delegate" onClick={onClickDelegation} />
                 </Form.Group>
               </Col>
             </Form.Row>
@@ -598,7 +598,7 @@ const TransferSteem = ({
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
+                  <Form.Control className="blue-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
             </Form.Row>
@@ -724,37 +724,162 @@ const EarnHistory = ({ earnHstsInfo }: EarnHstsArrayProps) => {
   );
 };
 
-const WalletMetamask = function () {
-  const { chainId, account, active, activate, deactivate } = useWeb3React();
-  const handleConnect = () => {
-    if (active) {
-      deactivate();
-      return;
-    }
-    let provider;
+const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
+  const [chainId, setChainId] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
+  const [savedWalletAddress, setSavedWalletAddress] = useState("");
+  const [active, setActive] = useState(false);
 
-    activate(injected, async (error) => {
-      if (error instanceof UnsupportedChainIdError) {
-        alert(`You're conncted to an unsupported network.`);
-      } else if (error instanceof NoEthereumProviderError) {
-        window.open("https://metamask.io/download.html");
-      } else if (error instanceof UserRejectedRequestErrorInjected) {
-        alert(`Please authorize this website to access your account.`);
-      } else {
-        return `An unknow error occured. Check your status.`;
-      }
+  const network = {
+    chainId: "0xa4b1", // "42161"
+    chainName: "Arbitrum One",
+    rpcUrls: ["https://arbitrum-mainnet.infura.io"],
+    nativeCurrency: {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18,
+    },
+  };
+
+  const getRequestAccounts = async () => {
+    const walletAddress = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+
+    return walletAddress;
+  };
+
+  const addNetwork = async () => {
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [network],
     });
   };
+
+  useEffect(() => {
+    if (window.ethereum) {
+      if (window.ethereum.selectedAddress) {
+        setWalletAddress(window.ethereum.selectedAddress);
+        setActive(true);
+      }
+    }
+
+    setSavedWalletAddress(wallet_address);
+  }, []);
+
+  useEffect(() => {
+    if (window.ethereum) {
+      if (window.ethereum.selectedAddress) {
+        setWalletAddress(window.ethereum.selectedAddress);
+      }
+    }
+  }, [walletAddress]);
+
+  window.ethereum.on("accountsChanged", (value: any) => {
+    debugger;
+    setWalletAddress(value[0]);
+  });
+
+  window.ethereum.on("chainChanged", (value: any) => {
+    debugger;
+    // setChainId(value);
+    if (value != network.chainId) {
+      window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: network.chainId }],
+      });
+    }
+  });
+
+  const connectWallet = async () => {
+    try {
+      if (typeof window.ethereum !== "undefined") {
+        debugger;
+        if (active) {
+          window.ethereum.disconnect();
+          setActive(false);
+          setWalletAddress("");
+        } else {
+          const resultChainId = window.ethereum.chainId;
+
+          if (resultChainId !== network.chainId) {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: network.chainId }],
+            });
+          }
+
+          const resultConnect = await getRequestAccounts();
+          if (resultConnect.length > 0) {
+            console.log(resultConnect[0]);
+            setActive(true);
+            setWalletAddress(resultConnect[0]);
+          }
+        }
+      } else {
+        alert("please install MetaMask");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const saveWalletAddress = async () => {
+    try {
+      const result = await earnSaveWalletAddress(username, walletAddress);
+
+      if (result) {
+        const prevWalletAddress = savedWalletAddress;
+        setSavedWalletAddress(walletAddress);
+        alert(`Changed from ${prevWalletAddress} to ${walletAddress}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div>
-      <div>
-        <p>Account: {account}</p>
-        <p>ChainId: {chainId}</p>
-      </div>
-      <div>
-        <button type="button" onClick={handleConnect}>
-          {active ? "disconnect" : "connect"}
-        </button>
+    <div className="view-container">
+      <div className="header">My Wallet Address</div>
+      <div className="content">
+        <Form.Row className="width-full">
+          <Col lg={8}>
+            <Form.Group>
+              <Form.Label>Metamask Address</Form.Label>
+              <Form.Control type="text" value={walletAddress} maxLength={50} data-var="name" />
+            </Form.Group>
+          </Col>
+          <Col lg={2}>
+            <Form.Group>
+              <Form.Label>Connect</Form.Label>
+              <Form.Control
+                className="green-btn"
+                type="button"
+                value={active ? "Disconnect" : "Connect"}
+                onClick={connectWallet}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row className="width-full">
+          <Col lg={8}>
+            <Form.Group>
+              <Form.Label>Saved My Address</Form.Label>
+              <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" />
+            </Form.Group>
+          </Col>
+          <Col lg={2}>
+            <Form.Group>
+              <Form.Label>Save</Form.Label>
+              <Form.Control
+                className="blue-btn"
+                type="button"
+                value={wallet_address ? "Change" : "Save"}
+                onClick={saveWalletAddress}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
       </div>
     </div>
   );

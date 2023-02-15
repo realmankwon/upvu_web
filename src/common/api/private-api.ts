@@ -739,3 +739,40 @@ export const earnDepositSteem = async (username: string, earn_account: string): 
     return [];
   }
 };
+
+export const earnUserInfo = async (username: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-userinfo`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (result.success) {
+    return result.result;
+  } else {
+    return [];
+  }
+};
+
+export const earnSaveWalletAddress = async (username: string, wallet_address: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    username,
+    wallet_address,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-save-walletaddress`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return result.success;
+};
