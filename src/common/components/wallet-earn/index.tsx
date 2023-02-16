@@ -487,8 +487,8 @@ const DelegationSP = ({
               value={selectedDelegateEarnAccount}
               onChange={ondelegateEarnAccountChanged}
             >
-              <option key="empty" value="">
-                -
+              <option key="empty" value="-">
+                Select
               </option>
               {delegateEarnAccounts.map((data: EarnUsesProps) => (
                 <option key={data.account} value={data.account}>
@@ -546,20 +546,11 @@ const TransferSteem = ({
 }: SteemWalletProps | any) => {
   const [selectedEarnAccount, setSelectedEarnAccount] = useState("");
 
-  useEffect(() => {
-    if (selectedLiquidEarnAccount) {
-      setSelectedEarnAccount(selectedLiquidEarnAccount);
-    } else if (liquidEarnAccounts.length > 0) {
-      setSelectedEarnAccount(liquidEarnAccounts[0].account);
-    }
-  }, []);
-
   const onClickTransfer = () => {
     openTransferDialog();
   };
 
   const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
-    setSelectedEarnAccount(e.target.value);
     liquidEarnAccountChanged(e);
   };
 
@@ -578,7 +569,7 @@ const TransferSteem = ({
               onChange={onLiquidEarnAccountChanged}
             >
               <option key="empty" value="-">
-                -
+                Select
               </option>
               {liquidEarnAccounts.map((data: EarnUsesProps) => (
                 <option key={data.account} value={data.account}>
