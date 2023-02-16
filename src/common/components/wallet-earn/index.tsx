@@ -626,24 +626,27 @@ const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
         <div className="header">My Portfolio</div>
         <div className="content">
           {earnSummary.map((summary) => (
-            <>
-              <ValueDescWithTooltip
-                val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
-                desc="Earned Steem"
-              >
-                <>
-                  <p>Earned Steem</p>
-                </>
-              </ValueDescWithTooltip>
-              <ValueDescWithTooltip
-                val={`${formattedNumber(summary.earn_amount, { fractionDigits: 8 })} ${summary.earn_symbol}`}
-                desc={"Total Earned"}
-              >
-                <>
-                  <p>Total Earned</p>
-                </>
-              </ValueDescWithTooltip>
-              {/* <ValueDescWithTooltip
+            <Form.Row className="width-full" key={summary.earn_symbol}>
+              <Col lg={3}>
+                <ValueDescWithTooltip
+                  val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
+                  desc="Earned Steem"
+                >
+                  <>
+                    <p>Earned Steem</p>
+                  </>
+                </ValueDescWithTooltip>
+              </Col>
+              <Col lg={3}>
+                <ValueDescWithTooltip
+                  val={`${formattedNumber(summary.earn_amount, { fractionDigits: 8 })} ${summary.earn_symbol}`}
+                  desc={"Total Earned"}
+                >
+                  <>
+                    <p>Total Earned</p>
+                  </>
+                </ValueDescWithTooltip>
+                {/* <ValueDescWithTooltip
                 val={`${formattedNumber(summary.fee, {
                   fractionDigits: 8,
                 })} ${summary.earn_symbol}`}
@@ -653,18 +656,24 @@ const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
                   <p>Fee</p>
                 </>
               </ValueDescWithTooltip> */}
-              <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Already Claimed"}>
-                <>
-                  <p>Already Claimed</p>
-                </>
-              </ValueDescWithTooltip>
-              <ValueDescWithTooltip val={`${summary.claimable_amount} ${summary.earn_symbol}`} desc={"Claimable"}>
-                <>
-                  <p>Claimable</p>
-                </>
-              </ValueDescWithTooltip>
-            </>
+              </Col>
+              <Col lg={3}>
+                <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Already Claimed"}>
+                  <>
+                    <p>Already Claimed</p>
+                  </>
+                </ValueDescWithTooltip>
+              </Col>
+              <Col lg={3}>
+                <ValueDescWithTooltip val={`${summary.claimable_amount} ${summary.earn_symbol}`} desc={"Claimable"}>
+                  <>
+                    <p>Claimable</p>
+                  </>
+                </ValueDescWithTooltip>
+              </Col>
+            </Form.Row>
           ))}
+          <Form.Row className="width-full"></Form.Row>
         </div>
       </div>
     </>
