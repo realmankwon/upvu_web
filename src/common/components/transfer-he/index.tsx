@@ -115,10 +115,10 @@ const pureState = (props: Props): State => {
   let _to: string = "";
   let _toData: Account | null = null;
 
-  // if ([ "delegate", "undelegate", "stake", "unstake"].includes(props.mode)) {
-  //     _to = props.activeUser.username;
-  //     _toData = props.activeUser.data
-  // }
+  if (["delegate", "undelegate", "stake", "unstake"].includes(props.mode)) {
+    _to = props.activeUser.username;
+    _toData = props.activeUser.data;
+  }
 
   return {
     step: 1,
