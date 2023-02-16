@@ -215,6 +215,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
           selectedHistory: "",
           liquidEarnAccounts,
           delegateEarnAccounts,
+          earnUserInfo: resultEarnUser,
         });
       }
     } else {
@@ -329,7 +330,12 @@ export class WalletEarn extends BaseComponent<Props, State> {
     }
 
     const w = new SteemWallet(account, dynamicProps);
-    const selectedEarnAccount = selectedDelegateEarnAccount ? selectedDelegateEarnAccount : selectedLiquidEarnAccount;
+    let userInfo: EarnUserProps = { username: "", wallet_address: "" };
+    if (earnUserInfo.username) {
+      userInfo = earnUserInfo;
+    } else {
+      userInfo = { username: account.name, wallet_address: "" };
+    }
 
     return (
       <div className="wallet-earn">
@@ -347,7 +353,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
               ) : (
                 <>
                   {/* <WalletMetamask /> */}
-                  <WalletMetamask {...earnUserInfo} />
+                  <WalletMetamask {...userInfo} />
                   <DelegationSP
                     previousSp={previousEarnDelegateAmount.amount}
                     availableSp={w.availableForDelegateSp}
@@ -544,8 +550,6 @@ const TransferSteem = ({
   openTransferDialog,
   liquidEarnAccountChanged,
 }: SteemWalletProps | any) => {
-  const [selectedEarnAccount, setSelectedEarnAccount] = useState("");
-
   const onClickTransfer = () => {
     openTransferDialog();
   };
@@ -564,7 +568,7 @@ const TransferSteem = ({
             <FormControl
               className="select-box"
               as="select"
-              value={selectedEarnAccount}
+              value={selectedLiquidEarnAccount}
               defaultValue="-"
               onChange={onLiquidEarnAccountChanged}
             >
@@ -842,6 +846,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
 
   const saveWalletAddress = async () => {
     try {
+      debugger;
       const result = await earnSaveWalletAddress(username, walletAddress);
 
       if (result) {
@@ -890,7 +895,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
               <Form.Control
                 className="blue-btn"
                 type="button"
-                value={wallet_address ? "Change" : "Save"}
+                value={savedWalletAddress ? "Change" : "Save"}
                 onClick={saveWalletAddress}
               />
             </Form.Group>
