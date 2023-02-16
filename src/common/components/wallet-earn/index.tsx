@@ -126,9 +126,8 @@ interface State {
   earnHstsInfo: EarnHstsProps[];
   earnSummaryInfo: EarnSummaryProps[];
   selectedHistory: string;
+  showDelegateDialog: boolean;
   showTransferDialog: boolean;
-  transferMode: null | TransferMode;
-  transferAsset: null | TransferAsset;
   liquidEarnAccounts: EarnUsesProps[];
   previousEarnSteemAmount: DepositInfoProps;
   delegateEarnAccounts: EarnUsesProps[];
@@ -148,9 +147,8 @@ export class WalletEarn extends BaseComponent<Props, State> {
     earnHstsInfo: [],
     earnSummaryInfo: [],
     selectedHistory: "",
+    showDelegateDialog: false,
     showTransferDialog: false,
-    transferMode: null,
-    transferAsset: null,
     liquidEarnAccounts: [],
     previousEarnSteemAmount: { earnAccount: "", amount: 0 },
     delegateEarnAccounts: [],
@@ -210,7 +208,14 @@ export class WalletEarn extends BaseComponent<Props, State> {
           earnUserInfo: resultEarnUser,
         });
       } else {
-        this.setState({ earnUsesInfo: [], isEarnUser: false, loading: false, selectedHistory: "" });
+        this.setState({
+          earnUsesInfo: [],
+          isEarnUser: false,
+          loading: false,
+          selectedHistory: "",
+          liquidEarnAccounts,
+          delegateEarnAccounts,
+        });
       }
     } else {
       this.setState({ isSameAccount: false });
@@ -243,25 +248,15 @@ export class WalletEarn extends BaseComponent<Props, State> {
       if (delegateAccount) {
         this.setState({
           selectedDelegateEarnAccount: earnAccount,
-          selectedLiquidEarnAccount: "",
           previousEarnDelegateAmount: {
             earnAccount,
             amount: vestsToSp(+parseAsset(delegateAccount!.vesting_shares).amount, steemPerMVests),
-          },
-          previousEarnSteemAmount: {
-            earnAccount: "",
-            amount: 0,
           },
         });
       } else {
         this.setState({
           selectedDelegateEarnAccount: earnAccount,
-          selectedLiquidEarnAccount: "",
           previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
-          previousEarnSteemAmount: {
-            earnAccount: "",
-            amount: 0,
-          },
         });
       }
     });
@@ -274,12 +269,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     earnDepositSteem(account.name, earnAccount).then((result) => {
       if (result) {
         this.setState({
-          selectedDelegateEarnAccount: "",
           selectedLiquidEarnAccount: earnAccount,
-          previousEarnDelegateAmount: {
-            earnAccount: "",
-            amount: 0,
-          },
           previousEarnSteemAmount: {
             earnAccount,
             amount: +result.total_amount,
@@ -287,12 +277,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
         });
       } else {
         this.setState({
-          selectedDelegateEarnAccount: "",
           selectedLiquidEarnAccount: earnAccount,
-          previousEarnDelegateAmount: {
-            earnAccount: "",
-            amount: 0,
-          },
           previousEarnSteemAmount: {
             earnAccount: "",
             amount: 0,
@@ -302,12 +287,20 @@ export class WalletEarn extends BaseComponent<Props, State> {
     });
   };
 
-  openTransferDialog = (mode: TransferMode, asset: TransferAsset) => {
-    this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset });
+  openDelegateDialog = () => {
+    this.setState({ showDelegateDialog: true });
+  };
+
+  closeDelegateDialog = () => {
+    this.setState({ showDelegateDialog: false });
+  };
+
+  openTransferDialog = () => {
+    this.setState({ showTransferDialog: true });
   };
 
   closeTransferDialog = () => {
-    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
+    this.setState({ showTransferDialog: false });
   };
 
   render() {
@@ -319,9 +312,8 @@ export class WalletEarn extends BaseComponent<Props, State> {
       earnHstsInfo,
       isEarnUser,
       selectedHistory,
+      showDelegateDialog,
       showTransferDialog,
-      transferMode,
-      transferAsset,
       liquidEarnAccounts,
       previousEarnSteemAmount,
       delegateEarnAccounts,
@@ -361,7 +353,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
                     availableSp={w.availableForDelegateSp}
                     delegateEarnAccounts={delegateEarnAccounts}
                     selectedDelegateEarnAccount={selectedDelegateEarnAccount}
-                    openTransferDialog={this.openTransferDialog}
+                    openDelegateDialog={this.openDelegateDialog}
                     delegateEarnAccountChanged={this.delegateEarnAccountChanged}
                   />
                   <TransferSteem
@@ -414,13 +406,24 @@ export class WalletEarn extends BaseComponent<Props, State> {
           <WalletMenu global={global} username={account.name} active="earn" />
         </div>
 
+        {showDelegateDialog && (
+          <Transfer
+            {...this.props}
+            activeUser={activeUser!}
+            to={isSameAccount ? selectedDelegateEarnAccount : account.name}
+            mode="delegate"
+            asset="SP"
+            onHide={this.closeDelegateDialog}
+          />
+        )}
+
         {showTransferDialog && (
           <Transfer
             {...this.props}
             activeUser={activeUser!}
-            to={isSameAccount ? selectedEarnAccount : account.name}
-            mode={transferMode!}
-            asset={transferAsset!}
+            to={isSameAccount ? selectedLiquidEarnAccount : account.name}
+            mode="transfer"
+            asset="STEEM"
             onHide={this.closeTransferDialog}
           />
         )}
@@ -460,11 +463,11 @@ const DelegationSP = ({
   availableSp,
   delegateEarnAccounts,
   selectedDelegateEarnAccount,
-  openTransferDialog,
+  openDelegateDialog,
   delegateEarnAccountChanged,
 }: SteemWalletProps | any) => {
   const onClickDelegation = () => {
-    openTransferDialog("delegate", "SP");
+    openDelegateDialog();
   };
 
   const ondelegateEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
@@ -541,11 +544,22 @@ const TransferSteem = ({
   openTransferDialog,
   liquidEarnAccountChanged,
 }: SteemWalletProps | any) => {
+  const [selectedEarnAccount, setSelectedEarnAccount] = useState("");
+
+  useEffect(() => {
+    if (selectedLiquidEarnAccount) {
+      setSelectedEarnAccount(selectedLiquidEarnAccount);
+    } else if (liquidEarnAccounts.length > 0) {
+      setSelectedEarnAccount(liquidEarnAccounts[0].account);
+    }
+  }, []);
+
   const onClickTransfer = () => {
-    openTransferDialog("transfer", "STEEM");
+    openTransferDialog();
   };
 
   const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    setSelectedEarnAccount(e.target.value);
     liquidEarnAccountChanged(e);
   };
 
@@ -559,10 +573,11 @@ const TransferSteem = ({
             <FormControl
               className="select-box"
               as="select"
-              value={selectedLiquidEarnAccount}
+              value={selectedEarnAccount}
+              defaultValue="-"
               onChange={onLiquidEarnAccountChanged}
             >
-              <option key="empty" value="">
+              <option key="empty" value="-">
                 -
               </option>
               {liquidEarnAccounts.map((data: EarnUsesProps) => (
@@ -730,7 +745,8 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
   const network = {
     chainId: "0xa4b1", // "42161"
     chainName: "Arbitrum One",
-    rpcUrls: ["https://arbitrum-mainnet.infura.io"],
+    blockExplorerUrls: ["https://arbiscan.io"],
+    rpcUrls: ["https://arb1.arbitrum.io/rpc"],
     nativeCurrency: {
       name: "Ethereum",
       symbol: "ETH",
@@ -741,16 +757,14 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
   const getRequestAccounts = async () => {
     const walletAddress = await window.ethereum.request({
       method: "eth_requestAccounts",
+      params: [
+        {
+          eth_accounts: {},
+        },
+      ],
     });
 
     return walletAddress;
-  };
-
-  const addNetwork = async () => {
-    await window.ethereum.request({
-      method: "wallet_addEthereumChain",
-      params: [network],
-    });
   };
 
   useEffect(() => {
@@ -773,42 +787,56 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
   }, [walletAddress]);
 
   window.ethereum.on("accountsChanged", (value: any) => {
-    debugger;
-    setWalletAddress(value[0]);
+    if (value.length > 0) setWalletAddress(value[0]);
+    else setWalletAddress("");
   });
 
-  window.ethereum.on("chainChanged", (value: any) => {
-    debugger;
-    // setChainId(value);
+  window.ethereum.on("chainChanged", async (value: any) => {
     if (value != network.chainId) {
-      window.ethereum.request({
+      await window.ethereum.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: network.chainId }],
       });
+      setChainId(network.chainId);
     }
   });
 
   const connectWallet = async () => {
     try {
       if (typeof window.ethereum !== "undefined") {
-        debugger;
         if (active) {
-          window.ethereum.disconnect();
+          await window.ethereum.request({
+            method: "wallet_requestPermissions",
+            params: [
+              {
+                eth_accounts: {},
+              },
+            ],
+          });
           setActive(false);
           setWalletAddress("");
         } else {
           const resultChainId = window.ethereum.chainId;
 
           if (resultChainId !== network.chainId) {
-            await window.ethereum.request({
-              method: "wallet_switchEthereumChain",
-              params: [{ chainId: network.chainId }],
-            });
+            await window.ethereum
+              .request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: network.chainId }],
+              })
+              .catch(async (e: any) => {
+                //Unrecognized chain ID
+                if (e.code == 4902) {
+                  await window.ethereum.request({
+                    method: "wallet_addEthereumChain",
+                    params: [network],
+                  });
+                }
+              });
           }
 
           const resultConnect = await getRequestAccounts();
           if (resultConnect.length > 0) {
-            console.log(resultConnect[0]);
             setActive(true);
             setWalletAddress(resultConnect[0]);
           }
@@ -852,7 +880,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
               <Form.Control
                 className="green-btn"
                 type="button"
-                value={active ? "Disconnect" : "Connect"}
+                value={active ? "Connected" : "Connect"}
                 onClick={connectWallet}
               />
             </Form.Group>
