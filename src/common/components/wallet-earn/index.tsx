@@ -1,4 +1,4 @@
-import React, { ProviderProps, useCallback, useEffect, useState } from "react";
+import React, { ProviderProps, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
 import { History } from "history";
 import htmlParse from "html-react-parser";
@@ -30,6 +30,8 @@ import {
   earnDepositSteem,
   earnUserInfo,
   earnSaveWalletAddress,
+  earnLastClaimDte,
+  earnClaim,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 
@@ -86,11 +88,12 @@ interface EarnSummaryProps {
   fee: number;
   claimed_amount: number;
   claimable_amount: number;
-  last_claimed_dte: Date;
 }
 
 interface EarnSummaryArrayProps {
+  username: string;
   earnSummary: EarnSummaryProps[];
+  lastClaimedDte: string;
 }
 
 interface EarnHstsArrayProps {
@@ -124,7 +127,6 @@ interface State {
   isEarnUser: boolean;
   earnUsesInfo: EarnUsesProps[];
   earnHstsInfo: EarnHstsProps[];
-  earnSummaryInfo: EarnSummaryProps[];
   selectedHistory: string;
   showDelegateDialog: boolean;
   showTransferDialog: boolean;
@@ -134,7 +136,7 @@ interface State {
   previousEarnDelegateAmount: DepositInfoProps;
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
-  earnSummary: EarnSummaryProps[];
+  earnSummaryInfo: EarnSummaryArrayProps;
   earnUserInfo: EarnUserProps;
 }
 
@@ -145,7 +147,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
     isEarnUser: false,
     earnUsesInfo: [],
     earnHstsInfo: [],
-    earnSummaryInfo: [],
     selectedHistory: "",
     showDelegateDialog: false,
     showTransferDialog: false,
@@ -155,7 +156,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
-    earnSummary: [],
+    earnSummaryInfo: { earnSummary: [], lastClaimedDte: "" },
     earnUserInfo: { username: "", wallet_address: "" },
   };
 
@@ -172,12 +173,12 @@ export class WalletEarn extends BaseComponent<Props, State> {
       this.setState({ isSameAccount: true });
 
       earnUsesArray = [];
-      const [resultEarnUses, resultEarnAccounts, resultEarnSummary, resultEarnUser] = await Promise.all([
+      const [resultEarnUses, resultEarnAccounts, resultEarnUser] = await Promise.all([
         earnUses(username),
         earnAccounts(username),
-        earnSummary(username),
         earnUserInfo(username),
       ]);
+
       const liquidEarnAccounts: EarnUsesProps[] = [];
       const delegateEarnAccounts: EarnUsesProps[] = [];
 
@@ -194,17 +195,15 @@ export class WalletEarn extends BaseComponent<Props, State> {
           earnUsesArray.push(`${data.account}-${data.earn_type}-${data.earn_symbol}`)
         );
 
-        let resultEarnHsts = await earnHsts(username, resultEarnUses[0].account);
+        this.earnDetail(username, resultEarnUses[0].account);
 
         this.setState({
           earnUsesInfo: resultEarnUses,
-          earnHstsInfo: resultEarnHsts,
           isEarnUser: true,
           loading: false,
           selectedHistory: earnUsesArray[0],
           liquidEarnAccounts,
           delegateEarnAccounts,
-          earnSummary: resultEarnSummary,
           earnUserInfo: resultEarnUser,
         });
       } else {
@@ -230,8 +229,21 @@ export class WalletEarn extends BaseComponent<Props, State> {
   filterChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { account } = this.props;
     const selectedHistory = e.target.value;
-    earnHsts(account.name, selectedHistory.split("-")[0]).then((result) => {
-      this.setState({ earnHstsInfo: result, selectedHistory });
+    const earnAccount = selectedHistory.split("-")[0];
+
+    this.setState({ selectedHistory });
+
+    this.earnDetail(account.name, earnAccount);
+  };
+
+  earnDetail = (username: string, earnAccount: string) => {
+    Promise.all([
+      earnHsts(username, earnAccount),
+      earnSummary(username, earnAccount),
+      earnLastClaimDte(username, earnAccount),
+    ]).then((results) => {
+      const earnSummaryInfo = { username, earnSummary: results[1], lastClaimedDte: results[2].last_claimed_dte };
+      this.setState({ earnHstsInfo: results[0], earnSummaryInfo: earnSummaryInfo });
     });
   };
 
@@ -321,7 +333,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
       previousEarnDelegateAmount,
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
-      earnSummary,
+      earnSummaryInfo,
       earnUserInfo,
     } = this.state;
 
@@ -389,7 +401,11 @@ export class WalletEarn extends BaseComponent<Props, State> {
                           </FormControl>
                         </div>
                       </div>
-                      <MyEarns earnSummary={earnSummary} />
+                      <MyEarns
+                        username={earnUserInfo.username}
+                        earnSummary={earnSummaryInfo.earnSummary}
+                        lastClaimedDte={earnSummaryInfo.lastClaimedDte}
+                      />
                       <EarnHistory earnHstsInfo={earnHstsInfo} />
                     </div>
                   ) : (
@@ -619,52 +635,118 @@ const TransferSteem = ({
   );
 };
 
-const MyEarns = ({ earnSummary }: EarnSummaryArrayProps) => {
+const MyEarns = ({ username, earnSummary, lastClaimedDte }: EarnSummaryArrayProps) => {
+  const datelastClaimedDte = new Date(lastClaimedDte);
+  const countDownDate = datelastClaimedDte.setDate(datelastClaimedDte.getDate() + 7);
+  const countDown = countDownDate - new Date().getTime();
+
+  const [remainingPeriod, setRemainingPeriod] = useState("");
+  const [unableToClaimReason, setunableToClaimReason] = useState("");
+
+  const handleClickClaim = () => {
+    earnClaim(
+      username,
+      earnSummary[earnSummary.length - 1].earn_symbol,
+      earnSummary[earnSummary.length - 1].earn_account
+    ).then((result) => {});
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
+
+      if (days > 0 && hours > 0 && minutes > 0 && seconds > 0) {
+        setRemainingPeriod(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        setunableToClaimReason("There is no record to claim.");
+      } else if (isNaN(days) && isNaN(hours) && isNaN(minutes) && isNaN(seconds)) {
+      } else {
+        if (!earnSummary || earnSummary.length == 0) {
+          setRemainingPeriod("Unable to claim");
+          setunableToClaimReason("There is no time period to claim.");
+          return;
+        }
+
+        if (earnSummary[earnSummary.length - 1].claimable_amount == 0) {
+          setRemainingPeriod("Unable to claim");
+          setunableToClaimReason(
+            `The claimable amount is not enough.(${earnSummary[earnSummary.length - 1].claimable_amount} ${
+              earnSummary[earnSummary.length - 1].earn_symbol
+            })`
+          );
+          return;
+        }
+
+        setRemainingPeriod("Claimable");
+      }
+    }, 1000);
+    return () => clearTimeout(interval);
+  }, [countDown]);
+
   return (
     <>
       <div className="view-container">
-        <div className="header">My Portfolio</div>
+        <div className="header">My Earn Status</div>
         <div className="content">
           {earnSummary.map((summary) => (
             <>
-              <ValueDescWithTooltip
-                val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
-                desc="Earned Steem"
-              >
-                <>
-                  <p>Earned Steem</p>
-                </>
-              </ValueDescWithTooltip>
-              <ValueDescWithTooltip
-                val={`${formattedNumber(summary.earn_amount, { fractionDigits: 8 })} ${summary.earn_symbol}`}
-                desc={"Total Earned"}
-              >
-                <>
-                  <p>Total Earned</p>
-                </>
-              </ValueDescWithTooltip>
-              {/* <ValueDescWithTooltip
-                val={`${formattedNumber(summary.fee, {
-                  fractionDigits: 8,
-                })} ${summary.earn_symbol}`}
-                desc={"Fee"}
-              >
-                <>
-                  <p>Fee</p>
-                </>
-              </ValueDescWithTooltip> */}
-              <ValueDescWithTooltip val={`${summary.claimed_amount} ${summary.earn_symbol}`} desc={"Already Claimed"}>
-                <>
-                  <p>Already Claimed</p>
-                </>
-              </ValueDescWithTooltip>
-              <ValueDescWithTooltip val={`${summary.claimable_amount} ${summary.earn_symbol}`} desc={"Claimable"}>
-                <>
-                  <p>Claimable</p>
-                </>
-              </ValueDescWithTooltip>
+              <Form.Row className="width-full" key={summary.earn_symbol}>
+                <Col lg={3}>
+                  <ValueDescWithTooltip
+                    val={`${formattedNumber(summary.earn_steem, { fractionDigits: 3 })}`}
+                    desc="Earned Steem"
+                  >
+                    <>
+                      <p>Earned Steem</p>
+                    </>
+                  </ValueDescWithTooltip>
+                </Col>
+                <Col lg={3}>
+                  <ValueDescWithTooltip val={`${summary.earn_amount} ${summary.earn_symbol}`} desc={"Total Earned"}>
+                    <>
+                      <p>Total Earned</p>
+                    </>
+                  </ValueDescWithTooltip>
+                </Col>
+                <Col lg={3}>
+                  <ValueDescWithTooltip
+                    val={`${summary.claimed_amount} ${summary.earn_symbol}`}
+                    desc={"Already Claimed"}
+                  >
+                    <>
+                      <p>Already Claimed</p>
+                    </>
+                  </ValueDescWithTooltip>
+                </Col>
+                <Col lg={3}>
+                  <ValueDescWithTooltip val={`${summary.claimable_amount} ${summary.earn_symbol}`} desc={"Claimable"}>
+                    <>
+                      <p>Claimable</p>
+                    </>
+                  </ValueDescWithTooltip>
+                </Col>
+              </Form.Row>
             </>
           ))}
+
+          <Form.Row className="width-full">
+            <Col lg={3}>
+              <ValueDescWithTooltip val={remainingPeriod} desc={"Remaing Period"}>
+                <>{unableToClaimReason}</>
+              </ValueDescWithTooltip>
+            </Col>
+            <Col lg={3}>
+              <Form.Control
+                className="green-btn"
+                type="button"
+                disabled={remainingPeriod === "Claimable" ? false : true}
+                value="Claim"
+                onClick={handleClickClaim}
+              />
+            </Col>
+          </Form.Row>
         </div>
       </div>
     </>
@@ -709,7 +791,7 @@ const EarnHistory = ({ earnHstsInfo }: EarnHstsArrayProps) => {
             </div>
             <div className="transaction-title permlink">
               <div className="transaction-upper">
-                {formattedNumber(earnHst.deposit_steem_amount, { fractionDigits: 0 })} STEEM
+                {formattedNumber(earnHst.deposit_steem_amount, { fractionDigits: 3 })} STEEM
               </div>
             </div>
             <div className="transaction-title">
@@ -719,7 +801,7 @@ const EarnHistory = ({ earnHstsInfo }: EarnHstsArrayProps) => {
             </div>
             <div className="transaction-title">
               <div className="transaction-upper">
-                {formattedNumber(earnHst.earn_amount, { fractionDigits: 8 })} {earnHst.earn_symbol}
+                {earnHst.earn_amount} {earnHst.earn_symbol}
               </div>
             </div>
           </div>
@@ -846,7 +928,6 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
 
   const saveWalletAddress = async () => {
     try {
-      debugger;
       const result = await earnSaveWalletAddress(username, walletAddress);
 
       if (result) {

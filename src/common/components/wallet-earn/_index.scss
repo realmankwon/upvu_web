@@ -74,6 +74,11 @@
             background-color: $green1;
           }
 
+          .green-btn:disabled {
+            color: white;
+            background-color: $warm-grey;
+          }
+
           .blue-btn {
             color: white;
             background-color: $dark-sky-blue;
