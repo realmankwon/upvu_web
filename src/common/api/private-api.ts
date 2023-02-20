@@ -664,7 +664,6 @@ export const earnUses = async (username: string): Promise<any> => {
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
   };
 
   const results = await callApi(`/upvuweb-api/earn-uses`, data, username).catch((err) => {
@@ -684,7 +683,6 @@ export const earnHsts = async (username: string, earn_account: string): Promise<
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
     earn_account,
   };
 
@@ -699,13 +697,13 @@ export const earnHsts = async (username: string, earn_account: string): Promise<
   }
 };
 
-export const earnSummary = async (username: string): Promise<any> => {
+export const earnSummary = async (username: string, earn_account: string): Promise<any> => {
   if (!username) return [];
 
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
+    earn_account,
   };
 
   const results = await callApi(`/upvuweb-api/earn-summary`, data, username).catch((err) => {
@@ -725,7 +723,6 @@ export const earnDepositSteem = async (username: string, earn_account: string): 
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
     earn_account,
   };
 
@@ -746,7 +743,6 @@ export const earnUserInfo = async (username: string): Promise<any> => {
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
   };
 
   const result = await callApi(`/upvuweb-api/earn-userinfo`, data, username).catch((err) => {
@@ -766,11 +762,47 @@ export const earnSaveWalletAddress = async (username: string, wallet_address: st
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
-    username,
     wallet_address,
   };
 
   const result = await callApi(`/upvuweb-api/earn-save-walletaddress`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return result.success;
+};
+
+export const earnLastClaimDte = async (username: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    earn_account,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-lastclaimdte`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (result.success) {
+    return result.results[0];
+  } else {
+    return [];
+  }
+};
+
+export const earnClaim = async (username: string, earn_symbol: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    earn_symbol,
+    earn_account,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-claim`, data, username).catch((err) => {
     console.log(err);
   });
 
