@@ -159,7 +159,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
-    earnSummaryInfo: { username: "", earnSummary: [], lastClaimedDte: "" },
+    earnSummaryInfo: { username: "", earnSummary: [], lastClaimedDte: "", earnLockTerm: 7, minClaimAmount: 10 },
     earnUserInfo: { username: "", wallet_address: "" },
   };
 
