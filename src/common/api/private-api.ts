@@ -808,3 +808,23 @@ export const earnClaim = async (username: string, earn_symbol: string, earn_acco
 
   return result.success;
 };
+
+export const earnAccountConfig = async (username: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    earn_account,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-accountconfig`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (result.success) {
+    return result.result;
+  } else {
+    return [];
+  }
+};

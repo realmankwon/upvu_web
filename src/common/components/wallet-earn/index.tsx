@@ -32,6 +32,7 @@ import {
   earnSaveWalletAddress,
   earnLastClaimDte,
   earnClaim,
+  earnAccountConfig,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 
@@ -94,6 +95,8 @@ interface EarnSummaryArrayProps {
   username: string;
   earnSummary: EarnSummaryProps[];
   lastClaimedDte: string;
+  earnLockTerm: number;
+  minClaimAmount: number;
 }
 
 interface EarnHstsArrayProps {
@@ -241,8 +244,15 @@ export class WalletEarn extends BaseComponent<Props, State> {
       earnHsts(username, earnAccount),
       earnSummary(username, earnAccount),
       earnLastClaimDte(username, earnAccount),
+      earnAccountConfig(username, earnAccount),
     ]).then((results) => {
-      const earnSummaryInfo = { username, earnSummary: results[1], lastClaimedDte: results[2].last_claimed_dte };
+      const earnSummaryInfo = {
+        username,
+        earnSummary: results[1],
+        lastClaimedDte: results[2].last_claimed_dte,
+        earnLockTerm: results[3].earn_lock_term,
+        minClaimAmount: results[3].min_claim_amount,
+      };
       this.setState({ earnHstsInfo: results[0], earnSummaryInfo: earnSummaryInfo });
     });
   };
@@ -405,6 +415,8 @@ export class WalletEarn extends BaseComponent<Props, State> {
                         username={earnUserInfo.username}
                         earnSummary={earnSummaryInfo.earnSummary}
                         lastClaimedDte={earnSummaryInfo.lastClaimedDte}
+                        earnLockTerm={earnSummaryInfo.earnLockTerm}
+                        minClaimAmount={earnSummaryInfo.minClaimAmount}
                       />
                       <EarnHistory earnHstsInfo={earnHstsInfo} />
                     </div>
@@ -635,13 +647,17 @@ const TransferSteem = ({
   );
 };
 
-const MyEarns = ({ username, earnSummary, lastClaimedDte }: EarnSummaryArrayProps) => {
+const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaimAmount }: EarnSummaryArrayProps) => {
   const datelastClaimedDte = new Date(lastClaimedDte);
-  const countDownDate = datelastClaimedDte.setDate(datelastClaimedDte.getDate() + 7);
+  const countDownDate = datelastClaimedDte.setDate(datelastClaimedDte.getDate() + earnLockTerm);
   const countDown = countDownDate - new Date().getTime();
+  let symbol: any = null;
+  if (earnSummary && earnSummary.length > 0) symbol = earnSummary[earnSummary.length - 1].earn_symbol;
 
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [unableToClaimReason, setunableToClaimReason] = useState("");
+  const [busd, setBusd] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const handleClickClaim = () => {
     earnClaim(
@@ -653,19 +669,43 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte }: EarnSummaryArrayProp
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (!symbol) return;
+      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}BUSD`)
+        .then((response) => response.json())
+        .then((json) => {
+          setBusd(+earnSummary[earnSummary.length - 1].claimable_amount * +json.price); // 가져온 데이터 1~100위 담기
+          setLoading(false); // 로딩 멈추기
+        });
+    }, 1000);
+    return () => clearTimeout(interval);
+  }, [symbol]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
       const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
       const hours = Math.floor((countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
-      if (days > 0 && hours > 0 && minutes > 0 && seconds > 0) {
+      if (isNaN(days) && isNaN(hours) && isNaN(minutes) && isNaN(seconds)) {
+      } else if (days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0) {
         setRemainingPeriod(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-        setunableToClaimReason("There is no record to claim.");
-      } else if (isNaN(days) && isNaN(hours) && isNaN(minutes) && isNaN(seconds)) {
+        setunableToClaimReason("There is no time period to claim.");
       } else {
         if (!earnSummary || earnSummary.length == 0) {
           setRemainingPeriod("Unable to claim");
-          setunableToClaimReason("There is no time period to claim.");
+          setunableToClaimReason("There is no record to claim.");
+
+          return;
+        }
+
+        if (busd < minClaimAmount) {
+          setRemainingPeriod("Unable to claim");
+          setunableToClaimReason(
+            `Your claimable amount(${busd}) is less than min claimable amount($10).(${
+              earnSummary[earnSummary.length - 1].claimable_amount
+            } ${earnSummary[earnSummary.length - 1].earn_symbol})`
+          );
           return;
         }
 
@@ -675,6 +715,16 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte }: EarnSummaryArrayProp
             `The claimable amount is not enough.(${earnSummary[earnSummary.length - 1].claimable_amount} ${
               earnSummary[earnSummary.length - 1].earn_symbol
             })`
+          );
+          return;
+        }
+
+        if (busd < minClaimAmount) {
+          setRemainingPeriod("Unable to claim");
+          setunableToClaimReason(
+            `Your claimable amount(${earnSummary[earnSummary.length - 1].claimable_amount} ${
+              earnSummary[earnSummary.length - 1].earn_symbol
+            } = $${busd.toFixed(8)}) is less than min claimable amount($10).`
           );
           return;
         }
@@ -692,6 +742,7 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte }: EarnSummaryArrayProp
         <div className="content">
           {earnSummary.map((summary) => (
             <>
+              {loading ? <span className="loader">Loading...</span> : busd.toFixed(8)}
               <Form.Row className="width-full" key={summary.earn_symbol}>
                 <Col lg={3}>
                   <ValueDescWithTooltip
