@@ -742,7 +742,6 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
         <div className="content">
           {earnSummary.map((summary) => (
             <>
-              {loading ? <span className="loader">Loading...</span> : busd.toFixed(8)}
               <Form.Row className="width-full" key={summary.earn_symbol}>
                 <Col lg={3}>
                   <ValueDescWithTooltip
