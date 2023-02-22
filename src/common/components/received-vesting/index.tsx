@@ -106,7 +106,7 @@ export class List extends BaseComponent<Props, State> {
           <div className="list-body">
             {sliced.length === 0 && <div className="empty-list">{_t("g.empty-list")}</div>}
             {sliced.map((x) => {
-              const vestingShares = x.vesting_shares;
+              const vestingShares = +x.vesting_shares;
               const { delegator: username } = x;
 
               return (
