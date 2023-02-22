@@ -69,8 +69,9 @@ export class List extends BaseComponent<Props, State> {
     this.stateSet({ loading: true });
     return getReceivedVestingShares(account.name)
       .then((r) => {
+        debugger;
         const sorted = r.sort((a, b) => {
-          return parseAsset(b.vesting_shares).amount - parseAsset(a.vesting_shares).amount;
+          return +b.vesting_shares - +a.vesting_shares;
         });
 
         this.stateSet({ data: sorted });
@@ -105,7 +106,7 @@ export class List extends BaseComponent<Props, State> {
           <div className="list-body">
             {sliced.length === 0 && <div className="empty-list">{_t("g.empty-list")}</div>}
             {sliced.map((x) => {
-              const vestingShares = parseAsset(x.vesting_shares).amount;
+              const vestingShares = x.vesting_shares;
               const { delegator: username } = x;
 
               return (

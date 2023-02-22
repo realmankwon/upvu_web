@@ -657,7 +657,7 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [unableToClaimReason, setunableToClaimReason] = useState("");
   const [busd, setBusd] = useState(0);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const handleClickClaim = () => {
     earnClaim(
@@ -674,9 +674,9 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
         .then((response) => response.json())
         .then((json) => {
           setBusd(+earnSummary[earnSummary.length - 1].claimable_amount * +json.price); // 가져온 데이터 1~100위 담기
-          setLoading(false); // 로딩 멈추기
+          // setLoading(false); // 로딩 멈추기
         });
-    }, 1000);
+    }, 10000);
     return () => clearTimeout(interval);
   }, [symbol]);
 

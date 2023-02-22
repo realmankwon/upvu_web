@@ -516,25 +516,25 @@ export class WalletSteem extends BaseComponent<Props, State> {
                     suffix: "SP",
                   });
 
-                  if (global.developingPrivate) {
-                    return (
-                      <div className="amount amount-passive received-shares">
-                        <Tooltip content={_t("wallet.steem-power-received")}>
-                          <span className="amount-btn" onClick={this.toggleReceivedList}>
-                            {strReceived}
-                          </span>
-                        </Tooltip>
-                      </div>
-                    );
-                  }
-
+                  // if (global.developingPrivate) {
                   return (
                     <div className="amount amount-passive received-shares">
                       <Tooltip content={_t("wallet.steem-power-received")}>
-                        <span className="amount">{strReceived}</span>
+                        <span className="amount-btn" onClick={this.toggleReceivedList}>
+                          {strReceived}
+                        </span>
                       </Tooltip>
                     </div>
                   );
+                  // }
+
+                  // return (
+                  //   <div className="amount amount-passive received-shares">
+                  //     <Tooltip content={_t("wallet.steem-power-received")}>
+                  //       <span className="amount">{strReceived}</span>
+                  //     </Tooltip>
+                  //   </div>
+                  // );
                 })()}
 
                 {w.nextVestingSharesWithdrawal > 0 && (

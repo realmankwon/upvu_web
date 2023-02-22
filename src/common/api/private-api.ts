@@ -57,7 +57,19 @@ export interface ReceivedVestingShare {
 }
 
 export const getReceivedVestingShares = (username: string): Promise<ReceivedVestingShare[]> =>
-  axios.get(apiBase(`/private-api/received-vesting/${username}`)).then((resp) => resp.data.list);
+  axios.get(`https://sds.steemworld.org/delegations_api/getIncomingDelegations/${username}/100000/0`).then((resp) => {
+    const results: ReceivedVestingShare[] = [];
+    debugger;
+    resp.data.result.rows.map((data: ReceivedVestingShare) => {
+      results.push({
+        delegatee: data[2],
+        delegator: data[1],
+        timestamp: data[0],
+        vesting_shares: data[3],
+      });
+    });
+    return results;
+  });
 
 export interface RewardedCommunity {
   start_date: string;
