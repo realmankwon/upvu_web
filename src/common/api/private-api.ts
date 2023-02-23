@@ -689,13 +689,15 @@ export const earnUses = async (username: string): Promise<any> => {
   }
 };
 
-export const earnHsts = async (username: string, earn_account: string): Promise<any> => {
+export const earnHsts = async (username: string, earn_account: string, offset: number, count: number): Promise<any> => {
   if (!username) return [];
 
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
     earn_account,
+    offset,
+    count,
   };
 
   const results = await callApi(`/upvuweb-api/earn-hsts`, data, username).catch((err) => {
