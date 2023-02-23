@@ -146,9 +146,9 @@ export const fetchEntries =
 
     const groupKey = makeGroupKey(what, tag);
 
-    const theEntries = entries[groupKey].entries;
-    const sid = entries[groupKey].sid;
-    if (!more && theEntries.length > 0) {
+    const theEntries = entries[groupKey]?.entries;
+
+    if (!theEntries || (!more && theEntries.length > 0)) {
       return;
     }
 

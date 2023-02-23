@@ -77,6 +77,7 @@ export const render = (req: express.Request, state: AppState) => {
             </head>
             <body class="${`theme-${state.global.theme}`}" style="display: none;">
                 <div id="root">${markup}</div>
+                <div id="modal"></div>
                 <script>
                   window.__PRELOADED_STATE__ = ${serialize(finalState)}
                 </script>
