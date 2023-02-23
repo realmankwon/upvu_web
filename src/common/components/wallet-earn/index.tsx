@@ -724,7 +724,7 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
 };
 
 const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]; username: string }) => {
-  const LIMIT = 10;
+  const LIMIT = 100;
   const [selectedValue, setSelectedValue] = useState("");
   const [earnStatus, setEarnStatus] = useState({
     username: "",
