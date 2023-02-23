@@ -126,7 +126,6 @@ interface State {
   previousEarnDelegateAmount: DepositInfoProps;
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
-  earnSummaryInfo: EarnSummaryArrayProps;
   earnUserInfo: EarnUserProps;
 }
 
@@ -144,13 +143,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
-    earnSummaryInfo: {
-      username: "",
-      earnSummary: [],
-      lastClaimedDte: "",
-      earnLockTerm: 7,
-      minClaimAmount: 10,
-    },
     earnUserInfo: { username: "", wallet_address: "" },
   };
 
@@ -166,7 +158,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
     if (username && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${username}`) > -1) {
       this.setState({ isSameAccount: true });
 
-      const earnUsesArray: string[] = [];
       const [resultEarnUses, resultEarnAccounts, resultEarnUser] = await Promise.all([
         earnUses(username),
         earnAccounts(username),
@@ -296,7 +287,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
       previousEarnDelegateAmount,
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
-      earnSummaryInfo,
       earnUserInfo,
     } = this.state;
 
@@ -743,7 +733,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
     earnLockTerm: 0,
     minClaimAmount: 0,
   });
-  const [earnHst, setEarnHsts] = useState<EarnHstsProps[]>([]);
+  const [earnHstInfo, setEarnHstInfo] = useState<EarnHstsProps[]>([]);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(LIMIT);
   const [hasMore, setHasMore] = useState(true);
@@ -755,22 +745,22 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
   useEffect(() => {
     const fetchData = async () => {
       const earnAccount = selectedValue.split("-")[0];
-      const [earnHstInfo, earnStatus, lastClaimDte, accountConfig] = await Promise.all([
+      const [resultEarnHsts, resultEarnSummary, lastClaimDte, accountConfig] = await Promise.all([
         earnHsts(username, earnAccount, offset, count),
         earnSummary(username, earnAccount),
         earnLastClaimDte(username, earnAccount),
         earnAccountConfig(username, earnAccount),
       ]);
 
-      setEarnHsts((prevItems) => [...prevItems, ...earnHstInfo]);
+      setEarnHstInfo((prevItems) => [...prevItems, ...resultEarnHsts]);
       setEarnStatus({
         username,
-        earnSummary: earnStatus,
+        earnSummary: resultEarnSummary,
         lastClaimedDte: lastClaimDte.last_claimed_dte,
         earnLockTerm: accountConfig.earn_lock_term,
         minClaimAmount: accountConfig.min_claim_amount,
       });
-      setHasMore(earnHstInfo.length === count);
+      setHasMore(resultEarnHsts.length === count);
     };
     fetchData();
   }, [offset, count, selectedValue]);
@@ -782,7 +772,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
   const handleSelectChange = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     setSelectedValue(e.target.value);
     setOffset(0);
-    setEarnHsts([]);
+    setEarnHstInfo([]);
   };
 
   return (
@@ -834,8 +824,8 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
           </div>
         </div>
 
-        {earnHst ? (
-          earnHst.map((earnHst: EarnHstsProps, idx: number) => (
+        {earnHstInfo ? (
+          earnHstInfo.map((earnHst: EarnHstsProps, idx: number) => (
             <div className="transaction-list-item" key={idx}>
               <div className="transaction-title date">
                 <div className="transaction-upper">{earnHst.reward_dte}</div>
