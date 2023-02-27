@@ -4,7 +4,7 @@ import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 
 import numeral from "numeral";
 
-// import isEqual from "react-fast-compare";
+import isEqual from "react-fast-compare";
 
 import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
@@ -204,9 +204,9 @@ export class Transfer extends BaseComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<Props>) {
-    // if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
-    //   this.checkAmount();
-    // }
+    if (!isEqual(this.props.activeUser, prevProps.activeUser)) {
+      this.checkAmount();
+    }
   }
 
   formatNumber = (num: number | string, precision: number) => {
@@ -636,6 +636,7 @@ export class Transfer extends BaseComponent<Props, State> {
         this.stateSet({ step: 4, inProgress: false });
       })
       .catch((err) => {
+        debugger;
         error(formatError(err));
         this.stateSet({ inProgress: false });
       });
@@ -969,12 +970,12 @@ export class Transfer extends BaseComponent<Props, State> {
                   )}
                   {(() => {
                     if (mode === "power-down") {
-                      const hive = Math.round((Number(amount) / 4) * 1000) / 1000;
-                      if (!isNaN(hive) && hive > 0) {
+                      const steem = Math.round((Number(amount) / 4) * 1000) / 1000;
+                      if (!isNaN(steem) && steem > 0) {
                         return (
                           <div className="power-down-estimation">
                             {_t("transfer.power-down-estimated", {
-                              n: `${this.formatNumber(hive, 3)} STEEM`,
+                              n: `${this.formatNumber(steem, 3)} STEEM`,
                             })}
                           </div>
                         );
