@@ -71,6 +71,7 @@ interface EarnHstsProps {
   delegate_dte: string;
   deposit_steem_amount: string;
   earn_steem: string;
+  earn_steem_expected: string;
   earn_amount: number;
   fee: number;
   earn_symbol: string;
@@ -92,6 +93,7 @@ interface EarnSummaryArrayProps {
   lastClaimedDte: string;
   earnLockTerm: number;
   minClaimAmount: number;
+  earnSymbolPrice: number;
 }
 
 interface ValueDescWithTooltipProps {
@@ -566,16 +568,20 @@ const TransferSteem = ({
   );
 };
 
-const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaimAmount }: EarnSummaryArrayProps) => {
+const MyEarns = ({
+  username,
+  earnSummary,
+  lastClaimedDte,
+  earnLockTerm,
+  minClaimAmount,
+  earnSymbolPrice,
+}: EarnSummaryArrayProps) => {
   const datelastClaimedDte = new Date(lastClaimedDte);
   const countDownDate = datelastClaimedDte.setDate(datelastClaimedDte.getDate() + earnLockTerm);
   const countDown = countDownDate - new Date().getTime();
-  let symbol: any = null;
-  if (earnSummary && earnSummary.length > 0) symbol = earnSummary[earnSummary.length - 1].earn_symbol;
 
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [unableToClaimReason, setunableToClaimReason] = useState("");
-  const [busd, setBusd] = useState(0);
   // const [loading, setLoading] = useState(true);
 
   const handleClickClaim = () => {
@@ -585,19 +591,6 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
       earnSummary[earnSummary.length - 1].earn_account
     ).then((result) => {});
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!symbol) return;
-      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}BUSD`)
-        .then((response) => response.json())
-        .then((json) => {
-          setBusd(+earnSummary[earnSummary.length - 1].claimable_amount * +json.price); // 가져온 데이터 1~100위 담기
-          // setLoading(false); // 로딩 멈추기
-        });
-    }, 10000);
-    return () => clearTimeout(interval);
-  }, [symbol]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -618,16 +611,6 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
           return;
         }
 
-        if (busd < minClaimAmount) {
-          setRemainingPeriod("Unable to claim");
-          setunableToClaimReason(
-            `Your claimable amount(${busd}) is less than min claimable amount($10).(${
-              earnSummary[earnSummary.length - 1].claimable_amount
-            } ${earnSummary[earnSummary.length - 1].earn_symbol})`
-          );
-          return;
-        }
-
         if (earnSummary[earnSummary.length - 1].claimable_amount == 0) {
           setRemainingPeriod("Unable to claim");
           setunableToClaimReason(
@@ -638,12 +621,14 @@ const MyEarns = ({ username, earnSummary, lastClaimedDte, earnLockTerm, minClaim
           return;
         }
 
-        if (busd < minClaimAmount) {
+        if (earnSymbolPrice * earnSummary[earnSummary.length - 1].claimable_amount < minClaimAmount) {
           setRemainingPeriod("Unable to claim");
           setunableToClaimReason(
             `Your claimable amount(${earnSummary[earnSummary.length - 1].claimable_amount} ${
               earnSummary[earnSummary.length - 1].earn_symbol
-            } = $${busd.toFixed(8)}) is less than min claimable amount($10).`
+            } = $${(earnSummary[earnSummary.length - 1].claimable_amount * earnSymbolPrice).toFixed(
+              3
+            )}) is less than min claimable amount($${minClaimAmount}).`
           );
           return;
         }
@@ -732,15 +717,15 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
     lastClaimedDte: "",
     earnLockTerm: 0,
     minClaimAmount: 0,
+    earnSymbolPrice: 0,
   });
   const [earnHstInfo, setEarnHstInfo] = useState<EarnHstsProps[]>([]);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(LIMIT);
   const [hasMore, setHasMore] = useState(true);
-
-  useEffect(() => {
-    setSelectedValue(`${earnUsesInfo[0].account}-${earnUsesInfo[0].earn_type}-${earnUsesInfo[0].earn_symbol}`);
-  }, []);
+  const [symbol, setSymbol] = useState("");
+  const [earnSymbolPrice, setEarnSymbolPrice] = useState(0);
+  const [steemPrice, setSteemPrice] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -759,6 +744,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
         lastClaimedDte: lastClaimDte.last_claimed_dte,
         earnLockTerm: accountConfig.earn_lock_term,
         minClaimAmount: accountConfig.min_claim_amount,
+        earnSymbolPrice: earnSymbolPrice,
       });
       setHasMore(resultEarnHsts.length === count);
     };
@@ -771,9 +757,51 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
   const handleSelectChange = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     setSelectedValue(e.target.value);
+    setSymbol(e.target.value.split("-")[2]);
     setOffset(0);
     setEarnHstInfo([]);
   };
+
+  useEffect(() => {
+    setSelectedValue(`${earnUsesInfo[0].account}-${earnUsesInfo[0].earn_type}-${earnUsesInfo[0].earn_symbol}`);
+    setSymbol(earnUsesInfo[0].earn_symbol);
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${earnUsesInfo[0].earn_symbol}BUSD`)
+      .then((response) => response.json())
+      .then((json) => {
+        setEarnSymbolPrice(+json.price); // 가져온 데이터 1~100위 담기
+        // setLoading(false); // 로딩 멈추기
+      });
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${symbol}`)
+      .then((response) => response.json())
+      .then((json) => {
+        setSteemPrice(+json.price); // 가져온 데이터 1~100위 담기
+        // setLoading(false); // 로딩 멈추기
+      });
+  }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}BUSD`)
+        .then((response) => response.json())
+        .then((json) => {
+          setEarnSymbolPrice(+json.price); // 가져온 데이터 1~100위 담기
+          // setLoading(false); // 로딩 멈추기
+        });
+    }, 10000);
+
+    return () => clearTimeout(interval);
+  }, [symbol]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${symbol}`)
+        .then((response) => response.json())
+        .then((json) => {
+          setSteemPrice(+json.price); // 가져온 데이터 1~100위 담기
+          // setLoading(false); // 로딩 멈추기
+        });
+    }, 10000);
+    return () => clearTimeout(interval);
+  }, [symbol]);
 
   return (
     <>
@@ -798,6 +826,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
         lastClaimedDte={earnStatus.lastClaimedDte}
         earnLockTerm={earnStatus.earnLockTerm}
         minClaimAmount={earnStatus.minClaimAmount}
+        earnSymbolPrice={earnSymbolPrice}
       />
       <div>
         <div
@@ -817,10 +846,10 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
             <div className="transaction-upper">Deposit Steem</div>
           </div>
           <div className="transaction-title">
-            <div className="transaction-upper">Earn Steem</div>
+            <div className="transaction-upper">Earn Steem {earnStatus.earnSummary.length == 0 && "(Expected)"}</div>
           </div>
           <div className="transaction-title">
-            <div className="transaction-upper">Earn Amount</div>
+            <div className="transaction-upper">Earn Amount {earnStatus.earnSummary.length == 0 && "(Expected)"}</div>
           </div>
         </div>
 
@@ -840,12 +869,17 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
               </div>
               <div className="transaction-title">
                 <div className="transaction-upper">
-                  {formattedNumber(earnHst.earn_steem, { fractionDigits: 3 })} STEEM
+                  {earnStatus.earnSummary.length == 0
+                    ? formattedNumber(earnHst.earn_steem_expected, { fractionDigits: 3 })
+                    : formattedNumber(earnHst.earn_steem, { fractionDigits: 3 })}{" "}
+                  STEEM
                 </div>
               </div>
               <div className="transaction-title">
                 <div className="transaction-upper">
-                  {earnHst.earn_amount} {earnHst.earn_symbol}
+                  {earnStatus.earnSummary.length == 0
+                    ? `${(+earnHst.earn_steem_expected * steemPrice).toFixed(8)} ${symbol}`
+                    : `${earnHst.earn_amount} ${earnHst.earn_symbol ? earnHst.earn_symbol : symbol}`}{" "}
                 </div>
               </div>
             </div>
