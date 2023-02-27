@@ -1,74 +1,60 @@
-import React, {Component} from "react";
+import React, { ReactNode } from "react";
+import { useLocation } from "react-router";
 
-import {History} from "history";
+import { History } from "history";
 
-import {Entry} from "../../store/entries/types";
+import { Entry } from "../../store/entries/types";
 
-import {getPost} from "../../api/bridge";
+import { getPost } from "../../api/bridge";
 
-import {history as historyFromStore} from '../../store'
+import { history as historyFromStore } from "../../store";
 
 export const makePath = (category: string, author: string, permlink: string, toReplies: boolean = false) =>
-    `/${category}/@${author}/${permlink}${toReplies ? "#replies" : ""}`;
+  `/${category}/@${author}/${permlink}${toReplies ? "#replies" : ""}`;
 
 export interface PartialEntry {
-    category: string;
-    author: string;
-    permlink: string;
+  category: string;
+  author: string;
+  permlink: string;
 }
 
 interface Props {
-    history: History;
-    children: JSX.Element;
-    entry: Entry | PartialEntry;
-    afterClick?: () => void;
+  history: History;
+  children: ReactNode;
+  entry: Entry | PartialEntry;
+  afterClick?: () => void;
 }
 
-export class EntryLink extends Component<Props> {
-    clicked = async (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
+const EntryLink: React.FC<Props> = ({ history = historyFromStore, children, entry, afterClick }) => {
+  const location = useLocation();
 
-        const {history = historyFromStore, afterClick} = this.props;
+  const clicked = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
 
-        if (afterClick) afterClick();
+    if (afterClick) afterClick();
 
-        let {entry: _entry} = this.props;
-
-        if (!("title" in _entry)) {
-            // Get full content if the "entry" passed is "PartialEntry"
-            try {
-                const resp = await getPost(_entry.author, _entry.permlink);
-                if (resp) {
-                    _entry = resp
-                }
-            } catch (e) {
-                return;
-            }
+    if (!("title" in entry)) {
+      // Get full content if the "entry" passed is "PartialEntry"
+      try {
+        const resp = await getPost(entry.author, entry.permlink);
+        if (resp) {
+          return history!.push(makePath(resp.category, resp.author, resp.permlink));
         }
-
-        const {category, author, permlink} = _entry;
-
-        history!.push(makePath(category, author, permlink));
-    };
-
-    render() {
-        const {children, entry} = this.props;
-
-        const href = makePath(entry.category, entry.author, entry.permlink);
-
-        const props = Object.assign({}, children.props, {href, onClick: this.clicked});
-
-        return React.createElement("a", props);
-    }
-}
-
-export default (p: Props) => {
-    const props: Props = {
-        history: p.history,
-        children: p.children,
-        entry: p.entry,
-        afterClick: p.afterClick
+      } catch (e) {
+        return;
+      }
     }
 
-    return <EntryLink {...props} />;
-}
+    return history!.push(makePath(entry.category, entry.author, entry.permlink), {
+      background: location,
+    });
+  };
+
+  const href = makePath(entry.category, entry.author, entry.permlink);
+  const _props = Object.assign({}, children!["props"], { href, onClick: clicked });
+  return React.createElement("a", _props);
+};
+
+export default (props: Props) => {
+  return <EntryLink {...props} />;
+};

@@ -25,6 +25,8 @@ import { pageMapDispatchToProps, pageMapStateToProps } from "./pages/common";
 import { connect } from "react-redux";
 import loadable from "@loadable/component";
 import { useLocation } from "react-router";
+import Portal from "./components/portal";
+import FullPageModal from "./components/full-page-modal";
 
 const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID || "UA-250883873-1";
 
@@ -90,7 +92,8 @@ const RouteChangeTracker = () => {
 };
 
 const App = ({ setLang }: any) => {
-  const location = useLocation();
+  const location = useLocation<{ background?: any }>();
+  const background = location.state && location.state.background;
 
   // Fired on every route change
   useEffect(() => {
@@ -115,7 +118,7 @@ const App = ({ setLang }: any) => {
   return (
     <>
       <Tracker />
-      <Switch>
+      <Switch location={background || location}>
         <Route exact={true} path={routes.HOME} component={EntryIndexContainer} />
         <Route exact={true} strict={true} path={routes.FILTER} component={EntryIndexContainer} />
         <Route exact={true} strict={true} path={routes.USER_FEED} component={EntryIndexContainer} />
@@ -151,6 +154,19 @@ const App = ({ setLang }: any) => {
         <Route exact={true} strict={true} path={routes.CONTRIBUTORS} component={ContributorsPage} />
         <Route component={NotFound} />
       </Switch>
+      {/* Show the modal when a background page is set */}
+      {background && (
+        <Route
+          path={routes.ENTRY}
+          children={(props) => (
+            <Portal>
+              <FullPageModal>
+                <EntryContainer {...props} />
+              </FullPageModal>
+            </Portal>
+          )}
+        />
+      )}
     </>
   );
 };

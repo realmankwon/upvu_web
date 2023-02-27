@@ -39,7 +39,7 @@ class EntryIndexPage extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<PageProps>): void {
-    const { global, fetchEntries, activeUser } = this.props;
+    const { global, fetchEntries, fetchTrendingTags, activeUser } = this.props;
     const { global: pGlobal, activeUser: pActiveUser, entries: pEntries } = prevProps;
 
     // page changed.
@@ -54,6 +54,10 @@ class EntryIndexPage extends Component<Props, State> {
     }
 
     if (this.props.entries !== pEntries) {
+      if (!this.props.loading && this.state.entryList.length === 0) {
+        fetchEntries(global.filter, global.tag, false);
+        fetchTrendingTags();
+      }
       this.loadEntries();
     }
   }

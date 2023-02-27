@@ -54,6 +54,7 @@ export const renderAmp = async (req: express.Request, state: AppState) => {
             </head>
             <body class="${`theme-${state.global.theme}`}">
                 <div id="root">${markup}</div>
+                <div id="modal"></div>
             </body>
         </html>`;
 };
