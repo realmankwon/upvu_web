@@ -576,33 +576,33 @@ export class Transfer extends BaseComponent<Props, State> {
     );
 
     // Powering down
-    if (step === 1 && mode === "unstake") {
-      const w = new SteemWallet(activeUser.data, dynamicProps);
-      if (w.isPoweringDown) {
-        return (
-          <div className="transfer-dialog-content">
-            <div className="transaction-form">
-              {formHeader1}
-              <div className="transaction-form-body powering-down">
-                <p>{_t("transfer.powering-down")}</p>
-                <p>
-                  {" "}
-                  {_t("wallet.next-power-down", {
-                    time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
-                    amount: `${this.formatNumber(w.nextVestingSharesWithdrawalSteem, precision)} ${asset}`,
-                  })}
-                </p>
-                <p>
-                  <Button onClick={this.nextPowerDown} variant="danger">
-                    {_t("transfer.stop-power-down")}
-                  </Button>
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
+    // if (step === 1 && mode === "unstake") {
+    //   const w = new SteemWallet(activeUser.data, dynamicProps);
+    //   if (w.isPoweringDown) {
+    //     return (
+    //       <div className="transfer-dialog-content">
+    //         <div className="transaction-form">
+    //           {formHeader1}
+    //           <div className="transaction-form-body powering-down">
+    //             <p>{_t("transfer.powering-down")}</p>
+    //             <p>
+    //               {" "}
+    //               {_t("wallet.next-power-down", {
+    //                 time: dateToFullRelative(w.nextVestingWithdrawalDate.toString()),
+    //                 amount: `${this.formatNumber(w.nextVestingSharesWithdrawalSteem, precision)} ${asset}`,
+    //               })}
+    //             </p>
+    //             <p>
+    //               <Button onClick={this.nextPowerDown} variant="danger">
+    //                 {_t("transfer.stop-power-down")}
+    //               </Button>
+    //             </p>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     );
+    //   }
+    // }
 
     return (
       <div className="transfer-dialog-content">
@@ -706,21 +706,6 @@ export class Transfer extends BaseComponent<Props, State> {
                       )}
                     </div>
                   )}
-                  {(() => {
-                    if (mode === "unstake") {
-                      const hive = Math.round((Number(amount) / 13) * 1000) / 1000;
-                      if (!isNaN(hive) && hive > 0) {
-                        return (
-                          <div className="power-down-estimation">
-                            {_t("transfer.power-down-estimated", {
-                              n: `${this.formatNumber(hive, precision)} ${asset}`,
-                            })}
-                          </div>
-                        );
-                      }
-                    }
-                    return null;
-                  })()}
                 </Col>
               </Row>
 
