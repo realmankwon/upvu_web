@@ -30,7 +30,7 @@ export const signBuffer = (
     window.steem_keychain?.requestSignBuffer(
       account,
       message,
-      "Active",
+      key,
       (resp) => {
         if (!resp.success) {
           reject({ message: "Operation cancelled" });

@@ -5,7 +5,7 @@ import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 import numeral from "numeral";
 
 import isEqual from "react-fast-compare";
-
+import { upvuTokenTransfer } from "../../api/private-api";
 import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
 // import badActors from "@hiveio/hivescript/bad-actors.json";
@@ -59,6 +59,7 @@ import {
   withdrawVestingHot,
   withdrawVestingKc,
   formatError,
+  transferUpvuKc,
 } from "../../api/operations";
 
 import { _t } from "../../i18n";
@@ -78,7 +79,7 @@ export type TransferMode =
   | "power-down"
   | "delegate"
   | "claim-interest";
-export type TransferAsset = "STEEM" | "SBD" | "SP" | "POINT";
+export type TransferAsset = "STEEM" | "SBD" | "SP" | "POINT" | "UPVU";
 
 interface AssetSwitchProps {
   options: TransferAsset[];
@@ -391,6 +392,11 @@ export class Transfer extends BaseComponent<Props, State> {
       return parseAsset(activeUser.points.points).amount;
     }
 
+    if (asset === "UPVU") {
+      // return parseAsset(activeUser.points.points).amount;
+      return 1000;
+    }
+
     const { data: account } = activeUser;
 
     const w = new SteemWallet(account, dynamicProps);
@@ -464,6 +470,9 @@ export class Transfer extends BaseComponent<Props, State> {
       case "transfer": {
         if (asset === "POINT") {
           promise = transferPoint(username, key, to, fullAmount, memo);
+        } else if (asset === "UPVU") {
+          const signature = key.sign(new Buffer(`${username}:${to}:${amount}`, "utf-8"));
+          promise = upvuTokenTransfer(username, to, +amount, JSON.stringify(signature));
         } else {
           promise = transfer(username, key, to, fullAmount, memo);
         }
@@ -584,6 +593,9 @@ export class Transfer extends BaseComponent<Props, State> {
       case "transfer": {
         if (asset === "POINT") {
           promise = transferPointKc(username, to, fullAmount, memo);
+        } else if (asset === "UPVU") {
+          debugger;
+          promise = transferUpvuKc(username, to, amount);
         } else {
           promise = transferKc(username, to, fullAmount, memo);
         }

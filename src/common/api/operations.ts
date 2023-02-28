@@ -19,7 +19,7 @@ import { hotSign } from "../helper/hive-signer";
 
 import { _t } from "../i18n";
 import { TransactionType } from "../components/buy-sell-steem";
-
+import { upvuTokenTransfer } from "../api/private-api";
 /**
  * Protocol parameters.
  */
@@ -349,6 +349,15 @@ export const transferHot = (from: string, to: string, amount: string, memo: stri
 export const transferKc = (from: string, to: string, amount: string, memo: string) => {
   const asset = parseAsset(amount);
   return keychain.transfer(from, to, asset.amount.toFixed(3).toString(), memo, asset.symbol, true);
+};
+
+export const transferUpvuKc = (from: string, to: string, amount: string) => {
+  // const asset = parseAsset(amount);
+  return keychain
+    .signBuffer(from, JSON.stringify(new Buffer(`${from}:${to}:${amount}`)), "Active")
+    .then(async (result) => {
+      return upvuTokenTransfer(from, to, +amount, result.result);
+    });
 };
 
 export const transferPoint = (

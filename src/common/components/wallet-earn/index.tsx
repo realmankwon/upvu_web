@@ -771,7 +771,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
         setEarnSymbolPrice(+json.price); // 가져온 데이터 1~100위 담기
         // setLoading(false); // 로딩 멈추기
       });
-    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${symbol}`)
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${earnUsesInfo[0].earn_symbol}`)
       .then((response) => response.json())
       .then((json) => {
         setSteemPrice(+json.price); // 가져온 데이터 1~100위 담기

@@ -191,6 +191,7 @@ interface State {
   isSmaeAccount: boolean;
   isUPVUUser: boolean;
   showTransferDialog: boolean;
+  showTransferUpvuDialog: boolean;
   showSetTypeDialog: boolean;
   transferMode: null | TransferMode;
   transferAsset: null | TransferAsset;
@@ -208,6 +209,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     isSmaeAccount: false,
     isUPVUUser: false,
     showTransferDialog: false,
+    showTransferUpvuDialog: false,
     showSetTypeDialog: false,
     transferMode: null,
     transferAsset: null,
@@ -269,6 +271,14 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
   };
 
+  openTransferUpvuDialog = () => {
+    this.setState({ showTransferDialog: true, transferMode: "transfer", transferAsset: "UPVU" });
+  };
+
+  closeTransferUpvuDialog = () => {
+    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
+  };
+
   openSetRewardTypeDialog = () => {
     this.setState({ showSetTypeDialog: true });
   };
@@ -293,6 +303,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
       isSmaeAccount,
       isUPVUUser,
       showTransferDialog,
+      showTransferUpvuDialog,
       showSetTypeDialog,
       transferMode,
       transferAsset,
@@ -768,6 +779,10 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
     openTransferDialog("transfer", "STEEM");
   };
 
+  const onClickTransferUpvu = () => {
+    openTransferDialog("transfer", "UPVU");
+  };
+
   return (
     <>
       <div className="view-container">
@@ -811,6 +826,16 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransferUpvu} />
                 </Form.Group>
               </Col>
             </Form.Row>

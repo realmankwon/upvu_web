@@ -14,6 +14,7 @@ import moment from "moment";
 import * as ls from "../util/local-storage";
 import { encodeObj, decodeObj } from "../util/encoder";
 import { User } from "../store/users/types";
+import { Signature } from "@upvu/dsteem";
 
 declare var window: AppWindow;
 
@@ -649,6 +650,34 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
 
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
+};
+
+export const upvuTokenTransfer = async (
+  username: string,
+  to: string,
+  amount: number,
+  signature: string
+): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    from: username,
+    to,
+    amount,
+    signature,
+  };
+
+  const results = await callApi(`/upvuweb-api/upvu-token-transfer`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  if (results.success) {
+    return {};
+  } else {
+    return {};
+  }
 };
 
 export const earnAccounts = async (username: string): Promise<any> => {
