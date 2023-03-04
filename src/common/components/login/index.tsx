@@ -136,8 +136,9 @@ export class LoginKc extends BaseComponent<LoginKcProps, LoginKcState> {
       .then(() => {
         this.hide();
       })
-      .catch(() => {
-        error(_t("g.server-error"));
+      .catch((e) => {
+        // error(_t("g.server-error"));
+        error(e.response.data.message);
       })
       .finally(() => {
         this.stateSet({ inProgress: false });
@@ -308,7 +309,6 @@ export class Login extends BaseComponent<LoginProps, State> {
         }
       })
       .catch((e) => {
-        debugger;
         // error(_t("g.server-error"));
         error(e.response.data.message);
       })
@@ -476,8 +476,9 @@ export class Login extends BaseComponent<LoginProps, State> {
         }
         this.hide();
       })
-      .catch(() => {
-        error(_t("g.server-error"));
+      .catch((e) => {
+        // error(_t("g.server-error"));
+        error(e.response.data.message);
       })
       .finally(() => {
         this.stateSet({ inProgress: false });
