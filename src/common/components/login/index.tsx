@@ -307,8 +307,10 @@ export class Login extends BaseComponent<LoginProps, State> {
           ls.set(`${user.username}HadTutorial`, "false");
         }
       })
-      .catch(() => {
-        error(_t("g.server-error"));
+      .catch((e) => {
+        debugger;
+        // error(_t("g.server-error"));
+        error(e.response.data.message);
       })
       .finally(() => {
         this.stateSet({ inProgress: false });

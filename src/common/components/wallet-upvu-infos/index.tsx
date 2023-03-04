@@ -768,6 +768,10 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
     openTransferDialog("transfer", "STEEM");
   };
 
+  const onClickTransferUpvu = () => {
+    openTransferDialog("transfer", "UPVU");
+  };
+
   return (
     <>
       <div className="view-container">
@@ -811,6 +815,21 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control
+                    className="claim-btn"
+                    type="button"
+                    value="Transfer UPVU"
+                    onClick={onClickTransferUpvu}
+                  />
                 </Form.Group>
               </Col>
             </Form.Row>

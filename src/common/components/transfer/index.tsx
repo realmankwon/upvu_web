@@ -34,6 +34,8 @@ import {
   transfer,
   transferHot,
   transferKc,
+  transferUpvu,
+  transferUpvuKc,
   transferPoint,
   transferPointHot,
   transferPointKc,
@@ -78,7 +80,7 @@ export type TransferMode =
   | "power-down"
   | "delegate"
   | "claim-interest";
-export type TransferAsset = "STEEM" | "SBD" | "SP" | "POINT";
+export type TransferAsset = "STEEM" | "SBD" | "SP" | "POINT" | "UPVU";
 
 interface AssetSwitchProps {
   options: TransferAsset[];
@@ -391,6 +393,10 @@ export class Transfer extends BaseComponent<Props, State> {
       return parseAsset(activeUser.points.points).amount;
     }
 
+    if (asset === "UPVU") {
+      return 1000;
+    }
+
     const { data: account } = activeUser;
 
     const w = new SteemWallet(account, dynamicProps);
@@ -464,6 +470,8 @@ export class Transfer extends BaseComponent<Props, State> {
       case "transfer": {
         if (asset === "POINT") {
           promise = transferPoint(username, key, to, fullAmount, memo);
+        } else if (asset === "UPVU") {
+          promise = transferUpvu(username, key, to, amount, memo);
         } else {
           promise = transfer(username, key, to, fullAmount, memo);
         }
@@ -584,6 +592,8 @@ export class Transfer extends BaseComponent<Props, State> {
       case "transfer": {
         if (asset === "POINT") {
           promise = transferPointKc(username, to, fullAmount, memo);
+        } else if (asset === "UPVU") {
+          promise = transferUpvuKc(username, to, amount, memo);
         } else {
           promise = transferKc(username, to, fullAmount, memo);
         }
@@ -746,9 +756,9 @@ export class Transfer extends BaseComponent<Props, State> {
     switch (mode) {
       case "transfer":
         if (global.developingPrivate) {
-          assets = ["STEEM", "SBD", "POINT"];
+          assets = ["STEEM", "SBD", "POINT", "UPVU"];
         } else {
-          assets = ["STEEM", "SBD"];
+          assets = ["STEEM", "SBD", "UPVU"];
         }
         break;
       case "transfer-saving":

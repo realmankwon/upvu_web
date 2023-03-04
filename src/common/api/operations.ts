@@ -19,6 +19,8 @@ import { hotSign } from "../helper/hive-signer";
 
 import { _t } from "../i18n";
 import { TransactionType } from "../components/buy-sell-steem";
+import crypto from "crypto";
+import { upvuTokenTransfer } from "./private-api";
 
 /**
  * Protocol parameters.
@@ -375,6 +377,30 @@ export const transferPoint = (
   return steemClient.broadcast.json(op, key);
 };
 
+export const transferUpvu = (
+  from: string,
+  key: PrivateKey,
+  to: string,
+  amount: string,
+  memo: string
+): Promise<TransactionConfirmation> => {
+  const json = JSON.stringify({
+    sender: from,
+    receiver: to,
+    amount,
+    memo,
+  });
+
+  const op = {
+    id: "ecency_point_transfer",
+    json,
+    required_auths: [from],
+    required_posting_auths: [],
+  };
+
+  return steemClient.broadcast.json(op, key);
+};
+
 export const transferPointHot = (from: string, to: string, amount: string, memo: string) => {
   const params = {
     authority: "active",
@@ -401,6 +427,12 @@ export const transferPointKc = (from: string, to: string, amount: string, memo: 
   });
 
   return keychain.customJson(from, "ecency_point_transfer", "Active", json, "Point Transfer");
+};
+
+export const transferUpvuKc = (from: string, to: string, amount: string, memo: string) => {
+  return keychain.signBuffer(from, `${from}:${to}:${amount}`, "Active").then((result) => {
+    return upvuTokenTransfer(from, result.result, to, +amount);
+  });
 };
 
 export const transferToSavings = (
