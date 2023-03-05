@@ -763,15 +763,16 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
   };
 
   useEffect(() => {
-    setSelectedValue(`${earnUsesInfo[0].account}-${earnUsesInfo[0].earn_type}-${earnUsesInfo[0].earn_symbol}`);
-    setSymbol(earnUsesInfo[0].earn_symbol);
-    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${earnUsesInfo[0].earn_symbol}BUSD`)
+    const currentSymbol = earnUsesInfo[0].earn_symbol;
+    setSelectedValue(`${earnUsesInfo[0].account}-${earnUsesInfo[0].earn_type}-${currentSymbol}`);
+    setSymbol(currentSymbol);
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${currentSymbol}BUSD`)
       .then((response) => response.json())
       .then((json) => {
         setEarnSymbolPrice(+json.price); // 가져온 데이터 1~100위 담기
         // setLoading(false); // 로딩 멈추기
       });
-    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${earnUsesInfo[0].earn_symbol}`)
+    fetch(`https://api.binance.com/api/v3/ticker/price?symbol=STEEM${currentSymbol}`)
       .then((response) => response.json())
       .then((json) => {
         setSteemPrice(+json.price); // 가져온 데이터 1~100위 담기

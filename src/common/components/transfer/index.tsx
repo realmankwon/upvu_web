@@ -34,6 +34,8 @@ import {
   transfer,
   transferHot,
   transferKc,
+  transferUpvu,
+  transferUpvuKc,
   transferPoint,
   transferPointHot,
   transferPointKc,
@@ -59,7 +61,6 @@ import {
   withdrawVestingHot,
   withdrawVestingKc,
   formatError,
-  transferUpvuKc,
 } from "../../api/operations";
 
 import { _t } from "../../i18n";
@@ -393,7 +394,6 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     if (asset === "UPVU") {
-      // return parseAsset(activeUser.points.points).amount;
       return 1000;
     }
 
@@ -471,8 +471,7 @@ export class Transfer extends BaseComponent<Props, State> {
         if (asset === "POINT") {
           promise = transferPoint(username, key, to, fullAmount, memo);
         } else if (asset === "UPVU") {
-          const signature = key.sign(new Buffer(`${username}:${to}:${amount}`, "utf-8"));
-          promise = upvuTokenTransfer(username, to, +amount, JSON.stringify(signature));
+          promise = transferUpvu(username, key, to, amount, memo);
         } else {
           promise = transfer(username, key, to, fullAmount, memo);
         }
@@ -594,7 +593,6 @@ export class Transfer extends BaseComponent<Props, State> {
         if (asset === "POINT") {
           promise = transferPointKc(username, to, fullAmount, memo);
         } else if (asset === "UPVU") {
-          debugger;
           promise = transferUpvuKc(username, to, amount);
         } else {
           promise = transferKc(username, to, fullAmount, memo);
@@ -758,9 +756,9 @@ export class Transfer extends BaseComponent<Props, State> {
     switch (mode) {
       case "transfer":
         if (global.developingPrivate) {
-          assets = ["STEEM", "SBD", "POINT"];
+          assets = ["STEEM", "SBD", "POINT", "UPVU"];
         } else {
-          assets = ["STEEM", "SBD"];
+          assets = ["STEEM", "SBD", "UPVU"];
         }
         break;
       case "transfer-saving":

@@ -835,7 +835,12 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransferUpvu} />
+                  <Form.Control
+                    className="claim-btn"
+                    type="button"
+                    value="Transfer UPVU"
+                    onClick={onClickTransferUpvu}
+                  />
                 </Form.Group>
               </Col>
             </Form.Row>
