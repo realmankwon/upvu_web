@@ -382,7 +382,9 @@ export const transferUpvu = (from: string, key: PrivateKey, to: string, amount: 
   const hash = cryptoUtils.sha256(`${from}:${to}:${amount}`);
   const signature = key.sign(hash).toString();
 
-  return upvuTokenTransfer(from, signature, to, +amount);
+  return upvuTokenTransfer(from, signature, to, +amount).catch((e) => {
+    throw e.response.data.error;
+  });
 };
 
 export const transferPointHot = (from: string, to: string, amount: string, memo: string) => {
@@ -415,7 +417,10 @@ export const transferPointKc = (from: string, to: string, amount: string, memo: 
 
 export const transferUpvuKc = (from: string, to: string, amount: string) => {
   return keychain.signBuffer(from, `${from}:${to}:${amount}`, "Active").then((result) => {
-    return upvuTokenTransfer(from, result.result, to, +amount);
+    return upvuTokenTransfer(from, result.result, to, +amount).catch((e) => {
+      debugger;
+      throw e.response.data.error;
+    });
   });
 };
 

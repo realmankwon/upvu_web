@@ -645,7 +645,6 @@ export class Transfer extends BaseComponent<Props, State> {
         this.stateSet({ step: 4, inProgress: false });
       })
       .catch((err) => {
-        debugger;
         error(formatError(err));
         this.stateSet({ inProgress: false });
       });

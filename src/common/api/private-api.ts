@@ -668,11 +668,11 @@ export const upvuTokenTransfer = async (
     amount,
   };
 
-  const results = await callApi(`/upvuweb-api/upvu-token-transfer`, data, username).catch((err) => {
-    console.log(err);
+  const results = await callApi(`/upvuweb-api/upvu-token-transfer`, data, username).catch((e) => {
+    throw e;
   });
 
-  return results.success;
+  return results;
 };
 
 export const earnAccounts = async (username: string): Promise<any> => {
