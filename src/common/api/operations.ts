@@ -1,4 +1,5 @@
 import {
+  cryptoUtils,
   PrivateKey,
   Operation,
   TransactionConfirmation,
@@ -377,28 +378,11 @@ export const transferPoint = (
   return steemClient.broadcast.json(op, key);
 };
 
-export const transferUpvu = (
-  from: string,
-  key: PrivateKey,
-  to: string,
-  amount: string,
-  memo: string
-): Promise<TransactionConfirmation> => {
-  const json = JSON.stringify({
-    sender: from,
-    receiver: to,
-    amount,
-    memo,
-  });
+export const transferUpvu = (from: string, key: PrivateKey, to: string, amount: string) => {
+  const hash = cryptoUtils.sha256(`${from}:${to}:${amount}`);
+  const signature = key.sign(hash).toString();
 
-  const op = {
-    id: "ecency_point_transfer",
-    json,
-    required_auths: [from],
-    required_posting_auths: [],
-  };
-
-  return steemClient.broadcast.json(op, key);
+  return upvuTokenTransfer(from, signature, to, +amount);
 };
 
 export const transferPointHot = (from: string, to: string, amount: string, memo: string) => {

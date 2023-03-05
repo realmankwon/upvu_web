@@ -5,7 +5,6 @@ import { PrivateKey, cryptoUtils } from "@upvu/dsteem";
 import numeral from "numeral";
 
 import isEqual from "react-fast-compare";
-import { upvuTokenTransfer } from "../../api/private-api";
 import { Modal, Form, Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 
 // import badActors from "@hiveio/hivescript/bad-actors.json";
@@ -471,7 +470,7 @@ export class Transfer extends BaseComponent<Props, State> {
         if (asset === "POINT") {
           promise = transferPoint(username, key, to, fullAmount, memo);
         } else if (asset === "UPVU") {
-          promise = transferUpvu(username, key, to, amount, memo);
+          promise = transferUpvu(username, key, to, amount);
         } else {
           promise = transfer(username, key, to, fullAmount, memo);
         }

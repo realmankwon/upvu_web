@@ -271,14 +271,6 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
   };
 
-  openTransferUpvuDialog = () => {
-    this.setState({ showTransferDialog: true, transferMode: "transfer", transferAsset: "UPVU" });
-  };
-
-  closeTransferUpvuDialog = () => {
-    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
-  };
-
   openSetRewardTypeDialog = () => {
     this.setState({ showSetTypeDialog: true });
   };
@@ -376,7 +368,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                       </div>
                     </div>
                   </div>
-                  <DelegationSP {...upvuInfos} />
+                  <DelegationSP {...upvuInfos} openTransferDialog={this.openTransferDialog} />
                 </div>
               ) : (
                 <div />
