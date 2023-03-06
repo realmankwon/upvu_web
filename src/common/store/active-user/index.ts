@@ -31,8 +31,8 @@ export default (state: ActiveUser | null = initialState, action: Actions): Activ
       return load();
     }
     case ActionTypes.UPDATE: {
-      const { data, points } = action;
-      return Object.assign({}, state, { data, points });
+      const { data, points, upvuToken } = action;
+      return Object.assign({}, state, { data, points, upvuToken });
     }
     default:
       return state;

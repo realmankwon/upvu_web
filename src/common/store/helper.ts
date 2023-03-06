@@ -67,10 +67,14 @@ export const activeUserUpdater = async (store: Store<AppState>) => {
     try {
       const p = await getPoints(username);
       points = { points: p.points, uPoints: p.unclaimed_points };
+      points = {
+        points: "1.000",
+        uPoints: "1.000",
+      };
     } catch (e) {
       points = {
-        points: "0.000",
-        uPoints: "0.000",
+        points: "1.000",
+        uPoints: "1.000",
       };
     }
 
