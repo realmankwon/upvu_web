@@ -49,6 +49,7 @@ interface Props {
   setSigningKey: (key: string) => void;
   fetchTransactions: (username: string, steemengine: boolean, group?: OperationGroup | "") => void;
   fetchPoints: (username: string, type?: number) => void;
+  fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
   steemengine: boolean;
 }
@@ -1088,6 +1089,7 @@ export default (p: Props) => {
     fetchTransactions: p.fetchTransactions,
     updateWalletValues: p.updateWalletValues,
     fetchPoints: p.fetchPoints,
+    fetchUpvuToken: p.fetchUpvuToken,
     steemengine: false,
   };
 

@@ -140,6 +140,7 @@ interface Props {
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
   fetchPoints: (username: string, type?: number) => void;
+  fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
   onHide: () => void;
 }
@@ -393,7 +394,8 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     if (asset === "UPVU") {
-      return 1000;
+      debugger;
+      return +activeUser.upvuToken;
     }
 
     const { data: account } = activeUser;
@@ -651,10 +653,13 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   finish = () => {
-    const { onHide, mode, asset, account, activeUser, fetchPoints, updateWalletValues } = this.props;
+    const { onHide, mode, asset, account, activeUser, fetchPoints, fetchUpvuToken, updateWalletValues } = this.props;
     if (account && activeUser && account.name !== activeUser.username) {
       if (mode === "transfer" && asset === "POINT") {
         fetchPoints(account.name);
+      }
+      if (mode === "transfer" && asset === "UPVU") {
+        fetchUpvuToken(account.name);
       } else {
         updateWalletValues();
       }

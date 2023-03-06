@@ -174,6 +174,7 @@ interface Props {
   signingKey: string;
   transactions: Transactions;
   fetchPoints: (username: string, type?: number) => void;
+  fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
@@ -558,6 +559,7 @@ export default (p: Props) => {
     signingKey: p.signingKey,
     transactions: p.transactions,
     fetchPoints: p.fetchPoints,
+    fetchUpvuToken: p.fetchUpvuToken,
     updateWalletValues: p.updateWalletValues,
     addAccount: p.addAccount,
     updateActiveUser: p.updateActiveUser,

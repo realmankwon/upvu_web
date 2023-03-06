@@ -46,6 +46,7 @@ interface Props {
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
   fetchPoints: (username: string, type?: number) => void;
+  fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
 }
 
@@ -131,6 +132,7 @@ export default (p: Props) => {
     setSigningKey: p.setSigningKey,
     updateWalletValues: p.updateWalletValues,
     fetchPoints: p.fetchPoints,
+    fetchUpvuToken: p.fetchUpvuToken,
   };
 
   return <WalletUPVU {...props} />;

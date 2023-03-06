@@ -652,6 +652,42 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   return updateRewardTypeResult;
 };
 
+export const upvuTokenBalance = async (username: string) => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+  };
+
+  const result = await callApi(`/upvuweb-api/upvu-token-balance`, data, username).catch((e) => {
+    throw e;
+  });
+  if (result.success) {
+    return result.result.amount;
+  } else {
+    return 0;
+  }
+};
+
+export const upvuTokenTransactions = async (username: string) => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+  };
+
+  const result = await callApi(`/upvuweb-api/upvu-token-transactions`, data, username).catch((e) => {
+    throw e;
+  });
+  if (result.success) {
+    return result.results;
+  } else {
+    return [];
+  }
+};
+
 export const upvuTokenTransfer = async (
   username: string,
   signature: string,

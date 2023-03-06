@@ -11,7 +11,7 @@ import {
 } from "./active-user";
 
 import { getAccount, getDynamicProps } from "../api/steem";
-import { getPoints, getPromotedEntries } from "../api/private-api";
+import { getPoints, getPromotedEntries, upvuTokenBalance } from "../api/private-api";
 import { reloadAct as reloadUsers } from "./users";
 import { fetchedAct as loadDynamicProps } from "./dynamic-props";
 import { fetchedAct as entriesFetchedAct } from "./entries";
@@ -34,7 +34,12 @@ import { AppWindow } from "../../client/window";
 
 declare var window: AppWindow;
 
-export const activeUserMaker = (name: string, points: string = "0.000", uPoints: string = "0.000"): ActiveUser => {
+export const activeUserMaker = (
+  name: string,
+  points: string = "0.000",
+  uPoints: string = "0.000",
+  upvuToken: string = "0.000"
+): ActiveUser => {
   return {
     username: name,
     data: { name },
@@ -42,6 +47,7 @@ export const activeUserMaker = (name: string, points: string = "0.000", uPoints:
       points,
       uPoints,
     },
+    upvuToken,
   };
 };
 
@@ -68,7 +74,15 @@ export const activeUserUpdater = async (store: Store<AppState>) => {
       };
     }
 
-    store.dispatch(updateActiveUserAct(account, points));
+    let upvuToken: string;
+    try {
+      upvuToken = await upvuTokenBalance(username);
+    } catch (e) {
+      upvuToken = "0.000";
+    }
+
+    debugger;
+    store.dispatch(updateActiveUserAct(account, points, upvuToken));
   }
 };
 

@@ -56,6 +56,7 @@ import {
   markNotifications,
 } from "../store/notifications";
 import { fetchPoints, resetPoints } from "../store/points";
+import { fetchUpvuToken, resetUpvuToken } from "../store/upvu-token";
 import { setSigningKey } from "../store/signing-key";
 import { trackEntryPin, setEntryPin } from "../store/entry-pin-tracker";
 import {
@@ -68,6 +69,7 @@ import {
   setDeckUpdateInterval,
 } from "../store/deck";
 import { savePageScroll } from "../store/persistent-page-scroll";
+import { UpvuToken } from "../store/upvu-token/types";
 
 export interface PageProps {
   history: History;
@@ -149,6 +151,10 @@ export interface PageProps {
   fetchPoints: (username: string, filter?: number) => void;
   resetPoints: () => void;
 
+  upvuToken: UpvuToken;
+  fetchUpvuToken: (username: string) => void;
+  resetUpvuToken: () => void;
+
   signingKey: string;
   setSigningKey: (key: string) => void;
 
@@ -214,6 +220,8 @@ export const pageMapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       markNotifications,
       fetchPoints,
       resetPoints,
+      fetchUpvuToken,
+      resetUpvuToken,
       setSigningKey,
       trackEntryPin,
       setEntryPin,

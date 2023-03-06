@@ -95,7 +95,7 @@ export const Profile = (props: Props) => {
   });
 
   useAsyncEffect(async (_) => {
-    const { accounts, match, global, fetchEntries, fetchPoints } = props;
+    const { accounts, match, global, fetchEntries, fetchPoints, fetchUpvuToken } = props;
 
     if (search.length) {
       await handleInputChange(searchParam);
@@ -111,6 +111,7 @@ export const Profile = (props: Props) => {
 
     // fetch points
     fetchPoints(username);
+    fetchUpvuToken(username);
 
     const accountUsername = username.replace("@", "");
     const account = accounts.find((x) => x.name === accountUsername) as FullAccount;
@@ -163,6 +164,7 @@ export const Profile = (props: Props) => {
 
         props.resetPoints();
         props.fetchPoints(`@${nextUsername}`);
+        props.fetchUpvuToken(`@${nextUsername}`);
       }
 
       // Wallet and points are not a correct filter to fetch posts
@@ -272,6 +274,8 @@ export const Profile = (props: Props) => {
       fetchTransactions,
       resetPoints,
       fetchPoints,
+      resetUpvuToken,
+      fetchUpvuToken,
     } = props;
     const { username, section } = match.params;
 
@@ -285,6 +289,8 @@ export const Profile = (props: Props) => {
       // reload points
       resetPoints();
       fetchPoints(username);
+      resetUpvuToken();
+      fetchUpvuToken(username);
 
       if (!section || (section && Object.keys(ProfileFilter).includes(section))) {
         // reload posts

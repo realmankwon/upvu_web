@@ -43,6 +43,7 @@ export const activeUserMaker = (name: string): ActiveUser => {
       points: "1.000",
       uPoints: "0.500",
     },
+    upvuToken: "0.001",
   };
 };
 
