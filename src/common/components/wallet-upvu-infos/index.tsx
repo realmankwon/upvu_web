@@ -23,6 +23,7 @@ import { _t } from "../../i18n";
 import { ValueDescView } from "../value-desc-view";
 
 import { witnessProxyKc, witnessProxy, witnessProxyHot } from "../../api/operations";
+import moment from "moment";
 
 interface Props {
   global: Global;
@@ -150,6 +151,7 @@ interface UpvuInfoProps {
   tron_address: string;
   isKrw?: boolean;
   account?: string;
+  upvuToken?: string;
 }
 
 interface RewardTypeProps {
@@ -307,6 +309,8 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
       return null;
     }
 
+    if (upvuInfos) upvuInfos.upvuToken = activeUser?.upvuToken;
+
     return (
       <div className="wallet-upvu">
         {isSmaeAccount ? (
@@ -326,6 +330,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                   />
                   <MyRewards {...upvuInfos} />
                   <DelegationSP {...upvuInfos} openTransferDialog={this.openTransferDialog} />
+                  <RefundSteem {...upvuInfos} openTransferDialog={this.openTransferDialog} />
                   <TronInformation {...upvuInfos} />
                   <TronClaim {...upvuInfos} account={account.name} />
                   <hr />
@@ -782,64 +787,134 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
         <div className="header">Delegate Steem Power</div>
 
         <div className="content">
-          <ValueDescWithTooltip
-            val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
-              fractionDigits: 0,
-            })}`}
-            desc={"Available Amount"}
-          >
-            <>
-              <p>Maximum Delegation Possible Amount.</p>
-              <p>You must leave a minimum amount for the activity.</p>
-              <p>Depending on the % of the current voting power, the available amount may vary.</p>
-            </>
-          </ValueDescWithTooltip>
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
+          <Form.Row className="width-full">
+            <ValueDescWithTooltip
+              val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
+                fractionDigits: 0,
+              })}`}
+              desc={"Available Amount"}
+            >
+              <>
+                <p>Maximum Delegation Possible Amount.</p>
+                <p>You must leave a minimum amount for the activity.</p>
+                <p>Depending on the % of the current voting power, the available amount may vary.</p>
+              </>
+            </ValueDescWithTooltip>
+            <div className="tooltip-format min-width-150">
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
                 </Form.Group>
               </Col>
-            </Form.Row>
-          </div>
-          <ValueDescWithTooltip
-            val={`${formattedNumber(user_steem, {
-              fractionDigits: 3,
-            })}`}
-            desc={"Steem Balance"}
-          >
-            <>
-              <p>Current STEEM Amount</p>
-            </>
-          </ValueDescWithTooltip>
+            </div>
+            <ValueDescWithTooltip
+              val={`${formattedNumber(user_steem, {
+                fractionDigits: 3,
+              })}`}
+              desc={"Steem Balance"}
+            >
+              <>
+                <p>Current STEEM Amount</p>
+              </>
+            </ValueDescWithTooltip>
 
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
+            <div className="tooltip-format min-width-150">
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
-            </Form.Row>
-          </div>
-
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
-              <Col lg={12}>
-                <Form.Group>
-                  <Form.Control
-                    className="claim-btn"
-                    type="button"
-                    value="Transfer UPVU"
-                    onClick={onClickTransferUpvu}
-                  />
-                </Form.Group>
-              </Col>
-            </Form.Row>
-          </div>
+            </div>
+          </Form.Row>
         </div>
       </div>
+    </>
+  );
+};
+
+const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoProps | any) => {
+  const onClickTransferUpvu = () => {
+    openTransferDialog("transfer", "UPVU");
+  };
+
+  const calculateRefundDate = (requestDate: string) => {
+    const nextMonday = new Date(requestDate);
+    nextMonday.setDate(new Date(requestDate).getDate() + ((7 - new Date(requestDate).getDay()) % 7) + 1);
+    const diffInDays = Math.round((nextMonday.getTime() - new Date(requestDate).getTime()) / (1000 * 60 * 60 * 24));
+    return moment(requestDate)
+      .add(diffInDays + 7, "day")
+      .format("YYYY-MM-DD");
+  };
+  return (
+    <>
+      {upvuToken ? (
+        <div className="view-container">
+          <div className="header">Refund Steem</div>
+
+          <div className="content">
+            <Form.Row className="width-full">
+              <ValueDescWithTooltip
+                val={`${formattedNumber(upvuToken, {
+                  fractionDigits: 3,
+                })}`}
+                desc={"UPVU token balance"}
+              >
+                <>
+                  <p>Current UPVU token Amount</p>
+                </>
+              </ValueDescWithTooltip>
+              <div className="tooltip-format min-width-150">
+                <Col lg={12}>
+                  <Form.Group>
+                    <Form.Control
+                      className="claim-btn"
+                      type="button"
+                      value="Transfer UPVU"
+                      onClick={onClickTransferUpvu}
+                    />
+                  </Form.Group>
+                </Col>
+              </div>
+            </Form.Row>
+            {refund_steems ? (
+              refund_steems.map((data: any) => (
+                <Form.Row className="width-full">
+                  <ValueDescWithTooltip
+                    val={moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss")}
+                    desc={"Requested Date"}
+                  >
+                    <>
+                      <p>Requested Refund Date</p>
+                    </>
+                  </ValueDescWithTooltip>
+                  <ValueDescWithTooltip
+                    val={`${formattedNumber(data.amount, {
+                      fractionDigits: 3,
+                    })}`}
+                    desc={"Refund Amount"}
+                  >
+                    <>
+                      <p>Requested Refund Amount</p>
+                    </>
+                  </ValueDescWithTooltip>
+                  <ValueDescWithTooltip
+                    val={calculateRefundDate(moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss"))}
+                    desc={"Refund Date"}
+                  >
+                    <>
+                      <p>Refund Date</p>
+                    </>
+                  </ValueDescWithTooltip>
+                </Form.Row>
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div />
+      )}
     </>
   );
 };

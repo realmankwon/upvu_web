@@ -610,7 +610,7 @@ export const getUPVUInfos = async (account: string): Promise<any> => {
   const upvuInfos = await callApi(`/upvuweb-api/upvuinfos`, data, account).catch((err) => {
     console.log(err);
   });
-  console.log("upvuInfos", upvuInfos);
+
   return upvuInfos;
 };
 
