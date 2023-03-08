@@ -847,7 +847,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
   };
   return (
     <>
-      {upvuToken ? (
+      {upvuToken && (
         <div className="view-container">
           <div className="header">Refund Steem</div>
 
@@ -876,44 +876,49 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
                 </Col>
               </div>
             </Form.Row>
-            {refund_steems ? (
-              refund_steems.map((data: any) => (
-                <Form.Row className="width-full">
-                  <ValueDescWithTooltip
-                    val={moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss")}
-                    desc={"Requested Date"}
-                  >
-                    <>
-                      <p>Requested Refund Date</p>
-                    </>
-                  </ValueDescWithTooltip>
-                  <ValueDescWithTooltip
-                    val={`${formattedNumber(data.amount, {
-                      fractionDigits: 3,
-                    })}`}
-                    desc={"Refund Amount"}
-                  >
-                    <>
-                      <p>Requested Refund Amount</p>
-                    </>
-                  </ValueDescWithTooltip>
-                  <ValueDescWithTooltip
-                    val={calculateRefundDate(moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss"))}
-                    desc={"Refund Date"}
-                  >
-                    <>
-                      <p>Refund Date</p>
-                    </>
-                  </ValueDescWithTooltip>
-                </Form.Row>
-              ))
-            ) : (
-              <></>
+            {refund_steems && (
+              <div
+                className="transaction-list-item col-header"
+                style={{
+                  backgroundColor: "#96c0ff",
+                  textAlign: "center",
+                }}
+              >
+                <div className="refund-title timestamp">
+                  <div className="transaction-upper">Request Date</div>
+                </div>
+                <div className="refund-title timestamp">
+                  <div className="transaction-upper">Refund Date</div>
+                </div>
+                <div className="transaction-title amount">
+                  <div className="transaction-upper">Refund Amount</div>
+                </div>
+              </div>
             )}
+            {refund_steems &&
+              refund_steems.map((data: any, idx: number) => (
+                <div className="transaction-list-item" key={idx}>
+                  <div className="refund-title timestamp">
+                    <div className="refund-upper">
+                      {moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss")}
+                    </div>
+                  </div>
+                  <div className="refund-title timestamp">
+                    <div className="refund-upper">
+                      {calculateRefundDate(moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss"))}
+                    </div>
+                  </div>
+                  <div className="refund-title amount">
+                    <div className="refund-upper">
+                      {`${formattedNumber(data.amount, {
+                        fractionDigits: 3,
+                      })}`}
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
-      ) : (
-        <div />
       )}
     </>
   );

@@ -151,7 +151,7 @@
   flex-wrap: wrap;
   padding: 16px;
   margin-bottom: 10px;
-
+  width: 100%;
   @media (min-width: $sm-break) {
     flex-wrap: nowrap;
   }
@@ -212,6 +212,48 @@
     }
 
     .transaction-bottom {
+      // font-size: 12px;
+
+      @include themify(day) {
+        color: $steel-grey;
+      }
+
+      @include themify(night) {
+        color: $metallic-blue;
+      }
+    }
+  }
+
+  .refund-title {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+
+    &.timestamp {
+      text-align: center;
+      width: 35%;
+    }
+
+    &.amount {
+      width: 30%;
+      text-align: center;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .refund-upper {
+      @include themify(day) {
+        color: $steel-grey;
+      }
+
+      @include themify(night) {
+        color: $metallic-blue;
+      }
+    }
+
+    .refund-bottom {
       // font-size: 12px;
 
       @include themify(day) {
