@@ -7,6 +7,7 @@ import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 import { OperationGroup, Transactions } from "../../store/transactions/types";
 import { ActiveUser } from "../../store/active-user/types";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 import BaseComponent from "../base";
 import SteemEngineToken from "../../helper/steem-engine-wallet";
@@ -45,6 +46,7 @@ interface Props {
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
+  upvuToken: UpvuToken;
   fetchPoints: (username: string, type?: number) => void;
   fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
@@ -131,6 +133,7 @@ export default (p: Props) => {
     updateActiveUser: p.updateActiveUser,
     setSigningKey: p.setSigningKey,
     updateWalletValues: p.updateWalletValues,
+    upvuToken: p.upvuToken,
     fetchPoints: p.fetchPoints,
     fetchUpvuToken: p.fetchUpvuToken,
   };

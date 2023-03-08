@@ -1,11 +1,13 @@
 export type TransactionType = "issue" | "transfer";
 
 export interface UpvuTransaction {
+  account: string;
   transaction_id: string;
   from: string;
   to: string;
   type: TransactionType;
   amount: string;
+  after_amount: string;
   createdAt: Date;
   updatedAt: Date;
 }

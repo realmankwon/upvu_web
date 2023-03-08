@@ -8,6 +8,7 @@ import { Account } from "../../store/accounts/types";
 import { DynamicProps } from "../../store/dynamic-props/types";
 import { Transactions } from "../../store/transactions/types";
 import { ActiveUser } from "../../store/active-user/types";
+import { UpvuToken, UpvuTransaction } from "../../store/upvu-token/types";
 
 import BaseComponent from "../base";
 import LinearProgress from "../linear-progress";
@@ -33,6 +34,7 @@ interface Props {
   activeUser: ActiveUser | null;
   transactions: Transactions;
   signingKey: string;
+  upvuToken: UpvuToken;
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
@@ -191,17 +193,23 @@ interface State {
   upvuInfos: UpvuInfoProps | null;
   selectedHistory: string;
   selectedRewardType: string;
-  isSmaeAccount: boolean;
+  isSameAccount: boolean;
   isUPVUUser: boolean;
   showTransferDialog: boolean;
-  showTransferUpvuDialog: boolean;
   showSetTypeDialog: boolean;
   transferMode: null | TransferMode;
   transferAsset: null | TransferAsset;
   rewardTypeList: RewardTypeProps[];
+  transferUpvu: boolean;
 }
 
-const historyKindArray = ["Voting History", "Reward History(KRW)", "Reward History(USD)", "Delegation History"];
+const historyKindArray = [
+  "Voting History",
+  "Reward History(KRW)",
+  "Reward History(USD)",
+  "Delegation History",
+  "UPVU Token Transaction",
+];
 
 export class WalletUPVUInfos extends BaseComponent<Props, State> {
   state: State = {
@@ -209,14 +217,14 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     upvuInfos: null,
     selectedHistory: historyKindArray[0],
     selectedRewardType: "",
-    isSmaeAccount: false,
+    isSameAccount: false,
     isUPVUUser: false,
     showTransferDialog: false,
-    showTransferUpvuDialog: false,
     showSetTypeDialog: false,
     transferMode: null,
     transferAsset: null,
     rewardTypeList: [],
+    transferUpvu: true,
   };
 
   componentDidMount() {
@@ -225,7 +233,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     const account = activeUser ? activeUser?.username : "";
 
     if (account && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${account}`) > -1) {
-      this.setState({ isSmaeAccount: true });
+      this.setState({ isSameAccount: true });
       getUPVUInfos(account).then((r) => {
         if (r.success) {
           const upvuInfo = r.infos as UpvuInfoProps;
@@ -245,7 +253,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
         }
       });
     } else {
-      this.setState({ isSmaeAccount: false });
+      this.setState({ isSameAccount: false });
     }
 
     getRewardType().then((r) => {
@@ -259,19 +267,23 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
   }
 
   componentWillUnmount() {
-    this.setState({ isSmaeAccount: false });
+    this.setState({ isSameAccount: false });
   }
 
   filterChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    if (e.target.value == "UPVU Token Transaction") {
+      const { fetchUpvuToken, account } = this.props;
+      fetchUpvuToken(account.name);
+    }
     this.setState({ selectedHistory: e.target.value });
   };
 
-  openTransferDialog = (mode: TransferMode, asset: TransferAsset) => {
-    this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset });
+  openTransferDialog = (mode: TransferMode, asset: TransferAsset, transferUpvu: boolean = true) => {
+    this.setState({ showTransferDialog: true, transferMode: mode, transferAsset: asset, transferUpvu });
   };
 
   closeTransferDialog = () => {
-    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null });
+    this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null, transferUpvu: false });
   };
 
   openSetRewardTypeDialog = () => {
@@ -289,20 +301,20 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
   };
 
   render() {
-    const { account, activeUser } = this.props;
+    const { account, activeUser, upvuToken } = this.props;
     const {
       upvuInfos,
       loading,
       selectedHistory,
       selectedRewardType,
-      isSmaeAccount,
+      isSameAccount,
       isUPVUUser,
       showTransferDialog,
-      showTransferUpvuDialog,
       showSetTypeDialog,
       transferMode,
       transferAsset,
       rewardTypeList,
+      transferUpvu,
     } = this.state;
 
     if (!account.__loaded) {
@@ -313,7 +325,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
 
     return (
       <div className="wallet-upvu">
-        {isSmaeAccount ? (
+        {isSameAccount ? (
           loading ? (
             <LinearProgress />
           ) : (
@@ -358,8 +370,10 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
                     <RewardHistory {...upvuInfos} isKrw={true} />
                   ) : selectedHistory === historyKindArray[2] ? (
                     <RewardHistory {...upvuInfos} isKrw={false} />
-                  ) : (
+                  ) : selectedHistory === historyKindArray[3] ? (
                     <DelegationHistory {...upvuInfos} />
+                  ) : (
+                    <UpvuTokenTransaction {...upvuToken} />
                   )}
                 </div>
               ) : upvuInfos ? (
@@ -397,7 +411,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
           <Transfer
             {...this.props}
             activeUser={activeUser!}
-            to={isSmaeAccount ? "upvu" : account.name}
+            to={isSameAccount ? (transferUpvu ? "upvu" : undefined) : account.name}
             mode={transferMode!}
             asset={transferAsset!}
             onHide={this.closeTransferDialog}
@@ -472,21 +486,21 @@ const MyUpvuPower = ({ summary }: UpvuInfoProps) => {
         <div className="header">My UPVU Power</div>
 
         <div className="content">
-          <ValueDescWithTooltip val={formattedNumber(summary.total_sp, { fractionDigits: 0 })} desc={"Total Amount"}>
+          <ValueDescWithTooltip val={formattedNumber(summary.total_sp, { fractionDigits: 3 })} desc={"Total Amount"}>
             <>
               <p>Delegated SP + UPVU Token</p>
             </>
           </ValueDescWithTooltip>
 
           <ValueDescWithTooltip
-            val={formattedNumber(summary.delegated_sp, { fractionDigits: 2 })}
+            val={formattedNumber(summary.delegated_sp, { fractionDigits: 3 })}
             desc={"Delegated SP"}
           >
             <>
               <p>Delegated Amount to @upvu</p>
             </>
           </ValueDescWithTooltip>
-          <ValueDescWithTooltip val={formattedNumber(summary.token_amount, { fractionDigits: 2 })} desc={"UPVU Token"}>
+          <ValueDescWithTooltip val={formattedNumber(summary.token_amount, { fractionDigits: 3 })} desc={"UPVU Token"}>
             <>
               <p>UPVU tokens you hold</p>
             </>
@@ -596,7 +610,7 @@ const MyRewards = ({ summary }: UpvuInfoProps) => {
 
         <div className="content">
           <ValueDescWithTooltip
-            val={`${formattedNumber(summary.total_reward, { fractionDigits: 2 })}`}
+            val={`${formattedNumber(summary.total_reward, { fractionDigits: 3 })}`}
             desc="Liquid Steem"
           >
             <>
@@ -604,7 +618,7 @@ const MyRewards = ({ summary }: UpvuInfoProps) => {
             </>
           </ValueDescWithTooltip>
           <ValueDescWithTooltip
-            val={`${formattedNumber(summary.author_reward, { fractionDigits: 2 })}`}
+            val={`${formattedNumber(summary.author_reward, { fractionDigits: 3 })}`}
             desc={"Author Reward"}
           >
             <>
@@ -777,55 +791,53 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
     openTransferDialog("transfer", "STEEM");
   };
 
-  const onClickTransferUpvu = () => {
-    openTransferDialog("transfer", "UPVU");
-  };
-
   return (
     <>
       <div className="view-container">
         <div className="header">Delegate Steem Power</div>
 
         <div className="content">
-          <Form.Row className="width-full">
-            <ValueDescWithTooltip
-              val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
-                fractionDigits: 0,
-              })}`}
-              desc={"Available Amount"}
-            >
-              <>
-                <p>Maximum Delegation Possible Amount.</p>
-                <p>You must leave a minimum amount for the activity.</p>
-                <p>Depending on the % of the current voting power, the available amount may vary.</p>
-              </>
-            </ValueDescWithTooltip>
-            <div className="tooltip-format min-width-150">
+          <ValueDescWithTooltip
+            val={`${formattedNumber(user_sp.account_sp - user_sp.delegatedOut_sp + upvu_delegate, {
+              fractionDigits: 0,
+            })}`}
+            desc={"Available Amount"}
+          >
+            <>
+              <p>Maximum Delegation Possible Amount.</p>
+              <p>You must leave a minimum amount for the activity.</p>
+              <p>Depending on the % of the current voting power, the available amount may vary.</p>
+            </>
+          </ValueDescWithTooltip>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Delegate" onClick={onClickDelegation} />
                 </Form.Group>
               </Col>
-            </div>
-            <ValueDescWithTooltip
-              val={`${formattedNumber(user_steem, {
-                fractionDigits: 3,
-              })}`}
-              desc={"Steem Balance"}
-            >
-              <>
-                <p>Current STEEM Amount</p>
-              </>
-            </ValueDescWithTooltip>
+            </Form.Row>
+          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(user_steem, {
+              fractionDigits: 3,
+            })}`}
+            desc={"Steem Balance"}
+          >
+            <>
+              <p>Current STEEM Amount</p>
+            </>
+          </ValueDescWithTooltip>
 
-            <div className="tooltip-format min-width-150">
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
                   <Form.Control className="claim-btn" type="button" value="Transfer" onClick={onClickTransfer} />
                 </Form.Group>
               </Col>
-            </div>
-          </Form.Row>
+            </Form.Row>
+          </div>
         </div>
       </div>
     </>
@@ -834,6 +846,10 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
 
 const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoProps | any) => {
   const onClickTransferUpvu = () => {
+    openTransferDialog("transfer", "UPVU", false);
+  };
+
+  const onClickRefundSteem = () => {
     openTransferDialog("transfer", "UPVU");
   };
 
@@ -849,21 +865,21 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
     <>
       {upvuToken && (
         <div className="view-container">
-          <div className="header">Refund Steem</div>
+          <div className="header">UPVU Token & Refund Steem</div>
 
           <div className="content">
-            <Form.Row className="width-full">
-              <ValueDescWithTooltip
-                val={`${formattedNumber(upvuToken, {
-                  fractionDigits: 3,
-                })}`}
-                desc={"UPVU token balance"}
-              >
-                <>
-                  <p>Current UPVU token Amount</p>
-                </>
-              </ValueDescWithTooltip>
-              <div className="tooltip-format min-width-150">
+            <ValueDescWithTooltip
+              val={`${formattedNumber(upvuToken, {
+                fractionDigits: 3,
+              })}`}
+              desc={"UPVU token balance"}
+            >
+              <>
+                <p>Current UPVU token Amount</p>
+              </>
+            </ValueDescWithTooltip>
+            <div className="tooltip-format min-width-150">
+              <Form.Row className="width-full">
                 <Col lg={12}>
                   <Form.Group>
                     <Form.Control
@@ -874,23 +890,39 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
                     />
                   </Form.Group>
                 </Col>
-              </div>
-            </Form.Row>
+              </Form.Row>
+            </div>
+            <div className="tooltip-format min-width-150">
+              <Form.Row className="width-full">
+                <Col lg={12}>
+                  <Form.Group>
+                    <Form.Control
+                      className="claim-btn"
+                      type="button"
+                      value="Refund Steem"
+                      onClick={onClickRefundSteem}
+                    />
+                  </Form.Group>
+                </Col>
+              </Form.Row>
+            </div>
+
             {refund_steems && (
               <div
                 className="transaction-list-item col-header"
                 style={{
                   backgroundColor: "#96c0ff",
                   textAlign: "center",
+                  marginTop: "10px",
                 }}
               >
-                <div className="refund-title timestamp">
+                <div className="upvu-token-title refund-timestamp">
                   <div className="transaction-upper">Request Date</div>
                 </div>
-                <div className="refund-title timestamp">
+                <div className="upvu-token-title refund-timestamp">
                   <div className="transaction-upper">Refund Date</div>
                 </div>
-                <div className="transaction-title amount">
+                <div className="upvu-token-title amount">
                   <div className="transaction-upper">Refund Amount</div>
                 </div>
               </div>
@@ -898,18 +930,18 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
             {refund_steems &&
               refund_steems.map((data: any, idx: number) => (
                 <div className="transaction-list-item" key={idx}>
-                  <div className="refund-title timestamp">
-                    <div className="refund-upper">
+                  <div className="upvu-token-title refund-timestamp">
+                    <div className="upvu-token-upper">
                       {moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss")}
                     </div>
                   </div>
-                  <div className="refund-title timestamp">
-                    <div className="refund-upper">
+                  <div className="upvu-token-title refund-timestamp">
+                    <div className="upvu-token-upper">
                       {calculateRefundDate(moment(new Date(data.str_timestamp)).format("YYYY-MM-DD HH:mm:ss"))}
                     </div>
                   </div>
-                  <div className="refund-title amount">
-                    <div className="refund-upper">
+                  <div className="upvu-token-title amount">
+                    <div className="upvu-token-upper">
                       {`${formattedNumber(data.amount, {
                         fractionDigits: 3,
                       })}`}
@@ -1116,6 +1148,69 @@ const DelegationHistory = ({ delegate }: UpvuInfoProps) => {
   );
 };
 
+const UpvuTokenTransaction = ({ transactions }: UpvuToken) => {
+  return (
+    <div>
+      <div
+        className="transaction-list-item col-header"
+        style={{
+          backgroundColor: "#96c0ff",
+          textAlign: "center",
+        }}
+      >
+        <div className="upvu-token-title timestamp">
+          <div className="upvu-token-upper">Date</div>
+        </div>
+
+        <div className="upvu-token-title account">
+          <div className="upvu-token-upper">From</div>
+        </div>
+        <div className="upvu-token-title account">
+          <div className="upvu-token-upper">To</div>
+        </div>
+        <div className="upvu-token-title type">
+          <div className="upvu-token-upper">Type</div>
+        </div>
+        <div className="upvu-token-title amount">
+          <div className="upvu-token-upper">Amount</div>
+        </div>
+        <div className="upvu-token-title amount">
+          <div className="upvu-token-upper">Balance</div>
+        </div>
+      </div>
+
+      {transactions ? (
+        transactions.map((transaction, idx) => (
+          <div className="transaction-list-item" key={idx}>
+            <div className="upvu-token-title timestamp">
+              <div className="upvu-token-upper">
+                {moment(new Date(transaction.createdAt)).format("YYYY-MM-DD HH:mm:ss")}
+              </div>
+            </div>
+            <div className="upvu-token-title account">
+              <div className="upvu-token-upper center">@{transaction.from}</div>
+            </div>
+            <div className="upvu-token-title account">
+              <div className="upvu-token-upper">@{transaction.to}</div>
+            </div>
+            <div className="upvu-token-title type">
+              <div className="upvu-token-upper">{transaction.type}</div>
+            </div>
+            <div className="upvu-token-title amount">
+              <div className="upvu-token-upper">{formattedNumber(transaction.amount, { fractionDigits: 3 })}</div>
+            </div>
+            <div className="upvu-token-title amount">
+              <div className="upvu-token-upper">{formattedNumber(transaction.after_amount, { fractionDigits: 3 })}</div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <LinearProgress />
+      )}
+    </div>
+  );
+};
+
 const ShowSetTypeDialog = ({ onHide, children }: SetTypeDialogProps) => {
   return (
     <Modal animation={false} show={true} centered={true} onHide={onHide} keyboard={false} className="dialog" size="lg">
@@ -1136,6 +1231,7 @@ export default (p: Props) => {
     activeUser: p.activeUser,
     transactions: p.transactions,
     signingKey: p.signingKey,
+    upvuToken: p.upvuToken,
     addAccount: p.addAccount,
     updateActiveUser: p.updateActiveUser,
     setSigningKey: p.setSigningKey,

@@ -394,7 +394,6 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     if (asset === "UPVU") {
-      debugger;
       return +activeUser.upvuToken;
     }
 

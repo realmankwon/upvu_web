@@ -85,7 +85,6 @@ export const activeUserUpdater = async (store: Store<AppState>) => {
       upvuToken = "0.000";
     }
 
-    debugger;
     store.dispatch(updateActiveUserAct(account, points, upvuToken));
   }
 };

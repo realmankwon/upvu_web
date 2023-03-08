@@ -224,26 +224,41 @@
     }
   }
 
-  .refund-title {
+  .upvu-token-title {
     display: flex;
     flex-direction: column;
     font-weight: 500;
 
-    &.timestamp {
+    &.refund-timestamp {
       text-align: center;
       width: 35%;
     }
 
-    &.amount {
-      width: 30%;
+    &.timestamp {
       text-align: center;
+      width: 20%;
+    }
+
+    &.account {
+      text-align: center;
+      width: 20%;
+    }
+
+    &.type {
+      text-align: center;
+      width: 10%;
+    }
+
+    &.amount {
+      text-align: center;
+      width: 15%;
     }
 
     .center {
       text-align: center;
     }
 
-    .refund-upper {
+    .upvu-token-upper {
       @include themify(day) {
         color: $steel-grey;
       }
@@ -253,7 +268,7 @@
       }
     }
 
-    .refund-bottom {
+    .upvu-token-bottom {
       // font-size: 12px;
 
       @include themify(day) {
