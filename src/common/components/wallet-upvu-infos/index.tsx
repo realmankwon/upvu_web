@@ -120,6 +120,8 @@ interface SummaryProps {
   voting_count: number;
   today_voting_rate: number;
   proxy: string;
+  is_user: number;
+  last_total_sp: number;
 }
 
 interface UserProps {
@@ -232,13 +234,13 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     const accountInPath = window.location.pathname.match(new RegExp(/@[\w.\-]+/));
     const account = activeUser ? activeUser?.username : "";
 
-    if (account && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${account}`) > -1) {
+    if (account && accountInPath && accountInPath.length && accountInPath[0] === `@${account}`) {
       this.setState({ isSameAccount: true });
       getUPVUInfos(account).then((r) => {
         if (r.success) {
           const upvuInfo = r.infos as UpvuInfoProps;
 
-          if (upvuInfo.summary.total_sp) {
+          if (upvuInfo.summary.is_user > 0) {
             this.setState({
               upvuInfos: upvuInfo,
               loading: false,
@@ -554,7 +556,7 @@ const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatu
         <div className="content">
           <ValueDescWithTooltip
             val={`${formattedNumber(
-              ((parseFloat(summary.total_reward) + summary.author_reward) / summary.total_sp) * 100,
+              ((parseFloat(summary.total_reward) + summary.author_reward) / summary.last_total_sp) * 100,
               {
                 fractionDigits: 2,
               }
@@ -884,6 +886,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
                   <Form.Group>
                     <Form.Control
                       className="claim-btn"
+                      disabled={upvuToken == 0}
                       type="button"
                       value="Transfer UPVU"
                       onClick={onClickTransferUpvu}
@@ -898,6 +901,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
                   <Form.Group>
                     <Form.Control
                       className="claim-btn"
+                      disabled={upvuToken == 0}
                       type="button"
                       value="Refund Steem"
                       onClick={onClickRefundSteem}
@@ -907,7 +911,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
               </Form.Row>
             </div>
 
-            {refund_steems && (
+            {refund_steems && refund_steems.length > 0 && (
               <div
                 className="transaction-list-item col-header"
                 style={{

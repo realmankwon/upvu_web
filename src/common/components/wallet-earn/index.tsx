@@ -158,7 +158,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     const accountInPath = window.location.pathname.match(new RegExp(/@[\w.\-]+/));
     const username = activeUser ? activeUser?.username : "";
 
-    if (username && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${username}`) > -1) {
+    if (username && accountInPath && accountInPath.length && accountInPath[0] === `@${username}`) {
       this.setState({ isSameAccount: true });
 
       const [resultEarnUses, resultEarnAccounts, resultEarnUser] = await Promise.all([
