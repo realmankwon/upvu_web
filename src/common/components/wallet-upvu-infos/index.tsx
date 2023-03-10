@@ -219,7 +219,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
     const accountInPath = window.location.pathname.match(new RegExp(/@[\w.\-]+/));
     const account = activeUser ? activeUser?.username : "";
 
-    if (account && accountInPath && accountInPath.length && accountInPath[0].indexOf(`@${account}`) > -1) {
+    if (account && accountInPath && accountInPath.length && accountInPath[0] === `@${account}`) {
       this.setState({ isSmaeAccount: true });
       getUPVUInfos(account).then((r) => {
         if (r.success) {

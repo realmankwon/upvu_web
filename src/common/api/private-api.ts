@@ -820,7 +820,7 @@ export const earnClaim = async (username: string, earn_symbol: string, earn_acco
     console.log(err);
   });
 
-  return result.success;
+  return result;
 };
 
 export const earnAccountConfig = async (username: string, earn_account: string): Promise<any> => {
