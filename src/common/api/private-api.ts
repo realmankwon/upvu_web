@@ -60,7 +60,7 @@ export interface ReceivedVestingShare {
 export const getReceivedVestingShares = (username: string): Promise<ReceivedVestingShare[]> =>
   axios.get(`https://sds.steemworld.org/delegations_api/getIncomingDelegations/${username}/100000/0`).then((resp) => {
     const results: ReceivedVestingShare[] = [];
-
+    debugger;
     resp.data.result.rows.map((data: ReceivedVestingShare) => {
       results.push({
         delegatee: data[2],
@@ -684,7 +684,6 @@ export const upvuTokenTransactions = async (username: string) => {
   const result = await callApi(`/upvuweb-api/upvu-token-transactions`, data, username).catch((e) => {
     throw e;
   });
-
   if (result.success) {
     return result.results;
   } else {
@@ -884,7 +883,7 @@ export const earnClaim = async (username: string, earn_symbol: string, earn_acco
     console.log(err);
   });
 
-  return result.success;
+  return result;
 };
 
 export const earnAccountConfig = async (username: string, earn_account: string): Promise<any> => {

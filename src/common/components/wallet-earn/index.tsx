@@ -586,11 +586,17 @@ const MyEarns = ({
   // const [loading, setLoading] = useState(true);
 
   const handleClickClaim = () => {
+    setRemainingPeriod("Unable to claim");
     earnClaim(
       username,
       earnSummary[earnSummary.length - 1].earn_symbol,
       earnSummary[earnSummary.length - 1].earn_account
-    ).then((result) => {});
+    ).then((result) => {
+      if (result.success) alert("Congratulations, your claim has been successfully processed!");
+      else alert(`I'm sorry, but your claim has failed. ${result.error}`);
+
+      window.location.reload();
+    });
   };
 
   useEffect(() => {
