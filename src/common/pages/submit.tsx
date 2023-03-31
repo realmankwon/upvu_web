@@ -18,7 +18,7 @@ import { renderPostBody, postBodySummary } from "@upvu/render-helper";
 import { proxifyImageSrc } from "@upvu/render-helper";
 
 import { Entry } from "../store/entries/types";
-import { Global } from "../store/global/types";
+import { Global, RewardRatioTypes } from "../store/global/types";
 import { FullAccount } from "../store/accounts/types";
 
 import BaseComponent from "../components/base";
@@ -154,7 +154,7 @@ class SubmitPage extends BaseComponent<Props, State> {
     tags: [],
     body: "",
     description: null,
-    reward: "default",
+    reward: ls.get("rewardRatio") === RewardRatioTypes.powerUp50 ? "default" : "sp",
     posting: false,
     editingEntry: null,
     saving: false,
@@ -441,7 +441,7 @@ class SubmitPage extends BaseComponent<Props, State> {
         tags: [],
         body: "",
         advanced: false,
-        reward: "default",
+        reward: ls.get("rewardRatio") === RewardRatioTypes.powerUp50 ? "default" : "sp",
         beneficiaries: [],
         schedule: null,
         reblogSwitch: false,
@@ -463,7 +463,14 @@ class SubmitPage extends BaseComponent<Props, State> {
 
   clearAdvanced = (): void => {
     this.stateSet(
-      { advanced: false, reward: "default", beneficiaries: [], schedule: null, reblogSwitch: false, description: "" },
+      {
+        advanced: false,
+        reward: ls.get("rewardRatio") === RewardRatioTypes.powerUp50 ? "default" : "sp",
+        beneficiaries: [],
+        schedule: null,
+        reblogSwitch: false,
+        description: "",
+      },
       () => {
         this.saveAdvanced();
       }

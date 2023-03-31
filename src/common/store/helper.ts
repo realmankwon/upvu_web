@@ -20,6 +20,7 @@ import {
   muteNotificationsAct as muteNotifications,
   setLangAct as setLang,
   setNsfwAct as setNsfw,
+  setRewardRatioAct as setRewardRatio,
 } from "./global";
 
 import { getCurrencyRate } from "../api/misc";
@@ -31,6 +32,7 @@ import * as ls from "../../common/util/local-storage";
 import currencySymbol from "../../common/helper/currency-symbol";
 
 import { AppWindow } from "../../client/window";
+import { RewardRatioTypes } from "./global/types";
 
 declare var window: AppWindow;
 
@@ -186,5 +188,12 @@ export const clientStoreTasks = (store: Store<AppState>) => {
   // NSFW
   if (ls.get("nsfw") === true) {
     store.dispatch(setNsfw(true));
+  }
+
+  // REWARD RATIO
+  if (ls.get("rewardRatio") === RewardRatioTypes.powerUp50) {
+    store.dispatch(setRewardRatio(RewardRatioTypes.powerUp50));
+  } else {
+    store.dispatch(setRewardRatio(RewardRatioTypes.powerUp100));
   }
 };

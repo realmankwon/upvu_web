@@ -1,4 +1,4 @@
-import { Global, EntryFilter, Theme, ListStyle } from "../store/global/types";
+import { Global, EntryFilter, Theme, ListStyle, RewardRatioTypes } from "../store/global/types";
 import { TrendingTags } from "../store/trending-tags/types";
 import { Entry } from "../store/entries/types";
 import { Community } from "../store/communities/types";
@@ -158,6 +158,7 @@ export const globalInstance: Global = {
   isMobile: false,
   notifications: true,
   nsfw: false,
+  rewardRatio: RewardRatioTypes.powerUp50,
   newVersion: null,
   usePrivate: true,
   developingPrivate: false,

@@ -2,7 +2,7 @@ import { AnyAction, bindActionCreators, Dispatch } from "redux";
 import { AppState } from "../store";
 
 import { History, Location } from "history";
-import { Global } from "../store/global/types";
+import { Global, RewardRatioTypes } from "../store/global/types";
 import { User } from "../store/users/types";
 import { Account, Accounts } from "../store/accounts/types";
 import { Community, Communities } from "../store/communities/types";
@@ -29,6 +29,7 @@ import {
   setCurrency,
   setLang,
   setNsfw,
+  setRewardRatio,
   setLastIndexPath,
 } from "../store/global";
 import { fetchTrendingTags } from "../store/trending-tags";
@@ -85,6 +86,7 @@ export interface PageProps {
   setCurrency: (currency: string, rate: number, symbol: string) => void;
   setLang: (lang: string) => void;
   setNsfw: (value: boolean) => void;
+  setRewardRatio: (value: RewardRatioTypes) => void;
   setLastIndexPath: (path: string | null) => void;
 
   dynamicProps: DynamicProps;
@@ -188,6 +190,7 @@ export const pageMapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
       setCurrency,
       setLang,
       setNsfw,
+      setRewardRatio,
       setLastIndexPath,
       dismissNewVersion,
       fetchTrendingTags,

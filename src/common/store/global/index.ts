@@ -21,9 +21,11 @@ import {
   NotificationsMuteAction,
   NotificationsUnMuteAction,
   NsfwSetAction,
+  RewardRatioSetAction,
   SetLastIndexPathAction,
   Theme,
   ThemeChangeAction,
+  RewardRatioTypes,
 } from "./types";
 
 import { CommonActionTypes } from "../common";
@@ -49,6 +51,7 @@ export const initialState: Global = {
   newVersion: null,
   notifications: true,
   nsfw: false,
+  rewardRatio: RewardRatioTypes.powerUp50,
   isMobile: false,
   usePrivate: true,
   developingPrivate: false,
@@ -101,6 +104,10 @@ export default (state: Global = initialState, action: Actions): Global => {
     case ActionTypes.NSFW_SET: {
       const { value } = action;
       return { ...state, nsfw: value };
+    }
+    case ActionTypes.REWARD_RATIO_SET: {
+      const { value } = action;
+      return { ...state, rewardRatio: value };
     }
     case ActionTypes.HAS_KEYCHAIN: {
       return { ...state, hasKeyChain: true };
@@ -197,6 +204,12 @@ export const setNsfw = (value: boolean) => (dispatch: Dispatch) => {
   dispatch(setNsfwAct(value));
 };
 
+export const setRewardRatio = (value: RewardRatioTypes) => (dispatch: Dispatch) => {
+  ls.set("rewardRatio", value);
+
+  dispatch(setRewardRatioAct(value));
+};
+
 export const setLastIndexPath = (path: string | null) => (dispatch: Dispatch) => {
   dispatch(setLastIndexPathAct(path));
 };
@@ -260,6 +273,13 @@ export const setLangAct = (lang: string): LangSetAction => {
 export const setNsfwAct = (value: boolean): NsfwSetAction => {
   return {
     type: ActionTypes.NSFW_SET,
+    value,
+  };
+};
+
+export const setRewardRatioAct = (value: RewardRatioTypes): RewardRatioSetAction => {
+  return {
+    type: ActionTypes.REWARD_RATIO_SET,
     value,
   };
 };

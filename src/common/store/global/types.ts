@@ -11,6 +11,11 @@ export enum Theme {
   night = "night",
 }
 
+export enum RewardRatioTypes {
+  powerUp50 = "powerUp50",
+  powerUp100 = "powerUp100",
+}
+
 export enum EntryFilter {
   trending = "trending",
   hot = "hot",
@@ -64,6 +69,7 @@ export interface Global {
   newVersion: string | null;
   notifications: boolean;
   nsfw: boolean;
+  rewardRatio: RewardRatioTypes;
   isMobile: boolean;
   usePrivate: boolean;
   developingPrivate: boolean;
@@ -81,6 +87,7 @@ export enum ActionTypes {
   LANG_SET = "@global/LANG_SET",
   NEW_VERSION_CHANGE = "@global/NEW_VERSION_CHANGE",
   NSFW_SET = "@global/NSFW_SET",
+  REWARD_RATIO_SET = "@global/REWARD_RATIO_SET",
   SET_LAST_INDEX_PATH = "@global/SET_LAST_INDEX_PATH",
 }
 
@@ -128,6 +135,11 @@ export interface NsfwSetAction {
   value: boolean;
 }
 
+export interface RewardRatioSetAction {
+  type: ActionTypes.REWARD_RATIO_SET;
+  value: RewardRatioTypes;
+}
+
 export interface HasKeyChainAction {
   type: ActionTypes.HAS_KEYCHAIN;
 }
@@ -148,5 +160,6 @@ export type Actions =
   | CurrencySetAction
   | LangSetAction
   | NsfwSetAction
+  | RewardRatioSetAction
   | HasKeyChainAction
   | SetLastIndexPathAction;
