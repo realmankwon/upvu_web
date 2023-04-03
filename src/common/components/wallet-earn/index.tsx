@@ -771,7 +771,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
   useEffect(() => {
     const currentSymbol = earnUsesInfo[0].earn_symbol;
-    setSelectedValue(`${earnUsesInfo[0].account}-${earnUsesInfo[0].earn_type}-${currentSymbol}`);
+    setSelectedValue(`${earnUsesInfo[0].account}:${earnUsesInfo[0].earn_type}:${currentSymbol}`);
     setSymbol(currentSymbol);
     fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${currentSymbol}BUSD`)
       .then((response) => response.json())
