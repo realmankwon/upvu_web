@@ -2,7 +2,7 @@ import React from "react";
 
 import i18n from "i18next";
 
-import { Global } from "../../store/global/types";
+import { Global, RewardRatioTypes } from "../../store/global/types";
 
 import { Col, Form, FormControl, InputGroup, Button } from "react-bootstrap";
 
@@ -29,6 +29,7 @@ interface Props {
   setCurrency: (currency: string, rate: number, symbol: string) => void;
   setLang: (lang: string) => void;
   setNsfw: (value: boolean) => void;
+  setRewardRatio: (value: RewardRatioTypes) => void;
   activeUser: ActiveUser;
 }
 
@@ -87,6 +88,15 @@ export class Preferences extends BaseComponent<Props, State> {
     const { value } = e.target;
 
     setNsfw(Boolean(Number(value)));
+    success(_t("preferences.updated"));
+  };
+
+  rewardRatioChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+    const { setRewardRatio } = this.props;
+    const { value } = e.target;
+
+    if (RewardRatioTypes.powerUp50 === value) setRewardRatio(RewardRatioTypes.powerUp50);
+    else setRewardRatio(RewardRatioTypes.powerUp100);
     success(_t("preferences.updated"));
   };
 
@@ -172,6 +182,16 @@ export class Preferences extends BaseComponent<Props, State> {
               </Form.Group>
             </Col>
 
+            <Col lg={6} xl={4}>
+              <Form.Group>
+                <Form.Label>{_t("preferences.rewardRatio")}</Form.Label>
+                <Form.Control type="text" value={global.rewardRatio} as="select" onChange={this.rewardRatioChanged}>
+                  <option value={RewardRatioTypes.powerUp50}>{_t("submit.reward-default")}</option>
+                  <option value={RewardRatioTypes.powerUp100}>{_t("submit.reward-sp")}</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+
             {activeUser && activeUser.username && (
               <Col lg={6} xl={4}>
                 <Form.Group>
@@ -215,6 +235,7 @@ export default (p: Props) => {
     setCurrency: p.setCurrency,
     setLang: p.setLang,
     setNsfw: p.setNsfw,
+    setRewardRatio: p.setRewardRatio,
   };
 
   return <Preferences {...props} />;
