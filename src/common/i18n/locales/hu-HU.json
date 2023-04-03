@@ -593,7 +593,8 @@
     "language": "Nyelv",
     "nsfw": "Show NSFW content",
     "referral-link": "Referral link",
-    "updated": "Preference updated!"
+    "updated": "Preference updated!",
+    "rewardRatio": "Reward Ratio"
   },
   "wallet": {
     "unclaimed-rewards": "Átvételre váró jutalmak",
