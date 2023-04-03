@@ -736,7 +736,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
   useEffect(() => {
     const fetchData = async () => {
-      const earnAccount = selectedValue.split("-")[0];
+      const earnAccount = selectedValue.split(":")[0];
       const [resultEarnHsts, resultEarnSummary, lastClaimDte, accountConfig] = await Promise.all([
         earnHsts(username, earnAccount, offset, count),
         earnSummary(username, earnAccount),
@@ -764,7 +764,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
   const handleSelectChange = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     setSelectedValue(e.target.value);
-    setSymbol(e.target.value.split("-")[2]);
+    setSymbol(e.target.value.split(":")[2]);
     setOffset(0);
     setEarnHstInfo([]);
   };
@@ -820,7 +820,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
             {earnUsesInfo.map((earnAccount) => (
               <option
                 key={earnAccount.account}
-                value={`${earnAccount.account}-${earnAccount.earn_type}-${earnAccount.earn_symbol}`}
+                value={`${earnAccount.account}:${earnAccount.earn_type}:${earnAccount.earn_symbol}`}
               >
                 {`${earnAccount.earn_type === "D" ? "Delegate SP" : "Liquid Steem"}-${earnAccount.earn_symbol}`}
               </option>
