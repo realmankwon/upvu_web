@@ -330,7 +330,7 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
             <LinearProgress />
           ) : (
             <div>
-              {isUPVUUser && upvuInfos ? (
+              {upvuInfos ? (
                 <div>
                   <MyUpvuPower {...upvuInfos} />
                   <UPVUStatus
