@@ -520,7 +520,7 @@ const MyUpvuPower = ({ summary }: UpvuInfoProps) => {
 };
 
 const UPVUStatus = ({ summary, user, showDialog, selectedRewardType }: UpvuStatusProps) => {
-  const [proxy, setProxy] = useState(user.proxy);
+  const [proxy, setProxy] = useState(user ? user.proxy : "N");
   const [inProgress, setInProgress] = useState(false);
   const spinner = <Spinner animation="grow" variant="light" size="sm" style={{ marginRight: "6px" }} />;
 
@@ -861,9 +861,10 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
       .add(diffInDays + 7, "day")
       .format("YYYY-MM-DD");
   };
+  debugger;
   return (
     <>
-      {upvuToken && (
+      {
         <div className="view-container">
           <div className="header">UPVU Token & Refund Steem</div>
 
@@ -907,7 +908,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
               </Form.Row>
             </div>
 
-            {refund_steems && (
+            {refund_steems && refund_steems.length > 0 && (
               <div
                 className="transaction-list-item col-header"
                 style={{
@@ -951,7 +952,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
               ))}
           </div>
         </div>
-      )}
+      }
     </>
   );
 };
