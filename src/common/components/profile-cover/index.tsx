@@ -36,17 +36,18 @@ export class ProfileCover extends Component<Props> {
       ? "./img/cover-fallback-night.png"
       : require("../../img/cover-fallback-night.png");
     let bgImage = "";
-
+    let bgErrorImage = "";
     if (account.__loaded) {
       bgImage = global.theme === "day" ? coverFallbackDay : coverFallbackNight;
       if (account.profile?.cover_image) {
+        bgErrorImage = account.profile.cover_image;
         bgImage = proxifyImageSrc(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
       }
     }
 
     let style = {};
     if (bgImage) {
-      style = { backgroundImage: `url('${bgImage}')` };
+      style = { backgroundImage: `url('${bgImage}'), url('${bgErrorImage}')` };
     }
 
     const hideControls = activeUser && activeUser.username === account.name;

@@ -101,7 +101,7 @@ export class AddImage extends BaseComponent<Props, State> {
                   return (
                     <div
                       className="recent-list-item"
-                      style={{ backgroundImage: `url('${src}')` }}
+                      style={{ backgroundImage: `url('${src}'), url('${item.url}')` }}
                       key={item._id}
                       onClick={() => {
                         this.itemClicked(item);

@@ -269,20 +269,20 @@ class EntryPage extends BaseComponent<Props, State> {
     let reducerFn = updateEntry;
 
     if (!entry) {
-      // let urlPartOne = match.url.split('/')[1];
-      // let urlPartTwo = match.url.split('/')[2];
-      // let isInvalidUrl = urlPartOne == urlPartTwo;
-      // if(isInvalidUrl){
-      //     let address: any = match.url.split('/');
-      //     address.shift();
-      //     address.shift();
-      //     address = address.join("/");
-      //     history.push('/' + address);
-      // } else {
-      // The entry isn't in reducer. Fetch it and add to reducer.
-      this.stateSet({ loading: true });
-      reducerFn = addEntry;
-      // }
+      let urlPartOne = match.url.split("/")[1];
+      let urlPartTwo = match.url.split("/")[2];
+      let isInvalidUrl = urlPartOne == urlPartTwo;
+      if (isInvalidUrl) {
+        let address: any = match.url.split("/");
+        address.shift();
+        address.shift();
+        address = address.join("/");
+        history.push("/" + address);
+      } else {
+        // The entry isn't in reducer. Fetch it and add to reducer.
+        this.stateSet({ loading: true });
+        reducerFn = addEntry;
+      }
     } else {
       const updated = moment.utc(entry.updated);
       const now = moment.utc(Date.now());

@@ -281,7 +281,7 @@ export class WalletSteemEngine extends BaseComponent<Props, State> {
                             className="item-image"
                             onError={(e: React.SyntheticEvent) => {
                               const target = e.target as HTMLImageElement;
-                              target.src = fallbackImage;
+                              target.src = b.icon ? b.icon : fallbackImage;
                             }}
                           />
                           {b.symbol}
