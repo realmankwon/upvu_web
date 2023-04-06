@@ -227,7 +227,7 @@ export const SearchListItem = ({
                         undefined,
                         undefined,
                         (rest as any).global.canUseWebp ? "webp" : "match"
-                      )}), url(${json_metadata.image[0]})`,
+                      )})`,
                     }}
                   />
                 )}

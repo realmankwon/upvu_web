@@ -1089,7 +1089,7 @@ class SubmitPage extends BaseComponent<Props, State> {
                                       selectedItem === item ? "selected" : ""
                                     } mr-3 mb-2`}
                                     style={{
-                                      backgroundImage: `url(${proxifyImageSrc(item, 260, 200)}), url(${item})`,
+                                      backgroundImage: `url(${proxifyImageSrc(item, 260, 200)})`,
                                     }}
                                     onClick={() => {
                                       this.selectThumbnails(item);

@@ -163,14 +163,13 @@ export class CommunityCover extends Component<Props> {
     if (account.__loaded) {
       bgImage = global.theme === "day" ? coverFallbackDay : coverFallbackNight;
       if (account.profile?.cover_image) {
-        bgErrorImage = account.profile.cover_image;
         bgImage = proxifyImageSrc(account.profile.cover_image, 0, 0, global.canUseWebp ? "webp" : "match");
       }
     }
 
     let style = {};
     if (bgImage) {
-      style = { backgroundImage: `url('${bgImage}'), url('${bgErrorImage}')` };
+      style = { backgroundImage: `url('${bgImage}'))` };
     }
 
     const subscribers = formattedNumber(community.subscribers, { fractionDigits: 0 });
