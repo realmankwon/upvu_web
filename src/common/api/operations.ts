@@ -379,7 +379,7 @@ export const transferPoint = (
 };
 
 export const transferUpvu = (from: string, key: PrivateKey, to: string, amount: string) => {
-  const hash = cryptoUtils.sha256(`${from}:${to}:${amount}`);
+  const hash = cryptoUtils.sha256(`transfer:${from}:${to}:${amount}`);
   const signature = key.sign(hash).toString();
 
   return upvuTokenTransfer(from, signature, to, +amount).catch((e) => {
