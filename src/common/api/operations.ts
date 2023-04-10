@@ -416,7 +416,7 @@ export const transferPointKc = (from: string, to: string, amount: string, memo: 
 };
 
 export const transferUpvuKc = (from: string, to: string, amount: string) => {
-  return keychain.signBuffer(from, `${from}:${to}:${amount}`, "Active").then((result) => {
+  return keychain.signBuffer(from, `transfer:${from}:${to}:${amount}`, "Active").then((result) => {
     return upvuTokenTransfer(from, result.result, to, +amount).catch((e) => {
       throw e.response.data.error;
     });

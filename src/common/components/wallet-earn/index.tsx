@@ -33,6 +33,7 @@ import {
   earnLastClaimDte,
   earnClaim,
   earnAccountConfig,
+  earnRefund,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 
@@ -95,6 +96,7 @@ interface EarnSummaryArrayProps {
   earnLockTerm: number;
   minClaimAmount: number;
   earnSymbolPrice: number;
+  earnType: string;
 }
 
 interface ValueDescWithTooltipProps {
@@ -331,6 +333,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
                     delegateEarnAccountChanged={this.delegateEarnAccountChanged}
                   />
                   <TransferSteem
+                    username={userInfo.username}
                     previousSteem={previousEarnSteemAmount.amount}
                     userSteem={w.balance}
                     liquidEarnAccounts={liquidEarnAccounts}
@@ -493,6 +496,7 @@ const DelegationSP = ({
 };
 
 const TransferSteem = ({
+  username,
   previousSteem,
   userSteem,
   liquidEarnAccounts,
@@ -504,8 +508,42 @@ const TransferSteem = ({
     openTransferDialog();
   };
 
-  const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLSelectElement>) => {
+    setEarnSymbol(liquidEarnAccounts[e.target.selectedOptions[0].innerText]);
     liquidEarnAccountChanged(e);
+  };
+
+  const [refundAmount, setRefundAmount] = useState(0);
+  const [maxRefund, setMaxRefund] = useState(previousSteem);
+  const [earnSymbol, setEarnSymbol] = useState("");
+
+  useEffect(() => {
+    setMaxRefund(previousSteem);
+    changeMaxRefund(refundAmount);
+  }, [refundAmount, previousSteem]);
+
+  const handleChange = (event: any) => {
+    changeMaxRefund(+event.target.value);
+  };
+
+  const changeMaxRefund = (maxValue: number) => {
+    const newValue = maxValue;
+    if (newValue > previousSteem) {
+      setRefundAmount(previousSteem);
+    } else {
+      setRefundAmount(newValue);
+    }
+  };
+
+  const onClickRefund = () => {
+    earnRefund(username, earnSymbol, selectedLiquidEarnAccount, refundAmount)
+      .then((result) => {
+        if (result.success) alert("Refund Requested");
+        else alert(result.result);
+
+        window.location.reload();
+      })
+      .catch((e) => {});
   };
 
   return (
@@ -564,6 +602,26 @@ const TransferSteem = ({
             </Form.Row>
           </div>
         </div>
+        <div className="content" style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control type="number" max={maxRefund} value={refundAmount} onChange={handleChange} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control className="blue-btn" type="button" value="Refund" onClick={onClickRefund} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -576,17 +634,19 @@ const MyEarns = ({
   earnLockTerm,
   minClaimAmount,
   earnSymbolPrice,
+  earnType,
 }: EarnSummaryArrayProps) => {
   const datelastClaimedDte = new Date(lastClaimedDte);
   const countDownDate = datelastClaimedDte.setDate(datelastClaimedDte.getDate() + earnLockTerm);
   const countDown = countDownDate - new Date().getTime();
 
   const [remainingPeriod, setRemainingPeriod] = useState("");
-  const [unableToClaimReason, setunableToClaimReason] = useState("");
+  const [unableToClaimReason, setUnableToClaimReason] = useState("");
+  const [stopInterval, setStopInterval] = useState(false);
   // const [loading, setLoading] = useState(true);
 
   const handleClickClaim = () => {
-    setRemainingPeriod("Unable to claim");
+    setStopInterval(true);
     earnClaim(
       username,
       earnSummary[earnSummary.length - 1].earn_symbol,
@@ -595,6 +655,7 @@ const MyEarns = ({
       if (result.success) alert("Congratulations, your claim has been successfully processed!");
       else alert(`I'm sorry, but your claim has failed. ${result.error}`);
 
+      setStopInterval(false);
       window.location.reload();
     });
   };
@@ -609,18 +670,18 @@ const MyEarns = ({
       if (isNaN(days) && isNaN(hours) && isNaN(minutes) && isNaN(seconds)) {
       } else if (days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0) {
         setRemainingPeriod(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-        setunableToClaimReason("There is no time period to claim.");
+        setUnableToClaimReason("There is no time period to claim.");
       } else {
         if (!earnSummary || earnSummary.length == 0) {
           setRemainingPeriod("Unable to claim");
-          setunableToClaimReason("There is no record to claim.");
+          setUnableToClaimReason("There is no record to claim.");
 
           return;
         }
 
         if (earnSummary[earnSummary.length - 1].claimable_amount == 0) {
           setRemainingPeriod("Unable to claim");
-          setunableToClaimReason(
+          setUnableToClaimReason(
             `The claimable amount is not enough.(${earnSummary[earnSummary.length - 1].claimable_amount} ${
               earnSummary[earnSummary.length - 1].earn_symbol
             })`
@@ -630,7 +691,7 @@ const MyEarns = ({
 
         if (earnSymbolPrice * earnSummary[earnSummary.length - 1].claimable_amount < minClaimAmount) {
           setRemainingPeriod("Unable to claim");
-          setunableToClaimReason(
+          setUnableToClaimReason(
             `Your claimable amount(${earnSummary[earnSummary.length - 1].claimable_amount} ${
               earnSummary[earnSummary.length - 1].earn_symbol
             } = $${(earnSummary[earnSummary.length - 1].claimable_amount * earnSymbolPrice).toFixed(
@@ -640,7 +701,8 @@ const MyEarns = ({
           return;
         }
 
-        setRemainingPeriod("Claimable");
+        if (stopInterval) setRemainingPeriod("Unable to claim");
+        else setRemainingPeriod("Claimable");
       }
     }, 1000);
     return () => clearTimeout(interval);
@@ -835,6 +897,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
         earnLockTerm={earnStatus.earnLockTerm}
         minClaimAmount={earnStatus.minClaimAmount}
         earnSymbolPrice={earnSymbolPrice}
+        earnType={selectedValue.split(":")[1]}
       />
       <div>
         <div

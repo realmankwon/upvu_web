@@ -906,3 +906,26 @@ export const earnAccountConfig = async (username: string, earn_account: string):
     return [];
   }
 };
+
+export const earnRefund = async (
+  username: string,
+  earn_symbol: string,
+  earn_account: string,
+  amount: number
+): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    earn_symbol,
+    earn_account,
+    amount,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-refund`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return result;
+};
