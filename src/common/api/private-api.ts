@@ -929,3 +929,19 @@ export const earnRefund = async (
 
   return result;
 };
+
+export const earnRefundHsts = async (username: string, earn_account: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    earn_account,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-refund-hsts`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return result;
+};

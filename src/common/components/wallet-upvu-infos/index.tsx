@@ -154,6 +154,20 @@ interface UpvuInfoProps {
   isKrw?: boolean;
   account?: string;
   upvuToken?: string;
+  refund_steems: UpvuRefundSteemProps[];
+  openTransferDialog?: any;
+}
+
+interface UpvuRefundSteemProps {
+  transaction_id: string;
+  str_timestamp: string;
+  account: string;
+  send_dte: string;
+  amount: number;
+  transfer: string;
+  transfer_block_num: string;
+  transfer_trx_id: string;
+  transfer_timestamp: Date;
 }
 
 interface RewardTypeProps {
@@ -782,7 +796,7 @@ const TronClaim = ({ account, summary, tron_address }: UpvuInfoProps) => {
   );
 };
 
-const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransferDialog }: UpvuInfoProps | any) => {
+const DelegationSP = ({ user_sp, upvu_delegate, user_steem, openTransferDialog }: UpvuInfoProps) => {
   const onClickDelegation = () => {
     openTransferDialog("delegate", "SP");
   };
@@ -844,7 +858,7 @@ const DelegationSP = ({ summary, user_sp, upvu_delegate, user_steem, openTransfe
   );
 };
 
-const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoProps | any) => {
+const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoProps) => {
   const onClickTransferUpvu = () => {
     openTransferDialog("transfer", "UPVU", false);
   };
@@ -870,9 +884,13 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
 
           <div className="content">
             <ValueDescWithTooltip
-              val={`${formattedNumber(upvuToken, {
-                fractionDigits: 3,
-              })}`}
+              val={`${
+                upvuToken
+                  ? formattedNumber(upvuToken, {
+                      fractionDigits: 3,
+                    })
+                  : "0.000"
+              }`}
               desc={"UPVU token balance"}
             >
               <>

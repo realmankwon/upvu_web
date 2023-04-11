@@ -34,8 +34,10 @@ import {
   earnClaim,
   earnAccountConfig,
   earnRefund,
+  earnRefundHsts,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
+import moment from "moment";
 
 interface Props {
   history: History;
@@ -118,6 +120,18 @@ interface SteemWalletProps {
   delegateEarnAccounts: EarnUsesProps[];
 }
 
+interface EarnRefundSteemProps {
+  request_dte: Date;
+  earn_account: string;
+  request_account: string;
+  amount: number;
+  request_trx_id: string;
+  status: string;
+  refund_block_num: string;
+  refund_trx_id: string;
+  refund_timestamp: Date;
+}
+
 interface State {
   loading: boolean;
   isSameAccount: boolean;
@@ -132,6 +146,7 @@ interface State {
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
   earnUserInfo: EarnUserProps;
+  refundSteems: EarnRefundSteemProps[];
 }
 
 export class WalletEarn extends BaseComponent<Props, State> {
@@ -149,6 +164,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
     earnUserInfo: { username: "", wallet_address: "" },
+    refundSteems: [],
   };
 
   componentDidMount() {
@@ -236,29 +252,40 @@ export class WalletEarn extends BaseComponent<Props, State> {
     });
   };
 
-  liquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
+  liquidEarnAccountChanged = async (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
     const { account } = this.props;
 
     const earnAccount = e.target.value;
-    earnDepositSteem(account.name, earnAccount).then((result) => {
-      if (result) {
-        this.setState({
-          selectedLiquidEarnAccount: earnAccount,
-          previousEarnSteemAmount: {
-            earnAccount,
-            amount: +result.total_amount,
-          },
-        });
-      } else {
-        this.setState({
-          selectedLiquidEarnAccount: earnAccount,
-          previousEarnSteemAmount: {
-            earnAccount: "",
-            amount: 0,
-          },
-        });
-      }
+    const [previousEarnSteem, refundSteems] = await Promise.all([
+      earnDepositSteem(account.name, earnAccount),
+      earnRefundHsts(account.name, earnAccount),
+    ]);
+
+    this.setState({
+      selectedLiquidEarnAccount: earnAccount,
     });
+
+    if (previousEarnSteem) {
+      this.setState({
+        previousEarnSteemAmount: {
+          earnAccount,
+          amount: +previousEarnSteem.total_amount,
+        },
+      });
+    } else {
+      this.setState({
+        previousEarnSteemAmount: {
+          earnAccount: "",
+          amount: 0,
+        },
+      });
+    }
+
+    if (refundSteems.success) {
+      this.setState({
+        refundSteems: refundSteems.result,
+      });
+    }
   };
 
   openDelegateDialog = () => {
@@ -293,6 +320,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
       earnUserInfo,
+      refundSteems,
     } = this.state;
 
     if (!account.__loaded) {
@@ -340,6 +368,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
                     selectedLiquidEarnAccount={selectedLiquidEarnAccount}
                     openTransferDialog={this.openTransferDialog}
                     liquidEarnAccountChanged={this.liquidEarnAccountChanged}
+                    refundSteems={refundSteems}
                   />
                   {isEarnUser && earnUsesInfo ? (
                     <div>
@@ -424,7 +453,14 @@ const DelegationSP = ({
   selectedDelegateEarnAccount,
   openDelegateDialog,
   delegateEarnAccountChanged,
-}: SteemWalletProps | any) => {
+}: {
+  previousSp: number;
+  availableSp: number;
+  delegateEarnAccounts: EarnUsesProps[];
+  selectedDelegateEarnAccount: string;
+  openDelegateDialog: any;
+  delegateEarnAccountChanged: any;
+}) => {
   const onClickDelegation = () => {
     openDelegateDialog();
   };
@@ -503,7 +539,17 @@ const TransferSteem = ({
   selectedLiquidEarnAccount,
   openTransferDialog,
   liquidEarnAccountChanged,
-}: SteemWalletProps | any) => {
+  refundSteems,
+}: {
+  username: string;
+  previousSteem: number;
+  userSteem: number;
+  liquidEarnAccounts: EarnUsesProps[];
+  selectedLiquidEarnAccount: string;
+  openTransferDialog: any;
+  liquidEarnAccountChanged: any;
+  refundSteems: EarnRefundSteemProps[];
+}) => {
   const onClickTransfer = () => {
     openTransferDialog();
   };
@@ -544,6 +590,15 @@ const TransferSteem = ({
         window.location.reload();
       })
       .catch((e) => {});
+  };
+
+  const calculateRefundDate = (requestDate: string) => {
+    const nextMonday = new Date(requestDate);
+    nextMonday.setDate(new Date(requestDate).getDate() + ((7 - new Date(requestDate).getDay()) % 7) + 1);
+    const diffInDays = Math.round((nextMonday.getTime() - new Date(requestDate).getTime()) / (1000 * 60 * 60 * 24));
+    return moment(requestDate)
+      .add(diffInDays + 7, "day")
+      .format("YYYY-MM-DD");
   };
 
   return (
@@ -607,7 +662,7 @@ const TransferSteem = ({
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control type="number" max={maxRefund} value={refundAmount} onChange={handleChange} />
+                  <Form.Control type="number" min="0" max={maxRefund} value={refundAmount} onChange={handleChange} />
                 </Form.Group>
               </Col>
             </Form.Row>
@@ -621,6 +676,54 @@ const TransferSteem = ({
               </Col>
             </Form.Row>
           </div>
+          {refundSteems && refundSteems.length > 0 && (
+            <div
+              className="transaction-list-item col-header"
+              style={{
+                backgroundColor: "#96c0ff",
+                textAlign: "center",
+                marginTop: "10px",
+              }}
+            >
+              <div className="upvu-token-title refund-timestamp">
+                <div className="transaction-upper">Request Date</div>
+              </div>
+              <div className="upvu-token-title refund-timestamp">
+                <div className="transaction-upper">Refund Date</div>
+              </div>
+              <div className="upvu-token-title amount">
+                <div className="transaction-upper">Refund Amount</div>
+              </div>
+              <div className="upvu-token-title amount">
+                <div className="transaction-upper">Status</div>
+              </div>
+            </div>
+          )}
+          {refundSteems &&
+            refundSteems.map((data: any, idx: number) => (
+              <div className="transaction-list-item" key={idx}>
+                <div className="upvu-token-title refund-timestamp">
+                  <div className="upvu-token-upper">
+                    {moment(new Date(data.request_dte)).format("YYYY-MM-DD HH:mm:ss")}
+                  </div>
+                </div>
+                <div className="upvu-token-title refund-timestamp">
+                  <div className="upvu-token-upper">
+                    {calculateRefundDate(moment(new Date(data.request_dte)).format("YYYY-MM-DD HH:mm:ss"))}
+                  </div>
+                </div>
+                <div className="upvu-token-title amount">
+                  <div className="upvu-token-upper">
+                    {`${formattedNumber(data.amount, {
+                      fractionDigits: 3,
+                    })}`}
+                  </div>
+                </div>
+                <div className="upvu-token-title amount">
+                  <div className="upvu-token-upper">{data.status === "R" ? "Requested" : "Not Processed"}</div>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </>
