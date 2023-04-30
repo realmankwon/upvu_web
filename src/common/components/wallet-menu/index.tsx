@@ -40,14 +40,14 @@ export default class WalletMenu extends Component<Props> {
           <span className="sub-title">Wallet</span>
           <span className="platform-logo">{steemSvg}</span>
         </Link>
-        <Link
+        {/* <Link
           className={_c(`menu-item hive-engine ${active === "engine" ? "active" : ""}`)}
           to={`/@${username}/engine`}
         >
           <span className="title">Engine</span>
           <span className="sub-title">Tokens</span>
           <span className="platform-logo">{hiveEngineSvg}</span>
-        </Link>
+        </Link> */}
         <Link
           className={_c(`menu-item dashboard ${active === "dashboard" ? "active" : ""}`)}
           to={`/@${username}/dashboard`}
