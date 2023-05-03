@@ -42,7 +42,9 @@ function callApi(
         data.access_token = accessToken ? accessToken : "";
         data.refresh_token = refreshToken ? refreshToken : "";
 
-        return axios.post(apiUpvuBase(path), data).then((res) => res.data);
+        return axios.post(apiUpvuBase(path), data).then((res) => {
+          return res.data;
+        });
       }
     } else {
       return resp.data;
