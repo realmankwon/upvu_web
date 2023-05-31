@@ -24,10 +24,10 @@ function callApi(
   username: string
 ): Promise<any> {
   return axios.post(apiUpvuBase(path), data).then((resp) => {
-    if (resp.data.hasOwnProperty("auth")) {
-      if (resp.data.auth) {
+    if (resp.data.hasOwnProperty("message")) {
+      if (resp.data.message !== "NOT_VERIFIED") {
         const user: User = {
-          username: resp.data.username,
+          username: username,
           accessToken: resp.data.access_token,
           refreshToken: resp.data.refresh_token,
           expiresIn: 60000,
@@ -42,9 +42,13 @@ function callApi(
         data.access_token = accessToken ? accessToken : "";
         data.refresh_token = refreshToken ? refreshToken : "";
 
+        console.log(resp.data.access_token, resp.data.refresh_token);
+        console.log(accessToken, refreshToken);
         return axios.post(apiUpvuBase(path), data).then((res) => {
           return res.data;
         });
+      } else {
+        return resp.data;
       }
     } else {
       return resp.data;
