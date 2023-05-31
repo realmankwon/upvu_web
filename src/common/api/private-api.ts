@@ -42,8 +42,6 @@ function callApi(
         data.access_token = accessToken ? accessToken : "";
         data.refresh_token = refreshToken ? refreshToken : "";
 
-        console.log(resp.data.access_token, resp.data.refresh_token);
-        console.log(accessToken, refreshToken);
         return axios.post(apiUpvuBase(path), data).then((res) => {
           return res.data;
         });
