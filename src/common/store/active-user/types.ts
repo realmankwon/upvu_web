@@ -30,7 +30,6 @@ export interface UpdateAction {
   type: ActionTypes.UPDATE;
   data: Account;
   points: UserPoints;
-  upvuToken: string;
 }
 
 export type Actions = LoginAction | LogoutAction | UpdateAction;

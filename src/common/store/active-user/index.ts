@@ -83,15 +83,7 @@ export const updateActiveUser = (data?: Account) => async (dispatch: Dispatch, g
     };
   }
 
-  let upvuToken: string;
-
-  try {
-    upvuToken = await upvuTokenBalance(activeUser.username);
-  } catch (e) {
-    upvuToken = "0.000";
-  }
-
-  dispatch(updateAct(uData, points, upvuToken));
+  dispatch(updateAct(uData, points));
 };
 
 /* Action Creators */
@@ -107,11 +99,10 @@ export const logoutAct = (): LogoutAction => {
   };
 };
 
-export const updateAct = (data: Account, points: UserPoints, upvuToken: string): UpdateAction => {
+export const updateAct = (data: Account, points: UserPoints): UpdateAction => {
   return {
     type: ActionTypes.UPDATE,
     data,
     points,
-    upvuToken,
   };
 };

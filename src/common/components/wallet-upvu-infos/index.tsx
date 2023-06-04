@@ -335,7 +335,10 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
       return null;
     }
 
-    if (upvuInfos) upvuInfos.upvuToken = activeUser?.upvuToken;
+    if (upvuInfos) {
+      upvuInfos.upvuToken = upvuToken.upvuToken;
+      if (activeUser) activeUser.upvuToken = upvuToken.upvuToken;
+    }
 
     return (
       <div className="wallet-upvu">
