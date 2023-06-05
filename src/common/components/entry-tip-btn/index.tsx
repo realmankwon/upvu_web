@@ -18,6 +18,7 @@ import Tooltip from "../tooltip";
 import { _t } from "../../i18n";
 
 import { giftOutlineSvg } from "../../img/svg";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 interface Props {
   global: Global;
@@ -28,6 +29,7 @@ interface Props {
   entry: Entry;
   signingKey: string;
   account: Account;
+  upvuToken: UpvuToken;
   fetchPoints: (username: string, type?: number) => void;
   fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
@@ -138,6 +140,7 @@ export default (p: Props) => {
     updateWalletValues: p.updateWalletValues,
     activeUser: p.activeUser,
     entry: p.entry,
+    upvuToken: p.upvuToken,
     signingKey: p.signingKey,
     addAccount: p.addAccount,
     setActiveUser: p.setActiveUser,

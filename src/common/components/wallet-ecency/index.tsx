@@ -46,6 +46,7 @@ import {
 } from "../../img/svg";
 import FormattedCurrency from "../formatted-currency";
 import { dateToFullRelative } from "../../helper/parse-date";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 export const formatMemo = (memo: string, history: History) => {
   return memo.split(" ").map((x) => {
@@ -173,6 +174,7 @@ interface Props {
   points: Points;
   signingKey: string;
   transactions: Transactions;
+  upvuToken: UpvuToken;
   fetchPoints: (username: string, type?: number) => void;
   fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;
@@ -558,6 +560,7 @@ export default (p: Props) => {
     points: p.points,
     signingKey: p.signingKey,
     transactions: p.transactions,
+    upvuToken: p.upvuToken,
     fetchPoints: p.fetchPoints,
     fetchUpvuToken: p.fetchUpvuToken,
     updateWalletValues: p.updateWalletValues,

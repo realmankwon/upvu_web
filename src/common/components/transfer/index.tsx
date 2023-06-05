@@ -220,6 +220,11 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   assetChanged = (asset: TransferAsset) => {
+    if (asset === "UPVU") {
+      const { fetchUpvuToken, account } = this.props;
+      fetchUpvuToken(account.name);
+    }
+
     this.stateSet({ asset }, () => {
       this.checkAmount();
     });

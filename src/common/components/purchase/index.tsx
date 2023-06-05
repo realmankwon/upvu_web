@@ -17,6 +17,7 @@ import { _t } from "../../i18n";
 
 import _c from "../../util/fix-class-names";
 import formattedNumber from "../../util/formatted-number";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 interface Props {
   global: Global;
@@ -25,6 +26,7 @@ interface Props {
   transactions: Transactions;
   signingKey: string;
   account: Account;
+  upvuToken: UpvuToken;
   fetchPoints: (username: string, type?: number) => void;
   fetchUpvuToken: (username: string) => void;
   updateWalletValues: () => void;

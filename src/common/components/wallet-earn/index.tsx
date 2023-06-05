@@ -38,6 +38,7 @@ import {
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 import moment from "moment";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 interface Props {
   history: History;
@@ -47,6 +48,7 @@ interface Props {
   transactions: Transactions;
   account: Account;
   signingKey: string;
+  upvuToken: UpvuToken;
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
@@ -1255,6 +1257,7 @@ export default (p: Props) => {
     transactions: p.transactions,
     account: p.account,
     signingKey: p.signingKey,
+    upvuToken: p.upvuToken,
     addAccount: p.addAccount,
     updateActiveUser: p.updateActiveUser,
     setSigningKey: p.setSigningKey,
