@@ -297,6 +297,9 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
   };
 
   closeTransferDialog = () => {
+    const { fetchUpvuToken, account } = this.props;
+    fetchUpvuToken(account.name);
+
     this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null, transferUpvu: false });
   };
 
@@ -337,7 +340,6 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
 
     if (upvuInfos) {
       upvuInfos.upvuToken = upvuToken.upvuToken;
-      if (activeUser) activeUser.upvuToken = upvuToken.upvuToken;
     }
 
     return (

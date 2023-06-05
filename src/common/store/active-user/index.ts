@@ -9,7 +9,7 @@ import { Actions, ActionTypes, ActiveUser, UserPoints, LoginAction, LogoutAction
 import * as ls from "../../util/local-storage";
 
 import { getAccount } from "../../api/steem";
-import { getPoints, upvuTokenBalance } from "../../api/private-api";
+import { getPoints } from "../../api/private-api";
 
 import { activeUserMaker } from "../helper";
 
@@ -31,8 +31,8 @@ export default (state: ActiveUser | null = initialState, action: Actions): Activ
       return load();
     }
     case ActionTypes.UPDATE: {
-      const { data, points, upvuToken } = action;
-      return Object.assign({}, state, { data, points, upvuToken });
+      const { data, points } = action;
+      return Object.assign({}, state, { data, points });
     }
     default:
       return state;

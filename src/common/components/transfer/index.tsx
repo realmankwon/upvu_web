@@ -69,6 +69,7 @@ import { arrowRightSvg } from "../../img/svg";
 import formattedNumber from "../../util/formatted-number";
 import activeUser from "../../store/active-user";
 import { dateToFullRelative } from "../../helper/parse-date";
+import { UpvuToken } from "../../store/upvu-token/types";
 
 export type TransferMode =
   | "transfer"
@@ -136,6 +137,7 @@ interface Props {
   transactions: Transactions;
   signingKey: string;
   account: Account;
+  upvuToken: UpvuToken;
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
@@ -386,7 +388,7 @@ export class Transfer extends BaseComponent<Props, State> {
   };
 
   getBalance = (): number => {
-    const { mode, activeUser, dynamicProps } = this.props;
+    const { mode, activeUser, dynamicProps, upvuToken } = this.props;
     const { asset } = this.state;
 
     if (asset === "POINT") {
@@ -394,7 +396,7 @@ export class Transfer extends BaseComponent<Props, State> {
     }
 
     if (asset === "UPVU") {
-      return +activeUser.upvuToken;
+      return +upvuToken.upvuToken;
     }
 
     const { data: account } = activeUser;
