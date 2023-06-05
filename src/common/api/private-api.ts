@@ -658,11 +658,14 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
 
 export const upvuTokenBalance = async (username: string): Promise<any> => {
   if (!username) return [];
+  debugger;
 
   const data = {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
   };
+
+  if (!data.access_token || !data.refresh_token) return [];
 
   return callApi(`/upvuweb-api/upvu-token-balance`, data, username)
     .then((result) => {
@@ -684,6 +687,8 @@ export const upvuTokenTransactions = async (username: string) => {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
   };
+
+  if (!data.access_token || !data.refresh_token) return [];
 
   const result = await callApi(`/upvuweb-api/upvu-token-transactions`, data, username).catch((e) => {
     throw e;
