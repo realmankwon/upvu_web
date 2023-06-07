@@ -648,9 +648,6 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   const updateRewardTypeResult = await callApi(`/upvuweb-api/update-reward-type`, data, account).catch((err) => {
     console.log(err);
   });
-  // const updateRewardTypeResult = await axios
-  //   .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
-  //   .then((r) => r.data);
 
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
