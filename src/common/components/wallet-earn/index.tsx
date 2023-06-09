@@ -144,13 +144,11 @@ interface State {
   showSteemTransferDialog: boolean;
   showUpvuTransferDialog: boolean;
   liquidEarnAccounts: EarnUsesProps[];
-  previousEarnSteemAmount: DepositInfoProps;
   delegateEarnAccounts: EarnUsesProps[];
   previousEarnDelegateAmount: DepositInfoProps;
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
   earnUserInfo: EarnUserProps;
-  refundSteems: EarnRefundSteemProps[];
   transferAsset: TransferAsset;
 }
 
@@ -164,13 +162,11 @@ export class WalletEarn extends BaseComponent<Props, State> {
     showSteemTransferDialog: false,
     showUpvuTransferDialog: false,
     liquidEarnAccounts: [],
-    previousEarnSteemAmount: { earnAccount: "", amount: 0 },
     delegateEarnAccounts: [],
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
     earnUserInfo: { username: "", wallet_address: "" },
-    refundSteems: [],
     transferAsset: "STEEM",
   };
 
@@ -298,13 +294,11 @@ export class WalletEarn extends BaseComponent<Props, State> {
       showSteemTransferDialog,
       showUpvuTransferDialog,
       liquidEarnAccounts,
-      previousEarnSteemAmount,
       delegateEarnAccounts,
       previousEarnDelegateAmount,
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
       earnUserInfo,
-      refundSteems,
     } = this.state;
 
     if (!account.__loaded) {
@@ -686,6 +680,33 @@ const TransferSteem = ({
             </>
           </ValueDescWithTooltip>
 
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control type="number" min="0" max={maxRefund} value={refundAmount} onChange={handleChange} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control
+                    className="blue-btn"
+                    type="button"
+                    value="Refund"
+                    disabled={transferDisable ? true : previousEarnSteemAmount === 0 ? true : false}
+                    onClick={onClickRefund}
+                  />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+        </div>
+        <br></br>
+        <div className="content">
           <ValueDescWithTooltip
             val={`${formattedNumber(userSteem, {
               fractionDigits: 3,
@@ -712,7 +733,6 @@ const TransferSteem = ({
               </Col>
             </Form.Row>
           </div>
-
           <ValueDescWithTooltip
             val={`${formattedNumber(upvuToken, {
               fractionDigits: 3,
@@ -740,31 +760,7 @@ const TransferSteem = ({
             </Form.Row>
           </div>
         </div>
-        <div className="content" style={{ display: "flex", justifyContent: "flex-end" }}>
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
-              <Col lg={12}>
-                <Form.Group>
-                  <Form.Control type="number" min="0" max={maxRefund} value={refundAmount} onChange={handleChange} />
-                </Form.Group>
-              </Col>
-            </Form.Row>
-          </div>
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
-              <Col lg={12}>
-                <Form.Group>
-                  <Form.Control
-                    className="blue-btn"
-                    type="button"
-                    value="Refund"
-                    disabled={transferDisable ? true : previousEarnSteemAmount === 0 ? true : false}
-                    onClick={onClickRefund}
-                  />
-                </Form.Group>
-              </Col>
-            </Form.Row>
-          </div>
+        <div className="content">
           {refundSteems && refundSteems.length > 0 && (
             <div
               className="transaction-list-item col-header"
@@ -946,7 +942,9 @@ const MyEarns = ({
                 </Form.Row>
               </>
             ))}
-
+        </div>
+        <br></br>
+        <div className="content">
           <Form.Row className="width-full">
             <Col lg={3}>
               <ValueDescWithTooltip val={remainingPeriod} desc={"Remaing Period"}>
