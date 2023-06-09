@@ -705,7 +705,7 @@ const TransferSteem = ({
             </Form.Row>
           </div>
         </div>
-        <br></br>
+        <br />
         <div className="content">
           <ValueDescWithTooltip
             val={`${formattedNumber(userSteem, {
@@ -943,7 +943,7 @@ const MyEarns = ({
               </>
             ))}
         </div>
-        <br></br>
+        <br />
         <div className="content">
           <Form.Row className="width-full">
             <Col lg={3}>
