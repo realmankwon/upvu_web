@@ -655,7 +655,6 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
 
 export const upvuTokenBalance = async (username: string): Promise<any> => {
   if (!username) return [];
-  debugger;
 
   const data = {
     access_token: getAccessToken(username),

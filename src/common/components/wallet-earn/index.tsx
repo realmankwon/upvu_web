@@ -40,6 +40,7 @@ import { getVestingDelegations } from "../../api/steem";
 import moment from "moment";
 import { UpvuToken } from "../../store/upvu-token/types";
 import upvuToken from "../../store/upvu-token";
+import { sum } from "lodash";
 
 interface Props {
   history: History;
@@ -652,13 +653,7 @@ const TransferSteem = ({
 
         <div className="content">
           <div className="select-delegate-earn-account">
-            <FormControl
-              className="select-box"
-              as="select"
-              value={selectedEarnAccount}
-              defaultValue="-"
-              onChange={onLiquidEarnAccountChanged}
-            >
+            <FormControl className="select-box" as="select" defaultValue="-" onChange={onLiquidEarnAccountChanged}>
               <option key="empty" value="-">
                 Select
               </option>
@@ -890,11 +885,14 @@ const MyEarns = ({
         }
 
         if (stopInterval) setRemainingPeriod("Unable to claim");
-        else setRemainingPeriod("Claimable");
+        else {
+          setRemainingPeriod("Claimable");
+          setUnableToClaimReason("");
+        }
       }
     }, 1000);
     return () => clearTimeout(interval);
-  }, [countDown]);
+  }, [countDown, earnSummary]);
 
   return (
     <>
@@ -902,7 +900,7 @@ const MyEarns = ({
         <div className="header">My Earn Status</div>
         <div className="content">
           {earnSummary &&
-            earnSummary.map((summary) => (
+            earnSummary.map((summary, idx) => (
               <>
                 <Form.Row className="width-full" key={summary.earn_symbol}>
                   <Col lg={3}>
@@ -1116,7 +1114,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
         {earnHstInfo ? (
           earnHstInfo.map((earnHst: EarnHstsProps, idx: number) => (
-            <div className="transaction-list-item" key={idx}>
+            <div className="transaction-list-item" key={earnHst.reward_dte}>
               <div className="transaction-title date">
                 <div className="transaction-upper">{earnHst.reward_dte}</div>
               </div>
@@ -1294,7 +1292,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
           <Col lg={8}>
             <Form.Group>
               <Form.Label>Metamask Address</Form.Label>
-              <Form.Control type="text" value={walletAddress} maxLength={50} data-var="name" />
+              <Form.Control type="text" value={walletAddress} maxLength={50} data-var="name" readOnly={true} />
             </Form.Group>
           </Col>
           <Col lg={2}>
@@ -1313,7 +1311,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
           <Col lg={8}>
             <Form.Group>
               <Form.Label>Saved My Address</Form.Label>
-              <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" />
+              <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" readOnly={true} />
             </Form.Group>
           </Col>
           <Col lg={2}>

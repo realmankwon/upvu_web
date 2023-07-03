@@ -884,7 +884,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
       .add(diffInDays + 7, "day")
       .format("YYYY-MM-DD");
   };
-  debugger;
+
   return (
     <>
       {
