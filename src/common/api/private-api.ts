@@ -15,6 +15,7 @@ import * as ls from "../util/local-storage";
 import { encodeObj, decodeObj } from "../util/encoder";
 import { User } from "../store/users/types";
 import { Signature } from "@upvu/dsteem";
+import { dateToFormatted } from "../helper/parse-date";
 
 declare var window: AppWindow;
 
@@ -168,9 +169,9 @@ export const getNotifications = (
       notifications = notifications.map((data: any) => {
         const notification: any = {};
         notification.type = data.type;
-        notification.timestamp = data.date;
+        notification.timestamp = dateToFormatted(data.date, "YYYY-MM-DD HH:mm:ss");
 
-        if (new Date(lastread) < new Date(notification.timestamp)) {
+        if (new Date(lastread) < new Date(data.date)) {
           notification.read = 0;
         } else {
           notification.read = 1;
