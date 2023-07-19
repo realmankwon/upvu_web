@@ -1122,20 +1122,22 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
     }
   }, [walletAddress]);
 
-  window.ethereum.on("accountsChanged", (value: any) => {
-    if (value.length > 0) setWalletAddress(value[0]);
-    else setWalletAddress("");
-  });
+  if (typeof window.ethereum !== "undefined") {
+    window.ethereum.on("accountsChanged", (value: any) => {
+      if (value.length > 0) setWalletAddress(value[0]);
+      else setWalletAddress("");
+    });
 
-  window.ethereum.on("chainChanged", async (value: any) => {
-    if (value != network.chainId) {
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: network.chainId }],
-      });
-      setChainId(network.chainId);
-    }
-  });
+    window.ethereum.on("chainChanged", async (value: any) => {
+      if (value != network.chainId) {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: network.chainId }],
+        });
+        setChainId(network.chainId);
+      }
+    });
+  }
 
   const connectWallet = async () => {
     try {
