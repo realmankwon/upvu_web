@@ -1,5 +1,5 @@
 import React, { ProviderProps, useCallback, useEffect, useRef, useState } from "react";
-import { Button, Form, Col, FormControl, Spinner } from "react-bootstrap";
+import { Button, Form, Col, FormControl, Spinner, FormControlProps } from "react-bootstrap";
 import { History } from "history";
 import htmlParse from "html-react-parser";
 import { vestsToSp } from "../../helper/vesting";
@@ -38,6 +38,9 @@ import {
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 import moment from "moment";
+import { UpvuToken } from "../../store/upvu-token/types";
+import upvuToken from "../../store/upvu-token";
+import { sum } from "lodash";
 
 interface Props {
   history: History;
@@ -47,6 +50,7 @@ interface Props {
   transactions: Transactions;
   account: Account;
   signingKey: string;
+  upvuToken: UpvuToken;
   addAccount: (data: Account) => void;
   updateActiveUser: (data?: Account) => void;
   setSigningKey: (key: string) => void;
@@ -138,15 +142,15 @@ interface State {
   isEarnUser: boolean;
   earnUsesInfo: EarnUsesProps[];
   showDelegateDialog: boolean;
-  showTransferDialog: boolean;
+  showSteemTransferDialog: boolean;
+  showUpvuTransferDialog: boolean;
   liquidEarnAccounts: EarnUsesProps[];
-  previousEarnSteemAmount: DepositInfoProps;
   delegateEarnAccounts: EarnUsesProps[];
   previousEarnDelegateAmount: DepositInfoProps;
   selectedDelegateEarnAccount: string;
   selectedLiquidEarnAccount: string;
   earnUserInfo: EarnUserProps;
-  refundSteems: EarnRefundSteemProps[];
+  transferAsset: TransferAsset;
 }
 
 export class WalletEarn extends BaseComponent<Props, State> {
@@ -156,15 +160,15 @@ export class WalletEarn extends BaseComponent<Props, State> {
     isEarnUser: false,
     earnUsesInfo: [],
     showDelegateDialog: false,
-    showTransferDialog: false,
+    showSteemTransferDialog: false,
+    showUpvuTransferDialog: false,
     liquidEarnAccounts: [],
-    previousEarnSteemAmount: { earnAccount: "", amount: 0 },
     delegateEarnAccounts: [],
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
     earnUserInfo: { username: "", wallet_address: "" },
-    refundSteems: [],
+    transferAsset: "STEEM",
   };
 
   componentDidMount() {
@@ -252,42 +256,9 @@ export class WalletEarn extends BaseComponent<Props, State> {
     });
   };
 
-  liquidEarnAccountChanged = async (e: React.ChangeEvent<typeof FormControl & HTMLInputElement>) => {
-    const { account } = this.props;
-
-    const earnAccount = e.target.value;
-    const [previousEarnSteem, refundSteems] = await Promise.all([
-      earnDepositSteem(account.name, earnAccount),
-      earnRefundHsts(account.name, earnAccount),
-    ]);
-
-    this.setState({
-      selectedLiquidEarnAccount: earnAccount,
-    });
-
-    if (previousEarnSteem) {
-      this.setState({
-        previousEarnSteemAmount: {
-          earnAccount,
-          amount: +previousEarnSteem.total_amount,
-        },
-      });
-    } else {
-      this.setState({
-        previousEarnSteemAmount: {
-          earnAccount: "",
-          amount: 0,
-        },
-      });
-    }
-
-    if (refundSteems.success) {
-      this.setState({
-        refundSteems: refundSteems.result,
-      });
-    }
+  setSelectedLiquidEarnAccount = (earnAccount: string) => {
+    this.setState({ selectedLiquidEarnAccount: earnAccount });
   };
-
   openDelegateDialog = () => {
     this.setState({ showDelegateDialog: true });
   };
@@ -296,31 +267,39 @@ export class WalletEarn extends BaseComponent<Props, State> {
     this.setState({ showDelegateDialog: false });
   };
 
-  openTransferDialog = () => {
-    this.setState({ showTransferDialog: true });
+  openSteemTransferDialog = () => {
+    this.setState({ showSteemTransferDialog: true });
+  };
+  openUpvuTransferDialog = () => {
+    this.setState({ showUpvuTransferDialog: true });
   };
 
-  closeTransferDialog = () => {
-    this.setState({ showTransferDialog: false });
+  closeSteemTransferDialog = () => {
+    this.setState({ showSteemTransferDialog: false });
+  };
+
+  closeUpvuTransferDialog = () => {
+    const { fetchUpvuToken, account } = this.props;
+    fetchUpvuToken(account.name);
+    this.setState({ showUpvuTransferDialog: false });
   };
 
   render() {
-    const { global, dynamicProps, account, activeUser, history } = this.props;
+    const { global, dynamicProps, account, activeUser, upvuToken } = this.props;
     const {
       isSameAccount,
       loading,
       earnUsesInfo,
       isEarnUser,
       showDelegateDialog,
-      showTransferDialog,
+      showSteemTransferDialog,
+      showUpvuTransferDialog,
       liquidEarnAccounts,
-      previousEarnSteemAmount,
       delegateEarnAccounts,
       previousEarnDelegateAmount,
       selectedDelegateEarnAccount,
       selectedLiquidEarnAccount,
       earnUserInfo,
-      refundSteems,
     } = this.state;
 
     if (!account.__loaded) {
@@ -362,13 +341,12 @@ export class WalletEarn extends BaseComponent<Props, State> {
                   />
                   <TransferSteem
                     username={userInfo.username}
-                    previousSteem={previousEarnSteemAmount.amount}
                     userSteem={w.balance}
                     liquidEarnAccounts={liquidEarnAccounts}
-                    selectedLiquidEarnAccount={selectedLiquidEarnAccount}
-                    openTransferDialog={this.openTransferDialog}
-                    liquidEarnAccountChanged={this.liquidEarnAccountChanged}
-                    refundSteems={refundSteems}
+                    setSelectedLiquidEarnAccount={this.setSelectedLiquidEarnAccount}
+                    openSteemTransferDialog={this.openSteemTransferDialog}
+                    openUpvuTransferDialog={this.openUpvuTransferDialog}
+                    upvuToken={upvuToken.upvuToken}
                   />
                   {isEarnUser && earnUsesInfo ? (
                     <div>
@@ -405,14 +383,25 @@ export class WalletEarn extends BaseComponent<Props, State> {
           />
         )}
 
-        {showTransferDialog && (
+        {showSteemTransferDialog && (
           <Transfer
             {...this.props}
             activeUser={activeUser!}
             to={isSameAccount ? selectedLiquidEarnAccount : account.name}
             mode="transfer"
             asset="STEEM"
-            onHide={this.closeTransferDialog}
+            onHide={this.closeSteemTransferDialog}
+          />
+        )}
+
+        {showUpvuTransferDialog && (
+          <Transfer
+            {...this.props}
+            activeUser={activeUser!}
+            to={isSameAccount ? selectedLiquidEarnAccount : account.name}
+            mode="transfer"
+            asset="UPVU"
+            onHide={this.closeUpvuTransferDialog}
           />
         )}
       </div>
@@ -533,40 +522,87 @@ const DelegationSP = ({
 
 const TransferSteem = ({
   username,
-  previousSteem,
   userSteem,
   liquidEarnAccounts,
-  selectedLiquidEarnAccount,
-  openTransferDialog,
-  liquidEarnAccountChanged,
-  refundSteems,
+  setSelectedLiquidEarnAccount,
+  openSteemTransferDialog,
+  openUpvuTransferDialog,
+  upvuToken,
 }: {
   username: string;
-  previousSteem: number;
   userSteem: number;
   liquidEarnAccounts: EarnUsesProps[];
-  selectedLiquidEarnAccount: string;
-  openTransferDialog: any;
-  liquidEarnAccountChanged: any;
-  refundSteems: EarnRefundSteemProps[];
+  setSelectedLiquidEarnAccount: (earnAccount: string) => void;
+  openSteemTransferDialog: any;
+  openUpvuTransferDialog: any;
+  upvuToken: string;
 }) => {
-  const onClickTransfer = () => {
-    openTransferDialog();
-  };
-
-  const onLiquidEarnAccountChanged = (e: React.ChangeEvent<typeof FormControl & HTMLSelectElement>) => {
-    setEarnSymbol(liquidEarnAccounts[e.target.selectedOptions[0].innerText]);
-    liquidEarnAccountChanged(e);
-  };
-
   const [refundAmount, setRefundAmount] = useState(0);
-  const [maxRefund, setMaxRefund] = useState(previousSteem);
+  const [maxRefund, setMaxRefund] = useState(0);
+  const [selectedEarnAccount, setSelectedEarnAccount] = useState("");
   const [earnSymbol, setEarnSymbol] = useState("");
+  const [transferDisable, setTransferDisable] = useState(true);
+  const [previousEarnSteemAmount, setPreviousEarnSteemAmount] = useState(0);
+  const [refundSteems, setRefundSteems] = useState([]);
+
+  const onClickSteemTransfer = () => {
+    openSteemTransferDialog();
+  };
+
+  const onClickUpvuTransfer = () => {
+    openUpvuTransferDialog();
+  };
+
+  const onLiquidEarnAccountChanged = async (e: React.ChangeEvent<typeof FormControl & HTMLSelectElement>) => {
+    if (liquidEarnAccounts.findIndex((data) => data.earn_symbol === e.target.selectedOptions[0].innerText) >= 0) {
+      setEarnSymbol(e.target.selectedOptions[0].innerText);
+    } else {
+      setEarnSymbol("");
+    }
+    const earnAccount = e.target.value ? e.target.value.toString() : "";
+    const [previousEarnSteem, refundSteemList] = await Promise.all([
+      earnDepositSteem(username, earnAccount),
+      earnRefundHsts(username, earnAccount),
+    ]);
+
+    setSelectedLiquidEarnAccount(earnAccount);
+    setSelectedEarnAccount(earnAccount);
+
+    if (previousEarnSteem) {
+      setPreviousEarnSteemAmount(+previousEarnSteem.total_amount);
+    } else {
+      setPreviousEarnSteemAmount(0);
+    }
+
+    if (refundSteemList.success) {
+      setRefundSteems(refundSteemList.result);
+    }
+  };
 
   useEffect(() => {
-    setMaxRefund(previousSteem);
+    setMaxRefund(previousEarnSteemAmount);
     changeMaxRefund(refundAmount);
-  }, [refundAmount, previousSteem]);
+  }, [refundAmount, previousEarnSteemAmount]);
+
+  useEffect(() => {
+    changeTransferDisable(earnSymbol);
+  }, [earnSymbol]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const previousEarnSteem = await earnDepositSteem(username, selectedEarnAccount);
+
+      setSelectedEarnAccount(selectedEarnAccount);
+
+      if (previousEarnSteem) {
+        setPreviousEarnSteemAmount(+previousEarnSteem.total_amount);
+      } else {
+        setPreviousEarnSteemAmount(0);
+      }
+    };
+
+    fetchData();
+  }, [upvuToken]);
 
   const handleChange = (event: any) => {
     changeMaxRefund(+event.target.value);
@@ -574,22 +610,31 @@ const TransferSteem = ({
 
   const changeMaxRefund = (maxValue: number) => {
     const newValue = maxValue;
-    if (newValue > previousSteem) {
-      setRefundAmount(previousSteem);
+    if (newValue > previousEarnSteemAmount) {
+      setRefundAmount(previousEarnSteemAmount);
     } else {
       setRefundAmount(newValue);
     }
   };
 
-  const onClickRefund = () => {
-    earnRefund(username, earnSymbol, selectedLiquidEarnAccount, refundAmount)
-      .then((result) => {
-        if (result.success) alert("Refund Requested");
-        else alert(result.result);
+  const changeTransferDisable = (earnSymbol: string) => {
+    if (earnSymbol) setTransferDisable(false);
+    else setTransferDisable(true);
+  };
 
-        window.location.reload();
-      })
-      .catch((e) => {});
+  const onClickRefund = () => {
+    if (refundAmount > 0) {
+      earnRefund(username, earnSymbol, selectedEarnAccount, refundAmount)
+        .then((result) => {
+          if (result.success) alert("Refund Requested");
+          else alert(result.result);
+
+          window.location.reload();
+        })
+        .catch((e) => {});
+    } else {
+      alert("Request refund amount is 0.");
+    }
   };
 
   const calculateRefundDate = (requestDate: string) => {
@@ -608,13 +653,7 @@ const TransferSteem = ({
 
         <div className="content">
           <div className="select-delegate-earn-account">
-            <FormControl
-              className="select-box"
-              as="select"
-              value={selectedLiquidEarnAccount}
-              defaultValue="-"
-              onChange={onLiquidEarnAccountChanged}
-            >
+            <FormControl className="select-box" as="select" defaultValue="-" onChange={onLiquidEarnAccountChanged}>
               <option key="empty" value="-">
                 Select
               </option>
@@ -626,7 +665,7 @@ const TransferSteem = ({
             </FormControl>
           </div>
           <ValueDescWithTooltip
-            val={`${formattedNumber(previousSteem, {
+            val={`${formattedNumber(previousEarnSteemAmount, {
               fractionDigits: 3,
             })}`}
             desc={"Previous Steem"}
@@ -636,6 +675,33 @@ const TransferSteem = ({
             </>
           </ValueDescWithTooltip>
 
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control type="number" min="0" max={maxRefund} value={refundAmount} onChange={handleChange} />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control
+                    className="blue-btn"
+                    type="button"
+                    value="Refund"
+                    disabled={transferDisable ? true : previousEarnSteemAmount === 0 ? true : false}
+                    onClick={onClickRefund}
+                  />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+        </div>
+        <br />
+        <div className="content">
           <ValueDescWithTooltip
             val={`${formattedNumber(userSteem, {
               fractionDigits: 3,
@@ -651,31 +717,45 @@ const TransferSteem = ({
             <Form.Row className="width-full">
               <Col lg={12}>
                 <Form.Group>
-                  <Form.Control className="blue-btn" type="button" value="Transfer" onClick={onClickTransfer} />
+                  <Form.Control
+                    className="blue-btn"
+                    type="button"
+                    value="Transfer"
+                    disabled={transferDisable ? true : userSteem === 0 ? true : false}
+                    onClick={onClickSteemTransfer}
+                  />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+          </div>
+          <ValueDescWithTooltip
+            val={`${formattedNumber(upvuToken, {
+              fractionDigits: 3,
+            })}`}
+            desc={"UPVU Balance"}
+          >
+            <>
+              <p>Current UPVU Amount</p>
+            </>
+          </ValueDescWithTooltip>
+
+          <div className="tooltip-format min-width-150">
+            <Form.Row className="width-full">
+              <Col lg={12}>
+                <Form.Group>
+                  <Form.Control
+                    className="blue-btn"
+                    type="button"
+                    value="UPVU Transfer"
+                    disabled={transferDisable ? true : +upvuToken === 0 ? true : false}
+                    onClick={onClickUpvuTransfer}
+                  />
                 </Form.Group>
               </Col>
             </Form.Row>
           </div>
         </div>
-        <div className="content" style={{ display: "flex", justifyContent: "flex-end" }}>
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
-              <Col lg={12}>
-                <Form.Group>
-                  <Form.Control type="number" min="0" max={maxRefund} value={refundAmount} onChange={handleChange} />
-                </Form.Group>
-              </Col>
-            </Form.Row>
-          </div>
-          <div className="tooltip-format min-width-150">
-            <Form.Row className="width-full">
-              <Col lg={12}>
-                <Form.Group>
-                  <Form.Control className="blue-btn" type="button" value="Refund" onClick={onClickRefund} />
-                </Form.Group>
-              </Col>
-            </Form.Row>
-          </div>
+        <div className="content">
           {refundSteems && refundSteems.length > 0 && (
             <div
               className="transaction-list-item col-header"
@@ -805,11 +885,14 @@ const MyEarns = ({
         }
 
         if (stopInterval) setRemainingPeriod("Unable to claim");
-        else setRemainingPeriod("Claimable");
+        else {
+          setRemainingPeriod("Claimable");
+          setUnableToClaimReason("");
+        }
       }
     }, 1000);
     return () => clearTimeout(interval);
-  }, [countDown]);
+  }, [countDown, earnSummary]);
 
   return (
     <>
@@ -817,7 +900,7 @@ const MyEarns = ({
         <div className="header">My Earn Status</div>
         <div className="content">
           {earnSummary &&
-            earnSummary.map((summary) => (
+            earnSummary.map((summary, idx) => (
               <>
                 <Form.Row className="width-full" key={summary.earn_symbol}>
                   <Col lg={3}>
@@ -857,7 +940,9 @@ const MyEarns = ({
                 </Form.Row>
               </>
             ))}
-
+        </div>
+        <br />
+        <div className="content">
           <Form.Row className="width-full">
             <Col lg={3}>
               <ValueDescWithTooltip val={remainingPeriod} desc={"Remaing Period"}>
@@ -1029,7 +1114,7 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
 
         {earnHstInfo ? (
           earnHstInfo.map((earnHst: EarnHstsProps, idx: number) => (
-            <div className="transaction-list-item" key={idx}>
+            <div className="transaction-list-item" key={earnHst.reward_dte}>
               <div className="transaction-title date">
                 <div className="transaction-upper">{earnHst.reward_dte}</div>
               </div>
@@ -1209,7 +1294,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
           <Col lg={8}>
             <Form.Group>
               <Form.Label>Metamask Address</Form.Label>
-              <Form.Control type="text" value={walletAddress} maxLength={50} data-var="name" />
+              <Form.Control type="text" value={walletAddress} maxLength={50} data-var="name" readOnly={true} />
             </Form.Group>
           </Col>
           <Col lg={2}>
@@ -1228,7 +1313,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
           <Col lg={8}>
             <Form.Group>
               <Form.Label>Saved My Address</Form.Label>
-              <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" />
+              <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" readOnly={true} />
             </Form.Group>
           </Col>
           <Col lg={2}>
@@ -1257,6 +1342,7 @@ export default (p: Props) => {
     transactions: p.transactions,
     account: p.account,
     signingKey: p.signingKey,
+    upvuToken: p.upvuToken,
     addAccount: p.addAccount,
     updateActiveUser: p.updateActiveUser,
     setSigningKey: p.setSigningKey,

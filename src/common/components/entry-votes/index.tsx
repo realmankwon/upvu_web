@@ -180,7 +180,7 @@ export class EntryVotesDetail extends BaseComponent<DetailProps, DetailState> {
                         <span className="separator" />
                         {formattedNumber(x.percent, { fractionDigits: 1, suffix: "%" })}
                         <span className="separator" />
-                        <Tooltip content={dateToFormatted(x.time)}>
+                        <Tooltip content={dateToFormatted(x.time, "YYYY-MM-DD HH:mm:ss")}>
                           <span>{dateToFullRelative(x.time)}</span>
                         </Tooltip>
                       </div>

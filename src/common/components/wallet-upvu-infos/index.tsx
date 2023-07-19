@@ -297,6 +297,13 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
   };
 
   closeTransferDialog = () => {
+    const { transferAsset } = this.state;
+
+    if (transferAsset === "UPVU") {
+      const { fetchUpvuToken, account } = this.props;
+      fetchUpvuToken(account.name);
+    }
+
     this.setState({ showTransferDialog: false, transferMode: null, transferAsset: null, transferUpvu: false });
   };
 
@@ -335,7 +342,9 @@ export class WalletUPVUInfos extends BaseComponent<Props, State> {
       return null;
     }
 
-    if (upvuInfos) upvuInfos.upvuToken = activeUser?.upvuToken;
+    if (upvuInfos) {
+      upvuInfos.upvuToken = upvuToken.upvuToken;
+    }
 
     return (
       <div className="wallet-upvu">
@@ -875,7 +884,7 @@ const RefundSteem = ({ upvuToken, refund_steems, openTransferDialog }: UpvuInfoP
       .add(diffInDays + 7, "day")
       .format("YYYY-MM-DD");
   };
-  debugger;
+
   return (
     <>
       {

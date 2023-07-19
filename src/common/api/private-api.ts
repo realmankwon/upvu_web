@@ -15,6 +15,7 @@ import * as ls from "../util/local-storage";
 import { encodeObj, decodeObj } from "../util/encoder";
 import { User } from "../store/users/types";
 import { Signature } from "@upvu/dsteem";
+import { dateToFormatted } from "../helper/parse-date";
 
 declare var window: AppWindow;
 
@@ -24,10 +25,10 @@ function callApi(
   username: string
 ): Promise<any> {
   return axios.post(apiUpvuBase(path), data).then((resp) => {
-    if (resp.data.hasOwnProperty("auth")) {
-      if (resp.data.auth) {
+    if (resp.data.hasOwnProperty("message")) {
+      if (resp.data.message === "REFRESH" || resp.data.message === "CREATE") {
         const user: User = {
-          username: resp.data.username,
+          username: username,
           accessToken: resp.data.access_token,
           refreshToken: resp.data.refresh_token,
           expiresIn: 60000,
@@ -45,6 +46,8 @@ function callApi(
         return axios.post(apiUpvuBase(path), data).then((res) => {
           return res.data;
         });
+      } else {
+        return resp.data;
       }
     } else {
       return resp.data;
@@ -166,9 +169,9 @@ export const getNotifications = (
       notifications = notifications.map((data: any) => {
         const notification: any = {};
         notification.type = data.type;
-        notification.timestamp = data.date;
+        notification.timestamp = dateToFormatted(data.date, "YYYY-MM-DD HH:mm:ss");
 
-        if (new Date(lastread) < new Date(notification.timestamp)) {
+        if (new Date(lastread) < new Date(data.date)) {
           notification.read = 0;
         } else {
           notification.read = 1;
@@ -646,9 +649,6 @@ export const updateRewardType = async (account: string, reward_type: string): Pr
   const updateRewardTypeResult = await callApi(`/upvuweb-api/update-reward-type`, data, account).catch((err) => {
     console.log(err);
   });
-  // const updateRewardTypeResult = await axios
-  //   .post(apiUpvuBase(`/upvuweb-api/update-reward-type`), data)
-  //   .then((r) => r.data);
 
   console.log("updateRewardTypeResult", updateRewardTypeResult);
   return updateRewardTypeResult;
@@ -661,6 +661,8 @@ export const upvuTokenBalance = async (username: string): Promise<any> => {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
   };
+
+  if (!data.access_token || !data.refresh_token) return [];
 
   return callApi(`/upvuweb-api/upvu-token-balance`, data, username)
     .then((result) => {
@@ -682,6 +684,8 @@ export const upvuTokenTransactions = async (username: string) => {
     access_token: getAccessToken(username),
     refresh_token: getRefreshToken(username),
   };
+
+  if (!data.access_token || !data.refresh_token) return [];
 
   const result = await callApi(`/upvuweb-api/upvu-token-transactions`, data, username).catch((e) => {
     throw e;

@@ -11,7 +11,7 @@ import {
 } from "./active-user";
 
 import { getAccount, getDynamicProps } from "../api/steem";
-import { getPoints, getPromotedEntries, upvuTokenBalance } from "../api/private-api";
+import { getPoints, getPromotedEntries } from "../api/private-api";
 import { reloadAct as reloadUsers } from "./users";
 import { fetchedAct as loadDynamicProps } from "./dynamic-props";
 import { fetchedAct as entriesFetchedAct } from "./entries";
@@ -80,14 +80,7 @@ export const activeUserUpdater = async (store: Store<AppState>) => {
       };
     }
 
-    let upvuToken: string;
-    try {
-      upvuToken = await upvuTokenBalance(username);
-    } catch (e) {
-      upvuToken = "0.000";
-    }
-
-    store.dispatch(updateActiveUserAct(account, points, upvuToken));
+    store.dispatch(updateActiveUserAct(account, points));
   }
 };
 

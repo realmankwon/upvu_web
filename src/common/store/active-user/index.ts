@@ -9,7 +9,7 @@ import { Actions, ActionTypes, ActiveUser, UserPoints, LoginAction, LogoutAction
 import * as ls from "../../util/local-storage";
 
 import { getAccount } from "../../api/steem";
-import { getPoints, upvuTokenBalance } from "../../api/private-api";
+import { getPoints } from "../../api/private-api";
 
 import { activeUserMaker } from "../helper";
 
@@ -31,8 +31,8 @@ export default (state: ActiveUser | null = initialState, action: Actions): Activ
       return load();
     }
     case ActionTypes.UPDATE: {
-      const { data, points, upvuToken } = action;
-      return Object.assign({}, state, { data, points, upvuToken });
+      const { data, points } = action;
+      return Object.assign({}, state, { data, points });
     }
     default:
       return state;
@@ -83,15 +83,7 @@ export const updateActiveUser = (data?: Account) => async (dispatch: Dispatch, g
     };
   }
 
-  let upvuToken: string;
-
-  try {
-    upvuToken = await upvuTokenBalance(activeUser.username);
-  } catch (e) {
-    upvuToken = "0.000";
-  }
-
-  dispatch(updateAct(uData, points, upvuToken));
+  dispatch(updateAct(uData, points));
 };
 
 /* Action Creators */
@@ -107,11 +99,10 @@ export const logoutAct = (): LogoutAction => {
   };
 };
 
-export const updateAct = (data: Account, points: UserPoints, upvuToken: string): UpdateAction => {
+export const updateAct = (data: Account, points: UserPoints): UpdateAction => {
   return {
     type: ActionTypes.UPDATE,
     data,
     points,
-    upvuToken,
   };
 };
