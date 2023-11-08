@@ -405,7 +405,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
 
                   <span>{formattedNumber(w.balance, { suffix: "STEEM" })}</span>
                 </div>
-                {openOrders && openOrders.steem > 0 && (
+                {openOrders && +openOrders.steem > 0 && (
                   <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("STEEM")}>
@@ -414,7 +414,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                     </Tooltip>
                   </div>
                 )}
-                {withdrawSavings && withdrawSavings.steem > 0 && (
+                {withdrawSavings && +withdrawSavings.steem > 0 && (
                   <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("STEEM")}>
@@ -641,7 +641,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   </div>
                 )}
 
-                {withdrawSavings && withdrawSavings.sbd > 0 && (
+                {withdrawSavings && +withdrawSavings.sbd > 0 && (
                   <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.withdrawing-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleSavingsWithdrawList("SBD")}>
@@ -651,7 +651,7 @@ export class WalletSteem extends BaseComponent<Props, State> {
                   </div>
                 )}
 
-                {openOrders && openOrders.sbd > 0 && (
+                {openOrders && +openOrders.sbd > 0 && (
                   <div className="amount amount-passive converting-sbd">
                     <Tooltip content={_t("wallet.reserved-amount")}>
                       <span className="amount-btn" onClick={() => this.toggleOpenOrdersList("SBD")}>

@@ -35,6 +35,7 @@ import {
   earnAccountConfig,
   earnRefund,
   earnRefundHsts,
+  earnSaveLnAddress,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 import moment from "moment";
@@ -64,6 +65,7 @@ interface Props {
 interface EarnUserProps {
   username: string;
   wallet_address: string;
+  ln_address: string;
 }
 
 interface EarnUsesProps {
@@ -167,7 +169,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
-    earnUserInfo: { username: "", wallet_address: "" },
+    earnUserInfo: { username: "", wallet_address: "", ln_address: "" },
     transferAsset: "STEEM",
   };
 
@@ -307,11 +309,10 @@ export class WalletEarn extends BaseComponent<Props, State> {
     }
 
     const w = new SteemWallet(account, dynamicProps);
-    let userInfo: EarnUserProps = { username: "", wallet_address: "" };
+    let userInfo: EarnUserProps = { username: account.name, wallet_address: "", ln_address: "" };
+
     if (earnUserInfo.username) {
       userInfo = earnUserInfo;
-    } else {
-      userInfo = { username: account.name, wallet_address: "" };
     }
 
     return (
@@ -329,7 +330,6 @@ export class WalletEarn extends BaseComponent<Props, State> {
                 <LinearProgress />
               ) : (
                 <>
-                  {/* <WalletMetamask /> */}
                   <WalletMetamask {...userInfo} />
                   <DelegationSP
                     previousSp={previousEarnDelegateAmount.amount}
@@ -1157,10 +1157,12 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
   );
 };
 
-const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
+const WalletMetamask = ({ username, wallet_address, ln_address }: EarnUserProps) => {
   const [chainId, setChainId] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [savedWalletAddress, setSavedWalletAddress] = useState("");
+  const [savedLnAddress, setSavedLnAddress] = useState("");
+  const [newLnAddress, setNewLnAddress] = useState("");
   const [active, setActive] = useState(false);
 
   const network = {
@@ -1197,6 +1199,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
     }
 
     setSavedWalletAddress(wallet_address);
+    setSavedLnAddress(ln_address);
   }, []);
 
   useEffect(() => {
@@ -1223,6 +1226,10 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
       }
     });
   }
+
+  const handleSavedLnAddressChange = (event: any) => {
+    setSavedLnAddress(event.target.value); // 값을 React 상태로 설정
+  };
 
   const connectWallet = async () => {
     try {
@@ -1286,6 +1293,20 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
     }
   };
 
+  const saveLnAddress = async () => {
+    try {
+      const result = await earnSaveLnAddress(username, savedLnAddress);
+
+      if (result) {
+        setSavedLnAddress(savedLnAddress);
+        alert(`Changed from ${ln_address} to ${savedLnAddress}`);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="view-container">
       <div className="header">My Wallet Address</div>
@@ -1312,7 +1333,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
         <Form.Row className="width-full">
           <Col lg={8}>
             <Form.Group>
-              <Form.Label>Saved My Address</Form.Label>
+              <Form.Label>Saved My Metamask Address</Form.Label>
               <Form.Control type="text" value={savedWalletAddress} maxLength={50} data-var="name" readOnly={true} />
             </Form.Group>
           </Col>
@@ -1324,6 +1345,31 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
                 type="button"
                 value={savedWalletAddress ? "Change" : "Save"}
                 onClick={saveWalletAddress}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row className="width-full">
+          <Col lg={8}>
+            <Form.Group>
+              <Form.Label>Saved My Lightning Network Address</Form.Label>
+              <Form.Control
+                type="text"
+                value={savedLnAddress}
+                maxLength={300}
+                data-var="name"
+                onChange={handleSavedLnAddressChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col lg={2}>
+            <Form.Group>
+              <Form.Label>Save</Form.Label>
+              <Form.Control
+                className="blue-btn"
+                type="button"
+                value={ln_address ? "Change" : "Save"}
+                onClick={saveLnAddress}
               />
             </Form.Group>
           </Col>
