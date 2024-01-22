@@ -509,7 +509,7 @@ export default (p: Props) => {
     updateWalletValues: p.updateWalletValues,
     fetchPoints: p.fetchPoints,
     fetchTransactions: p.fetchTransactions,
-    steemengine: true,
+    steemengine: false,
   };
 
   return <WalletSteemEngine {...props} />;

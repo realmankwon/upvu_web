@@ -298,7 +298,7 @@ export const getDynamicGlobalProperties = (): Promise<DynamicGlobalProperties> =
     };
   });
 
-export const getAccountHistory = (username: string, start: number = -1, limit: number = 100): Promise<any> => {
+export const getAccountHistory = (username: string, start: number = -1, limit: number = 20): Promise<any> => {
   // return axios({
   //   url: `https://sds.steemworld.org/account_history_api/getHistoryByOpTypesTime/${username}/${filters}/1420070400-32503680000/${limit}/${start}`,
   //   method: "GET",
