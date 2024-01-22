@@ -35,6 +35,7 @@ import {
   earnAccountConfig,
   earnRefund,
   earnRefundHsts,
+  earnSaveOsmoAddress,
 } from "../../api/private-api";
 import { getVestingDelegations } from "../../api/steem";
 import moment from "moment";
@@ -64,6 +65,7 @@ interface Props {
 interface EarnUserProps {
   username: string;
   wallet_address: string;
+  osmo_address: string;
 }
 
 interface EarnUsesProps {
@@ -167,7 +169,7 @@ export class WalletEarn extends BaseComponent<Props, State> {
     previousEarnDelegateAmount: { earnAccount: "", amount: 0 },
     selectedDelegateEarnAccount: "",
     selectedLiquidEarnAccount: "",
-    earnUserInfo: { username: "", wallet_address: "" },
+    earnUserInfo: { username: "", wallet_address: "", osmo_address: "" },
     transferAsset: "STEEM",
   };
 
@@ -307,11 +309,9 @@ export class WalletEarn extends BaseComponent<Props, State> {
     }
 
     const w = new SteemWallet(account, dynamicProps);
-    let userInfo: EarnUserProps = { username: "", wallet_address: "" };
+    let userInfo: EarnUserProps = { username: account.name, wallet_address: "", osmo_address: "" };
     if (earnUserInfo.username) {
       userInfo = earnUserInfo;
-    } else {
-      userInfo = { username: account.name, wallet_address: "" };
     }
 
     return (
@@ -1157,10 +1157,13 @@ const EarnHistory = ({ earnUsesInfo, username }: { earnUsesInfo: EarnUsesProps[]
   );
 };
 
-const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
+const WalletMetamask = ({ username, wallet_address, osmo_address }: EarnUserProps) => {
   const [chainId, setChainId] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [savedWalletAddress, setSavedWalletAddress] = useState("");
+  const [savedOsmoAddress, setSavedOsmoAddress] = useState("");
+  const [newOsmoAddress, setNewOsmoAddress] = useState("");
+
   const [active, setActive] = useState(false);
 
   const network = {
@@ -1197,6 +1200,7 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
     }
 
     setSavedWalletAddress(wallet_address);
+    setSavedOsmoAddress(osmo_address);
   }, []);
 
   useEffect(() => {
@@ -1223,6 +1227,10 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
       }
     });
   }
+
+  const handleSavedOsmoAddressChange = (event: any) => {
+    setSavedOsmoAddress(event.target.value); // 값을 React 상태로 설정
+  };
 
   const connectWallet = async () => {
     try {
@@ -1286,6 +1294,23 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
     }
   };
 
+  const saveOsmoAddress = async () => {
+    try {
+      const result = await earnSaveOsmoAddress(username, savedOsmoAddress);
+
+      debugger;
+      if (result.success) {
+        setSavedOsmoAddress(savedOsmoAddress);
+        alert(`Changed from ${osmo_address} to ${savedOsmoAddress}`);
+        window.location.reload();
+      } else {
+        alert(result.results.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="view-container">
       <div className="header">My Wallet Address</div>
@@ -1324,6 +1349,31 @@ const WalletMetamask = ({ username, wallet_address }: EarnUserProps) => {
                 type="button"
                 value={savedWalletAddress ? "Change" : "Save"}
                 onClick={saveWalletAddress}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row className="width-full">
+          <Col lg={8}>
+            <Form.Group>
+              <Form.Label>Saved My Osmosis Network Address</Form.Label>
+              <Form.Control
+                type="text"
+                value={savedOsmoAddress}
+                maxLength={300}
+                data-var="name"
+                onChange={handleSavedOsmoAddressChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col lg={2}>
+            <Form.Group>
+              <Form.Label>Save</Form.Label>
+              <Form.Control
+                className="blue-btn"
+                type="button"
+                value={osmo_address ? "Change" : "Save"}
+                onClick={saveOsmoAddress}
               />
             </Form.Group>
           </Col>

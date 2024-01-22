@@ -856,6 +856,22 @@ export const earnSaveWalletAddress = async (username: string, wallet_address: st
   return result.success;
 };
 
+export const earnSaveOsmoAddress = async (username: string, osmo_address: string): Promise<any> => {
+  if (!username) return [];
+
+  const data = {
+    access_token: getAccessToken(username),
+    refresh_token: getRefreshToken(username),
+    osmo_address,
+  };
+
+  const result = await callApi(`/upvuweb-api/earn-save-walletaddress`, data, username).catch((err) => {
+    console.log(err);
+  });
+
+  return result;
+};
+
 export const earnLastClaimDte = async (username: string, earn_account: string): Promise<any> => {
   if (!username) return [];
 
