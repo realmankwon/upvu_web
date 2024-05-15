@@ -56,7 +56,7 @@ export default (state: Transactions = initialState, action: Actions): Transactio
 
 /* Actions */
 export const fetchTransactions =
-  (username: string, steemengine: boolean, group: OperationGroup | "" = "", start: number = -1, limit: number = 100) =>
+  (username: string, steemengine: boolean, group: OperationGroup | "" = "", start: number = -1, limit: number = 20) =>
   async (dispatch: Dispatch) => {
     dispatch(fetchAct(group));
 
